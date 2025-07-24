@@ -23,7 +23,7 @@ fun NavGraphBuilder.labelsDestination(
 }
 
 fun NavController.navigateToLabelEditor(id: String) {
-    navigate(route = EditLabel(id = id))
+    navigate(route = LabelEditor(id = id))
 }
 
 fun NavController.navigateToBulkLabelAssignment(id: String) {
@@ -31,23 +31,21 @@ fun NavController.navigateToBulkLabelAssignment(id: String) {
 }
 
 @Serializable
-internal object AddLabel : NavRoute()
+internal object LabelCreator : NavRoute()
 
 fun NavGraphBuilder.labelCreatorDestination() {
-    dialog<AddLabel> {
-//                AddLabelScreen()
+    dialog<LabelCreator> {
+//                LabelCreatorScreen()
     }
 }
 
 @Serializable
-internal data class EditLabel(val id: String) : NavRoute()
+internal data class LabelEditor(val id: String) : NavRoute()
 
 fun NavGraphBuilder.labelEditorDestination() {
-    dialog<EditLabel> { backStackEntry ->
-        val editLabel: EditLabel = backStackEntry.toRoute()
-        // TODO pass this argument directly to the EditLabelScreen
-        val id = editLabel.id
-//                EditLabelScreen()
+    dialog<LabelEditor> { backStackEntry ->
+        val labelEditor: LabelEditor = backStackEntry.toRoute()
+//                LabelEditorScreen(id = labelEditor.id)
     }
 }
 
@@ -57,8 +55,6 @@ internal data class BulkLabelAssignment(val id: String) : NavRoute()
 fun NavGraphBuilder.bulkLabelAssignmentDestination() {
     composable<BulkLabelAssignment> { backStackEntry ->
         val bulkLabelAssignment: BulkLabelAssignment = backStackEntry.toRoute()
-        // TODO pass this argument directly to the BulkLabelAssignmentScreen
-        val id = bulkLabelAssignment.id
-//        BulkLabelAssignmentScreen()
+//        BulkLabelAssignmentScreen(currentLabelId = bulkLabelAssignment.id)
     }
 }

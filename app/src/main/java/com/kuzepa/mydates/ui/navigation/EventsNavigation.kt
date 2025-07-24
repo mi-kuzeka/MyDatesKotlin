@@ -5,6 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.kuzepa.mydates.ui.activities.home.composable.HomeScreen
+import com.kuzepa.mydates.ui.activities.home.event.composable.EventCreatorScreen
+import com.kuzepa.mydates.ui.activities.home.event.composable.EventEditorScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -19,31 +21,29 @@ fun NavGraphBuilder.eventsDestination(
 }
 
 fun NavController.navigateToEventEditor(id: Int) {
-    navigate(route = EditEvent(id = id))
+    navigate(route = EventEditor(id = id))
 }
 
 fun NavController.navigateToEventCreator() {
-    navigate(route = AddEvent)
+    navigate(route = EventCreator)
 }
 
 
 @Serializable
-internal object AddEvent : NavRoute()
+internal object EventCreator : NavRoute()
 
 fun NavGraphBuilder.eventCreatorDestination() {
-    composable<AddEvent> {
-//                AddEventScreen(navController)
+    composable<EventCreator> {
+        EventCreatorScreen()
     }
 }
 
 @Serializable
-internal data class EditEvent(val id: Int) : NavRoute()
+internal data class EventEditor(val id: Int) : NavRoute()
 
 fun NavGraphBuilder.eventEditorDestination() {
-    composable<EditEvent> { backStackEntry ->
-        val editEvent: EditEvent = backStackEntry.toRoute()
-        // TODO pass this argument directly to the EditEventScreen
-        val id = editEvent.id
-//                EditEventScreen()
+    composable<EventEditor> { backStackEntry ->
+        val eventEditor: EventEditor = backStackEntry.toRoute()
+        EventEditorScreen(id = eventEditor.id)
     }
 }

@@ -61,26 +61,32 @@ internal fun BottomNavigationBar(
     }
 
     NavigationBar {
-        bottomNavItems.forEach { item ->
-            val selected = currentRoute?.containsRoute(item.route) == true
+        bottomNavItems.forEach { bottomNavItem ->
+            val selected = currentRoute?.containsRoute(route = bottomNavItem.route) == true
             NavigationBarItem(
+                icon = {
+                    Icon(
+                        if (selected) bottomNavItem.iconSelected else bottomNavItem.iconUnselected,
+                        contentDescription = bottomNavItem.label
+                    )
+                },
+                label = { Text(bottomNavItem.label) },
                 selected = selected,
                 onClick = {
-                    navController.navigate(item.route) {
+                    navController.navigate(bottomNavItem.route) {
+                        // Pop up to the start destination of the graph to
+                        // avoid building up a large stack of destinations
+                        // on the back stack as users select items
                         popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
                         }
+                        // Avoid multiple copies of the same destination when
+                        // reselecting the same item
                         launchSingleTop = true
+                        // Restore state when reselecting a previously selected item
                         restoreState = true
                     }
-                },
-                icon = {
-                    Icon(
-                        if (selected) item.iconSelected else item.iconUnselected,
-                        contentDescription = item.label
-                    )
-                },
-                label = { Text(item.label) }
+                }
             )
         }
     }

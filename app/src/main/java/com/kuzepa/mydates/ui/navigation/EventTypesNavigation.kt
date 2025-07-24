@@ -19,26 +19,24 @@ fun NavGraphBuilder.eventTypesDestination(
 }
 
 fun NavController.navigateToEventTypeEditor(id: String) {
-    navigate(route = EditEventType(id = id))
+    navigate(route = EventTypeEditor(id = id))
 }
 
 @Serializable
-internal object AddEventType : NavRoute()
+internal object EventTypeCreator : NavRoute()
 
 fun NavGraphBuilder.eventTypeCreatorDestination() {
-    dialog<AddEventType> {
-//                AddEventTypeScreen()
+    dialog<EventTypeCreator> {
+//                EventTypeCreatorScreen()
     }
 }
 
 @Serializable
-internal data class EditEventType(val id: String) : NavRoute()
+internal data class EventTypeEditor(val id: String) : NavRoute()
 
 fun NavGraphBuilder.eventTypeEditorDestination() {
-    dialog<EditEventType> { backStackEntry ->
-        val editEventType: EditEventType = backStackEntry.toRoute()
-        // TODO pass this argument directly to the EditEventTypeScreen
-        val id = editEventType.id
-//                EditEventTypeScreen()
+    dialog<EventTypeEditor> { backStackEntry ->
+        val eventTypeEditor: EventTypeEditor = backStackEntry.toRoute()
+//                EventTypeEditorScreen(id = eventTypeEditor.id)
     }
 }

@@ -15,7 +15,7 @@ fun NavGraphBuilder.moreDestination(
     onNavigateToLabels: () -> Unit,
     onNavigateToDataTransfer: () -> Unit,
     onNavigateToSettings: () -> Unit,
-    onNavigateToSupportProject: () -> Unit,
+    onNavigateToDonation: () -> Unit,
     onNavigateToHelp: () -> Unit,
     onNavigateToAbout: () -> Unit,
 ) {
@@ -25,7 +25,7 @@ fun NavGraphBuilder.moreDestination(
             onNavigateToLabels = onNavigateToLabels,
             onNavigateToDataTransfer = onNavigateToDataTransfer,
             onNavigateToSettings = onNavigateToSettings,
-            onNavigateToSupportProject = onNavigateToSupportProject,
+            onNavigateToDonation = onNavigateToDonation,
             onNavigateToHelp = onNavigateToHelp,
             onNavigateToAbout = onNavigateToAbout
         )
@@ -48,8 +48,8 @@ fun NavController.navigateToSettings() {
     navigate(route = Settings)
 }
 
-fun NavController.navigateToSupportProject() {
-    navigate(route = SupportProject)
+fun NavController.navigateToDonation() {
+    navigate(route = Donation)
 }
 
 fun NavController.navigateToHelp() {
@@ -62,11 +62,11 @@ fun NavController.navigateToAbout() {
 
 
 @Serializable
-internal object SupportProject : NavRoute()
+internal object Donation : NavRoute()
 
-fun NavGraphBuilder.supportProjectDestination() {
-    dialog<SupportProject> {
-//                SupportScreen()
+fun NavGraphBuilder.donationDestination() {
+    dialog<Donation> {
+//                DonationScreen()
     }
 }
 

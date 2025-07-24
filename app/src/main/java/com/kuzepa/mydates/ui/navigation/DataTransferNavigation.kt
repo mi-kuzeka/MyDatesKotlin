@@ -10,54 +10,54 @@ import kotlinx.serialization.Serializable
 internal object DataTransfer : NavRoute()
 
 fun NavGraphBuilder.dataTransferDestination(
-    onNavigateToImportContacts: () -> Unit,
-    onNavigateToImportCsv: () -> Unit,
-    onNavigateToExportCsv: () -> Unit,
+    onNavigateToContactsImport: () -> Unit,
+    onNavigateToCsvImport: () -> Unit,
+    onNavigateToCsvExport: () -> Unit,
 ) {
     composable<DataTransfer> {
 //                DataTransferScreen(
-        //                onNavigateToImportContacts = onNavigateToImportContacts,
-        //                onNavigateToImportCsv = onNavigateToImportCsv,
-        //                onNavigateToExportCsv = onNavigateToExportCsv
+        //                onNavigateToContactsImport = onNavigateToContactsImport,
+        //                onNavigateToCsvImport = onNavigateToCsvImport,
+        //                onNavigateToCsvExport = onNavigateToCsvExport
         //                )
     }
 }
 
-fun NavController.navigateToImportContacts() {
-    navigate(route = ImportContacts)
+fun NavController.navigateToContactsImport() {
+    navigate(route = ContactsImport)
 }
 
-fun NavController.navigateToImportCsv() {
-    navigate(route = ImportCsv)
+fun NavController.navigateToCsvImport() {
+    navigate(route = CsvImport)
 }
 
-fun NavController.navigateToExportCsv() {
-    navigate(route = ExportCsv)
+fun NavController.navigateToCsvExport() {
+    navigate(route = CsvExport)
 }
 
 @Serializable
-internal object ImportContacts : NavRoute()
+internal object ContactsImport : NavRoute()
 
-fun NavGraphBuilder.importContactsDestination() {
-    dialog<ImportContacts> {
-//                ImportContactsScreen()
+fun NavGraphBuilder.contactsImportDestination() {
+    dialog<ContactsImport> {
+//                ContactsImportScreen()
     }
 }
 
 @Serializable
-internal object ImportCsv : NavRoute()
+internal object CsvImport : NavRoute()
 
-fun NavGraphBuilder.importCsvDestination() {
-    dialog<ImportCsv> {
-//                ImportCsvScreen()
+fun NavGraphBuilder.csvImportDestination() {
+    dialog<CsvImport> {
+//                CsvImportScreen()
     }
 }
 
 @Serializable
-internal object ExportCsv : NavRoute()
+internal object CsvExport : NavRoute()
 
-fun NavGraphBuilder.exportCsvDestination() {
-    dialog<ExportCsv> {
-//                ExportCsvScreen()
+fun NavGraphBuilder.csvExportDestination() {
+    dialog<CsvExport> {
+//                CsvExportScreen()
     }
 }

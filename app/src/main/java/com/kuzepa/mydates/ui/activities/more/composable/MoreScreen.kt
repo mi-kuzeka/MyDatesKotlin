@@ -8,7 +8,7 @@ internal fun MoreScreen(
     onNavigateToLabels: () -> Unit,
     onNavigateToDataTransfer: () -> Unit,
     onNavigateToSettings: () -> Unit,
-    onNavigateToSupportProject: () -> Unit,
+    onNavigateToDonation: () -> Unit,
     onNavigateToHelp: () -> Unit,
     onNavigateToAbout: () -> Unit,
 ) {

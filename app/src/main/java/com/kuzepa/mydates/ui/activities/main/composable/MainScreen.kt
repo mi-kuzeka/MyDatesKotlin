@@ -25,45 +25,45 @@ import com.kuzepa.mydates.ui.navigation.Search
 import com.kuzepa.mydates.ui.navigation.aboutDestination
 import com.kuzepa.mydates.ui.navigation.appearanceDestination
 import com.kuzepa.mydates.ui.navigation.bulkLabelAssignmentDestination
+import com.kuzepa.mydates.ui.navigation.contactsImportDestination
 import com.kuzepa.mydates.ui.navigation.containsRoute
+import com.kuzepa.mydates.ui.navigation.csvExportDestination
+import com.kuzepa.mydates.ui.navigation.csvImportDestination
 import com.kuzepa.mydates.ui.navigation.dataTransferDestination
+import com.kuzepa.mydates.ui.navigation.donationDestination
 import com.kuzepa.mydates.ui.navigation.eventCreatorDestination
 import com.kuzepa.mydates.ui.navigation.eventEditorDestination
 import com.kuzepa.mydates.ui.navigation.eventTypesDestination
 import com.kuzepa.mydates.ui.navigation.eventsDestination
-import com.kuzepa.mydates.ui.navigation.exportCsvDestination
 import com.kuzepa.mydates.ui.navigation.helpDestination
-import com.kuzepa.mydates.ui.navigation.importContactsDestination
-import com.kuzepa.mydates.ui.navigation.importCsvDestination
 import com.kuzepa.mydates.ui.navigation.labelCreatorDestination
 import com.kuzepa.mydates.ui.navigation.labelEditorDestination
 import com.kuzepa.mydates.ui.navigation.labelsDestination
 import com.kuzepa.mydates.ui.navigation.moreDestination
 import com.kuzepa.mydates.ui.navigation.navigateToAbout
 import com.kuzepa.mydates.ui.navigation.navigateToBulkLabelAssignment
+import com.kuzepa.mydates.ui.navigation.navigateToContactsImport
+import com.kuzepa.mydates.ui.navigation.navigateToCsvExport
+import com.kuzepa.mydates.ui.navigation.navigateToCsvImport
 import com.kuzepa.mydates.ui.navigation.navigateToDataTransfer
+import com.kuzepa.mydates.ui.navigation.navigateToDonation
 import com.kuzepa.mydates.ui.navigation.navigateToEventCreator
 import com.kuzepa.mydates.ui.navigation.navigateToEventEditor
 import com.kuzepa.mydates.ui.navigation.navigateToEventTypeEditor
 import com.kuzepa.mydates.ui.navigation.navigateToEventTypes
-import com.kuzepa.mydates.ui.navigation.navigateToExportCsv
 import com.kuzepa.mydates.ui.navigation.navigateToHelp
-import com.kuzepa.mydates.ui.navigation.navigateToImportContacts
-import com.kuzepa.mydates.ui.navigation.navigateToImportCsv
 import com.kuzepa.mydates.ui.navigation.navigateToLabelEditor
 import com.kuzepa.mydates.ui.navigation.navigateToLabels
 import com.kuzepa.mydates.ui.navigation.navigateToNotificationFilter
 import com.kuzepa.mydates.ui.navigation.navigateToNotificationSettings
 import com.kuzepa.mydates.ui.navigation.navigateToNotificationTroubleshoot
 import com.kuzepa.mydates.ui.navigation.navigateToSettings
-import com.kuzepa.mydates.ui.navigation.navigateToSupportProject
 import com.kuzepa.mydates.ui.navigation.navigateToThirdPartyLibraries
 import com.kuzepa.mydates.ui.navigation.notificationFilterDestination
 import com.kuzepa.mydates.ui.navigation.notificationSettingsDestination
 import com.kuzepa.mydates.ui.navigation.notificationTroubleshootDestination
 import com.kuzepa.mydates.ui.navigation.searchDestination
 import com.kuzepa.mydates.ui.navigation.settingsDestination
-import com.kuzepa.mydates.ui.navigation.supportProjectDestination
 
 @Composable
 internal fun MainScreen(
@@ -82,9 +82,9 @@ internal fun MainScreen(
     }
 
     val showBottomBar = topLevelDestinations.any { topLevelRoute ->
-        currentDestination?.containsRoute(topLevelRoute) == true
+        currentDestination?.containsRoute(route = topLevelRoute) == true
     }
-    val showFab = currentDestination?.containsRoute(Home) == true
+    val showFab = currentDestination?.containsRoute(route = Home) == true
 
     Scaffold(
         bottomBar = {
@@ -130,7 +130,7 @@ internal fun MainScreen(
                 onNavigateToLabels = { navController.navigateToLabels() },
                 onNavigateToDataTransfer = { navController.navigateToDataTransfer() },
                 onNavigateToSettings = { navController.navigateToSettings() },
-                onNavigateToSupportProject = { navController.navigateToSupportProject() },
+                onNavigateToDonation = { navController.navigateToDonation() },
                 onNavigateToHelp = { navController.navigateToHelp() },
                 onNavigateToAbout = { navController.navigateToAbout() },
             )
@@ -152,13 +152,13 @@ internal fun MainScreen(
             bulkLabelAssignmentDestination()
 
             dataTransferDestination(
-                onNavigateToImportContacts = { navController.navigateToImportContacts() },
-                onNavigateToImportCsv = { navController.navigateToImportCsv() },
-                onNavigateToExportCsv = { navController.navigateToExportCsv() }
+                onNavigateToContactsImport = { navController.navigateToContactsImport() },
+                onNavigateToCsvImport = { navController.navigateToCsvImport() },
+                onNavigateToCsvExport = { navController.navigateToCsvExport() }
             )
-            importContactsDestination()
-            importCsvDestination()
-            exportCsvDestination()
+            contactsImportDestination()
+            csvImportDestination()
+            csvExportDestination()
 
             settingsDestination(
                 onNavigateToNotificationSettings = { navController.navigateToNotificationSettings() },
@@ -167,7 +167,7 @@ internal fun MainScreen(
             notificationSettingsDestination()
             notificationFilterDestination()
 
-            supportProjectDestination()
+            donationDestination()
 
             helpDestination(
                 onNavigateToNotificationTroubleshoot =
