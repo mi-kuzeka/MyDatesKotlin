@@ -9,7 +9,7 @@ enum class NotificationFilterState(val value: Int) {
         fun fromInt(value: Int): NotificationFilterState {
             return try {
                 entries.first { it.value == value }
-            } catch (e: NoSuchElementException) {
+            } catch (_: NoSuchElementException) {
                 FILTER_STATE_ON
             }
         }

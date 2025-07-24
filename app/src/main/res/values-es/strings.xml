@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_version_pattern">Versión %1$s</string>
+    <!-- Hint for expanded menu button [CHAR_LIMIT=20] -->
+    <string name="menu_button_hint">Menú</string>
+    <!-- Hint for search button [CHAR_LIMIT=20] -->
+    <string name="search_button_hint">Buscar un evento</string>
+    <string name="back_button">Atrás</string>
+
+    <!-- Title of empty list about no events in the list -->
+    <string name="no_events_title">No hay eventos aquí todavía</string>
+    <!-- Subtitle of empty list -->
+    <string name="no_events_for_this_month_subtitle">Añade un evento para este mes y aparecerá aquí.</string>
+    <!-- Subtitle of empty list -->
+    <string name="no_events_subtitle">Añada eventos y se mostrarán aquí.</string>
+    <!-- Title of search without results -->
+    <string name="no_results_search_title">No se encontraron resultados para su solicitud</string>
+    <!-- Subtitle of search without results -->
+    <string name="no_results_search_subtitle">Cambiar el texto de la solicitud</string>
+    <!-- Image box description for event item in list -->
+    <string name="image_box_description">Imágenes del evento</string>
+
+    <!-- Temp event data for designing layout -->
+    <string name="temp_event_age">23</string>
+    <string name="temp_event_date">21 abr 2000</string>
+    <string name="temp_event_name">Adrián (la prueba)</string>
+    <string name="temp_event_type">Cumpleaños</string>
+    <string name="temp_event_label">Amigos</string>
+
+    <!-- Month names - titles for tabs -->
+    <string name="january_month">Enero</string>
+    <string name="february_month">Febrero</string>
+    <string name="march_month">Marzo</string>
+    <string name="april_month">Abril</string>
+    <string name="may_month">Mayo</string>
+    <string name="june_month">Junio</string>
+    <string name="july_month">Julio</string>
+    <string name="august_month">Agosto</string>
+    <string name="september_month">Septiembre</string>
+    <string name="october_month">Octubre</string>
+    <string name="november_month">Noviembre</string>
+    <string name="december_month">Diciembre</string>
+
+    <!-- Title for the screen to add a new event [CHAR LIMIT=20] -->
+    <string name="event_creator_title">Nuevo evento</string>
+    <!-- Title for the screen to edit an existing event [CHAR LIMIT=20] -->
+    <string name="event_editor_title">Editar un evento</string>
+    <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="event_save_button_hint">Guardar</string>
+    <!-- Hint for delete button [CHAR_LIMIT=20] -->
+    <string name="event_delete_button_hint">Eliminar evento</string>
+    <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
+    <string name="choose_image_description">Seleccionar imagen</string>
+    <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
+    <string name="event_image_description">Imagen del evento</string>
+    <!-- Hint to rotate image left [CHAR_LIMIT=20] -->
+    <string name="rotate_left_hint">Girar imagen a la izquierda</string>
+    <!-- Hint to rotate image right [CHAR_LIMIT=20] -->
+    <string name="rotate_right_hint">Girar imagen a la derecha</string>
+    <!-- Hint to change image [CHAR_LIMIT=20] -->
+    <string name="change_image_hint">Reemplazar imagen</string>
+    <!-- Hint to delete image [CHAR_LIMIT=20] -->
+    <string name="delete_image_hint">Eliminar imagen</string>
+    <!-- Title for field Name in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="name_edit_title">Nombre</string>
+    <!-- Title for field Date in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="date_edit_title">Fecha</string>
+    <!-- Title of the checkbox "I don't know the year -->
+    <string name="show_hide_year_text">No sé el año</string>
+    <!-- Title for field Event type in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="event_type_spinner_hint">Tipo de evento</string>
+    <string name="event_type_description">Puede ingresar un nuevo tipo de evento en el campo de arriba o seleccionar uno existente de la lista.</string>
+    <!-- Title for adding new label-->
+    <string name="button_add_label">Agregar etiqueta</string>
+    <!-- Title for field Notes in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="notes_edit_title">Nota</string>
+    <!-- Hint for field Notes in event creator/editor -->
+    <string name="notes_edit_hint">Información adicional</string>
+
+    <!-- EVENT TAGS -->
+    <!-- Title for field Tags in event creator/editor -->
+    <string name="labels_title">Etiquetas</string>
+    <!-- Tags hint (explanation with example) for user -->
+    <string name="labels_hint">Puedes agregar etiquetas para este evento (por ejemplo, \"Amigos\")</string>
+    <!-- Title for field Tag name in tag creator/editor -->
+    <string name="label_name_title">Nombre de etiqueta</string>
+    <!-- Title for field Tag color in tag creator/editor -->
+    <string name="label_color">Color de etiqueta</string>
+    <!-- Hint of the button for changing tag icon -->
+    <string name="button_change_label_icon_hint">Cambiar icono de etiqueta</string>
+    <string name="label_icon_hint">Icono de etiqueta</string>
+    <string name="label_preview_title">Vista previa de la etiqueta</string>
+    <string name="remove_label_hint">Quitar la etiqueta</string>
+    <!-- Notification statuses hints -->
+    <string name="notification_status_turned_on_hint">Activadas</string>
+    <string name="notification_status_turned_off_hint">Desactivadas</string>
+    <string name="notification_status_turned_forbidden_hint">Prohibidas</string>
+    <string name="tap_on_notification_status_hint">Toca el estado para activar/desactivar las notificaciones.</string>
+    <!-- Hint for save button [CHAR_LIMIT=20] -->
+    <string name="button_save_hint">Guardar</string>
+    <!-- Hint for close button -->
+    <string name="close_button_hint">Cerca</string>
+    <!-- Title for adding new tag-->
+    <string name="label_creator_title">Nueva etiqueta</string>
+    <!-- Title for editing tag-->
+    <string name="label_editor_title">Editar etiqueta</string>
+    <!-- Title for choosing tag -->
+    <string name="choose_label_title">Elige etiqueta</string>
+    <!-- Color picker title [CHAR_LIMIT=20] -->
+    <string name="color_picker_title">Elige color</string>
+    <!-- Hint for delete button in tag editor [CHAR_LIMIT=20] -->
+    <string name="label_delete_button_hint">Eliminar etiqueta</string>
+
+    <!-- Title of empty list about no tags in the list -->
+    <string name="delete_label_dialog_msg">¿Eliminar esta etiqueta?</string>
+    <!-- Dialog message about having events with deleting tag -->
+    <string name="you_have_event_with_tag_pattern">Tienes eventos con la etiqueta \"%1$s\".</string>
+    <string name="change_label_dialog_msg">Puede reemplazarla con otra etiqueta de la lista.</string>
+    <string name="choose_another_label">Reemplazar con la etiqueta seleccionada</string>
+    <string name="just_remove_labels_button">Solo quita la etiqueta</string>
+    <string name="delete_label_from_all_events_dialog_msg">¿Estás seguro de que deseas eliminar la etiqueta de todos los eventos? Esta acción no se puede deshacer.</string>
+    <string name="no_labels_title">Aún no hay etiquetas aquí</string>
+    <!-- Subtitle of empty tag list -->
+    <string name="empty_label_list">Crea una etiqueta y aparecerá aquí.</string>
+    <!-- Subtitle of empty tag list in filter -->
+    <string name="empty_filter_label_list">Puede crear etiquetas en las propiedades del evento o en la sección de etiquetas del menú.</string>
+    <string name="empty_notification_filter_label">Añade etiquetas a los eventos y podrás filtrar las notificaciones por etiquetas.</string>
+    <string name="empty_notification_filter_event_types">Añade un tipo de evento y podrás filtrar las notificaciones por tipos de evento.</string>
+
+    <!-- ASSIGN TAG TO EVENTS -->
+    <!-- Hint for button inside tag item to assign the tag to events -->
+    <string name="label_bulk_assignment_title">Añadir etiqueta a los eventos</string>
+    <!-- Hint for use to select events -->
+    <string name="select_events_hint">Seleccionar eventos para la etiqueta</string>
+    <!-- Hint for clear selection in the list -->
+    <string name="clear_selection_button_hint">Deseleccionar todo</string>
+    <!-- Hint for select all items in the list -->
+    <string name="select_all_button_hint">Seleccionar todo</string>
+    <!-- Hint for confirmation dialog when select all events button pressed -->
+    <string name="select_all_events_confirmation">¿Seleccionar todos los eventos?</string>
+    <!-- Hint for confirmation dialog when clear selection button pressed -->
+    <string name="clear_selection_confirmation">¿Seguro que quieres deseleccionar todo?</string>
+    <!-- Select button hint -->
+    <string name="select_button_hint">Seleccione</string>
+    <!-- Confirmation dialog title when save changes button pressed -->
+    <string name="adding_label_to_events_confirmation">La etiqueta \"%1$s\" se añadirá a los eventos seleccionados. ¿Guardar cambios?</string>
+    <!-- Confirmation dialog title when save changes button pressed -->
+    <string name="go_back_without_saving_confirmation">¿Estás seguro de que quieres volver atrás sin guardar los cambios?</string>
+    <!-- Confirmation go back button hint -->
+    <string name="confirmation_go_back_button_hint">Sí, vuelve</string>
+    <!-- Message for user about saving data into data base -->
+    <string name="saving_to_db_message">El guardado en la base de datos está en progreso. Por favor, no cierre la aplicación.</string>
+
+    <!-- FILTER -->
+    <!-- Title for applying filter-->
+    <string name="button_apply">Aplicar</string>
+    <string name="filter_dialog_title">Filtrar eventos</string>
+    <!-- Hint for clear filter in filter dialog -->
+    <string name="clear_button_hint">Claro</string>
+    <!-- Title for selecting tag in the filter list -->
+    <string name="select_labels_title">Seleccionar etiquetas</string>
+
+    <!-- Date format items for settings -->
+    <string name="date_format_ddmmyyyy">dd/mm/yyyy</string>
+    <string name="date_format_mmddyyyy">mm/dd/yyyy</string>
+    <string name="date_format_ddmm">dd/mm</string>
+    <string name="date_format_mmdd">mm/dd</string>
+
+    <!-- Mask for date, example date: 04/29/1990 -->
+    <string name="full_date_mask">##/##/####</string>
+    <!-- Mask for date without year, example date: 04/29 -->
+    <string name="date_mask_without_year">##/##</string>
+
+    <!-- Mask for date, example date: 04/29/1990 -->
+    <string name="full_date_mask_hint_month_first">mmddyyyy</string>
+    <!-- Mask for date without year, example date: 04/29 -->
+    <string name="date_mask_hint_month_first_without_year">mmdd</string>
+
+    <!-- Mask for date, example date: 29/04/1990 -->
+    <string name="full_date_mask_hint_day_first">ddmmyyyy</string>
+    <!-- Mask for date without year, example date: 29/04 -->
+    <string name="date_mask_hint_day_first_without_year">ddmm</string>
+
+    <!-- Pattern for age label, example: turns [CHAR_LIMIT=20] -->
+    <string name="event_age_label">cumple</string>
+    <!-- Pattern for dys left label, example: 3 days [CHAR_LIMIT=20] -->
+    <string name="days_left_label">mañana</string>
+    <!-- Pattern for short age label, example: 5 y. [CHAR_LIMIT=20] -->
+    <plurals name="event_age_short_label">
+        <item quantity="one">%01d a.</item>
+        <item quantity="many">%01d a.</item>
+        <item quantity="other">%01d a.</item>
+    </plurals>
+
+    <!-- Error message for required fields -->
+    <string name="error_field_is_required">Este campo es obligatorio</string>
+    <!-- Error message for duplicated label name -->
+    <string name="error_label_name_is_duplicated">Ya existe una etiqueta con el mismo nombre. Elija un nombre diferente.</string>
+    <!-- Error message for color: selection is required -->
+    <string name="error_color_selection_is_required">Por favor seleccione color</string>
+    <!-- Error message for date: incorrect format -->
+    <string name="error_date_incorrect_format">Fecha inválida. Formato requerido: %1$s</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">¿Cancelar cambios y salir de la edición?</string>
+
+    <!-- Dialog button text for the option to discard user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Cancelar cambios</string>
+
+    <!-- Dialog button text for the option to keep editing current event [CHAR LIMIT=20] -->
+    <string name="keep_editing">Continua editando</string>
+
+    <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
+    <string name="delete_event_dialog_msg">¿Debo eliminar este evento?</string>
+
+    <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
+    <string name="delete_image_dialog_msg">¿Debo eliminar esta imagen?</string>
+
+    <!-- Dialog button text for the option to confirm deleting the current event [CHAR LIMIT=20] -->
+    <string name="delete">Borrar</string>
+
+    <!-- Dialog button text for the option to cancel deletion of the current event [CHAR LIMIT=20] -->
+    <string name="cancel">Cancelar</string>
+
+    <!-- Title for sort by [CHAR_LIMIT=20] -->
+    <string name="filter_hint">Filtrar eventos</string>
+    <string name="sort_by_spinner_hint">Ordenar por</string>
+
+    <!-- Item names for sort popup menu -->
+    <string name="order_by_date">Fecha</string>
+    <string name="order_by_name">Nombre</string>
+
+    <string name="order_by_date_asc">Fecha ▲</string>
+    <string name="order_by_date_desc">Fecha ▼</string>
+    <string name="order_by_name_asc">Nombre ▲</string>
+    <string name="order_by_name_desc">Nombre ▼</string>
+
+    <!-- Hint for field Search in the SearchView -->
+    <string name="search_hint">Buscar…</string>
+
+    <!-- Strings for navigation drawer -->
+    <string name="navigation_drawer_open">Abrir barra de navegación</string>
+    <string name="navigation_drawer_close">Cerrar la barra de navegación</string>
+
+    <!-- Strings for navigation drawer items -->
+    <!-- Navigation drawer item title - Event Types -->
+    <string name="event_types_title">Tipos de eventos</string>
+    <!-- Navigation drawer item title - Import/Export -->
+    <string name="data_transfer_title">Importar / Exportar</string>
+    <!-- Navigation drawer item title - Settings -->
+    <string name="settings_title">Ajustes</string>
+    <!-- Navigation drawer item title - About -->
+    <string name="about_title">Acerca de la aplicación</string>
+    <!-- Navigation drawer item title - Support the project -->
+    <string name="support_project_title">Apoya el proyecto</string>
+
+    <!-- Import csv fragment title - Event import from csv -->
+    <string name="import_fragment_title">Importando eventos desde csv</string>
+    <!-- Import contacts fragment title - Event import from contacts -->
+    <string name="import_contacts_fragment_title">Importar eventos de contactos</string>
+    <!-- Export fragment title - Event export -->
+    <string name="export_fragment_title">Exportar eventos</string>
+
+    <!-- Title of empty list about no event types in the list -->
+    <string name="no_event_types_title">No hay tipos de eventos aquí todavía</string>
+    <!-- Subtitle of empty event type list -->
+    <string name="empty_event_type_list">Agregue un tipo de evento y aparecerá en esta lista.</string>
+
+    <!-- Hint for save button in event type editor [CHAR_LIMIT=20] -->
+    <string name="event_type_save_button_hint">Guardar tipo de evento</string>
+    <!-- Hint for delete button in event type editor [CHAR_LIMIT=20] -->
+    <string name="event_type_delete_button_hint">Eliminar tipo de evento</string>
+    <!-- Title for checkbox of default event type -->
+    <string name="event_type_set_as_default">Tipo de evento por defecto</string>
+    <!-- Hint in the event type list for default event type -->
+    <string name="event_type_default_hint">por defecto</string>
+    <!-- Title for checkbox of showing zodiac sign for the event type -->
+    <string name="show_zodiac_sign">Mostrar signos del zodíaco para este tipo de evento</string>
+    <!-- Alert message about duplicate event type name -->
+    <string name="event_type_already_exists">Ya existe un tipo de evento con el mismo nombre. Introduzca un nombre diferente.</string>
+    <!-- Name of event type - Birthday, creates in empty data base by default -->
+    <string name="event_type_birthday_name">Cumpleaños</string>
+    <!-- Name of event type - Anniversary -->
+    <string name="event_type_anniversary_name">Aniversario</string>
+    <!-- Name of event type - Other -->
+    <string name="event_type_other_name">Otro</string>
+
+    <!-- Title for the activity to add a new event type [CHAR LIMIT=20] -->
+    <string name="event_type_creator_title">Nuevo tipo de evento</string>
+    <!-- Title for the activity to edit an existing event type [CHAR LIMIT=20] -->
+    <string name="event_type_editor_title">Editar un tipo de evento</string>
+    <!-- Dialog message to ask the user to confirm deleting the current event type [CHAR LIMIT=NONE] -->
+    <string name="delete_event_type_dialog_msg">¿Debo eliminar este tipo de evento?</string>
+    <!-- Dialog message to ask the user to choose another event type before deleting the current one [CHAR LIMIT=NONE] -->
+    <string name="change_event_type_dialog_msg">Tienes eventos del tipo \"%1$s\". Seleccione qué tipo asignar a estos eventos.</string>
+    <!-- Dialog message to ask the user to choose another default event type before deleting the current one [CHAR LIMIT=NONE] -->
+    <string name="change_default_event_type_dialog_msg">Estás eliminando el tipo de evento \"%1$s\". Seleccione otro tipo para que sea el predeterminado.</string>
+    <!-- Dialog button text for the option to choose another event type for events [CHAR LIMIT=20] -->
+    <string name="choose_another_event_type">Reemplazar con el tipo seleccionado</string>
+    <string name="set_event_type_as_default">Establecer este tipo como predeterminado</string>
+
+    <!-- Pattern for notification title, e.g. Alex James-->
+    <string name="daily_notification_title_pattern">%1$s</string>
+    <!-- Pattern for notification body, e.g. Birthday, 25 years -->
+    <string name="daily_notification_body_pattern">%1$s, %2$s</string>
+    <!-- Pattern for reminder notification title, e.g. Tomorrow: Alex James-->
+    <string name="reminder_notification_title_pattern">%1$s: %2$s</string>
+    <!-- Pattern for notification body, e.g. Birthday, 25 years, February 12 (Sun) -->
+    <string name="reminder_notification_body_pattern">%1$s, %2$s, %3$s</string>
+    <!-- Pattern for notification body, e.g. Birthday, February 12 (Sun) -->
+    <string name="reminder_body_pattern_no_age">%1$s, %2$s</string>
+    <plurals name="years">
+        <item quantity="one">%1$d año</item>
+        <item quantity="many">%1$d años</item>
+        <item quantity="other">%1$d años</item>
+    </plurals>
+    <string name="today">Hoy</string>
+    <string name="yesterday">Ayer</string>
+    <string name="tomorrow">Mañana</string>
+    <plurals name="days_left">
+        <item quantity="one">En %1$d día</item>
+        <item quantity="many">En %1$d días</item>
+        <item quantity="other">En %1$d días</item>
+    </plurals>
+    <plurals name="weeks_left">
+        <item quantity="one">En %1$d semana</item>
+        <item quantity="many">En %1$d semanas</item>
+        <item quantity="other">En %1$d semanas</item>
+    </plurals>
+    <plurals name="months_left">
+        <item quantity="one">En %1$d mes</item>
+        <item quantity="many">En %1$d meses</item>
+        <item quantity="other">En %1$d meses</item>
+    </plurals>
+    <plurals name="days_left_short">
+        <item quantity="one">En %1$d d.</item>
+        <item quantity="many">En %1$d d.</item>
+        <item quantity="other">En %1$d d.</item>
+    </plurals>
+    <plurals name="days_ago">
+        <item quantity="one">Hace %1$d día</item>
+        <item quantity="many">Hace %1$d días</item>
+        <item quantity="other">Hace %1$d días</item>
+    </plurals>
+    <!-- Name of event notification channel -->
+    <string name="daily_notification_channel_name">Notificaciones de eventos</string>
+    <!-- Name of reminder notification channel -->
+    <string name="reminder_notification_channel_name">Recordatorios de eventos</string>
+
+    <!-- Separator title for past events [CHAR LIMIT=20] -->
+    <string name="past_events_title">Eventos pasados</string>
+    <!-- Separator title for today's events [CHAR LIMIT=20] -->
+    <string name="today_events_title">Hoy</string>
+    <!-- Separator title for upcoming events [CHAR LIMIT=20] -->
+    <string name="upcoming_events_title">Próximos eventos</string>
+    <!-- String for checkbox "Show past events at the bottom of the list" [CHAR LIMIT=NONE] -->
+    <string name="past_events_checkbox_text">Mostrar eventos pasados al final de la lista</string>
+
+    <!-- Button "Export" text -->
+    <string name="export_button_text">Guardar eventos en un archivo csv</string>
+    <!-- Message showing when export started -->
+    <string name="export_started">Los eventos se están guardando en un archivo…</string>
+    <!-- Message showing when export failed -->
+    <string name="export_failed">Se produjo un error durante la exportación. Intentar otra vez.</string>
+    <!-- Message showing when export canceled -->
+    <string name="export_canceled">Exportación cancelada.</string>
+    <!-- Message showing after export events with exported file name -->
+    <string name="export_completed_pattern">¡Exportación completada!\nNúmero de eventos exportados: %01d.\nArchivo guardado en descargas con el nombre\"%2$s\".</string>
+    <!-- Message showing after export events -->
+    <string name="export_completed">¡Exportación completada! Archivo guardado en descargas.</string>
+    <!-- Export file name -->
+    <string name="export_file_name">MyDates_Exportar</string>
+    <!-- Open download folder -->
+    <string name="open_download_folder">Abra la carpeta Descargas</string>
+    <!-- Message about no events for export -->
+    <string name="no_events_for_export">No hay eventos para exportar</string>
+    <!-- Message about denied export permission -->
+    <string name="export_permission_denied">Se deniega el acceso al almacenamiento de archivos para exportación</string>
+    <!-- Message about denied contact import permission -->
+    <string name="contacts_permission_denied">Se deniega el acceso a los contactos para importar</string>
+    <!-- Message about denied export permission -->
+    <string name="notification_permission_denied">Se rechaza mostrar notificaciones</string>
+
+    <!-- Button "Import" text -->
+    <string name="import_button_text">Importar eventos desde un archivo csv</string>
+    <!-- Button "Import contacts" text -->
+    <string name="import_contacts_button_text">Importar eventos de contactos</string>
+    <!-- Dialog message when user clicked the button "Import contacts" [CHAR LIMIT=NONE] -->
+    <string name="import_contacts_dialog_msg">Estás a punto de importar eventos desde la aplicación Contactos a My Dates. Todos los eventos encontrados se agregarán automáticamente a la aplicación. ¿Empezar a importar?</string>
+    <!-- Dialog message when user clicked the button "Import from csv" [CHAR LIMIT=NONE] -->
+    <string name="import_csv_dialog_msg">Estás a punto de importar eventos desde un archivo csv a My Dates. Todos los eventos encontrados se agregarán automáticamente a la aplicación. ¿Empezar a importar?</string>
+    <!-- Dialog message when user clicked the button "Export to csv" [CHAR LIMIT=NONE] -->
+    <string name="export_csv_dialog_msg">Estás a punto de exportar eventos de My Dates a un archivo csv. Todos los eventos encontrados se guardarán en un archivo creado en la carpeta \"Descargas\". ¿Empezar a exportar?</string>
+    <!-- Dialog button text for the option to start import [CHAR LIMIT=20] -->
+    <string name="start_import">Iniciar importación</string>
+    <!-- Dialog button text for the option to start export [CHAR LIMIT=20] -->
+    <string name="start_export">Iniciar exportación</string>
+    <!-- Dialog button text for the option to cancel import [CHAR LIMIT=20] -->
+    <string name="cancel_import">Cancelar</string>
+    <!-- Message showing when import canceled -->
+    <string name="import_canceled">Importación cancelada.</string>
+    <!-- Message showing while csv-file is being parsed -->
+    <string name="import_csv_parsing_in_progress">Análisis de archivos en progreso…</string>
+    <!-- Message showing count of events parsed -->
+    <string name="import_csv_parsing_count">Eventos encontrados: %01d</string>
+    <!-- Message showing while imported events saving to DB -->
+    <string name="import_saving_events_to_db">Guardar eventos en la aplicación…</string>
+    <!-- Message showing when import failed -->
+    <string name="import_failed">Se produjo un error durante la importación. Intentar otra vez.</string>
+    <!-- Message showing when import failed because wrong csv format -->
+    <string name="cant_parse_csv">No se puede reconocer el archivo a importar. Seleccione el archivo correcto.</string>
+    <!-- Message showing when getting error with saving events from import -->
+    <string name="error_saving_import_events">Error al guardar eventos. Intente importar nuevamente.</string>
+    <!-- Message showing after import events -->
+    <string name="import_completed">¡Importación completa!</string>
+    <!-- Title of choosing import file window -->
+    <string name="import_select_file">Elija el archivo</string>
+    <!-- Message about no file manager -->
+    <string name="no_file_manager_message">Instalar un administrador de archivos</string>
+    <!-- Message about no contact manager -->
+    <string name="no_contact_app_message">Instalar la aplicación Contactos</string>
+    <!-- Message about no events in contacts -->
+    <string name="no_contact_events_found_message">No se encontraron eventos en contactos</string>
+
+    <!-- Dialog message when user is leaving import -->
+    <string name="go_back_from_import_dialog_msg">¿Está seguro de que desea cancelar la importación?</string>
+    <!-- Dialog button text for the option to cancel import -->
+    <string name="yes_cancel_import">Sí, cancelar importación</string>
+    <!-- Dialog button text for the option to continue import -->
+    <string name="continue_import">No, continuar importando</string>
+
+    <!-- Settings -->
+
+    <!-- General management -->
+    <string name="general_management_title">Administración general</string>
+    <string name="app_language_title">Idioma de la aplicación</string>
+    <string name="app_theme_title">Tema de la aplicación</string>
+    <string name="default_locale_title">Por defecto</string>
+    <string name="light_app_theme_title">Ligero</string>
+    <string name="dark_app_theme_title">Oscuro</string>
+
+    <!-- Event list-->
+    <string name="event_list_title">Lista de eventos</string>
+    <string name="date_format_title">Formato de fecha</string>
+    <string name="show_day_of_week_title">Mostrar días de la semana en la lista de eventos</string>
+
+    <!-- Notifications -->
+    <string name="show_labels_title">Mostrar etiquetas</string>
+    <string name="appearance_title">Apariencia de la aplicación</string>
+    <string name="customize_appearance_button_text">Personalizar la apariencia</string>
+    <string name="event_preview_title">Vista previa del evento</string>
+    <string name="event_preview_item_name">Nombre del evento</string>
+    <string name="event_preview_item_label_first">Familia</string>
+    <string name="event_preview_item_label_second">Trabajo</string>
+    <string name="notification_settings_title">Notificaciones</string>
+    <string name="customize_notifications_button_text">Personalizar las notificaciones</string>
+    <string name="notification_time_title">Hora de notificación el día del evento</string>
+    <string name="notification_time_hint">La notificación llegará dentro del período de tiempo que seleccione.</string>
+    <string name="notification_permission_rationale">La aplicación My Dates requiere permiso para mostrar notificaciones. En la siguiente ventana, haga clic en \"Permitir\" si desea recibir notificaciones sobre sus eventos.</string>
+    <string name="notification_go_to_settings">Para recibir notificaciones, debe otorgar permiso para mostrar notificaciones. Si no recibe una solicitud de permiso, puede otorgarla en la configuración de la aplicación en la sección \"Permisos\".</string>
+    <string name="app_settings_link_text">la configuración de la aplicación</string>
+    <string name="notifications_help_title">Solucionar problemas</string>
+    <string name="no_notifications_link">Si no recibes notificaciones</string>
+    <string name="notification_filter_title">Filtrar notificaciones</string>
+    <string name="settings_notification_filter_hint">Filtrar notificaciones por tipo de evento y etiquetas</string>
+    <!-- Hint for notification filter close button [CHAR_LIMIT=20] -->
+    <string name="close_notification_filter_button_hint">Cerrar el filtro de notificaciones</string>
+    <string name="notification_filter_description">Activar/desactivar notificaciones para tipos de eventos y etiquetas individuales</string>
+    <string name="notification_filter_hint">Pulse sobre un tipo de evento o etiqueta para activar o desactivar las notificaciones.</string>
+    <string name="notification_filter_save_button">Guardar filtro de notificaciones</string>
+    <string name="notification_filter_on_hint">Las notificaciones están activadas para los eventos con esta etiqueta.</string>
+    <string name="notification_filter_off_hint">Las notificaciones están desactivadas para los eventos con esta etiqueta. Sin embargo, las notificaciones se mostrarán si el evento también tiene una etiqueta con notificaciones activadas.</string>
+    <string name="notification_filter_forbidden_hint">Las notificaciones siempre están desactivadas para los eventos con esta etiqueta, incluso si el evento también tiene una etiqueta con notificaciones activadas.</string>
+    <string name="notification_filter_help_hint">Estado de las notificaciones</string>
+    <string name="notification_filter_warning">Has desactivado todas las notificaciones. Si esto ha sucedido por accidente, por favor comprueba tu selección de nuevo.</string>
+
+    <!-- Not receiving notifications -->
+    <string name="notification_troubleshoot_title">Notificaciones faltantes</string>
+    <string name="no_notifications_header">Qué hacer si no llegan las notificaciones:</string>
+    <string name="no_notifications_additional_info">Si no puede encontrar el elemento del menú indicado en el texto, intente utilizar la búsqueda en la configuración de su dispositivo. Algunas opciones pueden tener nombres diferentes según su dispositivo. Puede encontrar más información para su dispositivo en dontkillmyapp.com</string>
+    <string name="make_sure_notifications_turned_on">1. Asegúrate de no haber desactivado las notificaciones de la aplicación.</string>
+    <string name="all_notifications_turned_on">Notificaciones están activadas</string>
+    <string name="all_notifications_turned_off">Notificaciones están desactivadas</string>
+    <string name="event_notifications_turned_on">Categoría ’’Notificaciones de eventos’’ está activada</string>
+    <string name="event_notifications_turned_off">Categoría ’’Notificaciones de eventos’’ está desactivada</string>
+    <string name="event_notifications_channel_not_found">No se encontró la categoría ’’Notificaciones de eventos’’</string>
+    <string name="event_reminders_turned_on">Categoría ’’Recordatorios de eventos’’ está activada</string>
+    <string name="event_reminders_turned_off">Categoría ’’Recordatorios de eventos’’ está desactivada</string>
+    <string name="event_reminders_channel_not_found">No se encontró la categoría ’’Recordatorios de eventos’’</string>
+    <string name="create_notification_channels">Crear categorías de notificaciones</string>
+    <string name="turn_on_notifications">Puede habilitar las notificaciones en la configuración de la aplicación -> ’’Notificaciones’’ -> Habilitar ’’Mostrar notificaciones’’ -> ’’Categorías de notificacion’’ -> Habilitar ’’Notificaciones de eventos’’ y ’’Recordatorios de eventos’’.</string>
+    <string name="ignore_do_not_disturb">Después de eso, vaya a cada categoría y active la configuración ’’Ignorar No molestar’’.</string>
+    <string name="turn_on_notifications_without_channels">Puede habilitar las notificaciones en la configuración de la aplicación -> ’’Notificaciones’’ -> Habilitar ’’Mostrar notificaciones’’ (o DESACTIVAR ’’Bloquear todo’’).\nHabilitar ’’Ignorar No Molestar’’ (’’Anular No interrumpir’’).</string>
+    <string name="check_additional_notification_settings">Además, puede consultar otras configuraciones de notificación.</string>
+    <string name="additional_notification_settings_link">configuraciones de notificación</string>
+    <string name="grant_schedule_exact_alarm_permission">2. Asegúrate de haber otorgado permiso a My Dates para configurar alarmas.</string>
+    <string name="alarm_permission_granted">Permiso de alarma concedido</string>
+    <string name="alarm_permission_not_granted">Permiso de alarma no concedido</string>
+    <string name="alarm_settings_link_text">Alarmas y recordatorios</string>
+    <string name="alarm_settings_not_found">No se encontraron los ajustes de alarma. Es posible que su dispositivo no admita esta función.</string>
+    <string name="open_alarm_settings">Para conceder permiso, abra la configuración de ’’Alarmas y recordatorios’’, busque ’’My Dates’’ en la lista y active el interruptor.</string>
+    <string name="open_alarm_settings_in_app_info">Puede permitir la configuración de alarmas y recordatorios en la configuración de la aplicación -> Alarmas y recordatorios -> Activar ’’Permitir la programación de alarmas y recordatorios’’</string>
+    <string name="deactivate_app_pausing">3. Desactive la suspensión de aplicaciones.</string>
+    <string name="turn_off_app_pausing">DESHABILITE el elemento ’’Pausar activadad de la aplicación si no se usa’’ (’’Eliminar permisos si no se usa’’) en la configuración de la aplicación.</string>
+    <string name="add_to_never_sleeping_apps_title">4. Agrega My Dates a la lista de "Aplicaciones nunca inactivas".</string>
+    <string name="add_to_never_sleeping_apps_description">Si su dispositivo tiene la función ’’Límites de uso en segundo plano’’, agregue My Dates a la lista ’’Aplicaciones nunca inactivas’’.</string>
+    <string name="add_to_never_sleeping_apps_warning">Si agregó My Dates a esta lista, intente omitir el siguiente paso (número 5). En algunos dispositivos, estas acciones son mutuamente excluyentes.</string>
+    <string name="app_in_background_without_restrictions">5. Permita que la aplicación use la batería en segundo plano sin restricciones.</string>
+    <string name="battery_optimization_turned_on">Optimización de la batería habilitada</string>
+    <string name="battery_optimization_turned_off">Optimización de la batería deshabilitada</string>
+    <string name="turn_off_battery_optimization">Puede desactivar la optimización en la configuración de optimización de la batería -> Seleccione ’’Todas las aplicaciones’’ en el filtro -> Busque la aplicación My Dates en la lista -> DESACTIVAR la optimización para My Dates.</string>
+    <string name="open_app_battery_settings">optimización de la batería</string>
+    <string name="ignore_background_data_restrictions">O en la configuración de la aplicación, seleccione ’’Batería’’ (’’Uso de batería de la aplicación’’) -> Seleccione ’’Sin restricciones’’.</string>
+    <string name="deactivate_battery_saver">6. Desactive el modo ’’Ahorro de batería’’ y ’’Batería inteligente’’.</string>
+    <string name="power_save_turned_on">Ahorro de batería habilitado</string>
+    <string name="power_save_turned_off">Ahorro de batería desactivado</string>
+    <string name="adaptive_battery_cant_determine">No se puede determinar si el modo de batería inteligente está habilitado</string>
+    <string name="turn_off_battery_saver">Puede desactivar este modo en Ahorro de batería. Cambie las configuraciones ’’Usar ahorro de batería’’ y ’’Usar batería inteligente’’ a la posición APAGADO. En algunos casos, ’’Usar batería inteligente’’ se puede encontrar en ’’Más configuraciones de batería’’.</string>
+    <string name="open_battery_saver">Ahorro de batería</string>
+    <string name="find_battery_saver">Puede encontrar Ahorro de batería en la configuración de su dispositivo -> Batería -> Ahorro de batería (Ahorro de energía).</string>
+    <string name="device_settings_link">la configuración de su dispositivo</string>
+    <string name="reboot_phone">7. Reinicie el dispositivo.</string>
+    <string name="reboot_description">Intente reiniciar su dispositivo. Esta suele ser la solución sencilla y rápida para resolver muchos problemas.</string>
+    <string name="no_notifications_support">Si aún tiene problemas, puede contactarnos.</string>
+    <string name="contact_support">Contactar con soporte</string>
+    <string name="setting_not_found">Esta configuración no encontrada. Intenta encontrarlo en la configuración de tu dispositivo.</string>
+
+    <!-- Reminders -->
+    <string name="reminders_title">Notificaciones adicionales</string>
+    <string name="reminders_time_title">Hora de mostrar notificaciones adicionales</string>
+    <string name="set_reminder_time_as_on_the_day_title">Igual que la notificación del día del evento</string>
+    <string name="choose_when_to_show_notifications_title">Elija cuándo mostrar las notificaciones de eventos:</string>
+    <string name="on_the_day_switch_text">el día del evento</string>
+    <!-- String for additional notification switches -->
+    <string name="one_day_before_switch_text">1 día antes</string>
+    <string name="two_days_before_switch_text">2 días antes</string>
+    <string name="three_days_before_switch_text">3 días antes</string>
+    <string name="four_days_before_switch_text">4 días antes</string>
+    <string name="five_days_before_switch_text">5 días antes</string>
+    <string name="one_week_before_switch_text">1 semana antes</string>
+    <string name="two_weeks_before_switch_text">2 semanas antes</string>
+    <string name="one_month_before_switch_text">1 mes antes</string>
+
+    <string name="test_notification_title">Enviar notificación de prueba</string>
+    <string name="compact_age_title">Edad compacta mostrando</string>
+    <string name="show_event_image_title">Mostrar imagen del evento</string>
+
+    <!-- Zodiac signs -->
+    <string name="zodiac_sign">Signo del zodíaco</string>
+    <string name="zodiac_aries">Aries</string>
+    <string name="zodiac_taurus">Tauro</string>
+    <string name="zodiac_gemini">Géminis</string>
+    <string name="zodiac_cancer">Cáncer</string>
+    <string name="zodiac_leo">Leo</string>
+    <string name="zodiac_virgo">Virgo</string>
+    <string name="zodiac_libra">Libra</string>
+    <string name="zodiac_scorpio">Escorpio</string>
+    <string name="zodiac_sagittarius">Sagitario</string>
+    <string name="zodiac_capricorn">Capricornio</string>
+    <string name="zodiac_aquarius">Acuario</string>
+    <string name="zodiac_pisces">Piscis</string>
+
+    <!-- Menu About -->
+    <string name="about_us_button_text">Sobre nosotros</string>
+    <string name="privacy_policy_button_text">Política de privacidad</string>
+    <string name="attributions_button_text">Bibliotecas de terceros</string>
+    <string name="apps_by_mi3van_title">Aplicaciones de Mi3van</string>
+    <string name="my_precious_button_text">My Precious - Inventario en casa</string>
+    <string name="author_title">Autor:</string>
+
+    <!-- Third party libraries -->
+    <string name="third_party_libraries_hint">Bibliotecas utilizadas en el proyecto My Dates:</string>
+    <string name="android_crop_description">Una biblioteca utilizada para recortar imágenes.</string>
+    <string name="apache_common_lang_3_description">Un paquete completo de clases de utilidad, destinado a ampliar la funcionalidad de la API de Java.</string>
+    <string name="gson_description">Una biblioteca utilizada para convertir objetos Java en su representación JSON y una cadena JSON en un objeto Java equivalente.</string>
+    <string name="joda_time_description">La biblioteca proporciona un reemplazo de calidad para las clases de fecha y hora de Java.</string>
+    <string name="material_components_description">Una biblioteca utilizada para proporcionar implementaciones de la especificación Material Design.</string>
+    <string name="open_csv_description">Una biblioteca para leer y escribir CSV en Java.</string>
+    <string name="pikolo_description">Una biblioteca utilizada para el selector de color.</string>
+    <string name="power_menu_description">Una biblioteca utilizada para el menú desplegable.</string>
+
+    <string name="choose_email_client">Elige un cliente de correo electrónico</string>
+    <string name="email_client_not_found">No se encontró el cliente de correo electrónico</string>
+
+    <!-- Purchase page -->
+    <string name="support_the_author_message">My Dates es una aplicación independiente y gratuita creada con entusiasmo. ¡Hemos puesto todo nuestro empeño en el proyecto y te agradeceríamos mucho que nos ayudaras a continuar con nuestro trabajo!</string>
+    <string name="donation_collected_message">Recaudó $%1$d de $%2$d para %3$s</string>
+    <string name="donation_ways_title">Donaciones únicas:</string>
+    <string name="copy_address_hint">Toque para copiar la dirección</string>
+    <string name="address_copied_hint">Dirección copiada al portapapeles</string>
+    <string name="subscriptions_title">Suscripciones:</string>
+    <string name="monthly_subscription_button_title_pattern">Suscripción mensual: %1$s</string>
+    <string name="annual_subscription_button_title_pattern">Suscripción anual: %1$s</string>
+    <string name="subscription_can_be_canceled_pattern">Se puede cancelar en cualquier momento en %1$s</string>
+    <string name="restore_purchase_button_hint">Compra de restauración</string>
+    <string name="manage_subscriptions_button_hint">Administrar suscripciones</string>
+    <string name="no_connection_title">No hay nada aquí… Probablemente no haya conexión a Internet. Conéctese a una conexión estable y vuelva a intentarlo.</string>
+    <string name="try_to_connect_button_hint">Intenta conectarte</string>
+    <string name="premium_is_active_title">Activa</string>
+    <string name="premium_is_active_subtitle">¡Muchas gracias!</string>
+    <string name="features_done_title">Qué se ha hecho:</string>
+    <string name="tags_feature_title">Etiquetas</string>
+    <string name="tags_feature_description">Los eventos se pueden marcar con etiquetas. Puedes seleccionar cualquier color e icono de etiqueta de la lista.</string>
+    <string name="bulk_tagging_feature_title">Etiquetado masivo de eventos</string>
+    <string name="bulk_tagging_feature_description">Asigne la etiqueta seleccionada a múltiples eventos a la vez. Esta función se encuentra en el menú en la sección \"Etiquetas\".</string>
+    <string name="filtering_notifications_feature_title">Filtrado de notificaciones</string>
+    <string name="filtering_notifications_feature_description">Elija qué tipos de eventos y etiquetas desea recibir una notificación y cuáles no. Esta función se encuentra en el menú de configuración de notificaciones.</string>
+    <string name="features_planned_title">Planeado:</string>
+    <string name="widget_feature_title">Widget</string>
+    <string name="quick_entry_feature_title">Entrada rápida de eventos</string>
+    <string name="color_themes_feature_title">Temas de color</string>
+</resources>

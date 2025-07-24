@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.ui.activities.main
+package com.kuzepa.mydates.ui.activities.home
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -20,13 +20,13 @@ import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val eventRepository: EventRepository,
     private val eventTypeRepository: EventTypeRepository
 ) : ViewModel() {
     private var currentPage = 0 // TODO get current month - 1
-    private val _uiState = MutableStateFlow<MainUiState>(MainUiState.Loading)
-    val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
+    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
     init {
         loadEvents()
@@ -34,18 +34,18 @@ class MainViewModel @Inject constructor(
 
     fun loadEvents() {
         viewModelScope.launch {
-            _uiState.value = MainUiState.Loading
+            _uiState.value = HomeUiState.Loading
             try {
                 eventRepository.getEventsByMonth(currentPage + 1)
                     .catch { e ->
-                        _uiState.value = MainUiState.Error
+                        _uiState.value = HomeUiState.Error
                         Log.e("MainViewModel", "Error loading events", e)
                     }
                     .collect { events ->
-                        _uiState.value = MainUiState.Success(events)
+                        _uiState.value = HomeUiState.Success(events)
                     }
             } catch (e: Exception) {
-                _uiState.value = MainUiState.Error
+                _uiState.value = HomeUiState.Error
                 Log.e("MainViewModel", "Error loading events", e)
             }
         }

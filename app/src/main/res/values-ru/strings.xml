@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_version_pattern">Версия %1$s</string>
+    <!-- Hint for expanded menu button [CHAR_LIMIT=20] -->
+    <string name="menu_button_hint">Меню</string>
+    <!-- Hint for search button [CHAR_LIMIT=20] -->
+    <string name="search_button_hint">Поиск события</string>
+    <string name="back_button">Назад</string>
+
+    <!-- Title of empty list about no events in the list -->
+    <string name="no_events_title">Здесь пока нет событий</string>
+    <!-- Subtitle of empty list -->
+    <string name="no_events_for_this_month_subtitle">Добавьте событие для этого месяца и оно отобразится здесь.</string>
+    <!-- Subtitle of empty list -->
+    <string name="no_events_subtitle">Добавьте события и они отобразятся здесь.</string>
+    <!-- Title of search without results -->
+    <string name="no_results_search_title">По вашему запросу ничего не найдено</string>
+    <!-- Subtitle of search without results -->
+    <string name="no_results_search_subtitle">Измените текст запроса</string>
+    <!-- Image box description for event item in list -->
+    <string name="image_box_description">Изображения для события</string>
+
+    <!-- Temp event data for designing layout -->
+    <string name="temp_event_age">23</string>
+    <string name="temp_event_date">21 апр. 2000</string>
+    <string name="temp_event_name">Иван (тест)</string>
+    <string name="temp_event_type">День рождения</string>
+    <string name="temp_event_label">Друзья</string>
+
+    <!-- Month names - titles for tabs -->
+    <string name="january_month">Январь</string>
+    <string name="february_month">Февраль</string>
+    <string name="march_month">Март</string>
+    <string name="april_month">Апрель</string>
+    <string name="may_month">Май</string>
+    <string name="june_month">Июнь</string>
+    <string name="july_month">Июль</string>
+    <string name="august_month">Август</string>
+    <string name="september_month">Сентябрь</string>
+    <string name="october_month">Октябрь</string>
+    <string name="november_month">Ноябрь</string>
+    <string name="december_month">Декабрь</string>
+
+    <!-- Title for the screen to add a new event [CHAR LIMIT=20] -->
+    <string name="event_creator_title">Новое событие</string>
+    <!-- Title for the screen to edit an existing event [CHAR LIMIT=20] -->
+    <string name="event_editor_title">Редактирование события</string>
+    <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="event_save_button_hint">Сохранить</string>
+    <!-- Hint for delete button [CHAR_LIMIT=20] -->
+    <string name="event_delete_button_hint">Удалить событие</string>
+    <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
+    <string name="choose_image_description">Выбрать изображение</string>
+    <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
+    <string name="event_image_description">Изображение события</string>
+    <!-- Hint to rotate image left [CHAR_LIMIT=20] -->
+    <string name="rotate_left_hint">Повернуть влево</string>
+    <!-- Hint to rotate image right [CHAR_LIMIT=20] -->
+    <string name="rotate_right_hint">Повернуть вправо</string>
+    <!-- Hint to change image [CHAR_LIMIT=20] -->
+    <string name="change_image_hint">Заменить изображение</string>
+    <!-- Hint to delete image [CHAR_LIMIT=20] -->
+    <string name="delete_image_hint">Удалить изображение</string>
+    <!-- Title for field Name in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="name_edit_title">Название</string>
+    <!-- Title for field Date in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="date_edit_title">Дата</string>
+    <!-- Title of the checkbox "I don't know the year -->
+    <string name="show_hide_year_text">Я не знаю год</string>
+    <!-- Title for field Event type in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="event_type_spinner_hint">Тип события</string>
+    <string name="event_type_description">Вы можете ввести новый тип события в поле выше или выбрать уже существующий из списка.</string>
+    <!-- Title for adding tag-->
+    <string name="button_add_label">Добавить тег</string>
+    <!-- Title for field Notes in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="notes_edit_title">Примечание</string>
+    <!-- Hint for field Notes in event creator/editor -->
+    <string name="notes_edit_hint">Дополнительная информация</string>
+
+    <!-- EVENT TAGS -->
+    <!-- Title for field Tags in event creator/editor -->
+    <string name="labels_title">Теги</string>
+    <!-- Tags hint (explanation with example) for user -->
+    <string name="labels_hint">Вы можете добавить теги для этого события (например, \"Друзья\")</string>
+    <!-- Title for field Tag name in tag creator/editor -->
+    <string name="label_name_title">Название тега</string>
+    <!-- Title for field Tag color in tag creator/editor -->
+    <string name="label_color">Цвет тега</string>
+    <!-- Hint of the button for changing tag icon -->
+    <string name="button_change_label_icon_hint">Изменить иконку тега</string>
+    <string name="label_icon_hint">Иконка тега</string>
+    <string name="label_preview_title">Предварительный просмотр тега</string>
+    <string name="remove_label_hint">Удалить тег</string>
+    <!-- Notification statuses hints -->
+    <string name="notification_status_turned_on_hint">Включены</string>
+    <string name="notification_status_turned_off_hint">Отключены</string>
+    <string name="notification_status_turned_forbidden_hint">Запрещены</string>
+    <string name="tap_on_notification_status_hint">Нажмите на статус, чтобы включить/отключить уведомления</string>
+    <!-- Hint for save button [CHAR_LIMIT=20] -->
+    <string name="button_save_hint">Сохранить</string>
+    <!-- Hint for close button -->
+    <string name="close_button_hint">Закрыть</string>
+    <!-- Title for adding new tag-->
+    <string name="label_creator_title">Новый тег</string>
+    <!-- Title for editing tag-->
+    <string name="label_editor_title">Редактирование тега</string>
+    <!-- Title for choosing tag -->
+    <string name="choose_label_title">Выбор тега</string>
+    <!-- Color picker title [CHAR_LIMIT=20] -->
+    <string name="color_picker_title">Выбор цвета</string>
+    <!-- Hint for delete button in tag editor [CHAR_LIMIT=20] -->
+    <string name="label_delete_button_hint">Удалить тег</string>
+
+    <!-- Title of empty list about no tags in the list -->
+    <string name="delete_label_dialog_msg">Удалить этот тег?</string>
+    <!-- Dialog message about having events with deleting tag -->
+    <string name="you_have_event_with_tag_pattern">У вас есть события с тегом \"%1$s\".</string>
+    <string name="change_label_dialog_msg">Вы можете заменить его другим тегом из списка.</string>
+    <string name="choose_another_label">Заменить выбранным тегом</string>
+    <string name="just_remove_labels_button">Просто удалить тег</string>
+    <string name="delete_label_from_all_events_dialog_msg">Вы уверены, что хотите удалить тег из всех событий? Это действие не может быть отменено.</string>
+    <string name="no_labels_title">Здесь пока нет тегов</string>
+    <!-- Subtitle of empty tag list -->
+    <string name="empty_label_list">Создайте тег, и он отобразится здесь.</string>
+    <!-- Subtitle of empty tag list in filter -->
+    <string name="empty_filter_label_list">Вы можете создать теги в свойствах события или в разделе тегов в меню.</string>
+    <string name="empty_notification_filter_label">Добавьте теги к событиям, и вы сможете отфильтровать уведомления по тегам.</string>
+    <string name="empty_notification_filter_event_types">Добавьте тип события, и вы сможете отфильтровать уведомления по типам событий.</string>
+
+    <!-- ASSIGN TAG TO EVENTS -->
+    <!-- Hint for button inside tag item to assign the tag to events -->
+    <string name="label_bulk_assignment_title">Добавить тег к событиям</string>
+    <!-- Hint for use to select events -->
+    <string name="select_events_hint">Выберите события для тега</string>
+    <!-- Hint for clear selection in the list -->
+    <string name="clear_selection_button_hint">Очистить всё</string>
+    <!-- Hint for select all items in the list -->
+    <string name="select_all_button_hint">Выбрать всё</string>
+    <!-- Hint for confirmation dialog when select all events button pressed -->
+    <string name="select_all_events_confirmation">Выделить все события?</string>
+    <!-- Hint for confirmation dialog when clear selection button pressed -->
+    <string name="clear_selection_confirmation">Вы уверены, что хотите очистить выделение?</string>
+    <!-- Select button hint -->
+    <string name="select_button_hint">Выделить</string>
+    <!-- Confirmation dialog title when save changes button pressed -->
+    <string name="adding_label_to_events_confirmation">Тег \"%1$s\" будет добавлен к выделенным событиям. Сохранить изменения?</string>
+    <!-- Confirmation dialog title when save changes button pressed -->
+    <string name="go_back_without_saving_confirmation">Вы уверены, что хотите вернуться назад без сохранения изменений?</string>
+    <!-- Confirmation go back button hint -->
+    <string name="confirmation_go_back_button_hint">Да, вернуться назад</string>
+    <!-- Message for user about saving data into data base -->
+    <string name="saving_to_db_message">Идёт сохранение в базу данных. Пожалуйста, не закрывайте приложение.</string>
+
+    <!-- FILTER -->
+    <!-- Title for applying filter-->
+    <string name="button_apply">Применить</string>
+    <string name="filter_dialog_title">Фильтр событий</string>
+    <!-- Hint for clear filter in filter dialog -->
+    <string name="clear_button_hint">Очистить</string>
+    <!-- Title for selecting tag in the filter list -->
+    <string name="select_labels_title">Выберите теги</string>
+
+    <!-- Date format items for settings -->
+    <string name="date_format_ddmmyyyy">дд.мм.гггг</string>
+    <string name="date_format_mmddyyyy">мм.дд.гггг</string>
+    <string name="date_format_ddmm">дд.мм</string>
+    <string name="date_format_mmdd">мм.дд</string>
+
+    <!-- Mask for date, example date: 04.29.1990 -->
+    <string name="full_date_mask">##.##.####</string>
+    <!-- Mask for date without year, example date: 04.29 -->
+    <string name="date_mask_without_year">##.##</string>
+
+    <!-- Mask for date, example date: 04.29.1990 -->
+    <string name="full_date_mask_hint_month_first">ммддгггг</string>
+    <!-- Mask for date without year, example date: 04.29 -->
+    <string name="date_mask_hint_month_first_without_year">ммдд</string>
+
+    <!-- Mask for date, example date: 29.04.1990 -->
+    <string name="full_date_mask_hint_day_first">ддммгггг</string>
+    <!-- Mask for date without year, example date: 29.04 -->
+    <string name="date_mask_hint_day_first_without_year">ддмм</string>
+
+    <!-- Pattern for age label, example: turns [CHAR_LIMIT=20] -->
+    <string name="event_age_label">будет</string>
+    <!-- Pattern for dys left label, example: 3 days [CHAR_LIMIT=20] -->
+    <string name="days_left_label">завтра</string>
+    <!-- Pattern for short age label, example: 5 y. [CHAR_LIMIT=20] -->
+    <plurals name="event_age_short_label">
+        <item quantity="one">%01d г.</item>
+        <item quantity="few">%01d г.</item>
+        <item quantity="many">%01d л.</item>
+        <item quantity="other">%01d л.</item>
+    </plurals>
+
+    <!-- Error message for required fields -->
+    <string name="error_field_is_required">Это поле обязательное</string>
+    <!-- Error message for duplicated label name -->
+    <string name="error_label_name_is_duplicated">Тег с таким названием уже существует. Выберите другое название.</string>
+    <!-- Error message for color: selection is required -->
+    <string name="error_color_selection_is_required">Выберите цвет</string>
+    <!-- Error message for date: incorrect format -->
+    <string name="error_date_incorrect_format">Неверная дата. Требуемый формат: %1$s</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Отменить изменения и выйти из редактирования?</string>
+
+    <!-- Dialog button text for the option to discard user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Отменить изменения</string>
+
+    <!-- Dialog button text for the option to keep editing current event [CHAR LIMIT=20] -->
+    <string name="keep_editing">Продолжить редактирование</string>
+
+    <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
+    <string name="delete_event_dialog_msg">Удалить это событие?</string>
+
+    <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
+    <string name="delete_image_dialog_msg">Удалить это изображение?</string>
+
+    <!-- Dialog button text for the option to confirm deleting the current event [CHAR LIMIT=20] -->
+    <string name="delete">Удалить</string>
+
+    <!-- Dialog button text for the option to cancel deletion of the current event [CHAR LIMIT=20] -->
+    <string name="cancel">Отмена</string>
+
+    <!-- Title for sort by [CHAR_LIMIT=20] -->
+    <string name="filter_hint">Фильтрация событий</string>
+    <string name="sort_by_spinner_hint">Сортировка</string>
+
+    <!-- Item names for sort popup menu -->
+    <string name="order_by_date">Дата</string>
+    <string name="order_by_name">Имя</string>
+
+    <string name="order_by_date_asc">Дата ▲</string>
+    <string name="order_by_date_desc">Дата ▼</string>
+    <string name="order_by_name_asc">Имя ▲</string>
+    <string name="order_by_name_desc">Имя ▼</string>
+
+    <!-- Hint for field Search in the SearchView -->
+    <string name="search_hint">Поиск…</string>
+
+    <!-- Strings for navigation drawer -->
+    <string name="navigation_drawer_open">Открыть панель навигации</string>
+    <string name="navigation_drawer_close">Закрыть панель навигации</string>
+
+    <!-- Strings for navigation drawer items -->
+    <!-- Navigation drawer item title - Event Types -->
+    <string name="event_types_title">Типы событий</string>
+    <!-- Navigation drawer item title - Import/Export -->
+    <string name="data_transfer_title">Импорт / Экспорт</string>
+    <!-- Navigation drawer item title - Settings -->
+    <string name="settings_title">Настройки</string>
+    <!-- Navigation drawer item title - About -->
+    <string name="about_title">О приложении</string>
+    <!-- Navigation drawer item title - Support the project -->
+    <string name="support_project_title">Поддержать проект</string>
+
+    <!-- Import csv fragment title - Event import from csv -->
+    <string name="import_fragment_title">Импорт событий из csv</string>
+    <!-- Import contacts fragment title - Event import from contacts -->
+    <string name="import_contacts_fragment_title">Импорт событий из контактов</string>
+    <!-- Export fragment title - Event export -->
+    <string name="export_fragment_title">Экспорт событий</string>
+
+    <!-- Title of empty list about no event types in the list -->
+    <string name="no_event_types_title">Здесь пока нет типов событий</string>
+    <!-- Subtitle of empty event type list -->
+    <string name="empty_event_type_list">Добавьте тип события и он отобразится в этом списке.</string>
+
+    <!-- Hint for save button in event type editor [CHAR_LIMIT=20] -->
+    <string name="event_type_save_button_hint">Сохранить тип события</string>
+    <!-- Hint for delete button in event type editor [CHAR_LIMIT=20] -->
+    <string name="event_type_delete_button_hint">Удалить тип события</string>
+    <!-- Title for checkbox of default event type -->
+    <string name="event_type_set_as_default">Тип события по умолчанию</string>
+    <!-- Hint in the event type list for default event type -->
+    <string name="event_type_default_hint">по умолчанию</string>
+    <!-- Title for checkbox of showing zodiac sign for the event type -->
+    <string name="show_zodiac_sign">Показывать знаки зодиака для этого типа события</string>
+    <!-- Alert message about duplicate event type name -->
+    <string name="event_type_already_exists">Тип события с таким названием уже существует. Введите другое название.</string>
+    <!-- Name of event type - Birthday, creates in empty data base by default -->
+    <string name="event_type_birthday_name">День рождения</string>
+    <!-- Name of event type - Anniversary -->
+    <string name="event_type_anniversary_name">Годовщина</string>
+    <!-- Name of event type - Other -->
+    <string name="event_type_other_name">Другое</string>
+
+    <!-- Title for the activity to add a new event type [CHAR LIMIT=20] -->
+    <string name="event_type_creator_title">Новый тип события</string>
+    <!-- Title for the activity to edit an existing event type [CHAR LIMIT=20] -->
+    <string name="event_type_editor_title">Редактирование типа события</string>
+    <!-- Dialog message to ask the user to confirm deleting the current event type [CHAR LIMIT=NONE] -->
+    <string name="delete_event_type_dialog_msg">Удалить этот тип события?</string>
+    <!-- Dialog message to ask the user to choose another event type before deleting the current one [CHAR LIMIT=NONE] -->
+    <string name="change_event_type_dialog_msg">У вас есть события с типом \"%1$s\". Выберите, к какому типу отнести эти события.</string>
+    <!-- Dialog message to ask the user to choose another default event type before deleting the current one [CHAR LIMIT=NONE] -->
+    <string name="change_default_event_type_dialog_msg">Вы удаляете тип события \"%1$s\". Выберите другой тип, который будет использоваться по умолчанию.</string>
+    <!-- Dialog button text for the option to choose another event type for events [CHAR LIMIT=20] -->
+    <string name="choose_another_event_type">Заменить выбранным типом</string>
+    <string name="set_event_type_as_default">Установить этот тип по умолчанию</string>
+
+    <!-- Pattern for notification title, e.g. Alex James-->
+    <string name="daily_notification_title_pattern">%1$s</string>
+    <!-- Pattern for notification body, e.g. Birthday, 25 years -->
+    <string name="daily_notification_body_pattern">%1$s, %2$s</string>
+    <!-- Pattern for reminder notification title, e.g. Tomorrow: Alex James-->
+    <string name="reminder_notification_title_pattern">%1$s: %2$s</string>
+    <!-- Pattern for notification body, e.g. Birthday, 25 years, February 12 (Sun) -->
+    <string name="reminder_notification_body_pattern">%1$s, %2$s, %3$s</string>
+    <!-- Pattern for notification body, e.g. Birthday, February 12 (Sun) -->
+    <string name="reminder_body_pattern_no_age">%1$s, %2$s</string>
+    <plurals name="years">
+        <item quantity="one">%1$d год</item>
+        <item quantity="few">%1$d года</item>
+        <item quantity="many">%1$d лет</item>
+        <item quantity="other">%1$d лет</item>
+    </plurals>
+    <string name="today">Сегодня</string>
+    <string name="yesterday">Вчера</string>
+    <string name="tomorrow">Завтра</string>
+    <plurals name="days_left">
+        <item quantity="one">Через %1$d день</item>
+        <item quantity="few">Через %1$d дня</item>
+        <item quantity="many">Через %1$d дней</item>
+        <item quantity="other">Через %1$d дней</item>
+    </plurals>
+    <plurals name="weeks_left">
+        <item quantity="one">Через %1$d неделю</item>
+        <item quantity="few">Через %1$d недели</item>
+        <item quantity="many">Через %1$d недель</item>
+        <item quantity="other">Через %1$d недель</item>
+    </plurals>
+    <plurals name="months_left">
+        <item quantity="one">Через %1$d месяц</item>
+        <item quantity="few">Через %1$d месяца</item>
+        <item quantity="many">Через %1$d месяцев</item>
+        <item quantity="other">Через %1$d месяцев</item>
+    </plurals>
+    <plurals name="days_left_short">
+        <item quantity="one">Через %1$d д.</item>
+        <item quantity="few">Через %1$d д.</item>
+        <item quantity="many">Через %1$d д.</item>
+        <item quantity="other">Через %1$d д.</item>
+    </plurals>
+    <plurals name="days_ago">
+        <item quantity="one">%1$d д. назад</item>
+        <item quantity="few">%1$d д. назад</item>
+        <item quantity="many">%1$d д. назад</item>
+        <item quantity="other">%1$d д. назад</item>
+    </plurals>
+    <!-- Name of event notification channel -->
+    <string name="daily_notification_channel_name">Уведомления о событиях</string>
+    <!-- Name of reminder notification channel -->
+    <string name="reminder_notification_channel_name">Напоминания о событиях</string>
+
+    <!-- Separator title for past events [CHAR LIMIT=20] -->
+    <string name="past_events_title">Прошедшие события</string>
+    <!-- Separator title for today's events [CHAR LIMIT=20] -->
+    <string name="today_events_title">Сегодня</string>
+    <!-- Separator title for upcoming events [CHAR LIMIT=20] -->
+    <string name="upcoming_events_title">Будущие события</string>
+    <!-- String for checkbox "Show past events at the bottom of the list" [CHAR LIMIT=NONE] -->
+    <string name="past_events_checkbox_text">Отображать прошедшие события внизу списка</string>
+
+    <!-- Button "Export" text -->
+    <string name="export_button_text">Сохранить события в csv-файл</string>
+    <!-- Message showing when export started -->
+    <string name="export_started">Идёт сохранение событий в файл…</string>
+    <!-- Message showing when export failed -->
+    <string name="export_failed">Произошла ошибка при экспорте. Попробуйте снова.</string>
+    <!-- Message showing when export canceled -->
+    <string name="export_canceled">Экспорт отменён.</string>
+    <!-- Message showing after export events with exported file name -->
+    <string name="export_completed_pattern">Экспорт завершён!\nКоличество экспортированных событий: %01d.\nФайл сохранён в загрузках под именем \"%2$s\".</string>
+    <!-- Message showing after export events -->
+    <string name="export_completed">Экспорт завершён! Файл сохранён в загрузках.</string>
+    <!-- Export file name -->
+    <string name="export_file_name">MyDates_Экспорт</string>
+    <!-- Open download folder -->
+    <string name="open_download_folder">Открыть папку \"Загрузки\"</string>
+    <!-- Message about no events for export -->
+    <string name="no_events_for_export">Нет событий для экспорта</string>
+    <!-- Message about denied export permission -->
+    <string name="export_permission_denied">Доступ к файловому хранилищу для экспорта отклонён</string>
+    <!-- Message about denied contact import permission -->
+    <string name="contacts_permission_denied">Доступ к к контактам для импорта отклонён</string>
+    <!-- Message about denied export permission -->
+    <string name="notification_permission_denied">Показ уведомлений отклонён</string>
+
+    <!-- Button "Import" text -->
+    <string name="import_button_text">Загрузить события из csv-файла</string>
+    <!-- Button "Import contacts" text -->
+    <string name="import_contacts_button_text">Загрузить события из контактов</string>
+    <!-- Dialog message when user clicked the button "Import contacts" [CHAR LIMIT=NONE] -->
+    <string name="import_contacts_dialog_msg">Вы собираетесь импортировать события из приложения \"Контакты\" в \"My Dates\". Все найденные события будут автоматически добавлены в приложение. Начать импорт?</string>
+    <!-- Dialog message when user clicked the button "Import from csv" [CHAR LIMIT=NONE] -->
+    <string name="import_csv_dialog_msg">Вы собираетесь импортировать события из файла csv в \"My Dates\". Все найденные события будут автоматически добавлены в приложение. Начать импорт?</string>
+    <!-- Dialog message when user clicked the button "Export to csv" [CHAR LIMIT=NONE] -->
+    <string name="export_csv_dialog_msg">Вы собираетесь экспортировать события из приложения \"My Dates\" в файл csv. Все найденные события будут сохранены в созданный файл в папке \"Загрузки\". Начать экспорт?</string>
+    <!-- Dialog button text for the option to start import [CHAR LIMIT=20] -->
+    <string name="start_import">Начать импорт</string>
+    <!-- Dialog button text for the option to start export [CHAR LIMIT=20] -->
+    <string name="start_export">Начать экспорт</string>
+    <!-- Dialog button text for the option to cancel import [CHAR LIMIT=20] -->
+    <string name="cancel_import">Отмена</string>
+    <!-- Message showing when import canceled -->
+    <string name="import_canceled">Импорт отменён.</string>
+    <!-- Message showing while csv-file is being parsed -->
+    <string name="import_csv_parsing_in_progress">Идёт анализ файла…</string>
+    <!-- Message showing count of events parsed -->
+    <string name="import_csv_parsing_count">Найдено событий: %01d</string>
+    <!-- Message showing while imported events saving to DB -->
+    <string name="import_saving_events_to_db">Сохранение событий в приложении…</string>
+    <!-- Message showing when import failed -->
+    <string name="import_failed">Произошла ошибка при импорте. Попробуйте снова.</string>
+    <!-- Message showing when import failed because wrong csv format -->
+    <string name="cant_parse_csv">Невозможно распознать файл для импорта. Выберите корректный файл.</string>
+    <!-- Message showing when getting error with saving events from import -->
+    <string name="error_saving_import_events">Ошибка при сохранении событий. Попробуйте выполнить импорт снова.</string>
+    <!-- Message showing after import events -->
+    <string name="import_completed">Импорт завершён!</string>
+    <!-- Title of choosing import file window -->
+    <string name="import_select_file">Выберите файл</string>
+    <!-- Message about no file manager -->
+    <string name="no_file_manager_message">Установите файловый менеджер</string>
+    <!-- Message about no contact manager -->
+    <string name="no_contact_app_message">Установите приложение Контакты</string>
+    <!-- Message about no events in contacts -->
+    <string name="no_contact_events_found_message">Не найдено событий в контактах</string>
+
+    <!-- Dialog message when user is leaving import -->
+    <string name="go_back_from_import_dialog_msg">Вы действительно хотите отменить импорт?</string>
+    <!-- Dialog button text for the option to cancel import -->
+    <string name="yes_cancel_import">Да, отменить импорт</string>
+    <!-- Dialog button text for the option to continue import -->
+    <string name="continue_import">Нет, продолжить импорт</string>
+
+    <!-- Settings -->
+
+    <!-- General management -->
+    <string name="general_management_title">Общие настройки</string>
+    <string name="app_language_title">Язык приложения</string>
+    <string name="app_theme_title">Тема приложения</string>
+    <string name="default_locale_title">По умолчанию</string>
+    <string name="light_app_theme_title">Светлая</string>
+    <string name="dark_app_theme_title">Тёмная</string>
+
+    <!-- Event list-->
+    <string name="event_list_title">Список событий</string>
+    <string name="date_format_title">Формат даты</string>
+    <string name="show_day_of_week_title">Отображать дни недели в списке событий</string>
+
+    <!-- Notifications -->
+    <string name="show_labels_title">Отображать теги</string>
+    <string name="appearance_title">Внешний вид приложения</string>
+    <string name="customize_appearance_button_text">Настроить внешний вид</string>
+    <string name="event_preview_title">Предпросмотр события</string>
+    <string name="event_preview_item_name">Название события</string>
+    <string name="event_preview_item_label_first">Семья</string>
+    <string name="event_preview_item_label_second">Работа</string>
+    <string name="notification_settings_title">Уведомления</string>
+    <string name="customize_notifications_button_text">Настроить уведомления</string>
+    <string name="notification_time_title">Время уведомления в день события</string>
+    <string name="notification_time_hint">Уведомление придёт в выбранном вами промежутке времени</string>
+    <string name="notification_permission_rationale">Приложению My Dates требуется разрешение на показ уведомлений. В следующем окне нажмите "Разрешить", если вы хотите получать уведомления о ваших событиях.</string>
+    <string name="notification_go_to_settings">Чтобы получать уведомления, нужно выдать разрешение на показ уведомлений. Если вы не получаете запроса на разрешение, то вы можете предоставить его в настройках приложения в разделе \"Разрешения\".</string>
+    <string name="app_settings_link_text">настройках приложения</string>
+    <string name="notifications_help_title">Устранение неполадок</string>
+    <string name="no_notifications_link">Если не приходят уведомления</string>
+    <string name="notification_filter_title">Отфильтровать уведомления</string>
+    <string name="settings_notification_filter_hint">Фильтрация уведомлений по типам событий и тегам</string>
+    <!-- Hint for notification filter close button [CHAR_LIMIT=20] -->
+    <string name="close_notification_filter_button_hint">Закрыть фильтр уведомлений</string>
+    <string name="notification_filter_description">Включение/выключение уведомлений для отдельных типов событий и тегов</string>
+    <string name="notification_filter_hint">Нажмите на тип события или тег, чтобы включить/выключить уведомления.</string>
+    <string name="notification_filter_save_button">Сохранить фильтр уведомлений</string>
+    <string name="notification_filter_on_hint">Уведомления включены для событий с этим тегом.</string>
+    <string name="notification_filter_off_hint">Уведомления отключены для событий с этим тегом. Однако уведомления будут отображаться, если у события также есть тег с включенными уведомлениями.</string>
+    <string name="notification_filter_forbidden_hint">Уведомления всегда отключены для событий с этим тегом, даже если у события также есть тег с включенными уведомлениями.</string>
+    <string name="notification_filter_help_hint">Статусы уведомлений</string>
+    <string name="notification_filter_warning">Вы отключили все уведомления. Если это произошло случайно - проверьте свой выбор ещё раз.</string>
+
+    <!-- Not receiving notifications -->
+    <string name="notification_troubleshoot_title">Отсутствие уведомлений</string>
+    <string name="no_notifications_header">Что делать, если не приходят уведомления:</string>
+    <string name="no_notifications_additional_info">Если вы не можете найти указанный в тексте пункт меню - попробуйте воспользоваться поиском по настройкам вашего устройства. Некоторые опции могут называться по-другому в зависимости от вашего устройства. Более подробную информацию для вашего устройства вы можете найти на сайте dontkillmyapp.com</string>
+    <string name="make_sure_notifications_turned_on">1. Убедитесь, что вы не отключили уведомления приложения.</string>
+    <string name="all_notifications_turned_on">Уведомления включены</string>
+    <string name="all_notifications_turned_off">Уведомления отключены</string>
+    <string name="event_notifications_turned_on">Категория ’’Уведомления о событиях’’ включена</string>
+    <string name="event_notifications_turned_off">Категория ’’Уведомления о событиях’’ отключена</string>
+    <string name="event_notifications_channel_not_found">Категория ’’Уведомления о событиях’’ не найдена</string>
+    <string name="event_reminders_turned_on">Категория ’’Напоминания о событиях’’ включена</string>
+    <string name="event_reminders_turned_off">Категория ’’Напоминания о событиях’’ отключена</string>
+    <string name="event_reminders_channel_not_found">Категория ’’Напоминания о событиях’’ не найдена</string>
+    <string name="create_notification_channels">Создать категории уведомлений</string>
+    <string name="turn_on_notifications">Включить уведомления можно в настройках приложения -> ’’Уведомления’’ -> Включить ’’Выводить уведомления’’ -> ’’Категории уведомлений’’ -> Включить ’’Уведомления о событиях’’ и ’’Напоминания о событиях’’.</string>
+    <string name="ignore_do_not_disturb">После этого зайдите в каждую категорию и включите настройку ’’Игнорировать режим Не беспокоить’’.</string>
+    <string name="turn_on_notifications_without_channels">Включить уведомления можно в настройках приложения -> ’’Уведомления’’ -> Включить ’’Выводить уведомления’’ (или ОТКЛЮЧИТЬ ’’Блокировать все’’).\nВключите ’’Игнорировать режим Не беспокоить’’ (’’Переопределить режим Не беспокоить’’).</string>
+    <string name="check_additional_notification_settings">Дополнительно вы можете проверить остальные настройки уведомлений.</string>
+    <string name="additional_notification_settings_link">настройки уведомлений</string>
+    <string name="grant_schedule_exact_alarm_permission">2. Убедитесь, что вы предоставили приложению My Dates разрешение на установку будильников.</string>
+    <string name="alarm_permission_granted">Разрешение на установку будильника предоставлено</string>
+    <string name="alarm_permission_not_granted">Разрешение на установку будильника не предоставлено</string>
+    <string name="alarm_settings_link_text">Будильники и напоминания</string>
+    <string name="alarm_settings_not_found">Настройки будильника не найдены. Возможно, ваше устройство не поддерживает эту функцию.</string>
+    <string name="open_alarm_settings">Чтобы предоставить разрешение, откройте настройки ’’Будильники и напоминания’’, найдите в списке ’’My Dates’’ и включите переключатель.</string>
+    <string name="open_alarm_settings_in_app_info">Вы можете разрешить установку будильников в настройках приложения -> Будильники и напоминания -> Включите ’’Разрешить установку будильников и напоминаний’’.</string>
+    <string name="deactivate_app_pausing">3. Отключите приостановку приложения.</string>
+    <string name="turn_off_app_pausing">ОТКЛЮЧИТЕ пункт ’’Приостановить работу в неактивный период’’ (’’Удалять разрешения, если не используется’’) в настройках приложения.</string>
+    <string name="add_to_never_sleeping_apps_title">4. Добавьте My Dates в список ’’Неспящие приложения’’.</string>
+    <string name="add_to_never_sleeping_apps_description">Если на вашем устройстве есть функция ’’Ограничения в фоновом режиме’’, то добавьте My Dates в список ’’Неспящие приложения’’.</string>
+    <string name="add_to_never_sleeping_apps_warning">Если вы добавили My Dates в этот список, попробуйте пропустить следующий шаг (номер 5). На некоторых устройствах эти действия являются взаимоисключающими.</string>
+    <string name="app_in_background_without_restrictions">5. Разрешите приложению использовать батарею в фоновом режиме без ограничений.</string>
+    <string name="battery_optimization_turned_on">Оптимизация расхода батареи включена</string>
+    <string name="battery_optimization_turned_off">Оптимизация расхода батареи отключена</string>
+    <string name="turn_off_battery_optimization">Отключить оптимизацию можно в настройках оптимизации расхода батареи -> Выберите в фильтре ’’Все приложения’’ -> Найдите в списке приложение My Dates -> ОТКЛЮЧИТЕ оптимизацию (экономию заряда) для My Dates.</string>
+    <string name="open_app_battery_settings">настройках оптимизации расхода батареи</string>
+    <string name="ignore_background_data_restrictions">Или в настройках приложения выберите ’’Батарея’’ (’’Расход заряда батареи для приложений’’) -> Выберите ’’Без ограничений’’.</string>
+    <string name="deactivate_battery_saver">6. Отключите режим энергосбережения и адаптивное энергопотребление.</string>
+    <string name="power_save_turned_on">Режим энергосбережения включён</string>
+    <string name="power_save_turned_off">Режим энергосбережения отключён</string>
+    <string name="adaptive_battery_cant_determine">Невозможно определить, включён ли режим адаптивного энергопотребления</string>
+    <string name="turn_off_battery_saver">Чтобы отключить этот режим откройте Режим энергосбережения. ОТКЛЮЧИТЕ ’’Режим энергосбережения’’ и ’’Адаптивное энергопотребление’’ (’’Адаптивный режим аккумулятора’’). В некоторых случаях ’’Адаптивное энергопотребление’’ может находиться в разделе ’’Другие настройки аккумулятора’’.</string>
+    <string name="open_battery_saver">Режим энергосбережения</string>
+    <string name="find_battery_saver">Вы можете найти Режим энергосбережения в настройках вашего устройства -> ’’Батарея’’ (’’Управление энергопотреблением’’ или ’’Обслуживание устройства’’ -> ’’Батарея’’) -> ’’Режим энергосбережения’’.</string>
+    <string name="device_settings_link">настройках вашего устройства</string>
+    <string name="reboot_phone">7. Перезапустите устройство.</string>
+    <string name="reboot_description">Попробуйте перезагрузить ваше устройство. Часто это простое и быстрое решение многих проблем.</string>
+    <string name="no_notifications_support">Если проблема не решилась, вы можете связаться с нами.</string>
+    <string name="contact_support">Написать в поддержку</string>
+    <string name="setting_not_found">Эта настройка не найдена. Попробуйте найти её в настройках вашего устройства.</string>
+
+    <!-- Reminders -->
+    <string name="reminders_title">Дополнительные уведомления</string>
+    <string name="reminders_time_title">Время отображения дополнительных уведомлений</string>
+    <string name="set_reminder_time_as_on_the_day_title">Такое же как у уведомления в день события</string>
+    <string name="choose_when_to_show_notifications_title">Выберите, когда показывать уведомления о событиях:</string>
+    <string name="on_the_day_switch_text">в день события</string>
+    <!-- String for additional notification switches -->
+    <string name="one_day_before_switch_text">за 1 день</string>
+    <string name="two_days_before_switch_text">за 2 дня</string>
+    <string name="three_days_before_switch_text">за 3 дня</string>
+    <string name="four_days_before_switch_text">за 4 дня</string>
+    <string name="five_days_before_switch_text">за 5 дней</string>
+    <string name="one_week_before_switch_text">за 1 неделю</string>
+    <string name="two_weeks_before_switch_text">за 2 недели</string>
+    <string name="one_month_before_switch_text">за месяц</string>
+
+    <string name="test_notification_title">Отправить тестовое уведомление</string>
+    <string name="compact_age_title">Компактное отображение возраста</string>
+    <string name="show_event_image_title">Отображать изображение события</string>
+
+    <!-- Zodiac signs -->
+    <string name="zodiac_sign">Знак зодиака</string>
+    <string name="zodiac_aries">Овен</string>
+    <string name="zodiac_taurus">Телец</string>
+    <string name="zodiac_gemini">Близнецы</string>
+    <string name="zodiac_cancer">Рак</string>
+    <string name="zodiac_leo">Лев</string>
+    <string name="zodiac_virgo">Дева</string>
+    <string name="zodiac_libra">Весы</string>
+    <string name="zodiac_scorpio">Скорпион</string>
+    <string name="zodiac_sagittarius">Стрелец</string>
+    <string name="zodiac_capricorn">Козерог</string>
+    <string name="zodiac_aquarius">Водолей</string>
+    <string name="zodiac_pisces">Рыбы</string>
+
+    <!-- Menu About -->
+    <string name="about_us_button_text">О нас</string>
+    <string name="privacy_policy_button_text">Политика конфиденциальности</string>
+    <string name="attributions_button_text">Сторонние библиотеки</string>
+    <string name="apps_by_mi3van_title">Приложения от Mi3van</string>
+    <string name="my_precious_button_text">My Precious - Домашний инвентарь</string>
+    <string name="author_title">Автор:</string>
+
+    <!-- Third party libraries -->
+    <string name="third_party_libraries_hint">Библиотеки, используемые в проекте My Dates:</string>
+    <string name="android_crop_description">Библиотека, используемая для обрезки изображения.</string>
+    <string name="apache_common_lang_3_description">Полнофункциональный пакет служебных классов, направленный на расширение функциональности Java API.</string>
+    <string name="gson_description">Библиотека, используемая для преобразования объектов Java в их представление JSON и обратно.</string>
+    <string name="joda_time_description">Библиотека представляет собой качественную замену классов даты и времени Java.</string>
+    <string name="material_components_description">Библиотека, используемая для реализации спецификации Material Design.</string>
+    <string name="open_csv_description">Библиотека для чтения и записи CSV на Java.</string>
+    <string name="pikolo_description">Библиотека, используемая для выбора цвета.</string>
+    <string name="power_menu_description">Библиотека, используемая для выпадающего меню.</string>
+
+    <string name="choose_email_client">Выберите почтовый клиент</string>
+    <string name="email_client_not_found">Почтовый клиент не найден</string>
+
+    <!-- Purchase page -->
+    <string name="support_the_author_message">My Dates — это независимое бесплатное приложение, созданное с энтузиазмом. Мы вложили в проект душу и будем очень признательны, если вы поможете нам продолжать работу!</string>
+    <string name="donation_collected_message">Собрано $%1$d из $%2$d за %3$s</string>
+    <string name="donation_ways_title">Разовые пожертвования:</string>
+    <string name="copy_address_hint">Нажмите, чтобы скопировать адрес</string>
+    <string name="address_copied_hint">Адрес скопирован в буфер обмена</string>
+    <string name="subscriptions_title">Подписки:</string>
+    <string name="monthly_subscription_button_title_pattern">Ежемесячная подписка: %1$s</string>
+    <string name="annual_subscription_button_title_pattern">Годовая подписка: %1$s</string>
+    <string name="subscription_can_be_canceled_pattern">Может быть отменена в любое время в %1$s</string>
+    <string name="restore_purchase_button_hint">Восстановить покупку</string>
+    <string name="manage_subscriptions_button_hint">Управление подписками</string>
+    <string name="no_connection_title">Здесь ничего нет… Вероятно, нет подключения к интернету. Подключитесь к стабильному соединению и попробуйте еще раз.</string>
+    <string name="try_to_connect_button_hint">Попробовать подключиться</string>
+    <string name="premium_is_active_title">Активно</string>
+    <string name="premium_is_active_subtitle">Большое спасибо!</string>
+    <string name="features_done_title">Что сделано:</string>
+    <string name="tags_feature_title">Теги</string>
+    <string name="tags_feature_description">События можно обозначать тегами. Можно выбрать любой цвет тега и иконку из списка.</string>
+    <string name="bulk_tagging_feature_title">Массовое присвоение тега событиям</string>
+    <string name="bulk_tagging_feature_description">Назначайте выбранный тег сразу нескольким событиям. Эта функция находится в меню в разделе \"Теги\".</string>
+    <string name="filtering_notifications_feature_title">Фильтрация уведомлений</string>
+    <string name="filtering_notifications_feature_description">Выбирайте, о каких типах событий и тегах вы хотите получать уведомления, а о каких - нет. Эта функция находится в меню в настройках уведомлений.</string>
+    <string name="features_planned_title">Запланировано:</string>
+    <string name="widget_feature_title">Виджет</string>
+    <string name="quick_entry_feature_title">Быстрый ввод событий</string>
+    <string name="color_themes_feature_title">Цветовые темы</string>
+</resources>
