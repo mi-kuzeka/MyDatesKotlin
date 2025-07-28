@@ -25,7 +25,7 @@ import com.kuzepa.mydates.ui.activities.home.HomeUiState
 import com.kuzepa.mydates.ui.activities.home.HomeViewModel
 
 @Composable
-internal fun HomeScreen(
+fun HomeScreen(
     onNavigateToEventEditor: (Int) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {

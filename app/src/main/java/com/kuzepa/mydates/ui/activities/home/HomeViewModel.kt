@@ -7,6 +7,7 @@ import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventDate
 import com.kuzepa.mydates.domain.model.EventType
 import com.kuzepa.mydates.domain.model.NotificationFilterState
+import com.kuzepa.mydates.domain.model.SortOption
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,7 +37,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = HomeUiState.Loading
             try {
-                eventRepository.getEventsByMonth(currentPage + 1)
+                eventRepository.getEventsByMonth(currentPage + 1, SortOption.BY_DATE_DESC)
                     .catch { e ->
                         _uiState.value = HomeUiState.Error
                         Log.e("MainViewModel", "Error loading events", e)
@@ -62,12 +63,13 @@ class HomeViewModel @Inject constructor(
         )
         val testEvent = Event(
             name = "Test",
-            eventDate = EventDate(1, 1, 2001),
-            eventType = testEventType,
+            date = EventDate(1, 1, 2001),
+            type = testEventType,
             notes = "",
-            notificationDate = 101
+            notificationDateCode = 101
         )
         viewModelScope.launch(Dispatchers.IO) {
+            // TODO Move to use case
             eventTypeRepository.addEventType(testEventType)
             eventRepository.addEvent(testEvent)
         }

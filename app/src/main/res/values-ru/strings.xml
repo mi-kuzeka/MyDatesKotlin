@@ -161,25 +161,9 @@
     <string name="select_labels_title">Выберите теги</string>
 
     <!-- Date format items for settings -->
-    <string name="date_format_ddmmyyyy">дд.мм.гггг</string>
-    <string name="date_format_mmddyyyy">мм.дд.гггг</string>
-    <string name="date_format_ddmm">дд.мм</string>
-    <string name="date_format_mmdd">мм.дд</string>
-
-    <!-- Mask for date, example date: 04.29.1990 -->
-    <string name="full_date_mask">##.##.####</string>
-    <!-- Mask for date without year, example date: 04.29 -->
-    <string name="date_mask_without_year">##.##</string>
-
-    <!-- Mask for date, example date: 04.29.1990 -->
-    <string name="full_date_mask_hint_month_first">ммддгггг</string>
-    <!-- Mask for date without year, example date: 04.29 -->
-    <string name="date_mask_hint_month_first_without_year">ммдд</string>
-
-    <!-- Mask for date, example date: 29.04.1990 -->
-    <string name="full_date_mask_hint_day_first">ддммгггг</string>
-    <!-- Mask for date without year, example date: 29.04 -->
-    <string name="date_mask_hint_day_first_without_year">ддмм</string>
+    <string name="date_format_month_display">мм</string>
+    <string name="date_format_day_display">дд</string>
+    <string name="date_format_year_display">гггг</string>
 
     <!-- Pattern for age label, example: turns [CHAR_LIMIT=20] -->
     <string name="event_age_label">будет</string>

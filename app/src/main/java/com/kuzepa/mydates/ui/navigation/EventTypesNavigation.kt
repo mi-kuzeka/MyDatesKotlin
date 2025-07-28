@@ -11,28 +11,19 @@ import kotlinx.serialization.Serializable
 internal object EventTypes : NavRoute()
 
 fun NavGraphBuilder.eventTypesDestination(
-    onNavigateToEventTypeEditor: (id: String) -> Unit
+    onNavigateToEventTypeEditor: (id: String?) -> Unit
 ) {
     composable<EventTypes> {
 //        EventTypesScreen(onNavigateToEventTypeEditor = onNavigateToEventTypeEditor)
     }
 }
 
-fun NavController.navigateToEventTypeEditor(id: String) {
+fun NavController.navigateToEventTypeEditor(id: String?) {
     navigate(route = EventTypeEditor(id = id))
 }
 
 @Serializable
-internal object EventTypeCreator : NavRoute()
-
-fun NavGraphBuilder.eventTypeCreatorDestination() {
-    dialog<EventTypeCreator> {
-//                EventTypeCreatorScreen()
-    }
-}
-
-@Serializable
-internal data class EventTypeEditor(val id: String) : NavRoute()
+internal data class EventTypeEditor(val id: String?) : NavRoute()
 
 fun NavGraphBuilder.eventTypeEditorDestination() {
     dialog<EventTypeEditor> { backStackEntry ->

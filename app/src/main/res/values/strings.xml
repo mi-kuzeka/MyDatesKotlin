@@ -184,7 +184,7 @@
     <string name="adding_label_to_events_confirmation">The tag \"%1$s\" will be added to the selected events. Save changes?</string>
     <!-- Confirmation dialog title when save changes button pressed -->
     <string name="go_back_without_saving_confirmation">Are you sure you want to go back without saving changes?</string>
-     Confirmation go back button hint
+    Confirmation go back button hint
     <string name="confirmation_go_back_button_hint">Yes, go back</string>
     <!-- Message for user about saving data into data base -->
     <string name="saving_to_db_message">Saving to database in progress. Please do not close the application.</string>
@@ -200,50 +200,10 @@
 
     <!-- DATE FORMAT -->
 
-    <!-- Date format items for settings -->
-    <string name="date_format_ddmmyyyy">dd/mm/yyyy</string>
-    <string name="date_format_mmddyyyy">mm/dd/yyyy</string>
-    <string name="date_format_ddmm">dd/mm</string>
-    <string name="date_format_mmdd">mm/dd</string>
-
-    <!-- Mask for date, example date: 04.29.1990 -->
-    <string name="full_date_mask">##/##/####</string>
-    <!-- Mask for date without year, example date: 04.29 -->
-    <string name="date_mask_without_year">##/##</string>
-
-    <!-- Mask for date, example date: 04.29.1990 -->
-    <string name="full_date_mask_hint_month_first">mmddyyyy</string>
-    <!-- Mask for date without year, example date: 04.29 -->
-    <string name="date_mask_hint_month_first_without_year">mmdd</string>
-
-    <!-- Mask for date, example date: 29.04.1990 -->
-    <string name="full_date_mask_hint_day_first">ddmmyyyy</string>
-    <!-- Mask for date without year, example date: 29.04 -->
-    <string name="date_mask_hint_day_first_without_year">ddmm</string>
-
-    <!-- Date format, example date: 04.29.1990 -->
-    <string name="full_date_format_month_first" translatable="false">MMddyyyy</string>
-    <!-- Date format without year, example date: 04.29 -->
-    <string name="date_format_month_first_without_year" translatable="false">MMdd</string>
-
-    <!-- Date format, example date: 29.04.1990 -->
-    <string name="full_date_format_day_first" translatable="false">ddMMyyyy</string>
-    <!-- Date format without year, example date: 29.04 -->
-    <string name="date_format_day_first_without_year" translatable="false">ddMM</string>
-
-    <!-- Date format, example date: Apr. 29, 1990 -->
-    <string name="full_date_format_view_mode_month_first" translatable="false">MMM d, yyyy</string>
-    <!-- Date format without year, example date: Apr. 29 -->
-    <string name="date_format_without_year_view_mode_month_first" translatable="false">MMM d</string>
-    <!-- Date format without year, example date: April 29 -->
-    <string name="date_format_without_year_reminder_month_first" translatable="false">MMMM d</string>
-
-    <!-- Date format, example date: 29 Apr. 1990 -->
-    <string name="full_date_format_view_mode_day_first" translatable="false">d MMM yyyy</string>
-    <!-- Date format without year, example date: 29 Apr. -->
-    <string name="date_format_without_year_view_mode_day_first" translatable="false">d MMM</string>
-    <!-- Date format without year, example date: 29 April -->
-    <string name="date_format_without_year_reminder_day_first" translatable="false">d MMMM</string>
+    <!-- Date format items for showing in settings -->
+    <string name="date_format_month_display">mm</string>
+    <string name="date_format_day_display">dd</string>
+    <string name="date_format_year_display">yyyy</string>
 
     <!-- Pattern for age label, example: turns [CHAR_LIMIT=20] -->
     <string name="event_age_label">turns</string>
@@ -455,8 +415,6 @@
     <string name="export_completed_pattern">Export completed!\nCount of exported events: %01d.\nFile saved in downloads with name \"%2$s\".</string>
     <!-- Message showing after export events -->
     <string name="export_completed">Export completed! File saved in downloads.</string>
-    <!-- Timestamp date format, example date: 2023-05-19_11-03-45 -->
-    <string name="timestamp_date_format" translatable="false">_yyyyMMdd_HHmmssS</string>
     <!-- Export file name -->
     <string name="export_file_name">MyDates_Export</string>
     <!-- Open download folder -->

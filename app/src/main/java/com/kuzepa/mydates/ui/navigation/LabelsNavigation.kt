@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
 internal object Labels : NavRoute()
 
 fun NavGraphBuilder.labelsDestination(
-    onNavigateToLabelEditor: (id: String) -> Unit,
+    onNavigateToLabelEditor: (id: String?) -> Unit,
     onNavigateToBulkLabelAssignment: (id: String) -> Unit,
 ) {
     composable<Labels> {
@@ -22,7 +22,7 @@ fun NavGraphBuilder.labelsDestination(
     }
 }
 
-fun NavController.navigateToLabelEditor(id: String) {
+fun NavController.navigateToLabelEditor(id: String?) {
     navigate(route = LabelEditor(id = id))
 }
 
@@ -31,16 +31,7 @@ fun NavController.navigateToBulkLabelAssignment(id: String) {
 }
 
 @Serializable
-internal object LabelCreator : NavRoute()
-
-fun NavGraphBuilder.labelCreatorDestination() {
-    dialog<LabelCreator> {
-//                LabelCreatorScreen()
-    }
-}
-
-@Serializable
-internal data class LabelEditor(val id: String) : NavRoute()
+internal data class LabelEditor(val id: String?) : NavRoute()
 
 fun NavGraphBuilder.labelEditorDestination() {
     dialog<LabelEditor> { backStackEntry ->

@@ -2,10 +2,11 @@ package com.kuzepa.mydates.di
 
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventType
-import com.kuzepa.mydates.domain.repository.EventRepository
+import com.kuzepa.mydates.domain.model.SortOption
 import com.kuzepa.mydates.domain.repository.DbEventRepository
 import com.kuzepa.mydates.domain.repository.DbEventTypeRepository
 import com.kuzepa.mydates.domain.repository.DbLabelRepository
+import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import com.kuzepa.mydates.domain.repository.LabelRepository
 import dagger.Binds
@@ -43,11 +44,18 @@ class FakeEventRepository @Inject constructor() : EventRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllEvents(): Flow<List<Event>> {
+    override fun getAllEvents(sortOption: SortOption): Flow<List<Event>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getEventsByMonth(month: Int): Flow<List<Event>> {
+    override fun getEventsByMonth(
+        month: Int,
+        sortOption: SortOption
+    ): Flow<List<Event>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getEventById(id: Int): Event? {
         TODO("Not yet implemented")
     }
 }
@@ -57,6 +65,9 @@ class FakeEventTypeRepository @Inject constructor() : EventTypeRepository {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getDefaultEventType(): EventType? {
+        TODO("Not yet implemented")
+    }
 }
 
 class FakeLabelRepository @Inject constructor() : LabelRepository {

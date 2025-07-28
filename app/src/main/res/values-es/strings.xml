@@ -161,25 +161,9 @@
     <string name="select_labels_title">Seleccionar etiquetas</string>
 
     <!-- Date format items for settings -->
-    <string name="date_format_ddmmyyyy">dd/mm/yyyy</string>
-    <string name="date_format_mmddyyyy">mm/dd/yyyy</string>
-    <string name="date_format_ddmm">dd/mm</string>
-    <string name="date_format_mmdd">mm/dd</string>
-
-    <!-- Mask for date, example date: 04/29/1990 -->
-    <string name="full_date_mask">##/##/####</string>
-    <!-- Mask for date without year, example date: 04/29 -->
-    <string name="date_mask_without_year">##/##</string>
-
-    <!-- Mask for date, example date: 04/29/1990 -->
-    <string name="full_date_mask_hint_month_first">mmddyyyy</string>
-    <!-- Mask for date without year, example date: 04/29 -->
-    <string name="date_mask_hint_month_first_without_year">mmdd</string>
-
-    <!-- Mask for date, example date: 29/04/1990 -->
-    <string name="full_date_mask_hint_day_first">ddmmyyyy</string>
-    <!-- Mask for date without year, example date: 29/04 -->
-    <string name="date_mask_hint_day_first_without_year">ddmm</string>
+    <string name="date_format_month_display">mm</string>
+    <string name="date_format_day_display">dd</string>
+    <string name="date_format_year_display">yyyy</string>
 
     <!-- Pattern for age label, example: turns [CHAR_LIMIT=20] -->
     <string name="event_age_label">cumple</string>

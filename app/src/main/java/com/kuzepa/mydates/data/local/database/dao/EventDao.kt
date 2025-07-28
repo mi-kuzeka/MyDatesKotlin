@@ -12,13 +12,49 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface EventDao {
     @Insert(onConflict = REPLACE)
-    fun addEvent(event: EventEntity)
+    suspend fun addEvent(event: EventEntity)
+
+    @Transaction
+    @Query("SELECT * FROM events where id=:id;")
+    suspend fun getEventById(id: Int): EventWithTypeAndLabels?
 
     @Transaction
     @Query("SELECT * FROM events;")
     fun getAllEvents(): Flow<List<EventWithTypeAndLabels>>
 
     @Transaction
+    @Query("SELECT * FROM events ORDER BY name ASC;")
+    fun getAllEventsSortByNameAsc(): Flow<List<EventWithTypeAndLabels>>
+
+    @Transaction
+    @Query("SELECT * FROM events ORDER BY name DESC;")
+    fun getAllEventsSortByNameDesc(): Flow<List<EventWithTypeAndLabels>>
+
+    @Transaction
+    @Query("SELECT * FROM events ORDER BY notification_date ASC;")
+    fun getAllEventsSortByDateAsc(): Flow<List<EventWithTypeAndLabels>>
+
+    @Transaction
+    @Query("SELECT * FROM events ORDER BY notification_date DESC;")
+    fun getAllEventsSortByDateDesc(): Flow<List<EventWithTypeAndLabels>>
+
+    @Transaction
     @Query("SELECT * FROM events WHERE month = :month;")
     fun getEventsByMonth(month: Int): Flow<List<EventWithTypeAndLabels>>
+
+    @Transaction
+    @Query("SELECT * FROM events WHERE month = :month ORDER BY name ASC;")
+    fun getEventsByMonthSortByNameAsc(month: Int): Flow<List<EventWithTypeAndLabels>>
+
+    @Transaction
+    @Query("SELECT * FROM events WHERE month = :month ORDER BY name DESC;")
+    fun getEventsByMonthSortByNameDesc(month: Int): Flow<List<EventWithTypeAndLabels>>
+
+    @Transaction
+    @Query("SELECT * FROM events WHERE month = :month ORDER BY day ASC;")
+    fun getEventsByMonthSortByDateAsc(month: Int): Flow<List<EventWithTypeAndLabels>>
+
+    @Transaction
+    @Query("SELECT * FROM events WHERE month = :month ORDER BY day DESC;")
+    fun getEventsByMonthSortByDateDesc(month: Int): Flow<List<EventWithTypeAndLabels>>
 }

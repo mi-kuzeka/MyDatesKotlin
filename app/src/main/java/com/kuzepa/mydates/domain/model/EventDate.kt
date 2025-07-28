@@ -5,3 +5,5 @@ data class EventDate(
     val day: Int,
     val year: Int = -1
 )
+
+fun EventDate.hasYear() = year > -1
