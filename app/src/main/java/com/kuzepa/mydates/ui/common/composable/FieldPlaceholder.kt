@@ -7,18 +7,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
-fun FieldLabel(
-    label: String) {
+fun FieldPlaceholder(
+    placeholder: String
+) {
     Text(
-        text = label,
-        style = MaterialTheme.typography.bodySmall,
+        text = placeholder,
+        color = MaterialTheme.colorScheme.secondary,
+        style = MaterialTheme.typography.bodyMedium,
     )
 }
 
 @Preview
 @Composable
-fun FieldLabelPreview() {
+fun FieldPlaceholderPreview() {
     MyDatesTheme {
-        FieldLabel("Sample")
+        FieldPlaceholder("Sample")
     }
 }

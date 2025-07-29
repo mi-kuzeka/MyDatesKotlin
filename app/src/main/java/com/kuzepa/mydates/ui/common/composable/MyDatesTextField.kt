@@ -5,6 +5,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,26 +18,35 @@ import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
 fun MyDatesTextField(
-    label: String,
     value: String,
     onValueChange: (String) -> Unit,
+    label: String,
     showIconClear: Boolean,
     modifier: Modifier = Modifier,
+    placeholder: String? = null,
     maxLength: Int? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions()
 ) {
     TextField(
         value = value,
         onValueChange = {
-            if (maxLength == null || it.length <= maxLength) {
-                onValueChange(it)
-            }
+            val newValue = if (maxLength == null) it else it.take(maxLength)
+            onValueChange(newValue)
         },
-        label = { FieldLabel(label) },
+        colors = TextFieldDefaults.colors(
+            focusedLabelColor = MaterialTheme.colorScheme.primary,
+            unfocusedLabelColor = MaterialTheme.colorScheme.secondary
+        ),
+        label = {
+            FieldLabel(label)
+        },
+        placeholder = {
+            if (placeholder !== null) FieldPlaceholder(placeholder)
+        },
         trailingIcon = { if (showIconClear) IconClear(onValueChange) },
         textStyle = MaterialTheme.typography.bodyMedium,
         keyboardOptions = keyboardOptions,
-        maxLines = 1,
+        singleLine = true,
         supportingText = {
             if (maxLength != null) {
                 Text(
@@ -56,13 +66,13 @@ fun MyDatesTextField(
 @Composable
 fun MyDatesTextFieldPreview() {
     MyDatesTheme {
-        var text by remember { mutableStateOf("Name") }
+        var text by remember { mutableStateOf("") }
         MyDatesTextField(
-            label = "Label",
+            label = "Name",
             value = text,
             onValueChange = { text = it },
             showIconClear = true,
-            maxLength = 40
+            maxLength = 10
         )
     }
 }
