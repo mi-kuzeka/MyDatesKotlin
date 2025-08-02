@@ -10,13 +10,13 @@ class DateFormatRule @Inject constructor(
     private val validationMessageProvider: ValidationMessageProvider,
     private val dateFormatProvider: DateFormatProvider
 ) {
-    fun validate(input: String, showYear: Boolean): ValidationResult {
+    fun validate(input: String, hideYear: Boolean): ValidationResult {
         if (input.isBlank()) {
             return ValidationResult.Invalid(
                 validationMessageProvider.getEmptyFieldError()
             )
         }
-        val eventDate = dateFormatProvider.getEditedEventDate(input, showYear)
+        val eventDate = dateFormatProvider.getEditedEventDate(input, hideYear)
         return if (isDateValid(eventDate)) {
             ValidationResult.Valid
         } else {

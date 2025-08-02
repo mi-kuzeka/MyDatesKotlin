@@ -18,7 +18,7 @@ fun MyDatesNavHost(
         eventsDestination(onNavigateToEventEditor = { eventId ->
             navController.navigateToEventEditor(id = eventId)
         })
-        eventEditorDestination()
+        eventEditorDestination(onNavigateBack = { navController.popBackStack() })
 
         appearanceDestination()
 
@@ -33,10 +33,13 @@ fun MyDatesNavHost(
             onNavigateToHelp = { navController.navigateToHelp() },
             onNavigateToAbout = { navController.navigateToAbout() },
         )
-        eventTypesDestination(onNavigateToEventTypeEditor = { eventTypeId ->
-            navController.navigateToEventTypeEditor(eventTypeId)
-        })
-        eventTypeEditorDestination()
+        eventTypesDestination(
+            onNavigateToEventTypeEditor = { eventTypeId ->
+                navController.navigateToEventTypeEditor(eventTypeId)
+            },
+            onNavigateBack = { navController.popBackStack() }
+        )
+        eventTypeEditorDestination(onNavigateBack = { navController.popBackStack() })
 
         labelsDestination(
             onNavigateToLabelEditor = { labelId ->
@@ -44,35 +47,42 @@ fun MyDatesNavHost(
             },
             onNavigateToBulkLabelAssignment = { labelId ->
                 navController.navigateToBulkLabelAssignment(labelId)
-            })
-        labelEditorDestination()
-        bulkLabelAssignmentDestination()
+            },
+            onNavigateBack = { navController.popBackStack() }
+        )
+        labelEditorDestination(onNavigateBack = { navController.popBackStack() })
+        bulkLabelAssignmentDestination(onNavigateBack = { navController.popBackStack() })
 
         dataTransferDestination(
             onNavigateToContactsImport = { navController.navigateToContactsImport() },
             onNavigateToCsvImport = { navController.navigateToCsvImport() },
-            onNavigateToCsvExport = { navController.navigateToCsvExport() }
+            onNavigateToCsvExport = { navController.navigateToCsvExport() },
+            onNavigateBack = { navController.popBackStack() }
         )
-        contactsImportDestination()
-        csvImportDestination()
-        csvExportDestination()
+        contactsImportDestination(onNavigateBack = { navController.popBackStack() })
+        csvImportDestination(onNavigateBack = { navController.popBackStack() })
+        csvExportDestination(onNavigateBack = { navController.popBackStack() })
 
         settingsDestination(
             onNavigateToNotificationSettings = { navController.navigateToNotificationSettings() },
-            onNavigateToNotificationFilter = { navController.navigateToNotificationFilter() }
+            onNavigateToNotificationFilter = { navController.navigateToNotificationFilter() },
+            onNavigateBack = { navController.popBackStack() }
         )
-        notificationSettingsDestination()
-        notificationFilterDestination()
+        notificationSettingsDestination(onNavigateBack = { navController.popBackStack() })
+        notificationFilterDestination(onNavigateBack = { navController.popBackStack() })
 
-        donationDestination()
+        donationDestination(onNavigateBack = { navController.popBackStack() })
 
         helpDestination(
             onNavigateToNotificationTroubleshoot =
-                { navController.navigateToNotificationTroubleshoot() })
-        notificationTroubleshootDestination()
+                { navController.navigateToNotificationTroubleshoot() },
+            onNavigateBack = { navController.popBackStack() }
+        )
+        notificationTroubleshootDestination(onNavigateBack = { navController.popBackStack() })
 
         aboutDestination(
-            onNavigateToThirdPartyLibraries = { navController.navigateToThirdPartyLibraries() }
+            onNavigateToThirdPartyLibraries = { navController.navigateToThirdPartyLibraries() },
+            onNavigateBack = { navController.popBackStack() }
         )
     }
 }

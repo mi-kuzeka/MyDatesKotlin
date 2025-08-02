@@ -25,8 +25,8 @@ class ResourceDateFormatProvider(
         //TODO get from datastore
     }
 
-    override fun getFormattingPattern(showYear: Boolean): String {
-        return "MMddyyyy"
+    override fun getFormattingPattern(hideYear: Boolean): String {
+        return if (hideYear) "MMdd" else "MMddyyyy"
         //TODO get from datastore
     }
 
@@ -56,16 +56,19 @@ class ResourceDateFormatProvider(
 
     override fun getEditedEventDate(
         formattedDate: String,
-        showYear: Boolean
+        hideYear: Boolean
     ): EventDate? {
         //TODO get from datastore
         val dateFieldOrder: Array<DateField> =
             arrayOf(DateField.MONTH, DateField.DAY, DateField.YEAR)
-        val delimiter = getDelimiter()
         return getEventDateFromFormattedDateWithoutDelimiter(
             dateFieldOrder = dateFieldOrder,
-            showYear = showYear,
+            hideYear = hideYear,
             formattedDate = formattedDate
         )
+    }
+
+    override fun dateIsFilled(inputDate: String, hideYear: Boolean): Boolean {
+        return getFormattingPattern(hideYear).length == inputDate.length
     }
 }

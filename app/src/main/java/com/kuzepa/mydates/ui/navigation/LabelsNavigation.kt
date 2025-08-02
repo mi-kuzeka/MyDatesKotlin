@@ -13,6 +13,7 @@ internal object Labels : NavRoute()
 fun NavGraphBuilder.labelsDestination(
     onNavigateToLabelEditor: (id: String?) -> Unit,
     onNavigateToBulkLabelAssignment: (id: String) -> Unit,
+    onNavigateBack: () -> Unit
 ) {
     composable<Labels> {
 //                LabelsScreen(
@@ -33,7 +34,7 @@ fun NavController.navigateToBulkLabelAssignment(id: String) {
 @Serializable
 internal data class LabelEditor(val id: String?) : NavRoute()
 
-fun NavGraphBuilder.labelEditorDestination() {
+fun NavGraphBuilder.labelEditorDestination(onNavigateBack: () -> Unit) {
     dialog<LabelEditor> { backStackEntry ->
         val labelEditor: LabelEditor = backStackEntry.toRoute()
 //                LabelEditorScreen(id = labelEditor.id)
@@ -43,7 +44,7 @@ fun NavGraphBuilder.labelEditorDestination() {
 @Serializable
 internal data class BulkLabelAssignment(val id: String) : NavRoute()
 
-fun NavGraphBuilder.bulkLabelAssignmentDestination() {
+fun NavGraphBuilder.bulkLabelAssignmentDestination(onNavigateBack: () -> Unit) {
     composable<BulkLabelAssignment> { backStackEntry ->
         val bulkLabelAssignment: BulkLabelAssignment = backStackEntry.toRoute()
 //        BulkLabelAssignmentScreen(currentLabelId = bulkLabelAssignment.id)

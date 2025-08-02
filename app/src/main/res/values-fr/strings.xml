@@ -46,11 +46,11 @@
     <!-- Title for the screen to edit an existing event [CHAR LIMIT=20] -->
     <string name="event_editor_title">Modifier l\'événement</string>
     <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="event_save_button_hint">Enregistrer l\'événement</string>
+    <string name="save_event_button_hint">Enregistrer l\'événement</string>
     <!-- Hint for delete button [CHAR_LIMIT=20] -->
-    <string name="event_delete_button_hint">Supprimer l\'événement</string>
+    <string name="delete_event_button_hint">Supprimer l\'événement</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
-    <string name="choose_image_description">Choisir une image</string>
+    <string name="choose_image">Choisir une image</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
     <string name="event_image_description">Image de l\'événement</string>
     <!-- Hint to rotate image left [CHAR_LIMIT=20] -->
@@ -241,11 +241,11 @@
     <string name="support_project_title">Soutenir le projet</string>
 
     <!-- Import csv fragment title - Event import -->
-    <string name="import_fragment_title">Importation d\'événements depuis CSV</string>
+    <string name="import_title">Importation d\'événements depuis CSV</string>
     <!-- Import contacts fragment title - Event import from contacts -->
-    <string name="import_contacts_fragment_title">Importation d\'événements à partir de contacts</string>
+    <string name="import_contacts_title">Importation d\'événements à partir de contacts</string>
     <!-- Export fragment title - Event export -->
-    <string name="export_fragment_title">Exportation d\'événements</string>
+    <string name="export_title">Exportation d\'événements</string>
 
     <!-- Title of empty list about no event types in the list -->
     <string name="no_event_types_title">Aucun type d\'événement ici pour l\'instant</string>

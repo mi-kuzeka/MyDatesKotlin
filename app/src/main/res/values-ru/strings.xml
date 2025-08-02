@@ -46,11 +46,11 @@
     <!-- Title for the screen to edit an existing event [CHAR LIMIT=20] -->
     <string name="event_editor_title">Редактирование события</string>
     <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="event_save_button_hint">Сохранить</string>
+    <string name="save_event_button_hint">Сохранить</string>
     <!-- Hint for delete button [CHAR_LIMIT=20] -->
-    <string name="event_delete_button_hint">Удалить событие</string>
+    <string name="delete_event_button_hint">Удалить событие</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
-    <string name="choose_image_description">Выбрать изображение</string>
+    <string name="choose_image">Выбрать изображение</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
     <string name="event_image_description">Изображение события</string>
     <!-- Hint to rotate image left [CHAR_LIMIT=20] -->
@@ -240,11 +240,11 @@
     <string name="support_project_title">Поддержать проект</string>
 
     <!-- Import csv fragment title - Event import from csv -->
-    <string name="import_fragment_title">Импорт событий из csv</string>
+    <string name="import_title">Импорт событий из csv</string>
     <!-- Import contacts fragment title - Event import from contacts -->
-    <string name="import_contacts_fragment_title">Импорт событий из контактов</string>
+    <string name="import_contacts_title">Импорт событий из контактов</string>
     <!-- Export fragment title - Event export -->
-    <string name="export_fragment_title">Экспорт событий</string>
+    <string name="export_title">Экспорт событий</string>
 
     <!-- Title of empty list about no event types in the list -->
     <string name="no_event_types_title">Здесь пока нет типов событий</string>

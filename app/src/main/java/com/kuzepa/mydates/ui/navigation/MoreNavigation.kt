@@ -64,7 +64,7 @@ fun NavController.navigateToAbout() {
 @Serializable
 internal object Donation : NavRoute()
 
-fun NavGraphBuilder.donationDestination() {
+fun NavGraphBuilder.donationDestination(onNavigateBack: () -> Unit) {
     dialog<Donation> {
 //                DonationScreen()
     }
@@ -74,7 +74,8 @@ fun NavGraphBuilder.donationDestination() {
 internal object Help : NavRoute()
 
 fun NavGraphBuilder.helpDestination(
-    onNavigateToNotificationTroubleshoot: () -> Unit
+    onNavigateToNotificationTroubleshoot: () -> Unit,
+    onNavigateBack: () -> Unit
 ) {
     composable<Help> {
 //                HelpScreen(onNavigateToNotificationTroubleshoot = onNavigateToNotificationTroubleshoot)
@@ -88,7 +89,7 @@ fun NavController.navigateToNotificationTroubleshoot() {
 @Serializable
 internal object NotificationTroubleshoot : NavRoute()
 
-fun NavGraphBuilder.notificationTroubleshootDestination() {
+fun NavGraphBuilder.notificationTroubleshootDestination(onNavigateBack: () -> Unit) {
     dialog<NotificationTroubleshoot> {
         // NotificationTroubleshoot()
     }
@@ -99,7 +100,8 @@ fun NavGraphBuilder.notificationTroubleshootDestination() {
 internal object About : NavRoute()
 
 fun NavGraphBuilder.aboutDestination(
-    onNavigateToThirdPartyLibraries: () -> Unit
+    onNavigateToThirdPartyLibraries: () -> Unit,
+    onNavigateBack: () -> Unit
 ) {
     composable<About> {
         // Consider using a dialog, but think about third-party libraries screen

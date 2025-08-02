@@ -21,27 +21,25 @@ class DbEventRepository @Inject constructor(
     }
 
     override fun getAllEvents(sortOption: SortOption): Flow<List<Event>> {
-        val eventsFlow = when (sortOption) {
+        return when (sortOption) {
             SortOption.BY_NAME_ASC -> eventDao.getAllEventsSortByNameAsc()
             SortOption.BY_NAME_DESC -> eventDao.getAllEventsSortByNameDesc()
             SortOption.BY_DATE_ASC -> eventDao.getAllEventsSortByDateAsc()
             SortOption.BY_DATE_DESC -> eventDao.getAllEventsSortByDateDesc()
             else -> eventDao.getAllEvents()
-        }
-        return eventsFlow.map { events -> events.map { it.toEvent() } }
+        }.map { events -> events.map { it.toEvent() } }
     }
 
     override fun getEventsByMonth(
         month: Int,
         sortOption: SortOption
     ): Flow<List<Event>> {
-        val eventsFlow = when (sortOption) {
+        return when (sortOption) {
             SortOption.BY_NAME_ASC -> eventDao.getEventsByMonthSortByNameAsc(month)
             SortOption.BY_NAME_DESC -> eventDao.getEventsByMonthSortByNameDesc(month)
             SortOption.BY_DATE_ASC -> eventDao.getEventsByMonthSortByDateAsc(month)
             SortOption.BY_DATE_DESC -> eventDao.getEventsByMonthSortByDateDesc(month)
             else -> eventDao.getEventsByMonth(month)
-        }
-        return eventsFlow.map { events -> events.map { it.toEvent() } }
+        }.map { events -> events.map { it.toEvent() } }
     }
 }

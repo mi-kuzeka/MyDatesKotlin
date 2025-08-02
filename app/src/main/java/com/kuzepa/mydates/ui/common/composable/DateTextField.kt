@@ -2,6 +2,7 @@ package com.kuzepa.mydates.ui.common.composable
 
 import DateMaskVisualTransformation
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -21,6 +22,8 @@ fun DateTextField(
     textColor: Color,
     maskColor: Color,
     label: @Composable (() -> Unit),
+    errorMessage: String,
+    validatorHasErrors: Boolean,
     modifier: Modifier = Modifier
 ) {
     val groups = remember { mask.split(delimiter) }
@@ -52,9 +55,17 @@ fun DateTextField(
             textColor = textColor,
             maskColor = maskColor
         ),
+        isError = validatorHasErrors,
+        supportingText = {
+            if (validatorHasErrors) {
+                Text(text = errorMessage)
+            }
+        },
         modifier = modifier,
         trailingIcon = {
-            IconClearWithTextFieldValue(onValueChange = onValueChange)
+            if (!value.text.isEmpty()) {
+                IconClearWithTextFieldValue(onValueChange = onValueChange)
+            }
         },
         label = label
     )

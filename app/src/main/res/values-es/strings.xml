@@ -46,11 +46,11 @@
     <!-- Title for the screen to edit an existing event [CHAR LIMIT=20] -->
     <string name="event_editor_title">Editar un evento</string>
     <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="event_save_button_hint">Guardar</string>
+    <string name="save_event_button_hint">Guardar</string>
     <!-- Hint for delete button [CHAR_LIMIT=20] -->
-    <string name="event_delete_button_hint">Eliminar evento</string>
+    <string name="delete_event_button_hint">Eliminar evento</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
-    <string name="choose_image_description">Seleccionar imagen</string>
+    <string name="choose_image">Seleccionar imagen</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
     <string name="event_image_description">Imagen del evento</string>
     <!-- Hint to rotate image left [CHAR_LIMIT=20] -->
@@ -239,11 +239,11 @@
     <string name="support_project_title">Apoya el proyecto</string>
 
     <!-- Import csv fragment title - Event import from csv -->
-    <string name="import_fragment_title">Importando eventos desde csv</string>
+    <string name="import_title">Importando eventos desde csv</string>
     <!-- Import contacts fragment title - Event import from contacts -->
-    <string name="import_contacts_fragment_title">Importar eventos de contactos</string>
+    <string name="import_contacts_title">Importar eventos de contactos</string>
     <!-- Export fragment title - Event export -->
-    <string name="export_fragment_title">Exportar eventos</string>
+    <string name="export_title">Exportar eventos</string>
 
     <!-- Title of empty list about no event types in the list -->
     <string name="no_event_types_title">No hay tipos de eventos aquí todavía</string>

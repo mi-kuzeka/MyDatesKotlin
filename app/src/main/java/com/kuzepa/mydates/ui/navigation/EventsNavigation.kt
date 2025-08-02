@@ -26,9 +26,12 @@ fun NavController.navigateToEventEditor(id: Int?) {
 @Serializable
 internal data class EventEditor(val id: Int?) : NavRoute()
 
-fun NavGraphBuilder.eventEditorDestination() {
+fun NavGraphBuilder.eventEditorDestination(onNavigateBack: () -> Unit) {
     composable<EventEditor> { backStackEntry ->
         val eventEditor: EventEditor = backStackEntry.toRoute()
-        EventScreen(id = eventEditor.id)
+        EventScreen(
+            id = eventEditor.id,
+            onNavigateBack = onNavigateBack
+        )
     }
 }

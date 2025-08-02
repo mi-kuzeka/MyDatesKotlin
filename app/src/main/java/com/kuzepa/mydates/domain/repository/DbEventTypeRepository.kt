@@ -4,6 +4,7 @@ import com.kuzepa.mydates.data.local.database.dao.EventTypeDao
 import com.kuzepa.mydates.domain.mapper.toEventType
 import com.kuzepa.mydates.domain.mapper.toEventTypeEntity
 import com.kuzepa.mydates.domain.model.EventType
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DbEventTypeRepository @Inject constructor(
@@ -15,5 +16,9 @@ class DbEventTypeRepository @Inject constructor(
 
     override suspend fun getDefaultEventType(): EventType? {
         return eventTypeDao.getDefaultEventType()?.toEventType()
+    }
+
+    override fun getAllEventTypes(): Flow<List<EventType>> {
+        TODO("Not yet implemented")
     }
 }

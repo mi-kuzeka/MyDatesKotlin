@@ -25,13 +25,13 @@ fun EventDate.formatDate(formatPattern: String, delimiter: Char): String {
 
 fun getEventDateFromFormattedDateWithoutDelimiter(
     dateFieldOrder: Array<DateField>,
-    showYear: Boolean,
+    hideYear: Boolean,
     formattedDate: String
 ): EventDate? {
-    if (showYear) {
-        if (formattedDate.length < 8) return null
-    } else {
+    if (hideYear) {
         if (formattedDate.length < 4) return null
+    } else {
+        if (formattedDate.length < 8) return null
     }
 
     var month = ""
@@ -54,7 +54,7 @@ fun getEventDateFromFormattedDateWithoutDelimiter(
             }
 
             DateField.YEAR -> {
-                if (showYear) {
+                if (!hideYear) {
                     val yearSymbolsCount = 4
                     endIndex = startIndex + yearSymbolsCount
                     year = formattedDate.substring(startIndex, endIndex)
@@ -68,7 +68,7 @@ fun getEventDateFromFormattedDateWithoutDelimiter(
         EventDate(
             month = month.toInt(),
             day = day.toInt(),
-            year = if (showYear) year.toInt() else -1
+            year = if (hideYear) -1 else year.toInt()
         )
     } catch (e: NumberFormatException) {
         // TODO handle exception

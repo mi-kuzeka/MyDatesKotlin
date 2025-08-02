@@ -1,5 +1,6 @@
 package com.kuzepa.mydates.ui.common.composable
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
@@ -22,6 +23,8 @@ fun MyDatesTextField(
     onValueChange: (String) -> Unit,
     label: String,
     showIconClear: Boolean,
+    errorMessage: String,
+    validatorHasErrors: Boolean,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
     maxLength: Int? = null,
@@ -43,28 +46,50 @@ fun MyDatesTextField(
         placeholder = {
             if (placeholder !== null) FieldPlaceholder(placeholder)
         },
-        trailingIcon = { if (showIconClear) IconClear(onValueChange) },
+        trailingIcon = { if (showIconClear && !value.isEmpty()) IconClear(onValueChange) },
         textStyle = MaterialTheme.typography.bodyMedium,
         keyboardOptions = keyboardOptions,
         singleLine = true,
+        isError = validatorHasErrors,
         supportingText = {
-            if (maxLength != null) {
-                Text(
-                    text = "${value.length} / $maxLength",
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.End,
-                    color = MaterialTheme.colorScheme.secondary,
-                    style = MaterialTheme.typography.labelMedium
-                )
+            Column {
+                if (validatorHasErrors) {
+                    Text(text = errorMessage)
+                } else if (maxLength != null) {
+                    Text(
+                        text = "${value.length} / $maxLength",
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.End,
+                        color = MaterialTheme.colorScheme.secondary,
+                        style = MaterialTheme.typography.labelMedium
+                    )
+                }
             }
         },
         modifier = modifier
     )
 }
 
-@Preview
+@Preview(name = "TextField")
 @Composable
 fun MyDatesTextFieldPreview() {
+    MyDatesTheme {
+        var text by remember { mutableStateOf("Steve") }
+        MyDatesTextField(
+            label = "Name",
+            value = text,
+            onValueChange = { text = it },
+            showIconClear = true,
+            maxLength = 10,
+            validatorHasErrors = false,
+            errorMessage = "This field is required"
+        )
+    }
+}
+
+@Preview(name = "TextField with error")
+@Composable
+fun MyDatesTextFieldPreviewError() {
     MyDatesTheme {
         var text by remember { mutableStateOf("") }
         MyDatesTextField(
@@ -72,7 +97,9 @@ fun MyDatesTextFieldPreview() {
             value = text,
             onValueChange = { text = it },
             showIconClear = true,
-            maxLength = 10
+            maxLength = 10,
+            validatorHasErrors = true,
+            errorMessage = "This field is required"
         )
     }
 }

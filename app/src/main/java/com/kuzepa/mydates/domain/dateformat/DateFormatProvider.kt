@@ -5,7 +5,8 @@ import com.kuzepa.mydates.domain.model.EventDate
 interface DateFormatProvider {
     fun getShowingMask(showYear: Boolean): String
     fun getDelimiter(): Char
-    fun getFormattingPattern(showYear: Boolean): String
+    fun getFormattingPattern(hideYear: Boolean): String
     fun getFormattedDate(eventDate: EventDate, showingMode: DateShowingMode): String
-    fun getEditedEventDate(formattedDate: String, showYear: Boolean): EventDate?
+    fun getEditedEventDate(formattedDate: String, hideYear: Boolean): EventDate?
+    fun dateIsFilled(inputDate: String, hideYear: Boolean): Boolean
 }

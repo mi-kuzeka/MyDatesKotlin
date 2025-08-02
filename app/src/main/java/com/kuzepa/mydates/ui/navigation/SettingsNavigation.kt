@@ -11,13 +11,14 @@ internal object Settings : NavRoute()
 
 fun NavGraphBuilder.settingsDestination(
     onNavigateToNotificationSettings: () -> Unit,
-    onNavigateToNotificationFilter: () -> Unit
+    onNavigateToNotificationFilter: () -> Unit,
+    onNavigateBack: () -> Unit
 ) {
     composable<Settings> {
 //        SettingsScreen(
-    //        onNavigateToNotificationSettings = onNavigateToNotificationSettings,
-    //        onNavigateToNotificationFilter = onNavigateToNotificationFilter
-    //        )
+        //        onNavigateToNotificationSettings = onNavigateToNotificationSettings,
+        //        onNavigateToNotificationFilter = onNavigateToNotificationFilter
+        //        )
     }
 }
 
@@ -32,7 +33,7 @@ fun NavController.navigateToNotificationFilter() {
 @Serializable
 internal object NotificationSettings : NavRoute()
 
-fun NavGraphBuilder.notificationSettingsDestination() {
+fun NavGraphBuilder.notificationSettingsDestination(onNavigateBack: () -> Unit) {
     dialog<NotificationSettings> {
 //                NotificationSettingsScreen()
     }
@@ -42,7 +43,7 @@ fun NavGraphBuilder.notificationSettingsDestination() {
 @Serializable
 internal object NotificationFilter : NavRoute()
 
-fun NavGraphBuilder.notificationFilterDestination() {
+fun NavGraphBuilder.notificationFilterDestination(onNavigateBack: () -> Unit) {
     dialog<NotificationFilter> {
 //                NotificationFilterScreen()
     }

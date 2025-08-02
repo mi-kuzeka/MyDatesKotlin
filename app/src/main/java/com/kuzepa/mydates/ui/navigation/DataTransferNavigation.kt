@@ -13,6 +13,7 @@ fun NavGraphBuilder.dataTransferDestination(
     onNavigateToContactsImport: () -> Unit,
     onNavigateToCsvImport: () -> Unit,
     onNavigateToCsvExport: () -> Unit,
+    onNavigateBack: () -> Unit
 ) {
     composable<DataTransfer> {
 //                DataTransferScreen(
@@ -38,7 +39,7 @@ fun NavController.navigateToCsvExport() {
 @Serializable
 internal object ContactsImport : NavRoute()
 
-fun NavGraphBuilder.contactsImportDestination() {
+fun NavGraphBuilder.contactsImportDestination(onNavigateBack: () -> Unit) {
     dialog<ContactsImport> {
 //                ContactsImportScreen()
     }
@@ -47,7 +48,7 @@ fun NavGraphBuilder.contactsImportDestination() {
 @Serializable
 internal object CsvImport : NavRoute()
 
-fun NavGraphBuilder.csvImportDestination() {
+fun NavGraphBuilder.csvImportDestination(onNavigateBack: () -> Unit) {
     dialog<CsvImport> {
 //                CsvImportScreen()
     }
@@ -56,7 +57,7 @@ fun NavGraphBuilder.csvImportDestination() {
 @Serializable
 internal object CsvExport : NavRoute()
 
-fun NavGraphBuilder.csvExportDestination() {
+fun NavGraphBuilder.csvExportDestination(onNavigateBack: () -> Unit) {
     dialog<CsvExport> {
 //                CsvExportScreen()
     }
