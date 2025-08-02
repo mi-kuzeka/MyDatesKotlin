@@ -235,6 +235,8 @@
     <string name="settings_title">Ajustes</string>
     <!-- Navigation drawer item title - About -->
     <string name="about_title">Acerca de la aplicación</string>
+    <!-- Navigation drawer item title - Help -->
+    <string name="help_title">Ayuda</string>
     <!-- Navigation drawer item title - Support the project -->
     <string name="support_project_title">Apoya el proyecto</string>
 

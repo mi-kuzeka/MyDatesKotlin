@@ -237,6 +237,8 @@
     <string name="settings_title">Paramètres</string>
     <!-- Navigation drawer item title - About -->
     <string name="about_title">À propos de l\'appli</string>
+    <!-- Navigation drawer item title - Help -->
+    <string name="help_title">Aide</string>
     <!-- Navigation drawer item title - Support the project -->
     <string name="support_project_title">Soutenir le projet</string>
 

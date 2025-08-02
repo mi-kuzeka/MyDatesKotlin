@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.ui.common.composable.DateTextField
 import com.kuzepa.mydates.ui.common.composable.FieldLabel
@@ -15,12 +14,11 @@ import com.kuzepa.mydates.ui.theme.MyDatesTheme
 @Composable
 fun EventDateFieldView(
     label: String,
-    date: TextFieldValue,
+    date: String,
     dateMask: String,
     delimiter: Char,
-    errorMessage: String,
-    validatorHasErrors: Boolean,
-    onValueChange: (TextFieldValue) -> Unit,
+    errorMessage: String?,
+    onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     DateTextField(
@@ -32,23 +30,21 @@ fun EventDateFieldView(
         maskColor = MaterialTheme.colorScheme.secondary,
         modifier = modifier,
         label = { FieldLabel(label = label) },
-        errorMessage = errorMessage,
-        validatorHasErrors = validatorHasErrors
+        errorMessage = errorMessage
     )
 }
 
 @Composable
 @Preview(name = "DateTextField")
 private fun DateFieldPreview() {
-    val date = remember { mutableStateOf(TextFieldValue("")) }
+    val date = remember { mutableStateOf("") }
     MyDatesTheme {
         EventDateFieldView(
             label = "Date",
             date = date.value,
             dateMask = "dd-mm-yyyy",
             delimiter = '-',
-            validatorHasErrors = false,
-            errorMessage = "Wrong date format",
+            errorMessage = null,
             onValueChange = { date.value = it }
         )
     }
@@ -57,14 +53,13 @@ private fun DateFieldPreview() {
 @Composable
 @Preview(name = "DateTextField with error")
 private fun DateFieldPreviewError() {
-    val date = remember { mutableStateOf(TextFieldValue("2528")) }
+    val date = remember { mutableStateOf("2528") }
     MyDatesTheme {
         EventDateFieldView(
             label = "Date",
             date = date.value,
             dateMask = "dd-mm-yyyy",
             delimiter = '-',
-            validatorHasErrors = true,
             errorMessage = "Wrong date format",
             onValueChange = { date.value = it }
         )
@@ -77,15 +72,14 @@ private fun DateFieldPreviewError() {
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
 private fun DateFieldPreviewDark() {
-    val date = remember { mutableStateOf(TextFieldValue("")) }
+    val date = remember { mutableStateOf("") }
     MyDatesTheme {
         EventDateFieldView(
             label = "Date",
             date = date.value,
             dateMask = "dd-mm-yyyy",
             delimiter = '-',
-            validatorHasErrors = false,
-            errorMessage = "Wrong date format",
+            errorMessage = null,
             onValueChange = { date.value = it }
         )
     }
@@ -97,14 +91,13 @@ private fun DateFieldPreviewDark() {
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
 private fun DateFieldPreviewErrorDark() {
-    val date = remember { mutableStateOf(TextFieldValue("2528")) }
+    val date = remember { mutableStateOf("2528") }
     MyDatesTheme {
         EventDateFieldView(
             label = "Date",
             date = date.value,
             dateMask = "dd-mm-yyyy",
             delimiter = '-',
-            validatorHasErrors = true,
             errorMessage = "Wrong date format",
             onValueChange = { date.value = it }
         )

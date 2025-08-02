@@ -283,7 +283,7 @@
     <string name="settings_title">Settings</string>
     <!-- Navigation drawer item title - About -->
     <string name="about_title">About the app</string>
-    <!-- Navigation drawer item title - About -->
+    <!-- Navigation drawer item title - Help -->
     <string name="help_title">Help</string>
     <!-- Navigation drawer item title - Support the project -->
     <string name="support_project_title">Support the project</string>

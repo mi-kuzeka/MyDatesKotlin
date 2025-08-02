@@ -1,21 +1,17 @@
 package com.kuzepa.mydates.ui.common
 
 import android.content.Context
+import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.usecase.validation.ValidationMessageProvider
 
 class ResourceValidationMessageProvider(
     private val context: Context
 ) : ValidationMessageProvider {
-    // e.g.
-    //override fun getEmptyFieldError() =
-    //        context.getString(R.string.validation_empty_field)
-    override fun getEmptyFieldError(): String {
-        TODO("Not yet implemented")
-    }
+    override fun getEmptyFieldError(): String =
+        context.resources.getString(R.string.error_field_is_required)
 
-    override fun getWrongDateFormatError(): String {
-        TODO("Not yet implemented")
-    }
+    override fun getWrongDateFormatError(requiredFormat: String): String =
+        context.resources.getString(R.string.error_date_incorrect_format, requiredFormat)
 
     override fun getSelectionRequiredError(): String {
         TODO("Not yet implemented")

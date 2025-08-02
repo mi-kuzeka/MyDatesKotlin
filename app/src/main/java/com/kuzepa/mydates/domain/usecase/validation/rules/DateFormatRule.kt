@@ -21,7 +21,9 @@ class DateFormatRule @Inject constructor(
             ValidationResult.Valid
         } else {
             ValidationResult.Invalid(
-                validationMessageProvider.getWrongDateFormatError()
+                validationMessageProvider.getWrongDateFormatError(
+                    dateFormatProvider.getShowingMask(hideYear)
+                )
             )
         }
     }

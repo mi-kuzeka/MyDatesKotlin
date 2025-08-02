@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 class EventViewModel @Inject constructor(
@@ -33,13 +34,17 @@ class EventViewModel @Inject constructor(
     private val eventId: Int? = savedStateHandle.get<Int>("id")
     private val _uiState = MutableStateFlow(EventUiState())
     val uiState: StateFlow<EventUiState> = _uiState.asStateFlow()
+    private lateinit var dateMask: String
+    private var dateDelimiter by Delegates.notNull<Char>()
 
     private val savingEventChannel = Channel<SavingEvent>()
     val savingEvents = savingEventChannel.receiveAsFlow()
 
     init {
+        dateDelimiter = dateFormatProvider.getDelimiter()
         loadEventTypes()
         if (eventId == null) {
+            dateMask = dateFormatProvider.getShowingMask(_uiState.value.hideYear)
             setDefaultEventType()
         } else {
             fillEventById(eventId)
@@ -167,8 +172,12 @@ class EventViewModel @Inject constructor(
                 labels = labels,
                 event = event
             )
+            dateMask = dateFormatProvider.getShowingMask(_uiState.value.hideYear)
         }
     }
+
+    fun getDateMask(): String = dateMask
+    fun getMaskDelimiter(): Char = dateDelimiter
 
     fun validate() {
         //Validation process

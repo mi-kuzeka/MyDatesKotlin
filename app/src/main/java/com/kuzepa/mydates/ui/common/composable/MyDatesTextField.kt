@@ -22,10 +22,9 @@ fun MyDatesTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
-    showIconClear: Boolean,
-    errorMessage: String,
-    validatorHasErrors: Boolean,
+    errorMessage: String?,
     modifier: Modifier = Modifier,
+    showIconClear: Boolean = true,
     placeholder: String? = null,
     maxLength: Int? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions()
@@ -50,10 +49,10 @@ fun MyDatesTextField(
         textStyle = MaterialTheme.typography.bodyMedium,
         keyboardOptions = keyboardOptions,
         singleLine = true,
-        isError = validatorHasErrors,
+        isError = errorMessage != null,
         supportingText = {
             Column {
-                if (validatorHasErrors) {
+                if (errorMessage != null) {
                     Text(text = errorMessage)
                 } else if (maxLength != null) {
                     Text(
@@ -81,8 +80,7 @@ fun MyDatesTextFieldPreview() {
             onValueChange = { text = it },
             showIconClear = true,
             maxLength = 10,
-            validatorHasErrors = false,
-            errorMessage = "This field is required"
+            errorMessage = null
         )
     }
 }
@@ -98,7 +96,6 @@ fun MyDatesTextFieldPreviewError() {
             onValueChange = { text = it },
             showIconClear = true,
             maxLength = 10,
-            validatorHasErrors = true,
             errorMessage = "This field is required"
         )
     }

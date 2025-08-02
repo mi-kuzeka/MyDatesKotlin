@@ -12,10 +12,14 @@ class ResourceDateFormatProvider(
     private val context: Context
 ) : DateFormatProvider {
 
-    override fun getShowingMask(showYear: Boolean): String {
-        return "mm/dd/yyyy"
+    override fun getShowingMask(hideYear: Boolean): String {
+        return if (hideYear) {
+            "mm/dd"
+        } else {
+            "mm/dd/yyyy"
+        }
         //TODO get from datastore
-//        return if (showYear) {
+//        return if (hideYear) {
 //            context.resources.getString()
 //        }
     }

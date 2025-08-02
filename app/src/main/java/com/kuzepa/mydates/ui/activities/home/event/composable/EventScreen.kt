@@ -5,8 +5,6 @@ import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.RotateLeft
 import androidx.compose.material.icons.automirrored.outlined.RotateRight
@@ -37,14 +37,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kuzepa.mydates.R
+import com.kuzepa.mydates.domain.model.TextFieldMaxLength
+import com.kuzepa.mydates.ui.activities.home.event.EventScreenEvent
 import com.kuzepa.mydates.ui.activities.home.event.EventViewModel
 import com.kuzepa.mydates.ui.activities.main.composable.TopBar
 import com.kuzepa.mydates.ui.common.composable.IconDelete
+import com.kuzepa.mydates.ui.common.composable.MyDatesTextField
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
@@ -82,30 +86,67 @@ fun EventScreen(
             modifier = Modifier.fillMaxWidth()
         )
         EventScreenContent(
-            image = state.value.image
+            onEvent = { viewModel.onEvent(it) },
+            image = state.value.image,
+            name = state.value.name,
+            nameValidationError = state.value.nameValidationError,
+            date = state.value.date,
+            dateValidationError = state.value.dateValidationError,
+            dateMask = viewModel.getDateMask(),
+            dateDelimiter = viewModel.getMaskDelimiter()
         )
     }
 }
 
 @Composable
 fun EventScreenContent(
+    onEvent: (EventScreenEvent) -> Unit,
     image: Bitmap?,
+    name: String,
+    nameValidationError: String?,
+    date: String,
+    dateValidationError: String?,
+    dateMask: String,
+    dateDelimiter: Char,
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
     Column(
-        verticalArrangement = Arrangement.Top,
+        verticalArrangement = Arrangement.spacedBy(
+            space = dimensionResource(R.dimen.padding_large),
+            alignment = Alignment.Top
+        ),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .fillMaxSize()
-            .scrollable(scrollState, orientation = Orientation.Vertical)
+            .verticalScroll(state = scrollState)
+            .padding(dimensionResource(R.dimen.padding_large))
     ) {
         EventImageChooser(
             image,
             chooseImage = {},
             rotateLeft = {},
             rotateRight = {},
-            removeImage = {})
+            removeImage = {}
+        )
+        MyDatesTextField(
+            label = stringResource(R.string.name_edit_title),
+            value = name,
+            onValueChange = { onEvent(EventScreenEvent.NameChanged(it)) },
+            errorMessage = nameValidationError,
+            maxLength = TextFieldMaxLength.NAME.length,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier = Modifier.fillMaxWidth()
+        )
+        EventDateFieldView(
+            label = stringResource(R.string.date_edit_title),
+            date = date,
+            dateMask = dateMask,
+            delimiter = dateDelimiter,
+            errorMessage = dateValidationError,
+            onValueChange = { onEvent(EventScreenEvent.DateChanged(it)) },
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
@@ -248,7 +289,14 @@ fun ImageActionButtonsPanel(
 fun EventScreenNewEventPreview() {
     MyDatesTheme {
         EventScreenContent(
-            image = null
+            onEvent = { },
+            image = null,
+            name = "Text",
+            nameValidationError = "This firld is required",
+            date = "",
+            dateMask = "mm/dd/yyyy",
+            dateDelimiter = '/',
+            dateValidationError = null
         )
     }
 }
