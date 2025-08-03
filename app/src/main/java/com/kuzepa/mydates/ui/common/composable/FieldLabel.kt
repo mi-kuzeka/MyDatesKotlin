@@ -12,7 +12,7 @@ fun FieldLabel(
 ) {
     Text(
         text = label,
-        style = MaterialTheme.typography.bodySmall,
+        style = MaterialTheme.typography.labelMedium,
     )
 }
 

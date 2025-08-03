@@ -10,7 +10,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -22,8 +21,6 @@ fun DateTextField(
     onValueChange: (String) -> Unit,
     mask: String,
     delimiter: Char,
-    textColor: Color,
-    maskColor: Color,
     label: @Composable (() -> Unit),
     errorMessage: String?,
     modifier: Modifier = Modifier
@@ -41,6 +38,7 @@ fun DateTextField(
 
     TextField(
         value = textFieldValue,
+        colors = getMyDatesTextFieldColors(),
         onValueChange = { newValue ->
             // Filter non-digit characters and enforce max length
             val filteredText = newValue.text.filter { it.isDigit() }.take(totalDigits)
@@ -61,8 +59,8 @@ fun DateTextField(
         visualTransformation = DateMaskVisualTransformation(
             mask = mask,
             delimiter = delimiter,
-            textColor = textColor,
-            maskColor = maskColor
+            textColor = getMyDatesTextFieldColors().focusedTextColor,
+            maskColor = getMyDatesPlaceholderColor()
         ),
         isError = errorMessage != null,
         supportingText = {

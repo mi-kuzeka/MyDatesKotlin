@@ -1,12 +1,10 @@
 package com.kuzepa.mydates.ui.common.composable
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
-fun MyDatesTextField(
+internal fun MyDatesTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
@@ -35,34 +33,31 @@ fun MyDatesTextField(
             val newValue = if (maxLength == null) it else it.take(maxLength)
             onValueChange(newValue)
         },
-        colors = TextFieldDefaults.colors(
-            focusedLabelColor = MaterialTheme.colorScheme.primary,
-            unfocusedLabelColor = MaterialTheme.colorScheme.secondary
-        ),
+        colors = getMyDatesTextFieldColors(),
         label = {
             FieldLabel(label)
         },
         placeholder = {
             if (placeholder !== null) FieldPlaceholder(placeholder)
         },
-        trailingIcon = { if (showIconClear && !value.isEmpty()) IconClear(onValueChange) },
-        textStyle = MaterialTheme.typography.bodyMedium,
+        trailingIcon = {
+            if (showIconClear && !value.isEmpty()) IconClear(onValueChange)
+        },
+        textStyle = MaterialTheme.typography.bodyLarge,
         keyboardOptions = keyboardOptions,
         singleLine = true,
         isError = errorMessage != null,
         supportingText = {
-            Column {
-                if (errorMessage != null) {
-                    Text(text = errorMessage)
-                } else if (maxLength != null) {
-                    Text(
-                        text = "${value.length} / $maxLength",
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.End,
-                        color = MaterialTheme.colorScheme.secondary,
-                        style = MaterialTheme.typography.labelMedium
-                    )
-                }
+            if (errorMessage != null) {
+                Text(text = errorMessage)
+            } else if (maxLength != null) {
+                Text(
+                    text = "${value.length} / $maxLength",
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.End,
+                    color = MaterialTheme.colorScheme.secondary,
+                    style = MaterialTheme.typography.labelMedium
+                )
             }
         },
         modifier = modifier

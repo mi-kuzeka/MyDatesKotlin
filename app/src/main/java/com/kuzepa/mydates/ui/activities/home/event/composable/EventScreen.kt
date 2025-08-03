@@ -1,63 +1,45 @@
 package com.kuzepa.mydates.ui.activities.home.event.composable
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.RotateLeft
-import androidx.compose.material.icons.automirrored.outlined.RotateRight
-import androidx.compose.material.icons.outlined.AddPhotoAlternate
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
 import com.kuzepa.mydates.ui.activities.home.event.EventScreenEvent
 import com.kuzepa.mydates.ui.activities.home.event.EventViewModel
-import com.kuzepa.mydates.ui.activities.main.composable.TopBar
 import com.kuzepa.mydates.ui.common.composable.IconDelete
+import com.kuzepa.mydates.ui.common.composable.MyDatesExposedDropDown
 import com.kuzepa.mydates.ui.common.composable.MyDatesTextField
+import com.kuzepa.mydates.ui.common.composable.TopBar
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
-fun EventScreen(
+internal fun EventScreen(
     viewModel: EventViewModel = hiltViewModel(),
     id: Int?,
     onNavigateBack: () -> Unit
 ) {
-    val state = viewModel.uiState.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
     val titleResourceId = if (id == null) {
         R.string.event_creator_title
     } else {
@@ -87,19 +69,23 @@ fun EventScreen(
         )
         EventScreenContent(
             onEvent = { viewModel.onEvent(it) },
-            image = state.value.image,
-            name = state.value.name,
-            nameValidationError = state.value.nameValidationError,
-            date = state.value.date,
-            dateValidationError = state.value.dateValidationError,
+            image = state.image,
+            name = state.name,
+            nameValidationError = state.nameValidationError,
+            date = state.date,
+            dateValidationError = state.dateValidationError,
             dateMask = viewModel.getDateMask(),
-            dateDelimiter = viewModel.getMaskDelimiter()
+            dateDelimiter = viewModel.getMaskDelimiter(),
+            eventTypeName = state.eventTypeName,
+            eventTypeValidationError = state.eventTypeValidationError,
+            eventTypes = state.allEventTypes.map { it.name }
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EventScreenContent(
+internal fun EventScreenContent(
     onEvent: (EventScreenEvent) -> Unit,
     image: Bitmap?,
     name: String,
@@ -108,6 +94,9 @@ fun EventScreenContent(
     dateValidationError: String?,
     dateMask: String,
     dateDelimiter: Char,
+    eventTypeName: String,
+    eventTypeValidationError: String?,
+    eventTypes: List<String>,
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
@@ -130,16 +119,19 @@ fun EventScreenContent(
             removeImage = {}
         )
         MyDatesTextField(
-            label = stringResource(R.string.name_edit_title),
+            label = stringResource(R.string.name_label),
             value = name,
             onValueChange = { onEvent(EventScreenEvent.NameChanged(it)) },
             errorMessage = nameValidationError,
             maxLength = TextFieldMaxLength.NAME.length,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                capitalization = KeyboardCapitalization.Words
+            ),
             modifier = Modifier.fillMaxWidth()
         )
-        EventDateFieldView(
-            label = stringResource(R.string.date_edit_title),
+        EventDateField(
+            label = stringResource(R.string.date_label),
             date = date,
             dateMask = dateMask,
             delimiter = dateDelimiter,
@@ -147,142 +139,23 @@ fun EventScreenContent(
             onValueChange = { onEvent(EventScreenEvent.DateChanged(it)) },
             modifier = Modifier.fillMaxWidth()
         )
+        MyDatesExposedDropDown(
+            label = stringResource(R.string.event_type_spinner_label),
+            value = eventTypeName,
+            onValueChange = { onEvent(EventScreenEvent.EventTypeChanged(it)) },
+            errorMessage = eventTypeValidationError,
+            options = eventTypes,
+            onAddNewItem = {
+                // TODO show new event type dialog
+            },
+            addNewItemLabel = stringResource(R.string.event_type_creator_title),
+            modifier = Modifier.fillMaxWidth(),
+            placeholder = stringResource(R.string.event_type_spinner_placeholder)
+        )
     }
 }
 
-@Composable
-fun EventImageChooser(
-    image: Bitmap?,
-    chooseImage: () -> Unit,
-    rotateLeft: () -> Unit,
-    rotateRight: () -> Unit,
-    removeImage: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier
-            .size(
-                dimensionResource(R.dimen.event_image_chooser_size)
-            )
-            .clip(shape = RoundedCornerShape(16.dp))
-            .background(MaterialTheme.colorScheme.surfaceVariant)
-    ) {
-        if (image == null) {
-            Column(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(all = dimensionResource(R.dimen.padding_medium))
-            ) {
-                EmptyEventImage(
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                )
-                Text(
-                    text = stringResource(R.string.choose_image),
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier
-                        .clickable(onClick = chooseImage)
-                        .align(Alignment.CenterHorizontally)
-                )
-            }
-        } else {
-            EventImage(image = image)
-            ImageActionButtonsPanel(
-                replaceImage = chooseImage,
-                rotateLeft = rotateLeft,
-                rotateRight = rotateRight,
-                removeImage = removeImage,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .fillMaxWidth()
-            )
-        }
-    }
-}
 
-@Composable
-fun EventImage(image: Bitmap, modifier: Modifier = Modifier) {
-    Image(
-        bitmap = image.asImageBitmap(),
-        contentDescription = stringResource(R.string.event_image_description),
-        modifier = modifier.fillMaxSize()
-    )
-}
-
-@Composable
-fun EmptyEventImage(modifier: Modifier = Modifier) {
-    Image(
-        painter = painterResource(R.drawable.empty_list_white),
-        contentDescription = stringResource(R.string.choose_image),
-        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-        modifier = modifier
-    )
-}
-
-@Composable
-fun ImageActionButtonsPanel(
-    replaceImage: () -> Unit,
-    rotateLeft: () -> Unit,
-    rotateRight: () -> Unit,
-    removeImage: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val buttonModifier = Modifier
-        .size(dimensionResource(R.dimen.image_action_button_size))
-    val iconModifier = Modifier
-        .size(dimensionResource(R.dimen.icon_size))
-    Row(
-        horizontalArrangement = Arrangement.SpaceAround,
-        modifier = modifier
-            .alpha(0.5f)
-            .background(MaterialTheme.colorScheme.primary)
-    ) {
-        IconButton(
-            onClick = removeImage,
-            modifier = buttonModifier
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.Delete,
-                contentDescription = stringResource(R.string.rotate_right_hint),
-                tint = MaterialTheme.colorScheme.errorContainer,
-                modifier = iconModifier
-            )
-        }
-        IconButton(
-            onClick = replaceImage,
-            modifier = buttonModifier
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.AddPhotoAlternate,
-                contentDescription = stringResource(R.string.change_image_hint),
-                tint = MaterialTheme.colorScheme.onPrimary,
-                modifier = iconModifier
-            )
-        }
-        IconButton(
-            onClick = rotateLeft,
-            modifier = buttonModifier
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Outlined.RotateLeft,
-                contentDescription = stringResource(R.string.rotate_left_hint),
-                tint = MaterialTheme.colorScheme.onPrimary,
-                modifier = iconModifier
-            )
-        }
-        IconButton(
-            onClick = rotateRight,
-            modifier = buttonModifier
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Outlined.RotateRight,
-                contentDescription = stringResource(R.string.rotate_right_hint),
-                tint = MaterialTheme.colorScheme.onPrimary,
-                modifier = iconModifier
-            )
-        }
-    }
-}
 
 @Preview(name = "New event")
 @Composable
@@ -296,24 +169,10 @@ fun EventScreenNewEventPreview() {
             date = "",
             dateMask = "mm/dd/yyyy",
             dateDelimiter = '/',
-            dateValidationError = null
-        )
-    }
-}
-
-@Preview
-@Composable
-fun ImageChooserPreview() {
-    MyDatesTheme {
-        EventImageChooser(
-            image = BitmapFactory.decodeResource(
-                LocalContext.current.resources,
-                R.drawable.empty_list_white
-            ),
-            chooseImage = {},
-            rotateLeft = {},
-            rotateRight = {},
-            removeImage = {},
+            dateValidationError = null,
+            eventTypeName = "Birthday",
+            eventTypeValidationError = null,
+            eventTypes = listOf()
         )
     }
 }

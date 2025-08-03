@@ -62,13 +62,15 @@
     <!-- Hint to delete image [CHAR_LIMIT=20] -->
     <string name="delete_image_hint">Eliminar imagen</string>
     <!-- Title for field Name in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="name_edit_title">Nombre</string>
+    <string name="name_label">Nombre</string>
     <!-- Title for field Date in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="date_edit_title">Fecha</string>
+    <string name="date_label">Fecha</string>
     <!-- Title of the checkbox "I don't know the year -->
-    <string name="show_hide_year_text">No sé el año</string>
+    <string name="hide_year_checkbox_label">No sé el año</string>
     <!-- Title for field Event type in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="event_type_spinner_hint">Tipo de evento</string>
+    <string name="event_type_spinner_label">Tipo de evento</string>
+    <!-- Placeholder for Event type field in event creator/editor -->
+    <string name="event_type_spinner_placeholder">Seleccionar el tipo de evento</string>
     <string name="event_type_description">Puede ingresar un nuevo tipo de evento en el campo de arriba o seleccionar uno existente de la lista.</string>
     <!-- Title for adding new label-->
     <string name="button_add_label">Agregar etiqueta</string>
@@ -157,6 +159,8 @@
     <string name="filter_dialog_title">Filtrar eventos</string>
     <!-- Hint for clear filter in filter dialog -->
     <string name="clear_button_hint">Claro</string>
+    <!-- Hint for dropdown button -->
+    <string name="dropdown_button_hint">Abrir/cerrar el menú desplegable</string>
     <!-- Title for selecting tag in the filter list -->
     <string name="select_labels_title">Seleccionar etiquetas</string>
 

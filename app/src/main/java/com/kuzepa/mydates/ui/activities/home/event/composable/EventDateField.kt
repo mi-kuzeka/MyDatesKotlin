@@ -1,7 +1,6 @@
 package com.kuzepa.mydates.ui.activities.home.event.composable
 
 import android.content.res.Configuration
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -12,7 +11,7 @@ import com.kuzepa.mydates.ui.common.composable.FieldLabel
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
-fun EventDateFieldView(
+internal fun EventDateField(
     label: String,
     date: String,
     dateMask: String,
@@ -26,8 +25,6 @@ fun EventDateFieldView(
         onValueChange = onValueChange,
         mask = dateMask,
         delimiter = delimiter,
-        textColor = MaterialTheme.colorScheme.onPrimaryContainer,
-        maskColor = MaterialTheme.colorScheme.secondary,
         modifier = modifier,
         label = { FieldLabel(label = label) },
         errorMessage = errorMessage
@@ -39,7 +36,7 @@ fun EventDateFieldView(
 private fun DateFieldPreview() {
     val date = remember { mutableStateOf("") }
     MyDatesTheme {
-        EventDateFieldView(
+        EventDateField(
             label = "Date",
             date = date.value,
             dateMask = "dd-mm-yyyy",
@@ -55,7 +52,7 @@ private fun DateFieldPreview() {
 private fun DateFieldPreviewError() {
     val date = remember { mutableStateOf("2528") }
     MyDatesTheme {
-        EventDateFieldView(
+        EventDateField(
             label = "Date",
             date = date.value,
             dateMask = "dd-mm-yyyy",
@@ -74,7 +71,7 @@ private fun DateFieldPreviewError() {
 private fun DateFieldPreviewDark() {
     val date = remember { mutableStateOf("") }
     MyDatesTheme {
-        EventDateFieldView(
+        EventDateField(
             label = "Date",
             date = date.value,
             dateMask = "dd-mm-yyyy",
@@ -93,7 +90,7 @@ private fun DateFieldPreviewDark() {
 private fun DateFieldPreviewErrorDark() {
     val date = remember { mutableStateOf("2528") }
     MyDatesTheme {
-        EventDateFieldView(
+        EventDateField(
             label = "Date",
             date = date.value,
             dateMask = "dd-mm-yyyy",

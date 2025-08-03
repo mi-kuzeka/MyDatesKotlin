@@ -7,13 +7,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
-fun FieldPlaceholder(
+internal fun FieldPlaceholder(
     placeholder: String
 ) {
     Text(
         text = placeholder,
-        color = MaterialTheme.colorScheme.secondary,
-        style = MaterialTheme.typography.bodyMedium,
+        color = getMyDatesPlaceholderColor(),
+        style = MaterialTheme.typography.bodyLarge,
     )
 }
 

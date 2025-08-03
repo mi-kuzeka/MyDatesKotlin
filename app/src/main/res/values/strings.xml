@@ -95,13 +95,15 @@
     <!-- Hint to delete image [CHAR_LIMIT=20] -->
     <string name="delete_image_hint">Delete image</string>
     <!-- Title for field Name in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="name_edit_title">Name</string>
+    <string name="name_label">Name</string>
     <!-- Title for field Date in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="date_edit_title">Date</string>
+    <string name="date_label">Date</string>
     <!-- Title of the checkbox "I don't know the year -->
-    <string name="show_hide_year_text">I don\'t know the year</string>
-    <!-- Title for field Event type in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="event_type_spinner_hint">Event type</string>
+    <string name="hide_year_checkbox_label">I don\'t know the year</string>
+    <!-- Title for Event type field in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="event_type_spinner_label">Event type</string>
+    <!-- Placeholder for Event type field in event creator/editor -->
+    <string name="event_type_spinner_placeholder">Select event type</string>
     <string name="event_type_description">You can enter a new event type in the field above or select an existing one from the list.</string>
     <!-- Title for adding tag-->
     <string name="button_add_label">Add tag</string>
@@ -195,6 +197,8 @@
     <string name="filter_dialog_title">Filter events</string>
     <!-- Hint for clear button -->
     <string name="clear_button_hint">Clear</string>
+    <!-- Hint for dropdown button -->
+    <string name="dropdown_button_hint">Open/close drop-down menu</string>
     <!-- Title for selecting tag in the filter list -->
     <string name="select_labels_title">Select tags</string>
 

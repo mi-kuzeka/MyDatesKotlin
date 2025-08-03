@@ -62,13 +62,15 @@
     <!-- Hint to delete image [CHAR_LIMIT=20] -->
     <string name="delete_image_hint">Удалить изображение</string>
     <!-- Title for field Name in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="name_edit_title">Название</string>
+    <string name="name_label">Название</string>
     <!-- Title for field Date in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="date_edit_title">Дата</string>
+    <string name="date_label">Дата</string>
     <!-- Title of the checkbox "I don't know the year -->
-    <string name="show_hide_year_text">Я не знаю год</string>
+    <string name="hide_year_checkbox_label">Я не знаю год</string>
     <!-- Title for field Event type in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="event_type_spinner_hint">Тип события</string>
+    <string name="event_type_spinner_label">Тип события</string>
+    <!-- Placeholder for Event type field in event creator/editor -->
+    <string name="event_type_spinner_placeholder">Выберите тип события</string>
     <string name="event_type_description">Вы можете ввести новый тип события в поле выше или выбрать уже существующий из списка.</string>
     <!-- Title for adding tag-->
     <string name="button_add_label">Добавить тег</string>
@@ -157,6 +159,8 @@
     <string name="filter_dialog_title">Фильтр событий</string>
     <!-- Hint for clear filter in filter dialog -->
     <string name="clear_button_hint">Очистить</string>
+    <!-- Hint for dropdown button -->
+    <string name="dropdown_button_hint">Открыть/закрыть выпадающий список</string>
     <!-- Title for selecting tag in the filter list -->
     <string name="select_labels_title">Выберите теги</string>
 

@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.ui.activities.main.composable
+package com.kuzepa.mydates.ui.common.composable
 
 import android.content.res.Configuration
 import androidx.compose.material.icons.Icons
@@ -31,7 +31,7 @@ fun TopBar(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
             titleContentColor = MaterialTheme.colorScheme.primary,
         ),
         navigationIcon = {
