@@ -6,7 +6,7 @@ import com.kuzepa.mydates.domain.usecase.validation.ValidationMessageProvider
 import com.kuzepa.mydates.domain.usecase.validation.rules.DateFormatRule
 import com.kuzepa.mydates.domain.usecase.validation.rules.SelectionRequiredRule
 import com.kuzepa.mydates.domain.usecase.validation.rules.TextFieldRequiredRule
-import com.kuzepa.mydates.ui.common.ResourceDateFormatProvider
+import com.kuzepa.mydates.ui.common.DataStoreDateFormatProvider
 import com.kuzepa.mydates.ui.common.ResourceValidationMessageProvider
 import dagger.Module
 import dagger.Provides
@@ -31,7 +31,7 @@ object AppModule {
     fun provideDateFormatProvider(
         @ApplicationContext appContext: Context
     ): DateFormatProvider {
-        return ResourceDateFormatProvider(appContext)
+        return DataStoreDateFormatProvider(appContext)
     }
 
     @Provides

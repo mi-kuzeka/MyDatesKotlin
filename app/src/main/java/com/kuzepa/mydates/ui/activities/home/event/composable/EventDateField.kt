@@ -18,16 +18,18 @@ internal fun EventDateField(
     delimiter: Char,
     errorMessage: String?,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    checkBox: @Composable () -> Unit = {}
 ) {
     DateTextField(
         value = date,
         onValueChange = onValueChange,
         mask = dateMask,
         delimiter = delimiter,
-        modifier = modifier,
         label = { FieldLabel(label = label) },
-        errorMessage = errorMessage
+        errorMessage = errorMessage,
+        modifier = modifier,
+        checkBox = checkBox
     )
 }
 

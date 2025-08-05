@@ -8,20 +8,17 @@ import com.kuzepa.mydates.domain.dateformat.DateFormatProvider
 import com.kuzepa.mydates.domain.dateformat.DateShowingMode
 import com.kuzepa.mydates.domain.model.EventDate
 
-class ResourceDateFormatProvider(
+class DataStoreDateFormatProvider(
     private val context: Context
 ) : DateFormatProvider {
-
-    override fun getShowingMask(hideYear: Boolean): String {
-        return if (hideYear) {
-            "mm/dd"
-        } else {
-            "mm/dd/yyyy"
-        }
+    override fun getFullMask(): String {
+        return "mm/dd/yyyy"
         //TODO get from datastore
-//        return if (hideYear) {
-//            context.resources.getString()
-//        }
+    }
+
+    override fun getShortMask(): String {
+        return "mm/dd"
+        //TODO get from datastore
     }
 
     override fun getDelimiter(): Char {
@@ -29,8 +26,13 @@ class ResourceDateFormatProvider(
         //TODO get from datastore
     }
 
-    override fun getFormattingPattern(hideYear: Boolean): String {
-        return if (hideYear) "MMdd" else "MMddyyyy"
+    override fun getFullFormattingPattern(): String {
+        return "MMddyyyy"
+        //TODO get from datastore
+    }
+
+    override fun getShortFormattingPattern(): String {
+        return "MMdd"
         //TODO get from datastore
     }
 
@@ -74,5 +76,9 @@ class ResourceDateFormatProvider(
 
     override fun dateIsFilled(inputDate: String, hideYear: Boolean): Boolean {
         return getFormattingPattern(hideYear).length == inputDate.length
+    }
+
+    override fun getDateWithoutYear(inputDate: String): String {
+        return inputDate.take(getShortFormattingPattern().length)
     }
 }

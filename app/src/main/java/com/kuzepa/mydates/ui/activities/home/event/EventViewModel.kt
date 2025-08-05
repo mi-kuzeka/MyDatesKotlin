@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.kuzepa.mydates.domain.dateformat.DateFormatProvider
 import com.kuzepa.mydates.domain.dateformat.DateShowingMode
 import com.kuzepa.mydates.domain.model.Event
+import com.kuzepa.mydates.domain.model.EventType
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
@@ -34,8 +35,15 @@ class EventViewModel @Inject constructor(
     private val eventId: Int? = savedStateHandle.get<Int>("id")
     private val _uiState = MutableStateFlow(EventUiState())
     val uiState: StateFlow<EventUiState> = _uiState.asStateFlow()
+    private lateinit var fullDateMask: String
+    private lateinit var shortDateMask: String
     private lateinit var dateMask: String
     private var dateDelimiter by Delegates.notNull<Char>()
+
+    /**
+     *Required to populate the drop-down list
+     */
+    private val allEventTypes: List<EventType> = emptyList()
 
     private val savingEventChannel = Channel<SavingEvent>()
     val savingEvents = savingEventChannel.receiveAsFlow()
@@ -44,7 +52,9 @@ class EventViewModel @Inject constructor(
         dateDelimiter = dateFormatProvider.getDelimiter()
         loadEventTypes()
         if (eventId == null) {
-            dateMask = dateFormatProvider.getShowingMask(_uiState.value.hideYear)
+            fullDateMask = dateFormatProvider.getFullMask()
+            shortDateMask = dateFormatProvider.getShortMask()
+            setDateMask()
             setDefaultEventType()
         } else {
             fillEventById(eventId)
@@ -89,6 +99,21 @@ class EventViewModel @Inject constructor(
 
             is EventScreenEvent.HideYearChanged -> {
                 _uiState.value = _uiState.value.copy(hideYear = event.hideYear)
+                if (event.hideYear) {
+                    dateFormatProvider.getDateWithoutYear(_uiState.value.date)
+                    _uiState.value = _uiState.value.copy(
+                        date = dateFormatProvider.getDateWithoutYear(_uiState.value.date)
+                    )
+                }
+                if (_uiState.value.dateValidationError != null
+                    || dateFormatProvider.dateIsFilled(
+                        inputDate = _uiState.value.date,
+                        hideYear = _uiState.value.hideYear
+                    )
+                ) {
+                    validateDate(dateInput = _uiState.value.date)
+                }
+                setDateMask()
             }
 
             is EventScreenEvent.EventTypeChanged -> {
@@ -176,7 +201,14 @@ class EventViewModel @Inject constructor(
         }
     }
 
+    fun getAllEventTypes(): List<EventType> = allEventTypes
+
+    fun setDateMask() {
+        dateMask = dateFormatProvider.getShowingMask(_uiState.value.hideYear)
+    }
+
     fun getDateMask(): String = dateMask
+
     fun getMaskDelimiter(): Char = dateDelimiter
 
     fun validate() {

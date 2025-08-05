@@ -1,6 +1,8 @@
 package com.kuzepa.mydates.ui.common.composable
 
 import MaskVisualTransformation
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -17,9 +19,10 @@ fun DateTextField(
     mask: String,
     delimiter: Char,
     errorMessage: String?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    checkBox: @Composable () -> Unit = {}
 ) {
-    val maxDigits = remember { mask.split(delimiter).sumOf { it.length } }
+    val maxDigits = remember(mask) { mask.split(delimiter).sumOf { it.length } }
 
     TextField(
         label = label,
@@ -33,13 +36,16 @@ fun DateTextField(
         visualTransformation = MaskVisualTransformation(
             mask = mask,
             delimiters = charArrayOf(delimiter),
-            textColor = getMyDatesTextFieldColors().focusedTextColor,
-            maskColor = getMyDatesPlaceholderColor()
+            textColor = getTextFieldColors().focusedTextColor,
+            maskColor = getPlaceholderColor()
         ),
         isError = errorMessage != null,
         supportingText = {
-            if (errorMessage != null) {
-                Text(text = errorMessage)
+            Column(modifier = Modifier.fillMaxWidth()) {
+                if (errorMessage != null) {
+                    Text(text = errorMessage)
+                }
+                checkBox()
             }
         },
         trailingIcon = {
@@ -47,7 +53,7 @@ fun DateTextField(
                 IconClear(onValueChange = onValueChange)
             }
         },
-        colors = getMyDatesTextFieldColors(),
+        colors = getTextFieldColors(),
         modifier = modifier,
     )
 }

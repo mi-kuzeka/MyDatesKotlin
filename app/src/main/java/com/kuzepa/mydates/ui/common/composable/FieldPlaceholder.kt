@@ -12,7 +12,7 @@ internal fun FieldPlaceholder(
 ) {
     Text(
         text = placeholder,
-        color = getMyDatesPlaceholderColor(),
+        color = getPlaceholderColor(),
         style = MaterialTheme.typography.bodyLarge,
     )
 }

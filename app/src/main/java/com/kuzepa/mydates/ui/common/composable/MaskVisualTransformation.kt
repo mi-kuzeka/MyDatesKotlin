@@ -10,7 +10,7 @@ internal class MaskVisualTransformation(
     private val mask: String,
     private val delimiters: CharArray,
     private val textColor: Color,
-    private val maskColor: Color
+    private val maskColor: Color,
 ) : VisualTransformation {
     private val maskGroups = mask.split(delimiters = delimiters).filter { it.isNotEmpty() }
 

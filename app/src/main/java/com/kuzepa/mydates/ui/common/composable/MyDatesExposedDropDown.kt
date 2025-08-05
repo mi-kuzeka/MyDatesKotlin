@@ -37,7 +37,7 @@ internal fun MyDatesExposedDropDown(
             value = value,
             onValueChange = { },
             readOnly = true,
-            colors = getMyDatesTextFieldColors(),
+            colors = getTextFieldColors(),
             label = {
                 FieldLabel(label)
             },
@@ -74,7 +74,7 @@ internal fun MyDatesExposedDropDown(
                     text = {
                         Text(
                             text = selectionOption,
-                            color = getMyDatesTextFieldColors().focusedTextColor,
+                            color = getTextFieldColors().focusedTextColor,
                             style = MaterialTheme.typography.bodyMedium
                         )
                     },

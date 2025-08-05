@@ -37,7 +37,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kuzepa.mydates.R
-import com.kuzepa.mydates.ui.common.composable.getMyDatesUnfocusedContainerColor
+import com.kuzepa.mydates.ui.common.composable.getContainerColor
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
@@ -55,13 +55,13 @@ internal fun EventImageChooser(
                 dimensionResource(R.dimen.event_image_chooser_size)
             )
             .clip(shape = RoundedCornerShape(16.dp))
-            .background(getMyDatesUnfocusedContainerColor())
+            .background(getContainerColor())
     ) {
         if (image == null) {
             Column(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .padding(all = dimensionResource(R.dimen.padding_medium))
+                    .padding(all = dimensionResource(R.dimen.padding_8))
             ) {
                 EmptyEventImage(
                     modifier = Modifier

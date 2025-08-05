@@ -65,8 +65,8 @@
     <string name="name_label">Name</string>
     <!-- Title for field Date in event creator/editor [CHAR_LIMIT=20] -->
     <string name="date_label">Datum</string>
-    <!-- Title of the checkbox "I don't know the year -->
-    <string name="hide_year_checkbox_label">Ich kenne das Jahr nicht</string>
+    <!-- Title of the checkbox "No year" -->
+    <string name="no_year_label">Kein Jahr</string>
     <!-- Title for field Event type in event creator/editor [CHAR_LIMIT=20] -->
     <string name="event_type_spinner_label">Ereignistyp</string>
     <!-- Placeholder for Event type field in event creator/editor -->

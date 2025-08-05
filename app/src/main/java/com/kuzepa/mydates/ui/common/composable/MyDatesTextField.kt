@@ -33,7 +33,7 @@ internal fun MyDatesTextField(
             val newValue = if (maxLength == null) it else it.take(maxLength)
             onValueChange(newValue)
         },
-        colors = getMyDatesTextFieldColors(),
+        colors = getTextFieldColors(),
         label = {
             FieldLabel(label)
         },

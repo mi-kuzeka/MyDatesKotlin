@@ -74,7 +74,7 @@ fun CustomTabs(
                     text = title,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
-                        .padding(vertical = dimensionResource(R.dimen.padding_medium))
+                        .padding(vertical = dimensionResource(R.dimen.padding_8))
                 )
             }
         }
