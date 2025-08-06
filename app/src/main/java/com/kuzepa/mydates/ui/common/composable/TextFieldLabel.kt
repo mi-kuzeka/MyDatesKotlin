@@ -7,7 +7,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
-fun FieldLabel(
+fun TextFieldLabel(
     label: String
 ) {
     Text(
@@ -18,8 +18,8 @@ fun FieldLabel(
 
 @Preview
 @Composable
-fun FieldLabelPreview() {
+fun TextFieldLabelPreview() {
     MyDatesTheme {
-        FieldLabel("Sample")
+        TextFieldLabel("Sample")
     }
 }

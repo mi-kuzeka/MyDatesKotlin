@@ -7,12 +7,13 @@ import com.kuzepa.mydates.domain.dateformat.DateFormatProvider
 import com.kuzepa.mydates.domain.dateformat.DateShowingMode
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventType
+import com.kuzepa.mydates.domain.model.Label
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
 import com.kuzepa.mydates.domain.usecase.validation.getErrorMessage
-import com.kuzepa.mydates.domain.usecase.validation.rules.DateFormatRule
-import com.kuzepa.mydates.domain.usecase.validation.rules.TextFieldRequiredRule
+import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateDateUseCase
+import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateTextNotEmptyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,8 +29,8 @@ class EventViewModel @Inject constructor(
     private val eventRepository: EventRepository,
     private val eventTypeRepository: EventTypeRepository,
     private val dateFormatProvider: DateFormatProvider,
-    private val textFieldRequiredRule: TextFieldRequiredRule,
-    private val dateFormatRule: DateFormatRule,
+    private val validateTextNotEmpty: ValidateTextNotEmptyUseCase,
+    private val validateDate: ValidateDateUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val eventId: Int? = savedStateHandle.get<Int>("id")
@@ -75,7 +76,7 @@ class EventViewModel @Inject constructor(
 
             is EventScreenEvent.NameChanged -> {
                 _uiState.value = _uiState.value.copy(name = event.name)
-                val validationResult: ValidationResult = textFieldRequiredRule.validate(event.name)
+                val validationResult: ValidationResult = validateTextNotEmpty(event.name)
                 _uiState.value = _uiState.value.copy(
                     nameValidationError = validationResult.getErrorMessage()
                 )
@@ -119,7 +120,7 @@ class EventViewModel @Inject constructor(
             is EventScreenEvent.EventTypeChanged -> {
                 _uiState.value = _uiState.value.copy(eventTypeName = event.eventTypeName)
                 val validationResult: ValidationResult =
-                    textFieldRequiredRule.validate(event.eventTypeName)
+                    validateTextNotEmpty(event.eventTypeName)
                 _uiState.value = _uiState.value.copy(
                     eventTypeValidationError = validationResult.getErrorMessage()
                 )
@@ -127,6 +128,18 @@ class EventViewModel @Inject constructor(
 
             is EventScreenEvent.LabelsChanged -> {
                 _uiState.value = _uiState.value.copy(labels = event.labels)
+            }
+
+            is EventScreenEvent.RemoveLabel -> {
+                val updatedLabels = _uiState.value.labels.filter { it.id != event.labelId }
+                _uiState.value = _uiState.value.copy(labels = updatedLabels)
+            }
+
+            is EventScreenEvent.AddLabel -> {
+                val updatedLabels = mutableListOf<Label>()
+                updatedLabels.addAll(_uiState.value.labels)
+                updatedLabels.add(event.label)
+                _uiState.value = _uiState.value.copy(labels = updatedLabels)
             }
 
             is EventScreenEvent.NotesChanged -> {
@@ -150,7 +163,7 @@ class EventViewModel @Inject constructor(
     }
 
     private fun validateDate(dateInput: String) {
-        val validationResult: ValidationResult = dateFormatRule.validate(
+        val validationResult: ValidationResult = validateDate(
             input = dateInput, hideYear = _uiState.value.hideYear
         )
         _uiState.value = _uiState.value.copy(

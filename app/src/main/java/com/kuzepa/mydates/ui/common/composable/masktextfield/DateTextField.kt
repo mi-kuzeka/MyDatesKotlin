@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.ui.common.composable
+package com.kuzepa.mydates.ui.common.composable.masktextfield
 
 import MaskVisualTransformation
 import androidx.compose.foundation.layout.Column
@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import com.kuzepa.mydates.ui.common.composable.IconClear
+import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
 
 @Composable
 fun DateTextField(
@@ -36,8 +38,8 @@ fun DateTextField(
         visualTransformation = MaskVisualTransformation(
             mask = mask,
             delimiters = charArrayOf(delimiter),
-            textColor = getTextFieldColors().focusedTextColor,
-            maskColor = getPlaceholderColor()
+            textColor = MyDatesColors.defaultTextColor,
+            maskColor = MyDatesColors.placeholderColor
         ),
         isError = errorMessage != null,
         supportingText = {
@@ -53,7 +55,7 @@ fun DateTextField(
                 IconClear(onValueChange = onValueChange)
             }
         },
-        colors = getTextFieldColors(),
+        colors = MyDatesColors.textFieldColors,
         modifier = modifier,
     )
 }

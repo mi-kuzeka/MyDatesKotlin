@@ -4,14 +4,14 @@ import com.kuzepa.mydates.domain.usecase.validation.ValidationMessageProvider
 import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
 import javax.inject.Inject
 
-class SelectionRequiredRule @Inject constructor(
+class ValidateTextNotEmptyUseCase @Inject constructor(
     private val validationMessageProvider: ValidationMessageProvider
 ) {
-    fun validate(isSelected: Boolean): ValidationResult {
-        return if (isSelected) {
-            ValidationResult.Valid
+    operator fun invoke(input: String): ValidationResult {
+        return if (input.isBlank()) {
+            ValidationResult.Invalid(validationMessageProvider.getEmptyFieldError())
         } else {
-            ValidationResult.Invalid(validationMessageProvider.getSelectionRequiredError())
+            ValidationResult.Valid
         }
     }
 }

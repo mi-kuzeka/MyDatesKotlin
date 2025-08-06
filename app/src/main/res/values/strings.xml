@@ -125,7 +125,7 @@
     <string name="button_change_label_icon_hint">Change tag icon</string>
     <string name="label_icon_hint">Tag icon</string>
     <string name="label_preview_title">Tag preview</string>
-    <string name="remove_label_hint">Remove the tag</string>
+    <string name="remove_label_hint">Remove tag</string>
     <!-- Notification statuses hints -->
     <string name="notification_status_turned_on_hint">Turned on</string>
     <string name="notification_status_turned_off_hint">Turned off</string>

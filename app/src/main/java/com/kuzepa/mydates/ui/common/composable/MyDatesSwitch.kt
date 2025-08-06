@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.R
+import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
@@ -34,11 +35,11 @@ fun MyDatesSwitch(
         Text(
             text = text,
             style = MaterialTheme.typography.labelLarge,
-            color = getDefaultTextColor()
+            color = MyDatesColors.defaultTextColor
         )
         Spacer(
             modifier = Modifier.width(
-                dimensionResource(R.dimen.padding_16)
+                dimensionResource(R.dimen.padding_default)
             )
         )
         Switch(

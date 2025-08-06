@@ -23,6 +23,13 @@ fun EventDate.formatDate(formatPattern: String, delimiter: Char): String {
     return formatString.format(month, day, year)
 }
 
+/**
+ * Converts formatted date to [EventDate]
+ * @param dateFieldOrder defines the order of month, day and year in the formatted string
+ * @param hideYear if true then format is only with month and day, without year
+ * @param formattedDate date string without delimiters, e.g.: MMddyyyy, ddMM, etc
+ * @return [EventDate] or null
+ */
 fun getEventDateFromFormattedDateWithoutDelimiter(
     dateFieldOrder: Array<DateField>,
     hideYear: Boolean,
@@ -76,27 +83,25 @@ fun getEventDateFromFormattedDateWithoutDelimiter(
     }
 }
 
-fun isDateValid(eventDate: EventDate?): Boolean {
-    if (eventDate == null) return false
-    with(eventDate) {
-        if (month !in 1..12) return false
-        if (day !in 1..31) return false
-        return when (month) {
-            2 -> {
-                if (day <= 28) true
-                if (day > 29) false
-                // only day=29 is left at this step
-                if (hasYear()) {
-                    return isLeapYear(year)
-                } else {
-                    true
-                }
+fun EventDate?.isDateValid(): Boolean {
+    if (this == null) return false
+    if (month !in 1..12) return false
+    if (day !in 1..31) return false
+    return when (month) {
+        2 -> {
+            if (day <= 28) true
+            if (day > 29) false
+            // only day=29 is left at this step
+            if (hasYear()) {
+                return isLeapYear(year)
+            } else {
+                true
             }
-
-            4, 6, 9, 11 -> day <= 30
-
-            else -> true
         }
+
+        4, 6, 9, 11 -> day <= 30
+
+        else -> true
     }
 }
 

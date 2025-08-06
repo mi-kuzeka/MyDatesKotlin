@@ -6,7 +6,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SecondaryScrollableTabRow
@@ -21,6 +20,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import com.kuzepa.mydates.R
+import com.kuzepa.mydates.ui.common.composable.shape.MyDatesShapes
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -59,7 +59,7 @@ fun CustomTabs(
                 Color.Unspecified
             }
             val shape = if (selected) {
-                RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+                MyDatesShapes.selectedTabShape
             } else {
                 RectangleShape
             }
@@ -74,7 +74,7 @@ fun CustomTabs(
                     text = title,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
-                        .padding(vertical = dimensionResource(R.dimen.padding_8))
+                        .padding(vertical = dimensionResource(R.dimen.padding_small))
                 )
             }
         }

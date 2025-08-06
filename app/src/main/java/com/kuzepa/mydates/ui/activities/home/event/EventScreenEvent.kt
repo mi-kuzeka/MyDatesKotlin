@@ -11,6 +11,8 @@ sealed class EventScreenEvent {
     data class HideYearChanged(val hideYear: Boolean) : EventScreenEvent()
     data class EventTypeChanged(val eventTypeName: String) : EventScreenEvent()
     data class LabelsChanged(val labels: List<Label>) : EventScreenEvent()
+    data class RemoveLabel(val labelId: String) : EventScreenEvent()
+    data class AddLabel(val label: Label) : EventScreenEvent()
     data class NotesChanged(val notes: String) : EventScreenEvent()
     object Save : EventScreenEvent()
 }

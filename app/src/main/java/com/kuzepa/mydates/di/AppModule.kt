@@ -3,9 +3,9 @@ package com.kuzepa.mydates.di
 import android.content.Context
 import com.kuzepa.mydates.domain.dateformat.DateFormatProvider
 import com.kuzepa.mydates.domain.usecase.validation.ValidationMessageProvider
-import com.kuzepa.mydates.domain.usecase.validation.rules.DateFormatRule
-import com.kuzepa.mydates.domain.usecase.validation.rules.SelectionRequiredRule
-import com.kuzepa.mydates.domain.usecase.validation.rules.TextFieldRequiredRule
+import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateDateUseCase
+import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateSelectionRequiredUseCase
+import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateTextNotEmptyUseCase
 import com.kuzepa.mydates.ui.common.DataStoreDateFormatProvider
 import com.kuzepa.mydates.ui.common.ResourceValidationMessageProvider
 import dagger.Module
@@ -36,26 +36,26 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTextFieldRequiredRule(
+    fun provideValidateTextNotEmptyUseCase(
         validationMessageProvider: ValidationMessageProvider
-    ): TextFieldRequiredRule {
-        return TextFieldRequiredRule(validationMessageProvider)
+    ): ValidateTextNotEmptyUseCase {
+        return ValidateTextNotEmptyUseCase(validationMessageProvider)
     }
 
     @Provides
     @Singleton
-    fun provideDateFormatRule(
+    fun provideValidateDateUseCase(
         validationMessageProvider: ValidationMessageProvider,
         dateFormatProvider: DateFormatProvider
-    ): DateFormatRule {
-        return DateFormatRule(validationMessageProvider, dateFormatProvider)
+    ): ValidateDateUseCase {
+        return ValidateDateUseCase(validationMessageProvider, dateFormatProvider)
     }
 
     @Provides
     @Singleton
-    fun provideSelectionRequiredRule(
+    fun provideValidateSelectionRequiredUseCase(
         validationMessageProvider: ValidationMessageProvider
-    ): SelectionRequiredRule {
-        return SelectionRequiredRule(validationMessageProvider)
+    ): ValidateSelectionRequiredUseCase {
+        return ValidateSelectionRequiredUseCase(validationMessageProvider)
     }
 }

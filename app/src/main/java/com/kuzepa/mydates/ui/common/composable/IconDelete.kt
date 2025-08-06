@@ -7,15 +7,20 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
 fun IconDelete(
     onClick: () -> Unit,
-    contentDescription: String
+    contentDescription: String,
+    modifier: Modifier = Modifier
 ) {
-    IconButton(onClick = onClick) {
+    IconButton(
+        onClick = onClick,
+        modifier = modifier
+    ) {
         Icon(
             imageVector = Icons.Outlined.Delete,
             contentDescription = contentDescription,

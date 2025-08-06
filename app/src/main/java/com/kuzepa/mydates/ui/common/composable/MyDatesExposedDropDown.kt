@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,12 +38,12 @@ internal fun MyDatesExposedDropDown(
             value = value,
             onValueChange = { },
             readOnly = true,
-            colors = getTextFieldColors(),
+            colors = MyDatesColors.textFieldColors,
             label = {
-                FieldLabel(label)
+                TextFieldLabel(label)
             },
             placeholder = {
-                if (placeholder !== null) FieldPlaceholder(placeholder)
+                if (placeholder !== null) TextFieldPlaceholder(placeholder)
             },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             textStyle = MaterialTheme.typography.bodyMedium,
@@ -60,7 +61,7 @@ internal fun MyDatesExposedDropDown(
                 text = {
                     Text(
                         text = addNewItemLabel,
-                        color = MaterialTheme.colorScheme.primary,
+                        color = MyDatesColors.accentTextColor,
                         style = MaterialTheme.typography.bodyMedium
                     )
                 },
@@ -74,7 +75,7 @@ internal fun MyDatesExposedDropDown(
                     text = {
                         Text(
                             text = selectionOption,
-                            color = getTextFieldColors().focusedTextColor,
+                            color = MyDatesColors.defaultTextColor,
                             style = MaterialTheme.typography.bodyMedium
                         )
                     },

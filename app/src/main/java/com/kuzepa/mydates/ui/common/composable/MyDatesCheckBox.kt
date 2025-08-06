@@ -22,6 +22,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.kuzepa.mydates.R
+import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
@@ -39,10 +40,10 @@ fun MyDatesCheckbox(
     ) {
         Text(
             text = text,
-            color = getCheckBoxTextColor(),
+            color = MyDatesColors.checkBoxTextColor,
             style = textStyle
         )
-        Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_8)))
+        Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_small)))
         CompositionLocalProvider(
             LocalMinimumInteractiveComponentSize provides Dp.Unspecified
         ) {
@@ -50,8 +51,8 @@ fun MyDatesCheckbox(
                 checked = checked,
                 onCheckedChange = onCheckedChange,
                 colors = CheckboxDefaults.colors(
-                    checkedColor = MaterialTheme.colorScheme.primary,
-                    uncheckedColor = MaterialTheme.colorScheme.primary,
+                    checkedColor = MyDatesColors.checkBoxColor,
+                    uncheckedColor = MyDatesColors.checkBoxColor,
                 )
             )
         }

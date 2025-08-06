@@ -26,6 +26,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kuzepa.mydates.R
+import com.kuzepa.mydates.domain.model.Label
+import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
 import com.kuzepa.mydates.ui.activities.home.event.EventScreenEvent
 import com.kuzepa.mydates.ui.activities.home.event.EventViewModel
@@ -34,6 +36,7 @@ import com.kuzepa.mydates.ui.common.composable.MyDatesCheckbox
 import com.kuzepa.mydates.ui.common.composable.MyDatesExposedDropDown
 import com.kuzepa.mydates.ui.common.composable.MyDatesTextField
 import com.kuzepa.mydates.ui.common.composable.TopBar
+import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
@@ -53,7 +56,7 @@ internal fun EventScreen(
         verticalArrangement = Arrangement.Top,
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(MyDatesColors.screenBackground)
     ) {
         TopBar(
             title = stringResource(titleResourceId),
@@ -63,10 +66,12 @@ internal fun EventScreen(
                 onNavigateBack()
             },
             endIcon = {
-                IconDelete(
-                    onClick = { /* TODO show confirmation dialog and delete event */ },
-                    contentDescription = stringResource(R.string.delete_event_button_hint)
-                )
+                if (state.event != null) {
+                    IconDelete(
+                        onClick = { /* TODO show confirmation dialog and delete event */ },
+                        contentDescription = stringResource(R.string.delete_event_button_hint)
+                    )
+                }
             },
             modifier = Modifier.fillMaxWidth()
         )
@@ -82,7 +87,9 @@ internal fun EventScreen(
             hideYear = state.hideYear,
             eventTypeName = state.eventTypeName,
             eventTypeValidationError = state.eventTypeValidationError,
-            eventTypes = viewModel.getAllEventTypes().map { it.name }
+            eventTypes = viewModel.getAllEventTypes().map { it.name },
+            eventLabels = state.labels,
+            notes = state.notes
         )
     }
 }
@@ -102,19 +109,21 @@ internal fun EventScreenContent(
     eventTypeName: String,
     eventTypeValidationError: String?,
     eventTypes: List<String>,
+    eventLabels: List<Label>,
+    notes: String,
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
     Column(
         verticalArrangement = Arrangement.spacedBy(
-            space = dimensionResource(R.dimen.padding_8),
+            space = dimensionResource(R.dimen.padding_small),
             alignment = Alignment.Top
         ),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(state = scrollState)
-            .padding(dimensionResource(R.dimen.padding_16))
+            .padding(dimensionResource(R.dimen.padding_default))
     ) {
         EventImageChooser(
             image,
@@ -123,7 +132,7 @@ internal fun EventScreenContent(
             rotateRight = {},
             removeImage = {},
         )
-        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_8)))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
         MyDatesTextField(
             label = stringResource(R.string.name_label),
             value = name,
@@ -167,27 +176,83 @@ internal fun EventScreenContent(
             modifier = Modifier.fillMaxWidth(),
             placeholder = stringResource(R.string.event_type_spinner_placeholder)
         )
+        EventLabelContainer(
+            label = stringResource(R.string.labels_title),
+            labels = eventLabels,
+            onLabelClick = { /* TODO show Label Dialog */ },
+            onRemoveLabelClick = { /* TODO show confirmation Dialog */ },
+            buttonRemoveDescription = stringResource(R.string.remove_label_hint),
+            addLabelText = stringResource(R.string.button_add_label),
+            onAddLabelClick = { /* TODO show Label Dialog */ },
+            modifier = Modifier.fillMaxWidth()
+        )
+        MyDatesTextField(
+            label = stringResource(R.string.notes_edit_title),
+            value = notes,
+            onValueChange = { onEvent(EventScreenEvent.NotesChanged(it)) },
+            maxLength = TextFieldMaxLength.NOTES.length,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            placeholder = stringResource(R.string.notes_edit_hint),
+            singleLine = false,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
 
-@Preview(name = "New event")
+@Preview(name = "New event", showSystemUi = true, showBackground = true)
 @Composable
 fun EventScreenNewEventPreview() {
     MyDatesTheme {
-        EventScreenContent(
-            onEvent = { },
-            image = null,
-            name = "Text",
-            nameValidationError = "This firld is required",
-            date = "",
-            dateMask = "mm/dd/yyyy",
-            dateDelimiter = '/',
-            dateValidationError = null,
-            hideYear = false,
-            eventTypeName = "Birthday",
-            eventTypeValidationError = null,
-            eventTypes = listOf()
-        )
+        Column(
+            verticalArrangement = Arrangement.Top,
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MyDatesColors.screenBackground)
+        ) {
+            TopBar(
+                title = "New event",
+                canGoBack = true,
+                onGoBack = { },
+                endIcon = {
+                    IconDelete(
+                        onClick = { /* TODO show confirmation dialog and delete event */ },
+                        contentDescription = stringResource(R.string.delete_event_button_hint)
+                    )
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+            EventScreenContent(
+                onEvent = { },
+                image = null,
+                name = "Text",
+                nameValidationError = "This firld is required",
+                date = "",
+                dateMask = "mm/dd/yyyy",
+                dateDelimiter = '/',
+                dateValidationError = null,
+                hideYear = false,
+                eventTypeName = "Birthday",
+                eventTypeValidationError = null,
+                eventTypes = listOf(),
+                eventLabels = listOf(
+                    Label(
+                        id = "1",
+                        name = "Friends",
+                        color = 6,
+                        notificationState = NotificationFilterState.FILTER_STATE_ON,
+                        iconId = 0
+                    ),
+                    Label(
+                        id = "2",
+                        name = "Family",
+                        color = 3,
+                        notificationState = NotificationFilterState.FILTER_STATE_ON,
+                        iconId = 10
+                    )
+                ),
+                notes = ""
+            )
+        }
     }
 }

@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.RotateLeft
 import androidx.compose.material.icons.automirrored.outlined.RotateRight
@@ -35,9 +34,9 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.kuzepa.mydates.R
-import com.kuzepa.mydates.ui.common.composable.getContainerColor
+import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
+import com.kuzepa.mydates.ui.common.composable.shape.MyDatesShapes
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
@@ -54,14 +53,14 @@ internal fun EventImageChooser(
             .size(
                 dimensionResource(R.dimen.event_image_chooser_size)
             )
-            .clip(shape = RoundedCornerShape(16.dp))
-            .background(getContainerColor())
+            .clip(shape = MyDatesShapes.imageBoxShape)
+            .background(MyDatesColors.containerColor)
     ) {
         if (image == null) {
             Column(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .padding(all = dimensionResource(R.dimen.padding_8))
+                    .padding(all = dimensionResource(R.dimen.padding_small))
             ) {
                 EmptyEventImage(
                     modifier = Modifier
@@ -69,7 +68,7 @@ internal fun EventImageChooser(
                 )
                 Text(
                     text = stringResource(R.string.choose_image),
-                    color = MaterialTheme.colorScheme.primary,
+                    color = MyDatesColors.accentTextColor,
                     modifier = Modifier
                         .clickable(onClick = chooseImage)
                         .align(Alignment.CenterHorizontally)

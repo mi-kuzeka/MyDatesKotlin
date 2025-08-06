@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.kuzepa.mydates.ui.common.composable.DateTextField
-import com.kuzepa.mydates.ui.common.composable.FieldLabel
+import com.kuzepa.mydates.ui.common.composable.TextFieldLabel
+import com.kuzepa.mydates.ui.common.composable.masktextfield.DateTextField
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
@@ -26,7 +26,7 @@ internal fun EventDateField(
         onValueChange = onValueChange,
         mask = dateMask,
         delimiter = delimiter,
-        label = { FieldLabel(label = label) },
+        label = { TextFieldLabel(label = label) },
         errorMessage = errorMessage,
         modifier = modifier,
         checkBox = checkBox

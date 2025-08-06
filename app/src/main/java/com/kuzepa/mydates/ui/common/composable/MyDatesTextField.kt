@@ -13,6 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
@@ -20,12 +21,13 @@ internal fun MyDatesTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
-    errorMessage: String?,
     modifier: Modifier = Modifier,
+    errorMessage: String? = null,
     showIconClear: Boolean = true,
     placeholder: String? = null,
     maxLength: Int? = null,
-    keyboardOptions: KeyboardOptions = KeyboardOptions()
+    singleLine: Boolean = true,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(),
 ) {
     TextField(
         value = value,
@@ -33,19 +35,19 @@ internal fun MyDatesTextField(
             val newValue = if (maxLength == null) it else it.take(maxLength)
             onValueChange(newValue)
         },
-        colors = getTextFieldColors(),
+        colors = MyDatesColors.textFieldColors,
         label = {
-            FieldLabel(label)
+            TextFieldLabel(label)
         },
         placeholder = {
-            if (placeholder !== null) FieldPlaceholder(placeholder)
+            if (placeholder !== null) TextFieldPlaceholder(placeholder)
         },
         trailingIcon = {
             if (showIconClear && !value.isEmpty()) IconClear(onValueChange)
         },
         textStyle = MaterialTheme.typography.bodyLarge,
         keyboardOptions = keyboardOptions,
-        singleLine = true,
+        singleLine = singleLine,
         isError = errorMessage != null,
         supportingText = {
             if (errorMessage != null) {
@@ -55,7 +57,7 @@ internal fun MyDatesTextField(
                     text = "${value.length} / $maxLength",
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.End,
-                    color = MaterialTheme.colorScheme.secondary,
+                    color = MyDatesColors.textFieldLabelColor,
                     style = MaterialTheme.typography.labelMedium
                 )
             }
