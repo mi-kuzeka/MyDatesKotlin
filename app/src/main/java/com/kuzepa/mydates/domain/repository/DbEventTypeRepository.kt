@@ -10,6 +10,10 @@ import javax.inject.Inject
 class DbEventTypeRepository @Inject constructor(
     private val eventTypeDao: EventTypeDao
 ) : EventTypeRepository {
+    override suspend fun getEventTypeById(id: String): EventType? {
+        return eventTypeDao.getEventTypeById(id)?.toEventType()
+    }
+
     override suspend fun addEventType(eventType: EventType) {
         eventTypeDao.addEventType(eventType.toEventTypeEntity())
     }

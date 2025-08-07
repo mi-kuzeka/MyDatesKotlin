@@ -62,6 +62,10 @@ class FakeEventRepository @Inject constructor() : EventRepository {
 }
 
 class FakeEventTypeRepository @Inject constructor() : EventTypeRepository {
+    override suspend fun getEventTypeById(id: String): EventType? {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun addEventType(eventType: EventType) {
         TODO("Not yet implemented")
     }

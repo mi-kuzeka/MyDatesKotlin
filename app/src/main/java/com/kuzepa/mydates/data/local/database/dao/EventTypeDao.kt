@@ -8,6 +8,9 @@ import com.kuzepa.mydates.data.local.database.entity.EventTypeEntity
 
 @Dao
 interface EventTypeDao {
+    @Query("SELECT * FROM event_types WHERE id = :id;")
+    suspend fun getEventTypeById(id: String): EventTypeEntity?
+
     @Insert(onConflict = REPLACE)
     suspend fun addEventType(eventTypeEntity: EventTypeEntity)
 
