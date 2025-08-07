@@ -40,7 +40,7 @@ fun LabelChip(
     label: Label,
     onLabelClick: (id: String) -> Unit,
     onRemoveLabelClick: (id: String) -> Unit,
-    removeButtonDescription: String,
+    buttonRemoveDescription: String,
     modifier: Modifier = Modifier
 ) {
     var firstLetter by remember(label.name) {
@@ -102,7 +102,7 @@ fun LabelChip(
         trailingIcon = {
             IconRemove(
                 onClick = { onRemoveLabelClick(label.id) },
-                contentDescription = removeButtonDescription,
+                contentDescription = buttonRemoveDescription,
                 modifier = Modifier.size(InputChipDefaults.AvatarSize)
             )
         },
@@ -136,7 +136,7 @@ fun LabelChipPreview() {
             ),
             onLabelClick = {},
             onRemoveLabelClick = {},
-            removeButtonDescription = ""
+            buttonRemoveDescription = ""
         )
     }
 }

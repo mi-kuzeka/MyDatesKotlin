@@ -1,9 +1,9 @@
 package com.kuzepa.mydates.ui.common.composable
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,6 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
+import com.kuzepa.mydates.ui.common.composable.supportingtext.MyDatesErrorText
+import com.kuzepa.mydates.ui.common.composable.supportingtext.MyDatesSupportingText
+import com.kuzepa.mydates.ui.common.composable.supportingtext.MyDatesSupportingTextBox
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
@@ -29,41 +32,44 @@ internal fun MyDatesTextField(
     singleLine: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions(),
 ) {
-    TextField(
-        value = value,
-        onValueChange = {
-            val newValue = if (maxLength == null) it else it.take(maxLength)
-            onValueChange(newValue)
-        },
-        colors = MyDatesColors.textFieldColors,
-        label = {
-            TextFieldLabel(label)
-        },
-        placeholder = {
-            if (placeholder !== null) TextFieldPlaceholder(placeholder)
-        },
-        trailingIcon = {
-            if (showIconClear && !value.isEmpty()) IconClear(onValueChange)
-        },
-        textStyle = MaterialTheme.typography.bodyLarge,
-        keyboardOptions = keyboardOptions,
-        singleLine = singleLine,
-        isError = errorMessage != null,
-        supportingText = {
+    Column(
+        modifier = modifier
+    ) {
+        TextField(
+            value = value,
+            onValueChange = {
+                val newValue = if (maxLength == null) it else it.take(maxLength)
+                onValueChange(newValue)
+            },
+            colors = MyDatesColors.textFieldColors,
+            label = {
+                TextFieldLabel(label)
+            },
+            placeholder = {
+                if (placeholder !== null) TextFieldPlaceholder(placeholder)
+            },
+            trailingIcon = {
+                if (showIconClear && !value.isEmpty()) IconClear(onValueChange)
+            },
+            textStyle = MaterialTheme.typography.bodyLarge,
+            keyboardOptions = keyboardOptions,
+            singleLine = singleLine,
+            isError = errorMessage != null,
+            modifier = Modifier.fillMaxWidth()
+        )
+        MyDatesSupportingTextBox {
             if (errorMessage != null) {
-                Text(text = errorMessage)
+                MyDatesErrorText(errorMessage)
             } else if (maxLength != null) {
-                Text(
+                MyDatesSupportingText(
                     text = "${value.length} / $maxLength",
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.End,
                     color = MyDatesColors.textFieldLabelColor,
-                    style = MaterialTheme.typography.labelMedium
+                    style = MaterialTheme.typography.labelSmall,
+                    textAlign = TextAlign.End,
                 )
             }
-        },
-        modifier = modifier
-    )
+        }
+    }
 }
 
 @Preview(name = "TextField")

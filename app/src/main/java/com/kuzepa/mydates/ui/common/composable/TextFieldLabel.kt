@@ -8,10 +8,10 @@ import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
 fun TextFieldLabel(
-    label: String
+    text: String
 ) {
     Text(
-        text = label,
+        text = text,
         style = MaterialTheme.typography.labelMedium,
     )
 }

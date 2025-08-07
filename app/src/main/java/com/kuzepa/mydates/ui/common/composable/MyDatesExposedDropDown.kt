@@ -1,5 +1,7 @@
 package com.kuzepa.mydates.ui.common.composable
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -15,6 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
+import com.kuzepa.mydates.ui.common.composable.supportingtext.MyDatesErrorText
+import com.kuzepa.mydates.ui.common.composable.supportingtext.MyDatesSupportingTextBox
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,60 +34,68 @@ internal fun MyDatesExposedDropDown(
     placeholder: String? = null
 ) {
     var expanded by remember { mutableStateOf(false) }
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = { expanded = it }
+    Column(
+        modifier = modifier
     ) {
-        TextField(
-            value = value,
-            onValueChange = { },
-            readOnly = true,
-            colors = MyDatesColors.textFieldColors,
-            label = {
-                TextFieldLabel(label)
-            },
-            placeholder = {
-                if (placeholder !== null) TextFieldPlaceholder(placeholder)
-            },
-            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            textStyle = MaterialTheme.typography.bodyMedium,
-            singleLine = true,
-            isError = errorMessage != null,
-            supportingText = {
-                if (errorMessage != null) {
-                    Text(text = errorMessage)
-                }
-            },
-            modifier = modifier.menuAnchor(type = PrimaryNotEditable, enabled = true)
-        )
-        ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            DropdownMenuItem(
-                text = {
-                    Text(
-                        text = addNewItemLabel,
-                        color = MyDatesColors.accentTextColor,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
+        ExposedDropdownMenuBox(
+            expanded = expanded,
+            onExpandedChange = { expanded = it }
+        ) {
+            TextField(
+                value = value,
+                onValueChange = { },
+                readOnly = true,
+                colors = MyDatesColors.textFieldColors,
+                label = {
+                    TextFieldLabel(label)
                 },
-                onClick = {
-                    expanded = false
-                    onAddNewItem()
-                }
+                placeholder = {
+                    if (placeholder !== null) TextFieldPlaceholder(placeholder)
+                },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                textStyle = MaterialTheme.typography.bodyMedium,
+                singleLine = true,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .menuAnchor(type = PrimaryNotEditable, enabled = true)
             )
-            options.forEach { selectionOption ->
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+            ) {
                 DropdownMenuItem(
                     text = {
                         Text(
-                            text = selectionOption,
-                            color = MyDatesColors.defaultTextColor,
+                            text = addNewItemLabel,
+                            color = MyDatesColors.accentTextColor,
                             style = MaterialTheme.typography.bodyMedium
                         )
                     },
                     onClick = {
-                        onValueChange(selectionOption)
                         expanded = false
+                        onAddNewItem()
                     }
                 )
+                options.forEach { selectionOption ->
+                    DropdownMenuItem(
+                        text = {
+                            Text(
+                                text = selectionOption,
+                                color = MyDatesColors.defaultTextColor,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        },
+                        onClick = {
+                            onValueChange(selectionOption)
+                            expanded = false
+                        }
+                    )
+                }
+            }
+        }
+        MyDatesSupportingTextBox {
+            if (errorMessage != null) {
+                MyDatesErrorText(errorMessage)
             }
         }
     }

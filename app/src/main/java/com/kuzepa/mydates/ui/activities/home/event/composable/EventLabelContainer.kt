@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.model.Label
 import com.kuzepa.mydates.domain.model.NotificationFilterState
@@ -23,6 +22,7 @@ import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
 import com.kuzepa.mydates.ui.common.composable.label.AddLabelChip
 import com.kuzepa.mydates.ui.common.composable.label.LabelChip
 import com.kuzepa.mydates.ui.common.composable.shape.MyDatesShapes
+import com.kuzepa.mydates.ui.common.composable.supportingtext.MyDatesSupportingTextBox
 import com.kuzepa.mydates.ui.common.utils.labelcolor.randomColor
 import com.kuzepa.mydates.ui.common.utils.labelcolor.toInt
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
@@ -41,34 +41,44 @@ fun EventLabelContainer(
 ) {
     Column(
         modifier = modifier
-            .clip(MyDatesShapes.defaultContainerShape)
-            .background(color = MyDatesColors.containerColor)
-            .padding(
-                horizontal = dimensionResource(R.dimen.padding_default),
-                vertical = dimensionResource(R.dimen.padding_small)
-            )
     ) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelMedium,
-            color = MyDatesColors.textFieldLabelColor,
-        )
-        FlowRow(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(MyDatesShapes.defaultContainerShape)
+                .background(color = MyDatesColors.containerColor)
+                .padding(
+                    horizontal = dimensionResource(R.dimen.padding_default),
+                    vertical = dimensionResource(R.dimen.padding_small)
+                )
         ) {
-            labels.forEach { label ->
-                LabelChip(
-                    label = label,
-                    onLabelClick = { onLabelClick(it) },
-                    onRemoveLabelClick = onRemoveLabelClick,
-                    removeButtonDescription = buttonRemoveDescription,
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelMedium,
+                color = MyDatesColors.textFieldLabelColor
+            )
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(
+                    dimensionResource(R.dimen.padding_default)
+                ),
+            ) {
+                labels.forEach { label ->
+                    LabelChip(
+                        label = label,
+                        onLabelClick = { onLabelClick(it) },
+                        onRemoveLabelClick = onRemoveLabelClick,
+                        buttonRemoveDescription = buttonRemoveDescription,
+                    )
+                }
+                AddLabelChip(
+                    addLabelText = addLabelText,
+                    onAddLabelClick = onAddLabelClick
                 )
             }
-            AddLabelChip(
-                addLabelText = addLabelText,
-                onAddLabelClick = onAddLabelClick
-            )
+        }
+        MyDatesSupportingTextBox {
+
         }
     }
 }

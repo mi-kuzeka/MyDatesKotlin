@@ -196,6 +196,7 @@ internal fun EventScreenContent(
             singleLine = false,
             modifier = Modifier.fillMaxWidth()
         )
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_default)))
     }
 }
 

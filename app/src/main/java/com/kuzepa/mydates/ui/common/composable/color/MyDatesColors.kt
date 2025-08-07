@@ -18,7 +18,9 @@ internal object MyDatesColors {
             unfocusedTextColor = defaultTextColor,
             focusedContainerColor = focusedContainerColor,
             unfocusedContainerColor = containerColor,
-            errorContainerColor = containerColor
+            errorContainerColor = containerColor,
+            cursorColor = defaultTextColor,
+            errorCursorColor = errorTextColor
         )
 
     /* Container colors */
@@ -51,6 +53,10 @@ internal object MyDatesColors {
         @Composable
         get() = MaterialTheme.colorScheme.onSurface
 
+    val errorTextColor: Color
+        @Composable
+        get() = MaterialTheme.colorScheme.error
+
     val accentTextColor: Color
         @Composable
         get() = MaterialTheme.colorScheme.primary
@@ -65,7 +71,7 @@ internal object MyDatesColors {
 
     val placeholderColor: Color
         @Composable
-        get() = MaterialTheme.colorScheme.onSurfaceVariant
+        get() = MaterialTheme.colorScheme.outline
 
     /* Checkbox colors */
     val checkBoxTextColor: Color

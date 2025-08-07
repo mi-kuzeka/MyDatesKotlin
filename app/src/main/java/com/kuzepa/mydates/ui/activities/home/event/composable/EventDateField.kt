@@ -26,7 +26,7 @@ internal fun EventDateField(
         onValueChange = onValueChange,
         mask = dateMask,
         delimiter = delimiter,
-        label = { TextFieldLabel(label = label) },
+        label = { TextFieldLabel(text = label) },
         errorMessage = errorMessage,
         modifier = modifier,
         checkBox = checkBox
