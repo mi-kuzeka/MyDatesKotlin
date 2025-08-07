@@ -9,6 +9,6 @@ data class Event(
     val type: EventType,
     val notes: String = "",
     val image: Bitmap? = null,
-    val notificationDateCode: Int? = null,
-    val labels: List<Label> = emptyList()
+    val labels: List<Label> = emptyList(),
+    val notificationDateCode: Int? = null
 )

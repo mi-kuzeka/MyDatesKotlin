@@ -4,10 +4,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kuzepa.mydates.domain.dateformat.DateFormatProvider
-import com.kuzepa.mydates.domain.dateformat.DateShowingMode
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventType
 import com.kuzepa.mydates.domain.model.Label
+import com.kuzepa.mydates.domain.model.NotificationFilterState
+import com.kuzepa.mydates.domain.model.hasYear
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
@@ -15,12 +16,14 @@ import com.kuzepa.mydates.domain.usecase.validation.getErrorMessage
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateDateUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateTextNotEmptyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -36,26 +39,30 @@ class EventViewModel @Inject constructor(
     private val eventId: Int? = savedStateHandle.get<Int>("id")
     private val _uiState = MutableStateFlow(EventUiState())
     val uiState: StateFlow<EventUiState> = _uiState.asStateFlow()
-    private lateinit var fullDateMask: String
-    private lateinit var shortDateMask: String
+    private var fullDateMask: String
+    private var shortDateMask: String
     private lateinit var dateMask: String
     private var dateDelimiter by Delegates.notNull<Char>()
 
     /**
      *Required to populate the drop-down list
      */
-    private val allEventTypes: List<EventType> = emptyList()
+    private var allEventTypes: List<EventType> = emptyList()
+
 
     private val savingEventChannel = Channel<SavingEvent>()
-    val savingEvents = savingEventChannel.receiveAsFlow()
+    val savingEvent = savingEventChannel.receiveAsFlow()
+
+    private val deletingEventChannel = Channel<DeletingEvent>()
+    val deletingEvent = deletingEventChannel.receiveAsFlow()
 
     init {
         dateDelimiter = dateFormatProvider.getDelimiter()
+        fullDateMask = dateFormatProvider.getFullMask()
+        shortDateMask = dateFormatProvider.getShortMask()
+        setDateMask()
         loadEventTypes()
         if (eventId == null) {
-            fullDateMask = dateFormatProvider.getFullMask()
-            shortDateMask = dateFormatProvider.getShortMask()
-            setDateMask()
             setDefaultEventType()
         } else {
             fillEventById(eventId)
@@ -63,8 +70,10 @@ class EventViewModel @Inject constructor(
     }
 
     private fun loadEventTypes() {
-        viewModelScope.launch {
-            // TODO fill event type list
+        viewModelScope.launch(Dispatchers.IO) {
+            eventTypeRepository.getAllEventTypes().collect { eventTypes ->
+                allEventTypes = eventTypes
+            }
         }
     }
 
@@ -76,10 +85,7 @@ class EventViewModel @Inject constructor(
 
             is EventScreenEvent.NameChanged -> {
                 _uiState.value = _uiState.value.copy(name = event.name)
-                val validationResult: ValidationResult = validateTextNotEmpty(event.name)
-                _uiState.value = _uiState.value.copy(
-                    nameValidationError = validationResult.getErrorMessage()
-                )
+                validateName()
             }
 
             is EventScreenEvent.DateChanged -> {
@@ -90,12 +96,12 @@ class EventViewModel @Inject constructor(
                         hideYear = _uiState.value.hideYear
                     )
                 ) {
-                    validateDate(dateInput = event.dateInput)
+                    validateDate()
                 }
             }
 
             is EventScreenEvent.DateFieldHasLostFocus -> {
-                validateDate(dateInput = _uiState.value.date)
+                validateDate()
             }
 
             is EventScreenEvent.HideYearChanged -> {
@@ -112,18 +118,14 @@ class EventViewModel @Inject constructor(
                         hideYear = _uiState.value.hideYear
                     )
                 ) {
-                    validateDate(dateInput = _uiState.value.date)
+                    validateDate()
                 }
                 setDateMask()
             }
 
             is EventScreenEvent.EventTypeChanged -> {
                 _uiState.value = _uiState.value.copy(eventTypeName = event.eventTypeName)
-                val validationResult: ValidationResult =
-                    validateTextNotEmpty(event.eventTypeName)
-                _uiState.value = _uiState.value.copy(
-                    eventTypeValidationError = validationResult.getErrorMessage()
-                )
+                validateEventType()
             }
 
             is EventScreenEvent.LabelsChanged -> {
@@ -147,35 +149,55 @@ class EventViewModel @Inject constructor(
             }
 
             is EventScreenEvent.Save -> {
+                validateEvent()
                 val hasError = listOf(
                     _uiState.value.nameValidationError,
                     _uiState.value.dateValidationError,
                     _uiState.value.eventTypeValidationError
                 ).any { it != null && !it.isEmpty() }
                 if (hasError) return
-                // TODO save event
 
-                viewModelScope.launch {
-                    savingEventChannel.send(SavingEvent.Success)
-                }
+                saveEvent()
             }
         }
     }
 
-    private fun validateDate(dateInput: String) {
+    private fun validateEvent() {
+        validateName()
+        validateDate()
+        validateEventType()
+    }
+
+    private fun validateName() {
+        val validationResult: ValidationResult =
+            validateTextNotEmpty(_uiState.value.name)
+        _uiState.value = _uiState.value.copy(
+            nameValidationError = validationResult.getErrorMessage()
+        )
+    }
+
+    private fun validateDate() {
         val validationResult: ValidationResult = validateDate(
-            input = dateInput, hideYear = _uiState.value.hideYear
+            input = _uiState.value.date, hideYear = _uiState.value.hideYear
         )
         _uiState.value = _uiState.value.copy(
             dateValidationError = validationResult.getErrorMessage()
         )
     }
 
+    private fun validateEventType() {
+        val validationResult: ValidationResult =
+            validateTextNotEmpty(_uiState.value.eventTypeName)
+        _uiState.value = _uiState.value.copy(
+            eventTypeValidationError = validationResult.getErrorMessage()
+        )
+    }
+
     private fun setDefaultEventType() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val defaultEventType = eventTypeRepository.getDefaultEventType()
-                if (defaultEventType != null) {
+                defaultEventType?.let {
                     _uiState.value = _uiState.value.copy(eventTypeName = defaultEventType.name)
                 }
             } catch (e: Exception) {
@@ -185,33 +207,31 @@ class EventViewModel @Inject constructor(
     }
 
     private fun fillEventById(id: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val event = eventRepository.getEventById(id = id)
-                if (event != null) fillEventFields(event)
+                event?.let {
+                    event.populateScreenFields()
+                }
             } catch (e: Exception) {
                 // TODO handle error
             }
         }
     }
 
-    private fun fillEventFields(event: Event) {
-        with(event) {
-            val formattedDate = dateFormatProvider.getFormattedDate(
-                date,
-                DateShowingMode.EDIT_MODE
-            )
-            _uiState.value = _uiState.value.copy(
-                name = name,
-                date = formattedDate,
-                eventTypeName = type.name,
-                notes = notes,
-                image = image,
-                labels = labels,
-                event = event
-            )
-            dateMask = dateFormatProvider.getShowingMask(_uiState.value.hideYear)
-        }
+    private fun Event.populateScreenFields() {
+        val formattedDate = dateFormatProvider.getEditedDateString(date)
+        _uiState.value = _uiState.value.copy(
+            name = name,
+            date = formattedDate,
+            eventTypeName = type.name,
+            hideYear = !date.hasYear(),
+            notes = notes,
+            image = image,
+            labels = labels,
+            event = this
+        )
+        dateMask = dateFormatProvider.getShowingMask(_uiState.value.hideYear)
     }
 
     fun getAllEventTypes(): List<EventType> = allEventTypes
@@ -224,35 +244,60 @@ class EventViewModel @Inject constructor(
 
     fun getMaskDelimiter(): Char = dateDelimiter
 
-    fun validate() {
-        //Validation process
-
-        // If event is valid then cast uiState to event
-//        val event = _uiState.value.toEvent()
-//        _uiState.value = _uiState.value.copy(event = event)
-//        // save event?
-//        saveEvent()
-    }
-
     fun saveEvent() {
+        val eventDate = dateFormatProvider.getEditedEventDate(
+            formattedDate = _uiState.value.date,
+            hideYear = _uiState.value.hideYear
+        ) ?: run {
+            // TODO handle error
+            return
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val eventType = allEventTypes
+                    .firstOrNull { it.name == _uiState.value.eventTypeName }
+                    ?: createAndGetNewEventType(_uiState.value.eventTypeName)
+
+                eventRepository.upsertEvent(
+                    Event(
+                        id = _uiState.value.event?.id ?: 0,
+                        name = _uiState.value.name,
+                        date = eventDate,
+                        type = eventType,
+                        notes = _uiState.value.notes,
+                        image = _uiState.value.image,
+                        labels = _uiState.value.labels
+                    )
+                )
+            } catch (e: Exception) {
+                // TODO handle error
+            }
+        }
         viewModelScope.launch {
-//            eventRepository.addEvent()
+            savingEventChannel.send(SavingEvent.Success)
         }
     }
 
-//    private fun EventUiState.toEvent(): Event {
-//        val eventDate: EventDate? = date.toEventDate()
-//        if (eventDate == null) { /* TODO mark as invalid and return */
-//        }
-//        return Event(
-//            name = name,
-//            eventDate = date.toEventDate(),
-//            eventType = eventType,
-//
-//            )
-//    }
+    fun isNewEvent() = _uiState.value.event == null
+
+    private suspend fun createAndGetNewEventType(name: String): EventType {
+        val eventType = EventType(
+            id = UUID.randomUUID().toString(),
+            name = name,
+            isDefault = false,
+            showZodiac = false,
+            notificationState = NotificationFilterState.FILTER_STATE_ON
+        )
+        eventTypeRepository.addEventType(eventType)
+        return eventType
+    }
 }
 
 sealed class SavingEvent {
     object Success : SavingEvent()
+}
+
+sealed class DeletingEvent {
+    object Success : DeletingEvent()
 }

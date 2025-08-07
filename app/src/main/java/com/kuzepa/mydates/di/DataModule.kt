@@ -41,7 +41,7 @@ interface DataModule {
 }
 
 class FakeEventRepository @Inject constructor() : EventRepository {
-    override suspend fun addEvent(event: Event) {
+    override suspend fun upsertEvent(event: Event) {
         TODO("Not yet implemented")
     }
 

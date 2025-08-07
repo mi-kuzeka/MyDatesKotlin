@@ -3,6 +3,7 @@ package com.kuzepa.mydates.ui.common
 import android.content.Context
 import com.kuzepa.mydates.domain.converter.formatDate
 import com.kuzepa.mydates.domain.converter.getEventDateFromFormattedDateWithoutDelimiter
+import com.kuzepa.mydates.domain.converter.toEditedDateString
 import com.kuzepa.mydates.domain.dateformat.DateField
 import com.kuzepa.mydates.domain.dateformat.DateFormatProvider
 import com.kuzepa.mydates.domain.dateformat.DateShowingMode
@@ -42,11 +43,6 @@ class DataStoreDateFormatProvider(
     ): String {
         val delimiter = getDelimiter()
         val formatPattern = when (showingMode) {
-            DateShowingMode.EDIT_MODE -> {
-                // TODO set actual formatPattern
-                "mm/dd/yyyy"
-            }
-
             DateShowingMode.VIEW_MODE -> {
                 // TODO set actual formatPattern
                 "MMM d, yyyy"
@@ -72,6 +68,13 @@ class DataStoreDateFormatProvider(
             hideYear = hideYear,
             formattedDate = formattedDate
         )
+    }
+
+    override fun getEditedDateString(eventDate: EventDate): String {
+        //TODO get from datastore
+        val dateFieldOrder: Array<DateField> =
+            arrayOf(DateField.MONTH, DateField.DAY, DateField.YEAR)
+        return eventDate.toEditedDateString(dateFieldOrder)
     }
 
     override fun dateIsFilled(inputDate: String, hideYear: Boolean): Boolean {

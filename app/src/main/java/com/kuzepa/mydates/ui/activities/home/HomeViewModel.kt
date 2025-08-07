@@ -3,21 +3,15 @@ package com.kuzepa.mydates.ui.activities.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kuzepa.mydates.domain.model.Event
-import com.kuzepa.mydates.domain.model.EventDate
-import com.kuzepa.mydates.domain.model.EventType
-import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.SortOption
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,29 +43,6 @@ class HomeViewModel @Inject constructor(
                 _uiState.value = HomeUiState.Error
                 Log.e("MainViewModel", "Error loading events", e)
             }
-        }
-    }
-
-    //TODO move this to event view model
-    fun createEvent() {
-        val testEventType = EventType(
-            id = UUID.randomUUID().toString(),
-            name = "Birthday",
-            isDefault = true,
-            notificationState = NotificationFilterState.FILTER_STATE_ON,
-            showZodiac = true
-        )
-        val testEvent = Event(
-            name = "Test",
-            date = EventDate(1, 1, 2001),
-            type = testEventType,
-            notes = "",
-            notificationDateCode = 101
-        )
-        viewModelScope.launch(Dispatchers.IO) {
-            // TODO Move to use case
-            eventTypeRepository.addEventType(testEventType)
-            eventRepository.addEvent(testEvent)
         }
     }
 

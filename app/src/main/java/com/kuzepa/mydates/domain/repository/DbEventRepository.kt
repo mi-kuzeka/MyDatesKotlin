@@ -12,8 +12,8 @@ import javax.inject.Inject
 class DbEventRepository @Inject constructor(
     private val eventDao: EventDao
 ) : EventRepository {
-    override suspend fun addEvent(event: Event) {
-        eventDao.addEvent(event.toEventEntity())
+    override suspend fun upsertEvent(event: Event) {
+        eventDao.upsertEvent(event.toEventEntity())
     }
 
     override suspend fun getEventById(id: Int): Event? {

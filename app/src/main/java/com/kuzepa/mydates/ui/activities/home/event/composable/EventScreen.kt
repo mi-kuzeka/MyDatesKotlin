@@ -3,6 +3,7 @@ package com.kuzepa.mydates.ui.activities.home.event.composable
 import android.graphics.Bitmap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,12 +13,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -31,6 +38,7 @@ import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
 import com.kuzepa.mydates.ui.activities.home.event.EventScreenEvent
 import com.kuzepa.mydates.ui.activities.home.event.EventViewModel
+import com.kuzepa.mydates.ui.activities.home.event.SavingEvent
 import com.kuzepa.mydates.ui.common.composable.IconDelete
 import com.kuzepa.mydates.ui.common.composable.MyDatesCheckbox
 import com.kuzepa.mydates.ui.common.composable.MyDatesExposedDropDown
@@ -51,46 +59,72 @@ internal fun EventScreen(
     } else {
         R.string.event_editor_title
     }
+    val context = LocalContext.current
 
-    Column(
-        verticalArrangement = Arrangement.Top,
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MyDatesColors.screenBackground)
-    ) {
-        TopBar(
-            title = stringResource(titleResourceId),
-            canGoBack = true,
-            onGoBack = {
-                // TODO show confirmation dialog
-                onNavigateBack()
+    LaunchedEffect(key1 = context) {
+        viewModel.savingEvent.collect { event ->
+            when (event) {
+                is SavingEvent.Success -> onNavigateBack()
+            }
+        }
+    }
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            verticalArrangement = Arrangement.Top,
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MyDatesColors.screenBackground)
+        ) {
+            TopBar(
+                title = stringResource(titleResourceId),
+                canGoBack = true,
+                onGoBack = {
+                    // TODO show confirmation dialog
+                    onNavigateBack()
+                },
+                endIcon = {
+                    if (state.event != null) {
+                        IconDelete(
+                            onClick = { /* TODO show confirmation dialog and delete event */ },
+                            contentDescription = stringResource(R.string.delete_event_button_hint)
+                        )
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+            EventScreenContent(
+                onEvent = { viewModel.onEvent(it) },
+                image = state.image,
+                name = state.name,
+                nameValidationError = state.nameValidationError,
+                date = state.date,
+                dateValidationError = state.dateValidationError,
+                dateMask = viewModel.getDateMask(),
+                dateDelimiter = viewModel.getMaskDelimiter(),
+                hideYear = state.hideYear,
+                eventTypeName = state.eventTypeName,
+                eventTypeValidationError = state.eventTypeValidationError,
+                eventTypes = viewModel.getAllEventTypes().map { it.name },
+                eventLabels = state.labels,
+                notes = state.notes
+            )
+        }
+        FloatingActionButton(
+            onClick = {
+                viewModel.onEvent(EventScreenEvent.Save)
             },
-            endIcon = {
-                if (state.event != null) {
-                    IconDelete(
-                        onClick = { /* TODO show confirmation dialog and delete event */ },
-                        contentDescription = stringResource(R.string.delete_event_button_hint)
-                    )
-                }
-            },
-            modifier = Modifier.fillMaxWidth()
-        )
-        EventScreenContent(
-            onEvent = { viewModel.onEvent(it) },
-            image = state.image,
-            name = state.name,
-            nameValidationError = state.nameValidationError,
-            date = state.date,
-            dateValidationError = state.dateValidationError,
-            dateMask = viewModel.getDateMask(),
-            dateDelimiter = viewModel.getMaskDelimiter(),
-            hideYear = state.hideYear,
-            eventTypeName = state.eventTypeName,
-            eventTypeValidationError = state.eventTypeValidationError,
-            eventTypes = viewModel.getAllEventTypes().map { it.name },
-            eventLabels = state.labels,
-            notes = state.notes
-        )
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(dimensionResource(R.dimen.padding_default))
+        ) {
+            Icon(
+                imageVector = Icons.Default.Done,
+                contentDescription = stringResource(R.string.save_event_button_hint)
+            )
+        }
     }
 }
 
@@ -196,7 +230,7 @@ internal fun EventScreenContent(
             singleLine = false,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_default)))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.fab_size)))
     }
 }
 

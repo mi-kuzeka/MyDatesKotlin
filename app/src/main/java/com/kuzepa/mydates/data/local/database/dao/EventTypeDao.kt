@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import com.kuzepa.mydates.data.local.database.entity.EventTypeEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EventTypeDao {
@@ -16,4 +17,7 @@ interface EventTypeDao {
 
     @Query("SELECT * FROM event_types WHERE is_default = 1;")
     suspend fun getDefaultEventType(): EventTypeEntity?
+
+    @Query("SELECT * FROM event_types ORDER BY name ASC;")
+    fun getAllEventTypes(): Flow<List<EventTypeEntity>>
 }

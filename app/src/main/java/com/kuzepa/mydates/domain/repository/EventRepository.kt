@@ -5,7 +5,7 @@ import com.kuzepa.mydates.domain.model.SortOption
 import kotlinx.coroutines.flow.Flow
 
 interface EventRepository {
-    suspend fun addEvent(event: Event)
+    suspend fun upsertEvent(event: Event)
     suspend fun getEventById(id: Int): Event?
     fun getAllEvents(sortOption: SortOption = SortOption.UNSPECIFIED): Flow<List<Event>>
     fun getEventsByMonth(month: Int, sortOption: SortOption): Flow<List<Event>>

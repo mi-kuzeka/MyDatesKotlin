@@ -31,6 +31,6 @@ fun Event.toEventEntity(): EventEntity {
         notes = notes,
         eventTypeId = type.id,
         image = image.toByteArray(),
-        notificationDate = notificationDateCode ?: date.getNotificationDateCode()
+        notificationDate = date.getNotificationDateCode()
     )
 }

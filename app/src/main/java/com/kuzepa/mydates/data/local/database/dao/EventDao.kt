@@ -1,18 +1,17 @@
 package com.kuzepa.mydates.data.local.database.dao
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Upsert
 import com.kuzepa.mydates.data.local.database.entity.EventEntity
 import com.kuzepa.mydates.data.local.database.entity.EventWithTypeAndLabels
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EventDao {
-    @Insert(onConflict = REPLACE)
-    suspend fun addEvent(event: EventEntity)
+    @Upsert()
+    suspend fun upsertEvent(event: EventEntity)
 
     @Transaction
     @Query("SELECT * FROM events where id=:id;")

@@ -23,6 +23,28 @@ fun EventDate.formatDate(formatPattern: String, delimiter: Char): String {
     return formatString.format(month, day, year)
 }
 
+fun EventDate.toEditedDateString(
+    dateFieldOrder: Array<DateField>,
+): String {
+    var result = ""
+    for (dateField in dateFieldOrder) {
+        when (dateField) {
+            DateField.MONTH -> {
+                result += month.toString().padStart(2, '0')
+            }
+
+            DateField.DAY -> {
+                result += day.toString().padStart(2, '0')
+            }
+
+            DateField.YEAR -> {
+                if (hasYear()) result += year
+            }
+        }
+    }
+    return result
+}
+
 /**
  * Converts formatted date to [EventDate]
  * @param dateFieldOrder defines the order of month, day and year in the formatted string

@@ -17,6 +17,7 @@ interface DateFormatProvider {
     fun getShortFormattingPattern(): String
     fun getFormattedDate(eventDate: EventDate, showingMode: DateShowingMode): String
     fun getEditedEventDate(formattedDate: String, hideYear: Boolean): EventDate?
+    fun getEditedDateString(eventDate: EventDate): String
     fun dateIsFilled(inputDate: String, hideYear: Boolean): Boolean
     fun getDateWithoutYear(inputDate: String): String
 }
