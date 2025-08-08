@@ -20,6 +20,10 @@ class DbEventRepository @Inject constructor(
         return eventDao.getEventById(id)?.toEvent()
     }
 
+    override suspend fun deleteEventById(id: Int) {
+        eventDao.deleteEventById(id)
+    }
+
     override fun getAllEvents(sortOption: SortOption): Flow<List<Event>> {
         return when (sortOption) {
             SortOption.BY_NAME_ASC -> eventDao.getAllEventsSortByNameAsc()

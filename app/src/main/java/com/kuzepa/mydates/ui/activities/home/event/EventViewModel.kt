@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.UUID
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -159,6 +160,10 @@ class EventViewModel @Inject constructor(
 
                 saveEvent()
             }
+
+            is EventScreenEvent.Delete -> {
+                deleteEvent()
+            }
         }
     }
 
@@ -244,7 +249,7 @@ class EventViewModel @Inject constructor(
 
     fun getMaskDelimiter(): Char = dateDelimiter
 
-    fun saveEvent() {
+    private fun saveEvent() {
         val eventDate = dateFormatProvider.getEditedEventDate(
             formattedDate = _uiState.value.date,
             hideYear = _uiState.value.hideYear
@@ -253,29 +258,44 @@ class EventViewModel @Inject constructor(
             return
         }
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch() {
             try {
                 val eventType = allEventTypes
                     .firstOrNull { it.name == _uiState.value.eventTypeName }
                     ?: createAndGetNewEventType(_uiState.value.eventTypeName)
 
-                eventRepository.upsertEvent(
-                    Event(
-                        id = _uiState.value.event?.id ?: 0,
-                        name = _uiState.value.name,
-                        date = eventDate,
-                        type = eventType,
-                        notes = _uiState.value.notes,
-                        image = _uiState.value.image,
-                        labels = _uiState.value.labels
+                withContext(Dispatchers.IO) {
+                    eventRepository.upsertEvent(
+                        Event(
+                            id = _uiState.value.event?.id ?: 0,
+                            name = _uiState.value.name,
+                            date = eventDate,
+                            type = eventType,
+                            notes = _uiState.value.notes,
+                            image = _uiState.value.image,
+                            labels = _uiState.value.labels
+                        )
                     )
-                )
+                }
+                savingEventChannel.send(SavingEvent.Success)
             } catch (e: Exception) {
                 // TODO handle error
+                savingEventChannel.send(SavingEvent.Error(e.message.toString()))
             }
         }
-        viewModelScope.launch {
-            savingEventChannel.send(SavingEvent.Success)
+    }
+
+    private fun deleteEvent() {
+        viewModelScope.launch() {
+            try {
+                withContext(Dispatchers.IO) {
+                    eventRepository.deleteEventById(_uiState.value.event?.id ?: 0)
+                }
+                deletingEventChannel.send(DeletingEvent.Success)
+            } catch (e: Exception) {
+                // TODO handle error
+                deletingEventChannel.send(DeletingEvent.Error(e.message.toString()))
+            }
         }
     }
 
@@ -296,8 +316,10 @@ class EventViewModel @Inject constructor(
 
 sealed class SavingEvent {
     object Success : SavingEvent()
+    data class Error(val message: String) : SavingEvent()
 }
 
 sealed class DeletingEvent {
     object Success : DeletingEvent()
+    data class Error(val message: String) : DeletingEvent()
 }

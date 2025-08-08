@@ -15,4 +15,5 @@ sealed class EventScreenEvent {
     data class AddLabel(val label: Label) : EventScreenEvent()
     data class NotesChanged(val notes: String) : EventScreenEvent()
     object Save : EventScreenEvent()
+    object Delete : EventScreenEvent()
 }

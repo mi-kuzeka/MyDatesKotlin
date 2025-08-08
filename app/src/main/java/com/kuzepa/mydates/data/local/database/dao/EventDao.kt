@@ -14,8 +14,11 @@ interface EventDao {
     suspend fun upsertEvent(event: EventEntity)
 
     @Transaction
-    @Query("SELECT * FROM events where id=:id;")
+    @Query("SELECT * FROM events WHERE id=:id;")
     suspend fun getEventById(id: Int): EventWithTypeAndLabels?
+
+    @Query("DELETE FROM events WHERE id=:id;")
+    suspend fun deleteEventById(id: Int)
 
     @Transaction
     @Query("SELECT * FROM events;")

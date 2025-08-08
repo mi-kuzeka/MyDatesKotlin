@@ -8,7 +8,7 @@ import javax.inject.Inject
 class DateFormatterWrapper @Inject constructor(
     private val dateFormatter: DateFormatProvider
 ) {
-    suspend fun format(eventDate: EventDate, showingMode: DateShowingMode): String {
+    fun format(eventDate: EventDate, showingMode: DateShowingMode): String {
         return dateFormatter.getFormattedDate(eventDate, showingMode)
     }
 }

@@ -3,6 +3,7 @@ package com.kuzepa.mydates.ui.activities.home.event.composable
 import android.graphics.Bitmap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -19,6 +20,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -31,6 +33,9 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -46,15 +51,17 @@ import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.model.Label
 import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
+import com.kuzepa.mydates.ui.activities.home.event.DeletingEvent
 import com.kuzepa.mydates.ui.activities.home.event.EventScreenEvent
 import com.kuzepa.mydates.ui.activities.home.event.EventViewModel
 import com.kuzepa.mydates.ui.activities.home.event.SavingEvent
-import com.kuzepa.mydates.ui.common.composable.icon.IconDelete
+import com.kuzepa.mydates.ui.common.composable.MyDatesAlertDialog
 import com.kuzepa.mydates.ui.common.composable.MyDatesCheckbox
 import com.kuzepa.mydates.ui.common.composable.MyDatesExposedDropDown
 import com.kuzepa.mydates.ui.common.composable.MyDatesTextField
 import com.kuzepa.mydates.ui.common.composable.TopAppBar
 import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
+import com.kuzepa.mydates.ui.common.composable.icon.IconDelete
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -71,11 +78,28 @@ internal fun EventScreen(
         viewModel.savingEvent.collect { event ->
             when (event) {
                 is SavingEvent.Success -> onNavigateBack()
+                is SavingEvent.Error -> {
+                    /* TODO show error*/
+                }
+            }
+        }
+    }
+
+    LaunchedEffect(key1 = context) {
+        viewModel.deletingEvent.collect { event ->
+            when (event) {
+                is DeletingEvent.Success -> onNavigateBack()
+                is DeletingEvent.Error -> {
+                    /* TODO show error*/
+                }
             }
         }
     }
 
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+
+    var showDeleteDialog by remember { mutableStateOf(false) }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -94,7 +118,9 @@ internal fun EventScreen(
                 endIcon = {
                     if (state.event != null) {
                         IconDelete(
-                            onClick = { /* TODO show confirmation dialog and delete event */ },
+                            onClick = {
+                                showDeleteDialog = true
+                            },
                             contentDescription = stringResource(R.string.delete_event_button_hint)
                         )
                     }
@@ -117,7 +143,7 @@ internal fun EventScreen(
         },
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
     ) { innerPadding ->
-        Surface(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
@@ -127,24 +153,47 @@ internal fun EventScreen(
                         WindowInsetsSides.Vertical,
                     ),
                 )
-                .background(MyDatesColors.screenBackground)
         ) {
-            EventScreenContent(
-                onEvent = { viewModel.onEvent(it) },
-                image = state.image,
-                name = state.name,
-                nameValidationError = state.nameValidationError,
-                date = state.date,
-                dateValidationError = state.dateValidationError,
-                dateMask = viewModel.getDateMask(),
-                dateDelimiter = viewModel.getMaskDelimiter(),
-                hideYear = state.hideYear,
-                eventTypeName = state.eventTypeName,
-                eventTypeValidationError = state.eventTypeValidationError,
-                eventTypes = viewModel.getAllEventTypes().map { it.name },
-                eventLabels = state.labels,
-                notes = state.notes
-            )
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MyDatesColors.screenBackground)
+            ) {
+                EventScreenContent(
+                    onEvent = { viewModel.onEvent(it) },
+                    image = state.image,
+                    name = state.name,
+                    nameValidationError = state.nameValidationError,
+                    date = state.date,
+                    dateValidationError = state.dateValidationError,
+                    dateMask = viewModel.getDateMask(),
+                    dateDelimiter = viewModel.getMaskDelimiter(),
+                    hideYear = state.hideYear,
+                    eventTypeName = state.eventTypeName,
+                    eventTypeValidationError = state.eventTypeValidationError,
+                    eventTypes = viewModel.getAllEventTypes().map { it.name },
+                    eventLabels = state.labels,
+                    notes = state.notes
+                )
+            }
+
+            if (showDeleteDialog) {
+                MyDatesAlertDialog(
+                    dialogIconImageVector = Icons.Default.Delete,
+                    iconDescription = "",
+                    dialogTitle = "Delete this event?", // TODO replace
+                    dialogText = "You can't restore it after deleting", // TODO replace
+                    confirmButtonText = "Yes, delete", // TODO replace
+                    dismissButtonText = "Cancel", // TODO replace
+                    onDismissRequest = {
+                        showDeleteDialog = false
+                    },
+                    onConfirmation = {
+                        showDeleteDialog = false
+                        viewModel.onEvent(EventScreenEvent.Delete)
+                    }
+                )
+            }
         }
     }
 }

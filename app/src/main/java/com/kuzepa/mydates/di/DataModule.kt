@@ -45,6 +45,10 @@ class FakeEventRepository @Inject constructor() : EventRepository {
         TODO("Not yet implemented")
     }
 
+    override suspend fun deleteEventById(id: Int) {
+        TODO("Not yet implemented")
+    }
+
     override fun getAllEvents(sortOption: SortOption): Flow<List<Event>> {
         TODO("Not yet implemented")
     }
