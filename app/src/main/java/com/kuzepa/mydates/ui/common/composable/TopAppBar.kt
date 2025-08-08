@@ -11,6 +11,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,14 +22,14 @@ import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(
+fun TopAppBar(
     title: String,
     canGoBack: Boolean,
     onGoBack: () -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
     endIcon: @Composable () -> Unit = {}
 ) {
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -54,14 +55,17 @@ fun TopBar(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun PreviewTopBar() {
     MyDatesTheme {
-        TopBar(
+        val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+        TopAppBar(
             title = "Some Screen",
             canGoBack = true,
             onGoBack = { },
+            scrollBehavior = scrollBehavior,
             endIcon = {
                 IconButton(onClick = { /* do something */ }) {
                     Icon(
@@ -75,14 +79,17 @@ fun PreviewTopBar() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
 @Composable
 fun PreviewTopBarDark() {
     MyDatesTheme {
-        TopBar(
+        val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+        TopAppBar(
             title = "Some Screen with long-long-long title",
             canGoBack = true,
             onGoBack = { },
+            scrollBehavior = scrollBehavior,
             endIcon = {
                 IconButton(onClick = { /* do something */ }) {
                     Icon(

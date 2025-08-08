@@ -3,13 +3,18 @@ package com.kuzepa.mydates.ui.activities.home.event.composable
 import android.graphics.Bitmap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -19,11 +24,16 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -43,10 +53,11 @@ import com.kuzepa.mydates.ui.common.composable.IconDelete
 import com.kuzepa.mydates.ui.common.composable.MyDatesCheckbox
 import com.kuzepa.mydates.ui.common.composable.MyDatesExposedDropDown
 import com.kuzepa.mydates.ui.common.composable.MyDatesTextField
-import com.kuzepa.mydates.ui.common.composable.TopBar
+import com.kuzepa.mydates.ui.common.composable.TopAppBar
 import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun EventScreen(
     viewModel: EventViewModel = hiltViewModel(),
@@ -69,14 +80,10 @@ internal fun EventScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column(
-            verticalArrangement = Arrangement.Top,
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MyDatesColors.screenBackground)
-        ) {
-            TopBar(
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    Scaffold(
+        topBar = {
+            TopAppBar(
                 title = stringResource(titleResourceId),
                 canGoBack = true,
                 onGoBack = {
@@ -91,8 +98,36 @@ internal fun EventScreen(
                         )
                     }
                 },
+                scrollBehavior = scrollBehavior,
                 modifier = Modifier.fillMaxWidth()
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { viewModel.onEvent(EventScreenEvent.Save) },
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Done,
+                    contentDescription = stringResource(R.string.save_event_button_hint)
+                )
+            }
+        },
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+    ) { innerPadding ->
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .consumeWindowInsets(innerPadding)
+                .windowInsetsPadding(
+                    WindowInsets.safeDrawing.only(
+                        WindowInsetsSides.Vertical,
+                    ),
+                )
+                .background(MyDatesColors.screenBackground)
+        ) {
             EventScreenContent(
                 onEvent = { viewModel.onEvent(it) },
                 image = state.image,
@@ -108,21 +143,6 @@ internal fun EventScreen(
                 eventTypes = viewModel.getAllEventTypes().map { it.name },
                 eventLabels = state.labels,
                 notes = state.notes
-            )
-        }
-        FloatingActionButton(
-            onClick = {
-                viewModel.onEvent(EventScreenEvent.Save)
-            },
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(dimensionResource(R.dimen.padding_default))
-        ) {
-            Icon(
-                imageVector = Icons.Default.Done,
-                contentDescription = stringResource(R.string.save_event_button_hint)
             )
         }
     }
@@ -239,55 +259,36 @@ internal fun EventScreenContent(
 @Composable
 fun EventScreenNewEventPreview() {
     MyDatesTheme {
-        Column(
-            verticalArrangement = Arrangement.Top,
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MyDatesColors.screenBackground)
-        ) {
-            TopBar(
-                title = "New event",
-                canGoBack = true,
-                onGoBack = { },
-                endIcon = {
-                    IconDelete(
-                        onClick = { /* TODO show confirmation dialog and delete event */ },
-                        contentDescription = stringResource(R.string.delete_event_button_hint)
-                    )
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
-            EventScreenContent(
-                onEvent = { },
-                image = null,
-                name = "Text",
-                nameValidationError = "This firld is required",
-                date = "",
-                dateMask = "mm/dd/yyyy",
-                dateDelimiter = '/',
-                dateValidationError = null,
-                hideYear = false,
-                eventTypeName = "Birthday",
-                eventTypeValidationError = null,
-                eventTypes = listOf(),
-                eventLabels = listOf(
-                    Label(
-                        id = "1",
-                        name = "Friends",
-                        color = 6,
-                        notificationState = NotificationFilterState.FILTER_STATE_ON,
-                        iconId = 0
-                    ),
-                    Label(
-                        id = "2",
-                        name = "Family",
-                        color = 3,
-                        notificationState = NotificationFilterState.FILTER_STATE_ON,
-                        iconId = 10
-                    )
+        EventScreenContent(
+            onEvent = { },
+            image = null,
+            name = "Text",
+            nameValidationError = "This firld is required",
+            date = "",
+            dateMask = "mm/dd/yyyy",
+            dateDelimiter = '/',
+            dateValidationError = null,
+            hideYear = false,
+            eventTypeName = "Birthday",
+            eventTypeValidationError = null,
+            eventTypes = listOf(),
+            eventLabels = listOf(
+                Label(
+                    id = "1",
+                    name = "Friends",
+                    color = 6,
+                    notificationState = NotificationFilterState.FILTER_STATE_ON,
+                    iconId = 0
                 ),
-                notes = ""
-            )
-        }
+                Label(
+                    id = "2",
+                    name = "Family",
+                    color = 3,
+                    notificationState = NotificationFilterState.FILTER_STATE_ON,
+                    iconId = 10
+                )
+            ),
+            notes = ""
+        )
     }
 }

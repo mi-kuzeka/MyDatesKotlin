@@ -1,16 +1,19 @@
 package com.kuzepa.mydates.ui.activities.home
 
-import android.util.Log
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kuzepa.mydates.domain.model.SortOption
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,35 +22,60 @@ class HomeViewModel @Inject constructor(
     private val eventRepository: EventRepository,
     private val eventTypeRepository: EventTypeRepository
 ) : ViewModel() {
-    private var currentPage = 0 // TODO get current month - 1
-    private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
-    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
+    private val _currentPage = MutableStateFlow(0)
+
+    // Cache UI states per page
+    private val _eventPageStates = mutableStateMapOf<Int, EventPageState>()
+    val eventPageStates: SnapshotStateMap<Int, EventPageState> = _eventPageStates
+
+    // Flow observers for each page
+    private val pageObservers = mutableMapOf<Int, Job>()
 
     init {
-        loadEvents()
-    }
-
-    fun loadEvents() {
-        viewModelScope.launch {
-            _uiState.value = HomeUiState.Loading
-            try {
-                eventRepository.getEventsByMonth(currentPage + 1, SortOption.BY_DATE_DESC)
-                    .catch { e ->
-                        _uiState.value = HomeUiState.Error
-                        Log.e("MainViewModel", "Error loading events", e)
-                    }
-                    .collect { events ->
-                        _uiState.value = HomeUiState.Success(events)
-                    }
-            } catch (e: Exception) {
-                _uiState.value = HomeUiState.Error
-                Log.e("MainViewModel", "Error loading events", e)
-            }
-        }
+        observePage(_currentPage.value)
     }
 
     fun setCurrentPage(page: Int) {
-        currentPage = page
-        loadEvents()
+        _currentPage.value = page
+        observePage(_currentPage.value)
     }
+
+    fun observePage(page: Int) {
+        // Cancel existing observer if any
+        stopObservingPage(page)
+
+        // Don't observe if already observing
+        if (pageObservers.containsKey(page)) return
+
+        // Set loading state immediately
+        _eventPageStates[page] = EventPageState.Loading
+
+        pageObservers[page] = viewModelScope.launch(Dispatchers.IO) {
+            eventRepository.getEventsByMonth(page + 1, SortOption.BY_DATE_DESC)
+                .distinctUntilChanged()
+                .catch { e ->
+                    if (isActive) {
+                        _eventPageStates[page] = EventPageState.Error(e.message ?: "Unknown error")
+                    }
+                }
+                .collect { events ->
+                    _eventPageStates[page] = EventPageState.Success(events)
+                }
+        }
+    }
+    fun stopObservingPage(month: Int) {
+        pageObservers[month]?.cancel()
+        pageObservers.remove(month)
+    }
+
+    fun stopObservingAll() {
+        pageObservers.values.forEach { it.cancel() }
+        pageObservers.clear()
+    }
+
+    override fun onCleared() {
+        stopObservingAll()
+        super.onCleared()
+    }
+
 }
