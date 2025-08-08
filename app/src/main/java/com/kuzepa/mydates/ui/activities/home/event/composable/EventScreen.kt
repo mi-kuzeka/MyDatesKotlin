@@ -116,7 +116,7 @@ internal fun EventScreen(
                     onNavigateBack()
                 },
                 endIcon = {
-                    if (state.event != null) {
+                    if (!viewModel.isNewEvent()) {
                         IconDelete(
                             onClick = {
                                 showDeleteDialog = true
