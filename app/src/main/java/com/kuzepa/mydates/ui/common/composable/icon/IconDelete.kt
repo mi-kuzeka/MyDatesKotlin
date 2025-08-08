@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.ui.common.composable
+package com.kuzepa.mydates.ui.common.composable.icon
 
 import android.content.res.Configuration
 import androidx.compose.material.icons.Icons

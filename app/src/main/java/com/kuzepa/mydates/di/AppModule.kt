@@ -6,8 +6,9 @@ import com.kuzepa.mydates.domain.usecase.validation.ValidationMessageProvider
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateDateUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateSelectionRequiredUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateTextNotEmptyUseCase
-import com.kuzepa.mydates.ui.common.DataStoreDateFormatProvider
-import com.kuzepa.mydates.ui.common.ResourceValidationMessageProvider
+import com.kuzepa.mydates.ui.common.utils.ResourceValidationMessageProvider
+import com.kuzepa.mydates.ui.common.utils.dateformat.DataStoreDateFormatProvider
+import com.kuzepa.mydates.ui.common.utils.dateformat.DateFormatterWrapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,6 +33,14 @@ object AppModule {
         @ApplicationContext appContext: Context
     ): DateFormatProvider {
         return DataStoreDateFormatProvider(appContext)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDateFormatterWrapper(
+        dateFormatter: DateFormatProvider
+    ): DateFormatterWrapper {
+        return DateFormatterWrapper(dateFormatter)
     }
 
     @Provides

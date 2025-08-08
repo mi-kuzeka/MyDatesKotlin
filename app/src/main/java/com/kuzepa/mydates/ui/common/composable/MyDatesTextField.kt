@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
+import com.kuzepa.mydates.ui.common.composable.icon.IconClear
 import com.kuzepa.mydates.ui.common.composable.supportingtext.MyDatesErrorText
 import com.kuzepa.mydates.ui.common.composable.supportingtext.MyDatesSupportingText
 import com.kuzepa.mydates.ui.common.composable.supportingtext.MyDatesSupportingTextBox

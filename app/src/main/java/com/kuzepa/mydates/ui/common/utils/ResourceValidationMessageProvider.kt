@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.ui.common
+package com.kuzepa.mydates.ui.common.utils
 
 import android.content.Context
 import com.kuzepa.mydates.R

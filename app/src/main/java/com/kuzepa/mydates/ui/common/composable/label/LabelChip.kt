@@ -25,7 +25,7 @@ import com.kuzepa.mydates.domain.labelicon.getIconResIdByCode
 import com.kuzepa.mydates.domain.labelicon.getIconType
 import com.kuzepa.mydates.domain.model.Label
 import com.kuzepa.mydates.domain.model.NotificationFilterState
-import com.kuzepa.mydates.ui.common.composable.IconRemove
+import com.kuzepa.mydates.ui.common.composable.icon.IconRemove
 import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
 import com.kuzepa.mydates.ui.common.composable.shape.MyDatesShapes
 import com.kuzepa.mydates.ui.common.utils.labelcolor.getContrastedColor

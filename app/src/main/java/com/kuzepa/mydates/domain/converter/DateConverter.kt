@@ -3,24 +3,21 @@ package com.kuzepa.mydates.domain.converter
 import com.kuzepa.mydates.domain.dateformat.DateField
 import com.kuzepa.mydates.domain.model.EventDate
 import com.kuzepa.mydates.domain.model.hasYear
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 fun EventDate.getNotificationDateCode(): Int {
     return month * 100 + day
 }
 
-fun EventDate.formatDate(formatPattern: String, delimiter: Char): String {
-    val formatGroups = formatPattern.split(delimiter)
-    val groupCounts = formatGroups.map { it.length }
-    val formatString: String =
-        groupCounts.mapIndexed { index, count ->
-            if (index == groupCounts.lastIndex) {
-                // Don't add a delimiter to the end of string
-                "%0${count}d"
-            } else {
-                "%0${count}d$delimiter"
-            }
-        }.joinToString(separator = "")
-    return formatString.format(month, day, year)
+fun EventDate.formatDate(formatPattern: String): String {
+    val calendar = Calendar.getInstance().apply {
+        if (hasYear()) set(Calendar.YEAR, year)
+        set(Calendar.MONTH, month)
+        set(Calendar.DAY_OF_MONTH, day)
+    }
+    return SimpleDateFormat(formatPattern, Locale.getDefault()).format(calendar.time)
 }
 
 fun EventDate.toEditedDateString(

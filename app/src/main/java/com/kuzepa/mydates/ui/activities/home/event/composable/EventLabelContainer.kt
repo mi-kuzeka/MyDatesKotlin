@@ -10,6 +10,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -64,12 +65,14 @@ fun EventLabelContainer(
                 ),
             ) {
                 labels.forEach { label ->
-                    LabelChip(
-                        label = label,
-                        onLabelClick = { onLabelClick(it) },
-                        onRemoveLabelClick = onRemoveLabelClick,
-                        buttonRemoveDescription = buttonRemoveDescription,
-                    )
+                    key(label.id) {
+                        LabelChip(
+                            label = label,
+                            onLabelClick = { onLabelClick(it) },
+                            onRemoveLabelClick = onRemoveLabelClick,
+                            buttonRemoveDescription = buttonRemoveDescription,
+                        )
+                    }
                 }
                 AddLabelChip(
                     addLabelText = addLabelText,

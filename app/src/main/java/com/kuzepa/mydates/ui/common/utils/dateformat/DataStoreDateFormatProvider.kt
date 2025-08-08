@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.ui.common
+package com.kuzepa.mydates.ui.common.utils.dateformat
 
 import android.content.Context
 import com.kuzepa.mydates.domain.converter.formatDate
@@ -8,6 +8,7 @@ import com.kuzepa.mydates.domain.dateformat.DateField
 import com.kuzepa.mydates.domain.dateformat.DateFormatProvider
 import com.kuzepa.mydates.domain.dateformat.DateShowingMode
 import com.kuzepa.mydates.domain.model.EventDate
+import com.kuzepa.mydates.domain.model.hasYear
 
 class DataStoreDateFormatProvider(
     private val context: Context
@@ -37,15 +38,15 @@ class DataStoreDateFormatProvider(
         //TODO get from datastore
     }
 
-    override fun getFormattedDate(
-        eventDate: EventDate,
-        showingMode: DateShowingMode
-    ): String {
-        val delimiter = getDelimiter()
+    override fun getFormattedDate(eventDate: EventDate, showingMode: DateShowingMode): String {
         val formatPattern = when (showingMode) {
             DateShowingMode.VIEW_MODE -> {
                 // TODO set actual formatPattern
-                "MMM d, yyyy"
+                if (eventDate.hasYear()) {
+                    "MMM d, yyyy"
+                } else {
+                    "MMM d"
+                }
             }
 
             DateShowingMode.REMINDER_MODE -> {
@@ -53,7 +54,7 @@ class DataStoreDateFormatProvider(
                 "MMMM d"
             }
         }
-        return eventDate.formatDate(formatPattern, delimiter)
+        return eventDate.formatDate(formatPattern)
     }
 
     override fun getEditedEventDate(

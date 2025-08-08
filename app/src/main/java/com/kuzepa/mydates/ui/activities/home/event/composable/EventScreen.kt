@@ -49,7 +49,7 @@ import com.kuzepa.mydates.domain.model.TextFieldMaxLength
 import com.kuzepa.mydates.ui.activities.home.event.EventScreenEvent
 import com.kuzepa.mydates.ui.activities.home.event.EventViewModel
 import com.kuzepa.mydates.ui.activities.home.event.SavingEvent
-import com.kuzepa.mydates.ui.common.composable.IconDelete
+import com.kuzepa.mydates.ui.common.composable.icon.IconDelete
 import com.kuzepa.mydates.ui.common.composable.MyDatesCheckbox
 import com.kuzepa.mydates.ui.common.composable.MyDatesExposedDropDown
 import com.kuzepa.mydates.ui.common.composable.MyDatesTextField
@@ -65,11 +65,6 @@ internal fun EventScreen(
     onNavigateBack: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    val titleResourceId = if (id == null) {
-        R.string.event_creator_title
-    } else {
-        R.string.event_editor_title
-    }
     val context = LocalContext.current
 
     LaunchedEffect(key1 = context) {
@@ -84,7 +79,13 @@ internal fun EventScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = stringResource(titleResourceId),
+                title = stringResource(
+                    if (id == null) {
+                        R.string.event_creator_title
+                    } else {
+                        R.string.event_editor_title
+                    }
+                ),
                 canGoBack = true,
                 onGoBack = {
                     // TODO show confirmation dialog
