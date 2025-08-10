@@ -1,5 +1,8 @@
 package com.kuzepa.mydates.ui.navigation
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -13,6 +16,8 @@ fun MyDatesNavHost(
     NavHost(
         navController = navController,
         startDestination = Home,
+        enterTransition = { fadeIn(animationSpec = tween(700)) },
+        exitTransition = { fadeOut(animationSpec = tween(400)) },
         modifier = modifier
     ) {
         eventsDestination(onNavigateToEventEditor = { eventId ->
