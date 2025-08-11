@@ -1,7 +1,9 @@
 package com.kuzepa.mydates.ui.common.composable.masktextfield
 
 import MaskVisualTransformation
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.TextField
@@ -59,7 +61,12 @@ fun DateTextField(
                 errorMessage?.let {
                     MyDatesErrorText(errorMessage)
                 }
-                checkBox()
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    checkBox()
+                }
             }
         }
     }

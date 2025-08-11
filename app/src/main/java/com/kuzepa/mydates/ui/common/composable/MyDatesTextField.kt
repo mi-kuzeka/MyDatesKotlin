@@ -50,7 +50,7 @@ internal fun MyDatesTextField(
                 if (placeholder !== null) TextFieldPlaceholder(placeholder)
             },
             trailingIcon = {
-                if (showIconClear && !value.isEmpty()) IconClear(onValueChange)
+                if (showIconClear && value.isNotEmpty()) IconClear(onValueChange)
             },
             textStyle = MaterialTheme.typography.bodyLarge,
             keyboardOptions = keyboardOptions,

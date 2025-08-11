@@ -40,7 +40,7 @@ fun TopAppBar(
                 IconButton(onClick = { onGoBack() }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.back_button),
+                        contentDescription = stringResource(R.string.button_back),
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }

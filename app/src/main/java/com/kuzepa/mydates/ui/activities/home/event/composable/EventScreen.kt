@@ -1,46 +1,20 @@
 package com.kuzepa.mydates.ui.activities.home.event.composable
 
 import android.graphics.Bitmap
-import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.consumeWindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.only
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -52,17 +26,14 @@ import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.model.Label
 import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
-import com.kuzepa.mydates.ui.activities.home.event.DeletingEvent
 import com.kuzepa.mydates.ui.activities.home.event.EventScreenEvent
 import com.kuzepa.mydates.ui.activities.home.event.EventViewModel
-import com.kuzepa.mydates.ui.activities.home.event.SavingEvent
-import com.kuzepa.mydates.ui.common.composable.MyDatesAlertDialog
+import com.kuzepa.mydates.ui.common.baseeditor.BaseEditorContentBox
+import com.kuzepa.mydates.ui.common.baseeditor.BaseEditorScreen
+import com.kuzepa.mydates.ui.common.baseeditor.HandleEditorResults
 import com.kuzepa.mydates.ui.common.composable.MyDatesCheckbox
 import com.kuzepa.mydates.ui.common.composable.MyDatesExposedDropDown
 import com.kuzepa.mydates.ui.common.composable.MyDatesTextField
-import com.kuzepa.mydates.ui.common.composable.TopAppBar
-import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
-import com.kuzepa.mydates.ui.common.composable.icon.IconDelete
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -73,158 +44,51 @@ internal fun EventScreen(
     onNavigateBack: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    val context = LocalContext.current
-
-    LaunchedEffect(key1 = context) {
-        viewModel.savingEvent.collect { event ->
-            when (event) {
-                is SavingEvent.Success -> onNavigateBack()
-                is SavingEvent.Error -> {
-                    /* TODO show error*/
-                }
-            }
-        }
-    }
-
-    LaunchedEffect(key1 = context) {
-        viewModel.deletingEvent.collect { event ->
-            when (event) {
-                is DeletingEvent.Success -> onNavigateBack()
-                is DeletingEvent.Error -> {
-                    /* TODO show error*/
-                }
-            }
-        }
-    }
-
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showGoBackConfirmationDialog by remember { mutableStateOf(false) }
 
-    BackHandler(enabled = !showGoBackConfirmationDialog && !showDeleteDialog) {
-        // Custom back action when dialog is shown
-        if (viewModel.hasChanges.value) {
-            showGoBackConfirmationDialog = true
-        } else {
-            onNavigateBack()
-        }
-    }
+    HandleEditorResults(
+        savingFlow = viewModel.savingFlow,
+        deletingFlow = viewModel.deletingFlow,
+        onSuccess = onNavigateBack,
+        onError = { /* TODO show error */ }
+    )
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = stringResource(
-                    if (id == null) {
-                        R.string.event_creator_title
-                    } else {
-                        R.string.event_editor_title
-                    }
-                ),
-                canGoBack = true,
-                onGoBack = {
-                    if (viewModel.hasChanges.value) {
-                        showGoBackConfirmationDialog = true
-                    } else {
-                        onNavigateBack()
-                    }
-                },
-                endIcon = {
-                    if (!viewModel.isNewEvent()) {
-                        IconDelete(
-                            onClick = {
-                                showDeleteDialog = true
-                            },
-                            contentDescription = stringResource(R.string.delete_event_button_hint)
-                        )
-                    }
-                },
-                scrollBehavior = scrollBehavior,
-                modifier = Modifier.fillMaxWidth()
-            )
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { viewModel.onEvent(EventScreenEvent.Save) },
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Done,
-                    contentDescription = stringResource(R.string.save_event_button_hint)
-                )
-            }
-        },
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-    ) { innerPadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .consumeWindowInsets(innerPadding)
-                .windowInsetsPadding(
-                    WindowInsets.safeDrawing.only(
-                        WindowInsetsSides.Vertical,
-                    ),
-                )
-        ) {
-            Surface(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MyDatesColors.screenBackground)
-            ) {
-                EventScreenContent(
-                    onEvent = { viewModel.onEvent(it) },
-                    image = state.image,
-                    name = state.name,
-                    nameValidationError = state.nameValidationError,
-                    date = state.date,
-                    dateValidationError = state.dateValidationError,
-                    dateMask = viewModel.getDateMask(),
-                    dateDelimiter = viewModel.getMaskDelimiter(),
-                    hideYear = state.hideYear,
-                    eventTypeName = state.eventTypeName,
-                    eventTypeValidationError = state.eventTypeValidationError,
-                    eventTypes = viewModel.getAllEventTypes().map { it.name },
-                    eventLabels = state.labels,
-                    notes = state.notes
-                )
-            }
-
-            if (showDeleteDialog) {
-                MyDatesAlertDialog(
-                    dialogIconImageVector = Icons.Default.Delete,
-                    iconDescription = "",
-                    dialogTitle = "Delete this event?", // TODO replace
-                    dialogText = "You can't restore it after deleting", // TODO replace
-                    confirmButtonText = "Yes, delete", // TODO replace
-                    dismissButtonText = "Cancel", // TODO replace
-                    onDismissRequest = {
-                        showDeleteDialog = false
-                    },
-                    onConfirmation = {
-                        showDeleteDialog = false
-                        viewModel.onEvent(EventScreenEvent.Delete)
-                    }
-                )
-            }
-
-            if (showGoBackConfirmationDialog) {
-                MyDatesAlertDialog(
-                    dialogTitle = "Discard changes?", // TODO replace
-                    dialogText = null, // TODO replace
-                    confirmButtonText = "Yes, discard", // TODO replace
-                    dismissButtonText = "Continue editing", // TODO replace
-                    onDismissRequest = {
-                        showGoBackConfirmationDialog = false
-                    },
-                    onConfirmation = {
-                        showGoBackConfirmationDialog = false
-                        onNavigateBack()
-                    }
-                )
-            }
-        }
+    BaseEditorScreen(
+        title = stringResource(
+            if (state.isNewEvent) R.string.event_creator_title else R.string.event_editor_title
+        ),
+        isNewItem = state.isNewEvent,
+        hasChanges = state.hasChanges,
+        onNavigateBack = onNavigateBack,
+        onSave = { viewModel.onEvent(EventScreenEvent.Save) },
+        onDelete = { viewModel.onEvent(EventScreenEvent.Delete) },
+        showDeleteDialog = showDeleteDialog,
+        showGoBackConfirmationDialog = showGoBackConfirmationDialog,
+        onShowDeleteDialogChange = { showDeleteDialog = it },
+        onShowGoBackConfirmationDialogChange = { showGoBackConfirmationDialog = it },
+        deleteDialogTitle = "Delete this event?", // TODO replace with string resources
+        deleteDialogText = "You can't restore it after deleting", // TODO replace with string resources
+        scrollBehavior = scrollBehavior
+    ) {
+        EventScreenContent(
+            onEvent = { viewModel.onEvent(it) },
+            image = state.image,
+            name = state.name,
+            nameValidationError = state.nameValidationError,
+            date = state.date,
+            dateValidationError = state.dateValidationError,
+            dateMask = viewModel.getDateMask(),
+            dateDelimiter = viewModel.getMaskDelimiter(),
+            hideYear = state.hideYear,
+            eventTypeName = state.eventTypeName,
+            eventTypeValidationError = state.eventTypeValidationError,
+            eventTypes = viewModel.getAllEventTypes().map { it.name },
+            eventLabels = state.labels,
+            notes = state.notes
+        )
     }
 }
 
@@ -247,17 +111,8 @@ internal fun EventScreenContent(
     notes: String,
     modifier: Modifier = Modifier
 ) {
-    val scrollState = rememberScrollState()
-    Column(
-        verticalArrangement = Arrangement.spacedBy(
-            space = dimensionResource(R.dimen.padding_small),
-            alignment = Alignment.Top
-        ),
-        horizontalAlignment = Alignment.CenterHorizontally,
+    BaseEditorContentBox(
         modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(state = scrollState)
-            .padding(dimensionResource(R.dimen.padding_default))
     ) {
         EventImageChooser(
             image,
@@ -292,7 +147,6 @@ internal fun EventScreenContent(
                     checked = hideYear,
                     onCheckedChange = { onEvent(EventScreenEvent.HideYearChanged(it)) },
                     text = stringResource(R.string.no_year_label),
-                    modifier = Modifier.align(Alignment.End),
                     textStyle = MaterialTheme.typography.bodySmall
                 )
             }
@@ -330,7 +184,6 @@ internal fun EventScreenContent(
             singleLine = false,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.fab_size)))
     }
 }
 

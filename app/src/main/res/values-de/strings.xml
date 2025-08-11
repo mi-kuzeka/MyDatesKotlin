@@ -5,7 +5,15 @@
     <string name="menu_button_hint">Zeige das Menü</string>
     <!-- Hint for search button [CHAR_LIMIT=20] -->
     <string name="search_button_hint">Suchereignis</string>
-    <string name="back_button">Zurück</string>
+    <string name="button_back">Zurück</string>
+    <string name="button_save">Speichern</string>
+    <string name="button_delete">Löschen</string>
+    <string name="button_cancel">Abbrechen</string>
+    <!-- Confirmation dialog title when go back button pressed -->
+    <string name="go_back_confirmation">Ohne Speichern zurückgehen?</string>
+    <string name="go_back_confirmation_description">Alle Änderungen werden verworfen.</string>
+    <!-- Confirmation go back button hint -->
+    <string name="button_confirm_go_back">Ja, zurückgehen</string>
 
     <!-- Title of empty list about no events in the list -->
     <string name="no_events_title">Hier gibt es noch keine Ereignisse</string>
@@ -45,10 +53,6 @@
     <string name="event_creator_title">Neues Ereignis hinzufügen</string>
     <!-- Title for the screen to edit an existing event [CHAR LIMIT=20] -->
     <string name="event_editor_title">Ereignis bearbeiten</string>
-    <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="save_event_button_hint">Ereignis speichern</string>
-    <!-- Hint for delete button [CHAR_LIMIT=20] -->
-    <string name="delete_event_button_hint">Ereignis löschen</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
     <string name="choose_image">Bild auswählen</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
@@ -98,8 +102,6 @@
     <string name="notification_status_turned_off_hint">Deaktiviert</string>
     <string name="notification_status_turned_forbidden_hint">Verboten</string>
     <string name="tap_on_notification_status_hint">Tippen Sie auf den Status, um Benachrichtigungen ein-/auszuschalten</string>
-    <!-- Hint for save button [CHAR_LIMIT=20] -->
-    <string name="button_save_hint">Speichern</string>
     <!-- Hint for close button -->
     <string name="close_button_hint">Schließen</string>
     <!-- Title for adding new tag-->
@@ -110,8 +112,6 @@
     <string name="choose_label_title">Tag auswählen</string>
     <!-- Color picker title [CHAR_LIMIT=20] -->
     <string name="color_picker_title">Farbe wählen</string>
-    <!-- Hint for delete button in tag editor [CHAR_LIMIT=20] -->
-    <string name="label_delete_button_hint">Tag löschen</string>
 
     <!-- Title of empty list about no tags in the list -->
     <string name="delete_label_dialog_msg">Dieses Tag löschen?</string>
@@ -146,10 +146,6 @@
     <string name="select_button_hint">Wählen Sie</string>
     <!-- Confirmation dialog title when save changes button pressed -->
     <string name="adding_label_to_events_confirmation">Der Tag \"%1$s\" wird zu den ausgewählten Ereignissen hinzugefügt. Änderungen speichern?</string>
-    <!-- Confirmation dialog title when save changes button pressed -->
-    <string name="go_back_without_saving_confirmation">Sind Sie sicher, dass Sie zurückgehen wollen, ohne die Änderungen zu speichern?</string>
-    <!-- Confirmation go back button hint -->
-    <string name="confirmation_go_back_button_hint">Ja, zurückgehen</string>
     <!-- Message for user about saving data into data base -->
     <string name="saving_to_db_message">Der Speichervorgang in der Datenbank wird ausgeführt. Bitte schließen Sie die Anwendung nicht.</string>
 
@@ -205,12 +201,6 @@
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Dieses Bild löschen?</string>
 
-    <!-- Dialog button text for the option to confirm deleting the current event [CHAR LIMIT=20] -->
-    <string name="delete">Löschen</string>
-
-    <!-- Dialog button text for the option to cancel deletion of the current event [CHAR LIMIT=20] -->
-    <string name="cancel">Abbrechen</string>
-
     <!-- Title for sort by [CHAR_LIMIT=20] -->
     <string name="filter_hint">Ereignisse filtern</string>
     <string name="sort_by_spinner_hint">Sortiere nach</string>
@@ -257,10 +247,6 @@
     <!-- Subtitle of empty event type list -->
     <string name="empty_event_type_list">Fügen Sie einen Ereignistyp hinzu und er wird hier angezeigt.</string>
 
-    <!-- Hint for save button in event type editor [CHAR_LIMIT=20] -->
-    <string name="event_type_save_button_hint">Ereignistyp speichern</string>
-    <!-- Hint for delete button in event type editor [CHAR_LIMIT=20] -->
-    <string name="event_type_delete_button_hint">Ereignistyp löschen</string>
     <!-- Title for checkbox of default event type -->
     <string name="event_type_set_as_default">Standardereignistyp</string>
     <!-- Hint in the event type list for default event type -->
@@ -453,7 +439,6 @@
     <string name="close_notification_filter_button_hint">Benachrichtigungsfilter schließen</string>
     <string name="notification_filter_description">Benachrichtigungen für einzelne Ereignistypen und Tags ein-/ausschalten</string>
     <string name="notification_filter_hint">Tippen Sie auf einen Ereignistyp oder ein Tag, um Benachrichtigungen ein-/auszuschalten</string>
-    <string name="notification_filter_save_button">Benachrichtigungsfilter speichern</string>
     <string name="notification_filter_on_hint">Für Ereignisse mit diesem Tag sind Benachrichtigungen aktiviert.</string>
     <string name="notification_filter_off_hint">Benachrichtigungen sind für Ereignisse mit diesem Tag deaktiviert. Benachrichtigungen werden jedoch angezeigt, wenn das Ereignis auch über ein Tag mit aktivierten Benachrichtigungen verfügt.</string>
     <string name="notification_filter_forbidden_hint">Benachrichtigungen sind für Ereignisse mit diesem Tag immer deaktiviert, auch wenn das Ereignis auch über ein Tag mit aktivierten Benachrichtigungen verfügt.</string>

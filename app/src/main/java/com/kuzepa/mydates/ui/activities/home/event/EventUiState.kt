@@ -5,7 +5,9 @@ import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.Label
 
 data class EventUiState(
+    val isNewEvent: Boolean = true,
     val event: Event? = null,
+    val hasChanges: Boolean = false,
     val name: String = "",
     val nameValidationError: String? = null,
     val date: String = "",

@@ -5,7 +5,15 @@
     <string name="menu_button_hint">Меню</string>
     <!-- Hint for search button [CHAR_LIMIT=20] -->
     <string name="search_button_hint">Поиск события</string>
-    <string name="back_button">Назад</string>
+    <string name="button_back">Назад</string>
+    <string name="button_save">Сохранить</string>
+    <string name="button_delete">Удалить</string>
+    <string name="button_cancel">Отмена</string>
+    <!-- Confirmation dialog title when go back button pressed -->
+    <string name="go_back_confirmation">Вернуться без сохранения?</string>
+    <string name="go_back_confirmation_description">Все изменения будут отменены.</string>
+    <!-- Confirmation go back button hint -->
+    <string name="button_confirm_go_back">Да, вернуться назад</string>
 
     <!-- Title of empty list about no events in the list -->
     <string name="no_events_title">Здесь пока нет событий</string>
@@ -45,10 +53,6 @@
     <string name="event_creator_title">Новое событие</string>
     <!-- Title for the screen to edit an existing event [CHAR LIMIT=20] -->
     <string name="event_editor_title">Редактирование события</string>
-    <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="save_event_button_hint">Сохранить</string>
-    <!-- Hint for delete button [CHAR_LIMIT=20] -->
-    <string name="delete_event_button_hint">Удалить событие</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
     <string name="choose_image">Выбрать изображение</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
@@ -98,8 +102,6 @@
     <string name="notification_status_turned_off_hint">Отключены</string>
     <string name="notification_status_turned_forbidden_hint">Запрещены</string>
     <string name="tap_on_notification_status_hint">Нажмите на статус, чтобы включить/отключить уведомления</string>
-    <!-- Hint for save button [CHAR_LIMIT=20] -->
-    <string name="button_save_hint">Сохранить</string>
     <!-- Hint for close button -->
     <string name="close_button_hint">Закрыть</string>
     <!-- Title for adding new tag-->
@@ -110,8 +112,6 @@
     <string name="choose_label_title">Выбор тега</string>
     <!-- Color picker title [CHAR_LIMIT=20] -->
     <string name="color_picker_title">Выбор цвета</string>
-    <!-- Hint for delete button in tag editor [CHAR_LIMIT=20] -->
-    <string name="label_delete_button_hint">Удалить тег</string>
 
     <!-- Title of empty list about no tags in the list -->
     <string name="delete_label_dialog_msg">Удалить этот тег?</string>
@@ -146,10 +146,6 @@
     <string name="select_button_hint">Выделить</string>
     <!-- Confirmation dialog title when save changes button pressed -->
     <string name="adding_label_to_events_confirmation">Тег \"%1$s\" будет добавлен к выделенным событиям. Сохранить изменения?</string>
-    <!-- Confirmation dialog title when save changes button pressed -->
-    <string name="go_back_without_saving_confirmation">Вы уверены, что хотите вернуться назад без сохранения изменений?</string>
-    <!-- Confirmation go back button hint -->
-    <string name="confirmation_go_back_button_hint">Да, вернуться назад</string>
     <!-- Message for user about saving data into data base -->
     <string name="saving_to_db_message">Идёт сохранение в базу данных. Пожалуйста, не закрывайте приложение.</string>
 
@@ -205,12 +201,6 @@
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Удалить это изображение?</string>
 
-    <!-- Dialog button text for the option to confirm deleting the current event [CHAR LIMIT=20] -->
-    <string name="delete">Удалить</string>
-
-    <!-- Dialog button text for the option to cancel deletion of the current event [CHAR LIMIT=20] -->
-    <string name="cancel">Отмена</string>
-
     <!-- Title for sort by [CHAR_LIMIT=20] -->
     <string name="filter_hint">Фильтрация событий</string>
     <string name="sort_by_spinner_hint">Сортировка</string>
@@ -257,10 +247,6 @@
     <!-- Subtitle of empty event type list -->
     <string name="empty_event_type_list">Добавьте тип события и он отобразится в этом списке.</string>
 
-    <!-- Hint for save button in event type editor [CHAR_LIMIT=20] -->
-    <string name="event_type_save_button_hint">Сохранить тип события</string>
-    <!-- Hint for delete button in event type editor [CHAR_LIMIT=20] -->
-    <string name="event_type_delete_button_hint">Удалить тип события</string>
     <!-- Title for checkbox of default event type -->
     <string name="event_type_set_as_default">Тип события по умолчанию</string>
     <!-- Hint in the event type list for default event type -->
@@ -464,7 +450,6 @@
     <string name="close_notification_filter_button_hint">Закрыть фильтр уведомлений</string>
     <string name="notification_filter_description">Включение/выключение уведомлений для отдельных типов событий и тегов</string>
     <string name="notification_filter_hint">Нажмите на тип события или тег, чтобы включить/выключить уведомления.</string>
-    <string name="notification_filter_save_button">Сохранить фильтр уведомлений</string>
     <string name="notification_filter_on_hint">Уведомления включены для событий с этим тегом.</string>
     <string name="notification_filter_off_hint">Уведомления отключены для событий с этим тегом. Однако уведомления будут отображаться, если у события также есть тег с включенными уведомлениями.</string>
     <string name="notification_filter_forbidden_hint">Уведомления всегда отключены для событий с этим тегом, даже если у события также есть тег с включенными уведомлениями.</string>

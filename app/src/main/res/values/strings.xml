@@ -3,7 +3,15 @@
     <string name="app_version_pattern">Version %1$s</string>
     <string name="support_email" translatable="false">mydates.sup@gmail.com</string>
     <string name="button_ok" translatable="false">OK</string>
-    <string name="back_button">Back</string>
+    <string name="button_back">Back</string>
+    <string name="button_save">Save</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_cancel">Cancel</string>
+    <!-- Confirmation dialog title when go back button pressed -->
+    <string name="go_back_confirmation">Go back without saving?</string>
+    <string name="go_back_confirmation_description">All changes will be cancelled.</string>
+    <!--- Confirmation go back button hint -->
+    <string name="button_confirm_go_back">Yes, go back</string>
 
     <!-- SHARED PREFERENCES KEYS -->
 
@@ -78,10 +86,6 @@
     <string name="event_creator_title">Add new event</string>
     <!-- Title for the screen to edit an existing event [CHAR LIMIT=20] -->
     <string name="event_editor_title">Edit event</string>
-    <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="save_event_button_hint">Save event</string>
-    <!-- Hint for delete button [CHAR_LIMIT=20] -->
-    <string name="delete_event_button_hint">Delete event</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
     <string name="choose_image">Choose image</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
@@ -131,8 +135,6 @@
     <string name="notification_status_turned_off_hint">Turned off</string>
     <string name="notification_status_turned_forbidden_hint">Forbidden</string>
     <string name="tap_on_notification_status_hint">Tap on the status to turn notifications on/off</string>
-    <!-- Text for save button [CHAR_LIMIT=20] -->
-    <string name="button_save_hint">Save</string>
     <!-- Hint for close button -->
     <string name="close_button_hint">Close</string>
     <!-- Title for adding new tag-->
@@ -143,8 +145,6 @@
     <string name="choose_label_title">Choose tag</string>
     <!-- Color picker title [CHAR_LIMIT=20] -->
     <string name="color_picker_title">Pick color</string>
-    <!-- Hint for delete button in tag editor [CHAR_LIMIT=20] -->
-    <string name="label_delete_button_hint">Delete tag</string>
     <!-- Dialog message to ask the user to confirm deleting the current tag [CHAR LIMIT=NONE] -->
     <string name="delete_label_dialog_msg">Delete this tag?</string>
     <!-- Dialog message about having events with deleting tag -->
@@ -184,10 +184,6 @@
     <string name="select_button_hint">Select</string>
     <!-- Confirmation dialog title when save changes button pressed -->
     <string name="adding_label_to_events_confirmation">The tag \"%1$s\" will be added to the selected events. Save changes?</string>
-    <!-- Confirmation dialog title when save changes button pressed -->
-    <string name="go_back_without_saving_confirmation">Are you sure you want to go back without saving changes?</string>
-    Confirmation go back button hint
-    <string name="confirmation_go_back_button_hint">Yes, go back</string>
     <!-- Message for user about saving data into data base -->
     <string name="saving_to_db_message">Saving to database in progress. Please do not close the application.</string>
 
@@ -247,12 +243,6 @@
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Delete this image?</string>
 
-    <!-- Dialog button text for the option to confirm deleting the current event [CHAR LIMIT=20] -->
-    <string name="delete">Delete</string>
-
-    <!-- Dialog button text for the option to cancel deletion of the current event [CHAR LIMIT=20] -->
-    <string name="cancel">Cancel</string>
-
     <!-- Title for filter button -->
     <string name="filter_hint">Filter events</string>
     <!-- Title for sort by [CHAR_LIMIT=20] -->
@@ -304,10 +294,6 @@
     <!-- Subtitle of empty event type list -->
     <string name="empty_event_type_list">Add an event type and it will show up here.</string>
 
-    <!-- Hint for save button in event type editor [CHAR_LIMIT=20] -->
-    <string name="event_type_save_button_hint">Save event type</string>
-    <!-- Hint for delete button in event type editor [CHAR_LIMIT=20] -->
-    <string name="event_type_delete_button_hint">Delete event type</string>
     <!-- Title for checkbox of default event type -->
     <string name="event_type_set_as_default">Default event type</string>
     <!-- Hint in the event type list for default event type -->
@@ -525,7 +511,6 @@
     <string name="close_notification_filter_button_hint">Close notification filter</string>
     <string name="notification_filter_description">Turn notifications on/off for individual event types and tags</string>
     <string name="notification_filter_hint">Tap an event type or tag to turn on/off notifications</string>
-    <string name="notification_filter_save_button">Save notification filter</string>
     <string name="notification_filter_on_hint">Notifications are enabled for events with this tag.</string>
     <string name="notification_filter_off_hint">Notifications are disabled for events with this tag. However, notifications will be shown if the event also has a tag with notifications enabled.</string>
     <string name="notification_filter_forbidden_hint">Notifications are always disabled for events with this tag, even if the event also has a tag with notifications enabled.</string>

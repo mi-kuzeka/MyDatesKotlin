@@ -5,7 +5,15 @@
     <string name="menu_button_hint">Mostra menù</string>
     <!-- Hint for search button [CHAR_LIMIT=20] -->
     <string name="search_button_hint">Cerca evento</string>
-    <string name="back_button">Indietro</string>
+    <string name="button_back">Indietro</string>
+    <string name="button_save">Salva</string>
+    <string name="button_delete">Eliminare</string>
+    <string name="button_cancel">Annulla</string>
+    <!-- Confirmation dialog title when go back button pressed -->
+    <string name="go_back_confirmation">Tornare indietro senza salvare?</string>
+    <string name="go_back_confirmation_description">Tutte le modifiche verranno annullate.</string>
+    <!-- Confirmation go back button hint -->
+    <string name="button_confirm_go_back">Sì, torna indietro</string>
 
     <!-- Title of empty list about no events in the list -->
     <string name="no_events_title">Nessun evento qui ancora</string>
@@ -45,10 +53,6 @@
     <string name="event_creator_title">Aggiungi nuovo evento</string>
     <!-- Title for the screen to edit an existing event [CHAR LIMIT=20] -->
     <string name="event_editor_title">Modifica evento</string>
-    <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="save_event_button_hint">Salva evento</string>
-    <!-- Hint for delete button [CHAR_LIMIT=20] -->
-    <string name="delete_event_button_hint">Elimina evento</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
     <string name="choose_image">Scegli l\'immagine</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
@@ -98,8 +102,6 @@
     <string name="notification_status_turned_off_hint">Disattivate</string>
     <string name="notification_status_turned_forbidden_hint">Vietate</string>
     <string name="tap_on_notification_status_hint">Tocca lo stato per attivare/disattivare le notifiche</string>
-    <!-- Hint for save button [CHAR_LIMIT=20] -->
-    <string name="button_save_hint">Salva</string>
     <!-- Hint for close button -->
     <string name="close_button_hint">Vicino</string>
     <!-- Title for adding new tag-->
@@ -110,8 +112,6 @@
     <string name="choose_label_title">Scegli etichetta</string>
     <!-- Color picker title [CHAR_LIMIT=20] -->
     <string name="color_picker_title">Scegli il colore</string>
-    <!-- Hint for delete button in tag editor [CHAR_LIMIT=20] -->
-    <string name="label_delete_button_hint">Elimina etichetta</string>
 
     <!-- Title of empty list about no tags in the list -->
     <string name="delete_label_dialog_msg">Eliminare questa etichetta?</string>
@@ -146,10 +146,6 @@
     <string name="select_button_hint">Selezionare</string>
     <!-- Confirmation dialog title when save changes button pressed -->
     <string name="adding_label_to_events_confirmation">L\'etichetta \"%1$s\" verrà aggiunta agli eventi selezionati. Salvare le modifiche?</string>
-    <!-- Confirmation dialog title when save changes button pressed -->
-    <string name="go_back_without_saving_confirmation">Siete sicuri di voler tornare indietro senza salvare le modifiche?</string>
-    <!-- Confirmation go back button hint -->
-    <string name="confirmation_go_back_button_hint">Sì, torna indietro</string>
     <!-- Message for user about saving data into data base -->
     <string name="saving_to_db_message">Il salvataggio nel database è in corso. Si prega di non chiudere l\'applicazione.</string>
 
@@ -206,12 +202,6 @@
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Eliminare questa immagine?</string>
 
-    <!-- Dialog button text for the option to confirm deleting the current event [CHAR LIMIT=20] -->
-    <string name="delete">Eliminare</string>
-
-    <!-- Dialog button text for the option to cancel deletion of the current event [CHAR LIMIT=20] -->
-    <string name="cancel">Annulla</string>
-
     <!-- Title for sort by [CHAR_LIMIT=20] -->
     <string name="filter_hint">Eventi filtro</string>
     <string name="sort_by_spinner_hint">Ordina per</string>
@@ -258,10 +248,6 @@
     <!-- Subtitle of empty event type list -->
     <string name="empty_event_type_list">Aggiungi un tipo di evento e verrà visualizzato qui.</string>
 
-    <!-- Hint for save button in event type editor [CHAR_LIMIT=20] -->
-    <string name="event_type_save_button_hint">Salva tipo di evento</string>
-    <!-- Hint for delete button in event type editor [CHAR_LIMIT=20] -->
-    <string name="event_type_delete_button_hint">Elimina il tipo di evento</string>
     <!-- Title for checkbox of default event type -->
     <string name="event_type_set_as_default">Tipo di evento predefinito</string>
     <!-- Hint in the event type list for default event type -->
@@ -460,7 +446,6 @@
     <string name="close_notification_filter_button_hint">Chiudere il filtro delle notifiche</string>
     <string name="notification_filter_description">Attiva/disattiva le notifiche per singoli tipi di eventi ed etichette</string>
     <string name="notification_filter_hint">Tocca un tipo di evento o un\'etichetta per attivare/disattivare le notifiche</string>
-    <string name="notification_filter_save_button">Salva il filtro delle notifiche</string>
     <string name="notification_filter_on_hint">Le notifiche sono attivate per gli eventi con questa etichetta.</string>
     <string name="notification_filter_off_hint">Le notifiche sono disattivate per gli eventi con questa etichetta. Tuttavia, le notifiche saranno mostrate se l\'evento ha anche un\'etichetta con le notifiche abilitate.</string>
     <string name="notification_filter_forbidden_hint">Le notifiche sono sempre disabilitate per gli eventi con questa etichetta, anche se l\'evento ha un\'etichetta con notifiche abilitate.</string>

@@ -17,7 +17,7 @@ class ResourceValidationMessageProvider(
         TODO("Not yet implemented")
     }
 
-    override fun getFiledIsNotDistinct(): String {
+    override fun getFiledIsNotDistinctError(): String {
         TODO("Not yet implemented")
     }
 }

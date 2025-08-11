@@ -5,7 +5,15 @@
     <string name="menu_button_hint">Menú</string>
     <!-- Hint for search button [CHAR_LIMIT=20] -->
     <string name="search_button_hint">Buscar un evento</string>
-    <string name="back_button">Atrás</string>
+    <string name="button_back">Atrás</string>
+    <string name="button_save">Ahorrar</string>
+    <string name="button_delete">Borrar</string>
+    <string name="button_cancel">Cancelar</string>
+    <!-- Confirmation dialog title when go back button pressed -->
+    <string name="go_back_confirmation">¿Volver sin guardar?</string>
+    <string name="go_back_confirmation_description">Todos los cambios serán cancelados.</string>
+    <!-- Confirmation go back button hint -->
+    <string name="button_confirm_go_back">Sí, vuelve</string>
 
     <!-- Title of empty list about no events in the list -->
     <string name="no_events_title">No hay eventos aquí todavía</string>
@@ -45,10 +53,6 @@
     <string name="event_creator_title">Nuevo evento</string>
     <!-- Title for the screen to edit an existing event [CHAR LIMIT=20] -->
     <string name="event_editor_title">Editar un evento</string>
-    <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="save_event_button_hint">Guardar</string>
-    <!-- Hint for delete button [CHAR_LIMIT=20] -->
-    <string name="delete_event_button_hint">Eliminar evento</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
     <string name="choose_image">Seleccionar imagen</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
@@ -98,8 +102,6 @@
     <string name="notification_status_turned_off_hint">Desactivadas</string>
     <string name="notification_status_turned_forbidden_hint">Prohibidas</string>
     <string name="tap_on_notification_status_hint">Toca el estado para activar/desactivar las notificaciones.</string>
-    <!-- Hint for save button [CHAR_LIMIT=20] -->
-    <string name="button_save_hint">Guardar</string>
     <!-- Hint for close button -->
     <string name="close_button_hint">Cerca</string>
     <!-- Title for adding new tag-->
@@ -110,8 +112,6 @@
     <string name="choose_label_title">Elige etiqueta</string>
     <!-- Color picker title [CHAR_LIMIT=20] -->
     <string name="color_picker_title">Elige color</string>
-    <!-- Hint for delete button in tag editor [CHAR_LIMIT=20] -->
-    <string name="label_delete_button_hint">Eliminar etiqueta</string>
 
     <!-- Title of empty list about no tags in the list -->
     <string name="delete_label_dialog_msg">¿Eliminar esta etiqueta?</string>
@@ -146,10 +146,6 @@
     <string name="select_button_hint">Seleccione</string>
     <!-- Confirmation dialog title when save changes button pressed -->
     <string name="adding_label_to_events_confirmation">La etiqueta \"%1$s\" se añadirá a los eventos seleccionados. ¿Guardar cambios?</string>
-    <!-- Confirmation dialog title when save changes button pressed -->
-    <string name="go_back_without_saving_confirmation">¿Estás seguro de que quieres volver atrás sin guardar los cambios?</string>
-    <!-- Confirmation go back button hint -->
-    <string name="confirmation_go_back_button_hint">Sí, vuelve</string>
     <!-- Message for user about saving data into data base -->
     <string name="saving_to_db_message">El guardado en la base de datos está en progreso. Por favor, no cierre la aplicación.</string>
 
@@ -204,12 +200,6 @@
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">¿Debo eliminar esta imagen?</string>
 
-    <!-- Dialog button text for the option to confirm deleting the current event [CHAR LIMIT=20] -->
-    <string name="delete">Borrar</string>
-
-    <!-- Dialog button text for the option to cancel deletion of the current event [CHAR LIMIT=20] -->
-    <string name="cancel">Cancelar</string>
-
     <!-- Title for sort by [CHAR_LIMIT=20] -->
     <string name="filter_hint">Filtrar eventos</string>
     <string name="sort_by_spinner_hint">Ordenar por</string>
@@ -256,10 +246,6 @@
     <!-- Subtitle of empty event type list -->
     <string name="empty_event_type_list">Agregue un tipo de evento y aparecerá en esta lista.</string>
 
-    <!-- Hint for save button in event type editor [CHAR_LIMIT=20] -->
-    <string name="event_type_save_button_hint">Guardar tipo de evento</string>
-    <!-- Hint for delete button in event type editor [CHAR_LIMIT=20] -->
-    <string name="event_type_delete_button_hint">Eliminar tipo de evento</string>
     <!-- Title for checkbox of default event type -->
     <string name="event_type_set_as_default">Tipo de evento por defecto</string>
     <!-- Hint in the event type list for default event type -->
@@ -457,7 +443,6 @@
     <string name="close_notification_filter_button_hint">Cerrar el filtro de notificaciones</string>
     <string name="notification_filter_description">Activar/desactivar notificaciones para tipos de eventos y etiquetas individuales</string>
     <string name="notification_filter_hint">Pulse sobre un tipo de evento o etiqueta para activar o desactivar las notificaciones.</string>
-    <string name="notification_filter_save_button">Guardar filtro de notificaciones</string>
     <string name="notification_filter_on_hint">Las notificaciones están activadas para los eventos con esta etiqueta.</string>
     <string name="notification_filter_off_hint">Las notificaciones están desactivadas para los eventos con esta etiqueta. Sin embargo, las notificaciones se mostrarán si el evento también tiene una etiqueta con notificaciones activadas.</string>
     <string name="notification_filter_forbidden_hint">Las notificaciones siempre están desactivadas para los eventos con esta etiqueta, incluso si el evento también tiene una etiqueta con notificaciones activadas.</string>

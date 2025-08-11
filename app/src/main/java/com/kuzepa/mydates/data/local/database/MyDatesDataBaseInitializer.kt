@@ -36,6 +36,6 @@ class MyDatesDataBaseInitializer(
             notificationState = 0, // Filter state = on
             showZodiac = true
         )
-        eventTypeProvider.get().addEventType(defaultEventType)
+        eventTypeProvider.get().upsertEventType(defaultEventType)
     }
 }

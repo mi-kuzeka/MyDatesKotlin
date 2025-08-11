@@ -5,7 +5,15 @@
     <string name="menu_button_hint">Afficher le menu</string>
     <!-- Hint for search button [CHAR_LIMIT=20] -->
     <string name="search_button_hint">Rechercher un événement</string>
-    <string name="back_button">Dos</string>
+    <string name="button_back">Dos</string>
+    <string name="button_save">Sauvegarder</string>
+    <string name="button_delete">Supprimer</string>
+    <string name="button_cancel">Annuler</string>
+    <!-- Confirmation dialog title when go back button pressed -->
+    <string name="go_back_confirmation">Revenir en arrière sans sauvegarder ?</string>
+    <string name="go_back_confirmation_description">Toutes les modifications seront annulées.</string>
+    <!-- Confirmation go back button hint -->
+    <string name="button_confirm_go_back">Oui, revenir en arrière</string>
 
     <!-- Title of empty list about no events in the list -->
     <string name="no_events_title">Aucun événement ici pour l\'instant</string>
@@ -45,10 +53,6 @@
     <string name="event_creator_title">Ajouter un nouvel événement</string>
     <!-- Title for the screen to edit an existing event [CHAR LIMIT=20] -->
     <string name="event_editor_title">Modifier l\'événement</string>
-    <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
-    <string name="save_event_button_hint">Enregistrer l\'événement</string>
-    <!-- Hint for delete button [CHAR_LIMIT=20] -->
-    <string name="delete_event_button_hint">Supprimer l\'événement</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
     <string name="choose_image">Choisir une image</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
@@ -98,8 +102,6 @@
     <string name="notification_status_turned_off_hint">Désactivées</string>
     <string name="notification_status_turned_forbidden_hint">Interdites</string>
     <string name="tap_on_notification_status_hint">Appuyez sur le statut pour activer/désactiver les notifications</string>
-    <!-- Hint for save button [CHAR_LIMIT=20] -->
-    <string name="button_save_hint">Sauvegarder</string>
     <!-- Hint for close button -->
     <string name="close_button_hint">Fermer</string>
     <!-- Title for adding new tag-->
@@ -110,8 +112,6 @@
     <string name="choose_label_title">Choisissez l\'étiquette</string>
     <!-- Color picker title [CHAR_LIMIT=20] -->
     <string name="color_picker_title">Choisissez la couleur</string>
-    <!-- Hint for delete button in tag editor [CHAR_LIMIT=20] -->
-    <string name="label_delete_button_hint">Supprimer l\'étiquette</string>
 
     <!-- Title of empty list about no tags in the list -->
     <string name="delete_label_dialog_msg">Supprimer cette étiquette ?</string>
@@ -146,10 +146,6 @@
     <string name="select_button_hint">Sélectionner</string>
     <!-- Confirmation dialog title when save changes button pressed -->
     <string name="adding_label_to_events_confirmation">L\'étiquette \"%1$s\" sera ajouté aux événements sélectionnés. Enregistrer les modifications?</string>
-    <!-- Confirmation dialog title when save changes button pressed -->
-    <string name="go_back_without_saving_confirmation">Êtes-vous sûr de vouloir revenir en arrière sans enregistrer les modifications?</string>
-    <!-- Confirmation go back button hint -->
-    <string name="confirmation_go_back_button_hint">Oui, revenir en arrière</string>
     <!-- Message for user about saving data into data base -->
     <string name="saving_to_db_message">L\'enregistrement dans la base de données est en cours. Veuillez ne pas fermer l\'application.</string>
 
@@ -206,12 +202,6 @@
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Supprimer cette image?</string>
 
-    <!-- Dialog button text for the option to confirm deleting the current event [CHAR LIMIT=20] -->
-    <string name="delete">Supprimer</string>
-
-    <!-- Dialog button text for the option to cancel deletion of the current event [CHAR LIMIT=20] -->
-    <string name="cancel">Annuler</string>
-
     <!-- Title for sort by [CHAR_LIMIT=20] -->
     <string name="filter_hint">Filtrer les événements</string>
     <string name="sort_by_spinner_hint">Trier par</string>
@@ -258,10 +248,6 @@
     <!-- Subtitle of empty event type list -->
     <string name="empty_event_type_list">Ajoutez un type d\'événement et il apparaîtra ici.</string>
 
-    <!-- Hint for save button in event type editor [CHAR_LIMIT=20] -->
-    <string name="event_type_save_button_hint">Enregistrer le type d\'événement</string>
-    <!-- Hint for delete button in event type editor [CHAR_LIMIT=20] -->
-    <string name="event_type_delete_button_hint">Supprimer le type d\'événement</string>
     <!-- Title for checkbox of default event type -->
     <string name="event_type_set_as_default">Type d\'événement par défaut</string>
     <!-- Hint in the event type list for default event type -->
@@ -460,7 +446,6 @@
     <string name="close_notification_filter_button_hint">Fermer le filtre de notification</string>
     <string name="notification_filter_description">Activer/désactiver les notifications pour des types d\'événements et des étiquettes individuels</string>
     <string name="notification_filter_hint">Appuyez sur un type d\'événement ou une étiquette pour activer/désactiver les notifications.</string>
-    <string name="notification_filter_save_button">Enregistrer le filtre de notification</string>
     <string name="notification_filter_on_hint">Les notifications sont activées pour les événements avec cette étiquette.</string>
     <string name="notification_filter_off_hint">Les notifications sont désactivées pour les événements avec cette étiquette. Toutefois, les notifications seront affichées si l\'événement possède également une étiquette pour laquelle les notifications sont activées.</string>
     <string name="notification_filter_forbidden_hint">Les notifications sont toujours désactivées pour les événements avec cette étiquette, même si l\'événement a également une étiquette avec des notifications activées.</string>
