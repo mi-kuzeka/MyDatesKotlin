@@ -94,7 +94,7 @@ internal fun MyDatesExposedDropDown(
             }
         }
         MyDatesSupportingTextBox {
-            if (errorMessage != null) {
+            errorMessage?.let {
                 MyDatesErrorText(errorMessage)
             }
         }

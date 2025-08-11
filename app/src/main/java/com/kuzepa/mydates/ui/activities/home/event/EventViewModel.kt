@@ -40,6 +40,10 @@ class EventViewModel @Inject constructor(
     private val eventId: Int? = savedStateHandle.get<Int>("id")
     private val _uiState = MutableStateFlow(EventUiState())
     val uiState: StateFlow<EventUiState> = _uiState.asStateFlow()
+
+    private val _hasChanges = MutableStateFlow(false)
+    val hasChanges = _hasChanges.asStateFlow()
+
     private var fullDateMask: String
     private var shortDateMask: String
     private lateinit var dateMask: String
@@ -82,15 +86,18 @@ class EventViewModel @Inject constructor(
         when (event) {
             is EventScreenEvent.ImageChanged -> {
                 _uiState.value = _uiState.value.copy(image = event.image)
+                _hasChanges.value = true
             }
 
             is EventScreenEvent.NameChanged -> {
                 _uiState.value = _uiState.value.copy(name = event.name)
+                _hasChanges.value = true
                 validateName()
             }
 
             is EventScreenEvent.DateChanged -> {
                 _uiState.value = _uiState.value.copy(date = event.dateInput)
+                _hasChanges.value = true
                 if (_uiState.value.dateValidationError != null
                     || dateFormatProvider.dateIsFilled(
                         inputDate = event.dateInput,
@@ -107,6 +114,7 @@ class EventViewModel @Inject constructor(
 
             is EventScreenEvent.HideYearChanged -> {
                 _uiState.value = _uiState.value.copy(hideYear = event.hideYear)
+                _hasChanges.value = true
                 if (event.hideYear) {
                     dateFormatProvider.getDateWithoutYear(_uiState.value.date)
                     _uiState.value = _uiState.value.copy(
@@ -126,6 +134,7 @@ class EventViewModel @Inject constructor(
 
             is EventScreenEvent.EventTypeChanged -> {
                 _uiState.value = _uiState.value.copy(eventTypeName = event.eventTypeName)
+                _hasChanges.value = true
                 validateEventType()
             }
 
@@ -135,6 +144,7 @@ class EventViewModel @Inject constructor(
 
             is EventScreenEvent.RemoveLabel -> {
                 val updatedLabels = _uiState.value.labels.filter { it.id != event.labelId }
+                _hasChanges.value = true
                 _uiState.value = _uiState.value.copy(labels = updatedLabels)
             }
 
@@ -143,10 +153,12 @@ class EventViewModel @Inject constructor(
                 updatedLabels.addAll(_uiState.value.labels)
                 updatedLabels.add(event.label)
                 _uiState.value = _uiState.value.copy(labels = updatedLabels)
+                _hasChanges.value = true
             }
 
             is EventScreenEvent.NotesChanged -> {
                 _uiState.value = _uiState.value.copy(notes = event.notes)
+                _hasChanges.value = true
             }
 
             is EventScreenEvent.Save -> {

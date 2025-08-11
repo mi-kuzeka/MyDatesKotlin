@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import com.kuzepa.mydates.ui.common.composable.icon.IconClear
 import com.kuzepa.mydates.ui.common.composable.color.MyDatesColors
+import com.kuzepa.mydates.ui.common.composable.icon.IconClear
 import com.kuzepa.mydates.ui.common.composable.supportingtext.MyDatesErrorText
 import com.kuzepa.mydates.ui.common.composable.supportingtext.MyDatesSupportingTextBox
 
@@ -56,7 +56,7 @@ fun DateTextField(
         )
         MyDatesSupportingTextBox {
             Column(modifier = Modifier.fillMaxWidth()) {
-                if (errorMessage != null) {
+                errorMessage?.let {
                     MyDatesErrorText(errorMessage)
                 }
                 checkBox()

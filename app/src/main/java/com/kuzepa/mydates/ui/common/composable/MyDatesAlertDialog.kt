@@ -15,28 +15,32 @@ import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
 fun MyDatesAlertDialog(
-    dialogIconImageVector: ImageVector,
-    iconDescription: String,
     dialogTitle: String,
-    dialogText: String,
     confirmButtonText: String,
     dismissButtonText: String,
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    dialogText: String? = null,
+    dialogIconImageVector: ImageVector? = null,
+    iconDescription: String = "",
 ) {
     AlertDialog(
         icon = {
-            Icon(
-                imageVector = dialogIconImageVector,
-                contentDescription = iconDescription
-            )
+            dialogIconImageVector?.let {
+                Icon(
+                    imageVector = dialogIconImageVector,
+                    contentDescription = iconDescription
+                )
+            }
         },
         title = {
             Text(text = dialogTitle)
         },
         text = {
-            Text(text = dialogText)
+            dialogText?.let {
+                Text(text = dialogText)
+            }
         },
         onDismissRequest = {
             onDismissRequest()

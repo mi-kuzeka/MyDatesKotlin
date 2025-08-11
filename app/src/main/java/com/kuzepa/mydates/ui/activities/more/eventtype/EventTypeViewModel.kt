@@ -41,7 +41,7 @@ class EventTypeViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val eventType = eventTypeRepository.getEventTypeById(id = id)
-                if (eventType != null) fillEventTypeFields(eventType)
+                eventType?.let { fillEventTypeFields(eventType) }
             } catch (e: Exception) {
                 // TODO handle error
             }

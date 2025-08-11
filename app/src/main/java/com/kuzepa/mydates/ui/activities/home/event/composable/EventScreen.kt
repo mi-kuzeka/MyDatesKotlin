@@ -1,6 +1,7 @@
 package com.kuzepa.mydates.ui.activities.home.event.composable
 
 import android.graphics.Bitmap
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -99,6 +100,16 @@ internal fun EventScreen(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     var showDeleteDialog by remember { mutableStateOf(false) }
+    var showGoBackConfirmationDialog by remember { mutableStateOf(false) }
+
+    BackHandler(enabled = !showGoBackConfirmationDialog && !showDeleteDialog) {
+        // Custom back action when dialog is shown
+        if (viewModel.hasChanges.value) {
+            showGoBackConfirmationDialog = true
+        } else {
+            onNavigateBack()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -112,8 +123,11 @@ internal fun EventScreen(
                 ),
                 canGoBack = true,
                 onGoBack = {
-                    // TODO show confirmation dialog
-                    onNavigateBack()
+                    if (viewModel.hasChanges.value) {
+                        showGoBackConfirmationDialog = true
+                    } else {
+                        onNavigateBack()
+                    }
                 },
                 endIcon = {
                     if (!viewModel.isNewEvent()) {
@@ -191,6 +205,22 @@ internal fun EventScreen(
                     onConfirmation = {
                         showDeleteDialog = false
                         viewModel.onEvent(EventScreenEvent.Delete)
+                    }
+                )
+            }
+
+            if (showGoBackConfirmationDialog) {
+                MyDatesAlertDialog(
+                    dialogTitle = "Discard changes?", // TODO replace
+                    dialogText = null, // TODO replace
+                    confirmButtonText = "Yes, discard", // TODO replace
+                    dismissButtonText = "Continue editing", // TODO replace
+                    onDismissRequest = {
+                        showGoBackConfirmationDialog = false
+                    },
+                    onConfirmation = {
+                        showGoBackConfirmationDialog = false
+                        onNavigateBack()
                     }
                 )
             }
