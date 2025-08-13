@@ -40,7 +40,7 @@ abstract class MyDatesDatabase : RoomDatabase() {
                 MyDatesDatabase::class.java,
                 DATABASE_NAME
             ).addCallback(
-                MyDatesDataBaseInitializer(
+                DataBaseInitializer(
                     eventTypeProvider = eventTypeProvider,
                     birthdayEventTypeName = context.applicationContext
                         .getString(R.string.event_type_birthday_name)

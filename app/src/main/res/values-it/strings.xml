@@ -249,11 +249,11 @@
     <string name="empty_event_type_list">Aggiungi un tipo di evento e verrà visualizzato qui.</string>
 
     <!-- Title for checkbox of default event type -->
-    <string name="event_type_set_as_default">Tipo di evento predefinito</string>
+    <string name="default_event_type_switch">Tipo di evento predefinito</string>
     <!-- Hint in the event type list for default event type -->
     <string name="event_type_default_hint">predefinito</string>
     <!-- Title for checkbox of showing zodiac sign for the event type -->
-    <string name="show_zodiac_sign">Mostra i segni zodiacali per questo tipo di evento</string>
+    <string name="show_zodiac_sign_switch">Mostra i segni zodiacali per questo tipo di evento</string>
     <!-- Alert message about duplicate event type name -->
     <string name="event_type_already_exists">Esiste già un tipo di evento con lo stesso nome. Si prega di specificare un nome diverso.</string>
     <!-- Name of event type - Birthday, creates in empty data base by default -->
@@ -274,8 +274,8 @@
     <!-- Dialog message to ask the user to choose another default event type before deleting the current one [CHAR LIMIT=NONE] -->
     <string name="change_default_event_type_dialog_msg">Stai rimuovendo il tipo predefinito \"%1$s\". Seleziona un altro tipo come predefinito.</string>
     <!-- Dialog button text for the option to choose another event type for events [CHAR LIMIT=20] -->
-    <string name="choose_another_event_type">Sostituisci con il tipo selezionato</string>
-    <string name="set_event_type_as_default">Imposta questo tipo come predefinito</string>
+    <string name="replace_event_type_button">Sostituisci con il tipo selezionato</string>
+    <string name="set_event_type_as_default_button">Imposta questo tipo come predefinito</string>
 
     <!-- Separator title for past events [CHAR LIMIT=20] -->
     <string name="past_events_title">Eventi passati</string>

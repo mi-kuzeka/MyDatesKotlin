@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
+import com.kuzepa.mydates.features.more.eventtype.EventTypeScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -29,6 +30,6 @@ internal data class EventTypeEditor(val id: String?) : NavRoute()
 fun NavGraphBuilder.eventTypeEditorDestination(onNavigateBack: () -> Unit) {
     dialog<EventTypeEditor> { backStackEntry ->
         val eventTypeEditor: EventTypeEditor = backStackEntry.toRoute()
-//                EventTypeEditorScreen(id = eventTypeEditor.id)
+        EventTypeScreen(id = eventTypeEditor.id, onNavigateBack = onNavigateBack)
     }
 }

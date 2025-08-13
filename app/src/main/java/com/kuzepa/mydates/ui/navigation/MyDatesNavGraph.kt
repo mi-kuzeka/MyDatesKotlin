@@ -23,7 +23,10 @@ fun MyDatesNavHost(
         eventsDestination(onNavigateToEventEditor = { eventId ->
             navController.navigateToEventEditor(id = eventId)
         })
-        eventEditorDestination(onNavigateBack = { navController.popBackStack() })
+        eventEditorDestination(
+            onNavigateBack = { navController.popBackStack() },
+            onNavigateToEventTypeCreator = { navController.navigateToEventTypeEditor(null) }
+        )
 
         appearanceDestination()
 

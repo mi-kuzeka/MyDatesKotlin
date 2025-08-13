@@ -2,9 +2,9 @@ package com.kuzepa.mydates.domain.mapper
 
 import com.kuzepa.mydates.data.local.database.entity.EventEntity
 import com.kuzepa.mydates.data.local.database.entity.EventWithTypeAndLabels
-import com.kuzepa.mydates.domain.converter.getNotificationDateCode
-import com.kuzepa.mydates.domain.converter.toBitmap
-import com.kuzepa.mydates.domain.converter.toByteArray
+import com.kuzepa.mydates.domain.formatter.getNotificationDateCode
+import com.kuzepa.mydates.domain.formatter.toBitmap
+import com.kuzepa.mydates.domain.formatter.toByteArray
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventDate
 

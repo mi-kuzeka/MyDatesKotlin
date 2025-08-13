@@ -1,7 +1,7 @@
 package com.kuzepa.mydates.domain.usecase.validation.rules
 
-import com.kuzepa.mydates.domain.converter.isDateValid
-import com.kuzepa.mydates.domain.dateformat.DateFormatProvider
+import com.kuzepa.mydates.domain.formatter.isDateValid
+import com.kuzepa.mydates.domain.formatter.dateformat.DateFormatProvider
 import com.kuzepa.mydates.domain.usecase.validation.ValidationMessageProvider
 import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
 import javax.inject.Inject

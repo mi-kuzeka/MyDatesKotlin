@@ -1,15 +1,15 @@
 package com.kuzepa.mydates.di
 
 import android.content.Context
-import com.kuzepa.mydates.domain.dateformat.DateFormatProvider
+import com.kuzepa.mydates.domain.formatter.dateformat.DateFormatProvider
 import com.kuzepa.mydates.domain.usecase.validation.ValidationMessageProvider
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateDateUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateNameNotEmptyAndDistinctUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateSelectionRequiredUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateTextNotEmptyUseCase
-import com.kuzepa.mydates.ui.common.utils.ResourceValidationMessageProvider
-import com.kuzepa.mydates.ui.common.utils.dateformat.DataStoreDateFormatProvider
-import com.kuzepa.mydates.ui.common.utils.dateformat.DateFormatterWrapper
+import com.kuzepa.mydates.ui.utils.ResourceValidationMessageProvider
+import com.kuzepa.mydates.ui.utils.dateformat.DataStoreDateFormatProvider
+import com.kuzepa.mydates.ui.utils.dateformat.DateFormatterWrapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

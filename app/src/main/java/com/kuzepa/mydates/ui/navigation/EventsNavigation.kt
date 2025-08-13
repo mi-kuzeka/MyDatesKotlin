@@ -4,8 +4,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.kuzepa.mydates.ui.activities.home.composable.HomeScreen
-import com.kuzepa.mydates.ui.activities.home.event.composable.EventScreen
+import com.kuzepa.mydates.features.home.HomeScreen
+import com.kuzepa.mydates.features.home.event.EventScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -26,12 +26,16 @@ fun NavController.navigateToEventEditor(id: Int?) {
 @Serializable
 internal data class EventEditor(val id: Int?) : NavRoute()
 
-fun NavGraphBuilder.eventEditorDestination(onNavigateBack: () -> Unit) {
+fun NavGraphBuilder.eventEditorDestination(
+    onNavigateBack: () -> Unit,
+    onNavigateToEventTypeCreator: () -> Unit,
+    ) {
     composable<EventEditor> { backStackEntry ->
         val eventEditor: EventEditor = backStackEntry.toRoute()
         EventScreen(
             id = eventEditor.id,
-            onNavigateBack = onNavigateBack
+            onNavigateBack = onNavigateBack,
+            onNavigateToEventTypeCreator = onNavigateToEventTypeCreator
         )
     }
 }

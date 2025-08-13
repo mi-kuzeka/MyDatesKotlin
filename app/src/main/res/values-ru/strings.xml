@@ -248,11 +248,11 @@
     <string name="empty_event_type_list">Добавьте тип события и он отобразится в этом списке.</string>
 
     <!-- Title for checkbox of default event type -->
-    <string name="event_type_set_as_default">Тип события по умолчанию</string>
+    <string name="default_event_type_switch">Тип события по умолчанию</string>
     <!-- Hint in the event type list for default event type -->
     <string name="event_type_default_hint">по умолчанию</string>
     <!-- Title for checkbox of showing zodiac sign for the event type -->
-    <string name="show_zodiac_sign">Показывать знаки зодиака для этого типа события</string>
+    <string name="show_zodiac_sign_switch">Показывать знаки зодиака для этого типа события</string>
     <!-- Alert message about duplicate event type name -->
     <string name="event_type_already_exists">Тип события с таким названием уже существует. Введите другое название.</string>
     <!-- Name of event type - Birthday, creates in empty data base by default -->
@@ -273,8 +273,8 @@
     <!-- Dialog message to ask the user to choose another default event type before deleting the current one [CHAR LIMIT=NONE] -->
     <string name="change_default_event_type_dialog_msg">Вы удаляете тип события \"%1$s\". Выберите другой тип, который будет использоваться по умолчанию.</string>
     <!-- Dialog button text for the option to choose another event type for events [CHAR LIMIT=20] -->
-    <string name="choose_another_event_type">Заменить выбранным типом</string>
-    <string name="set_event_type_as_default">Установить этот тип по умолчанию</string>
+    <string name="replace_event_type_button">Заменить выбранным типом</string>
+    <string name="set_event_type_as_default_button">Установить этот тип по умолчанию</string>
 
     <!-- Pattern for notification title, e.g. Alex James-->
     <string name="daily_notification_title_pattern">%1$s</string>
