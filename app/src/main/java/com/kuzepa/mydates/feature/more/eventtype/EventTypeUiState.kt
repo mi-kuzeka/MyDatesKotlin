@@ -1,0 +1,15 @@
+package com.kuzepa.mydates.feature.more.eventtype
+
+import com.kuzepa.mydates.domain.model.EventType
+import com.kuzepa.mydates.domain.model.NotificationFilterState
+
+data class EventTypeUiState(
+    val isNewEventType: Boolean = true,
+    val eventType: EventType? = null,
+    val hasChanges: Boolean = false,
+    val name: String = "",
+    val nameValidationError: String? = null,
+    val isDefault: Boolean = false,
+    val showZodiac: Boolean = false,
+    val notificationState: NotificationFilterState = NotificationFilterState.FILTER_STATE_ON
+)

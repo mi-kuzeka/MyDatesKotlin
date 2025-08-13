@@ -4,8 +4,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.kuzepa.mydates.features.home.HomeScreen
-import com.kuzepa.mydates.features.home.event.EventScreen
+import com.kuzepa.mydates.feature.home.HomeScreen
+import com.kuzepa.mydates.feature.home.event.EventScreen
 import kotlinx.serialization.Serializable
 
 @Serializable

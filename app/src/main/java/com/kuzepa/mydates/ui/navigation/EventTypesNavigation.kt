@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
-import com.kuzepa.mydates.features.more.eventtype.EventTypeScreen
+import com.kuzepa.mydates.feature.more.eventtype.EventTypeScreen
 import kotlinx.serialization.Serializable
 
 @Serializable

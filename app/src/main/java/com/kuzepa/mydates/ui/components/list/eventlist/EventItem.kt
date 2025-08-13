@@ -28,7 +28,7 @@ import com.kuzepa.mydates.domain.model.EventType
 import com.kuzepa.mydates.domain.model.Label
 import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.ui.theme.MyDatesColors
-import com.kuzepa.mydates.ui.utils.dateformat.toFormattedDate
+import com.kuzepa.mydates.common.util.dateformat.toFormattedDate
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable

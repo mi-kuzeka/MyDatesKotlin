@@ -7,9 +7,9 @@ import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateDateUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateNameNotEmptyAndDistinctUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateSelectionRequiredUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateTextNotEmptyUseCase
-import com.kuzepa.mydates.ui.utils.ResourceValidationMessageProvider
-import com.kuzepa.mydates.ui.utils.dateformat.DataStoreDateFormatProvider
-import com.kuzepa.mydates.ui.utils.dateformat.DateFormatterWrapper
+import com.kuzepa.mydates.common.util.ResourceValidationMessageProvider
+import com.kuzepa.mydates.common.util.dateformat.DataStoreDateFormatProvider
+import com.kuzepa.mydates.common.util.dateformat.DateFormatterWrapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -28,10 +28,10 @@ import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.ui.components.icon.IconRemove
 import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.Shapes
-import com.kuzepa.mydates.ui.utils.labelcolor.getContrastedColor
-import com.kuzepa.mydates.ui.utils.labelcolor.getEventLabelColor
-import com.kuzepa.mydates.ui.utils.labelcolor.randomColor
-import com.kuzepa.mydates.ui.utils.labelcolor.toInt
+import com.kuzepa.mydates.common.util.labelcolor.getContrastedColor
+import com.kuzepa.mydates.common.util.labelcolor.getEventLabelColor
+import com.kuzepa.mydates.common.util.labelcolor.randomColor
+import com.kuzepa.mydates.common.util.labelcolor.toInt
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 import kotlin.random.Random
 
