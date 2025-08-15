@@ -50,7 +50,7 @@ class HomeViewModel @Inject constructor(
         // Set loading state immediately
         _eventPageStates[page] = EventPageState.Loading
 
-        pageObservers[page] = viewModelScope.launch(Dispatchers.IO) {
+        pageObservers[page] = viewModelScope.launch {
             eventRepository.getEventsByMonth(page + 1, SortOption.BY_DATE_DESC)
                 .distinctUntilChanged()
                 .catch { e ->

@@ -2,7 +2,7 @@ package com.kuzepa.mydates.ui.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.kuzepa.mydates.ui.activities.search.composable.SearchScreen
+import com.kuzepa.mydates.feature.search.SearchScreen
 import kotlinx.serialization.Serializable
 
 @Serializable

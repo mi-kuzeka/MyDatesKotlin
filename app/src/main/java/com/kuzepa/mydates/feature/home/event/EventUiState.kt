@@ -2,6 +2,7 @@ package com.kuzepa.mydates.feature.home.event
 
 import android.graphics.Bitmap
 import com.kuzepa.mydates.domain.model.Event
+import com.kuzepa.mydates.domain.model.EventType
 import com.kuzepa.mydates.domain.model.Label
 
 data class EventUiState(
@@ -20,5 +21,9 @@ data class EventUiState(
     /**
      * Label list of current event
      */
-    val labels: List<Label> = emptyList()
+    val labels: List<Label> = emptyList(),
+    /**
+     * All available event types
+     */
+    val availableEventTypes: List<EventType> = emptyList()
 )

@@ -27,10 +27,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import com.kuzepa.mydates.R
-import com.kuzepa.mydates.ui.components.dialog.MyDatesAlertDialog
 import com.kuzepa.mydates.ui.components.TopAppBar
-import com.kuzepa.mydates.ui.theme.MyDatesColors
+import com.kuzepa.mydates.ui.components.dialog.MyDatesAlertDialog
 import com.kuzepa.mydates.ui.components.icon.IconDelete
+import com.kuzepa.mydates.ui.theme.MyDatesColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,19 +41,17 @@ fun BaseEditorScreen(
     onNavigateBack: () -> Unit,
     onSave: () -> Unit,
     onDelete: () -> Unit,
+    showGoBackDialog: Boolean,
     showDeleteDialog: Boolean,
-    showGoBackConfirmationDialog: Boolean,
+    onShowGoBackDialogChange: (Boolean) -> Unit,
     onShowDeleteDialogChange: (Boolean) -> Unit,
-    onShowGoBackConfirmationDialogChange: (Boolean) -> Unit,
-    deleteDialogTitle: String,
-    deleteDialogText: String,
     scrollBehavior: TopAppBarScrollBehavior,
-    otherDialogs: @Composable () -> Unit,
     content: @Composable () -> Unit
 ) {
-    BackHandler(enabled = !showGoBackConfirmationDialog && !showDeleteDialog) {
+    val handleGoBack = !showGoBackDialog && !showDeleteDialog
+    BackHandler(enabled = handleGoBack) {
         if (hasChanges) {
-            onShowGoBackConfirmationDialogChange(true)
+            onShowGoBackDialogChange(true)
         } else {
             onNavigateBack()
         }
@@ -66,7 +64,7 @@ fun BaseEditorScreen(
                 canGoBack = true,
                 onGoBack = {
                     if (hasChanges) {
-                        onShowGoBackConfirmationDialogChange(true)
+                        onShowGoBackDialogChange(true)
                     } else {
                         onNavigateBack()
                     }
@@ -95,6 +93,7 @@ fun BaseEditorScreen(
                 )
             }
         },
+        // Connects the Scaffold's scroll to the TopAppBar's collapse/expand behavior
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
     ) { innerPadding ->
         Box(
@@ -116,37 +115,50 @@ fun BaseEditorScreen(
                 content()
             }
 
+            if (showGoBackDialog) {
+                GoBackConfirmationDialog(
+                    onDismissDialog = { onShowGoBackDialogChange(false) },
+                    onNavigateBack = onNavigateBack
+                )
+            }
             if (showDeleteDialog) {
-                MyDatesAlertDialog(
-                    dialogIconImageVector = Icons.Default.Delete,
-                    iconDescription = "",
-                    dialogTitle = deleteDialogTitle,
-                    dialogText = deleteDialogText,
-                    confirmButtonText = "Yes, delete", // TODO replace with localized string
-                    dismissButtonText = stringResource(R.string.button_cancel),
-                    onDismissRequest = { onShowDeleteDialogChange(false) },
-                    onConfirmation = {
-                        onShowDeleteDialogChange(false)
-                        onDelete()
-                    }
+                DeleteConfirmationDialog(
+                    onDismissDialog = { onShowDeleteDialogChange(false) },
+                    onDelete = onDelete
                 )
             }
-
-            if (showGoBackConfirmationDialog) {
-                MyDatesAlertDialog(
-                    dialogTitle = stringResource(R.string.go_back_confirmation),
-                    dialogText = stringResource(R.string.go_back_confirmation_description),
-                    confirmButtonText = stringResource(R.string.button_confirm_go_back),
-                    dismissButtonText = stringResource(R.string.keep_editing),
-                    onDismissRequest = { onShowGoBackConfirmationDialogChange(false) },
-                    onConfirmation = {
-                        onShowGoBackConfirmationDialogChange(false)
-                        onNavigateBack()
-                    }
-                )
-            }
-
-            otherDialogs()
         }
     }
+}
+
+@Composable
+private fun GoBackConfirmationDialog(
+    onDismissDialog: () -> Unit,
+    onNavigateBack: () -> Unit
+) {
+    MyDatesAlertDialog(
+        dialogTitle = stringResource(R.string.go_back_confirmation),
+        dialogText = stringResource(R.string.go_back_confirmation_description),
+        confirmButtonText = stringResource(R.string.button_confirm_go_back),
+        dismissButtonText = stringResource(R.string.keep_editing),
+        onDismissRequest = onDismissDialog,
+        onConfirmation = onNavigateBack
+    )
+}
+
+@Composable
+private fun DeleteConfirmationDialog(
+    onDismissDialog: () -> Unit,
+    onDelete: () -> Unit
+) {
+    MyDatesAlertDialog(
+        dialogIconImageVector = Icons.Default.Delete,
+        iconDescription = "",
+        dialogTitle = "dialogTitle", // TODO replace with localized string
+        dialogText = "dialogText", // TODO replace with localized string
+        confirmButtonText = "Yes, delete", // TODO replace with localized string
+        dismissButtonText = stringResource(R.string.button_cancel),
+        onDismissRequest = onDismissDialog,
+        onConfirmation = onDelete
+    )
 }

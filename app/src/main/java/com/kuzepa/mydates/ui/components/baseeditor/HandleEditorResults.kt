@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 fun HandleEditorResults(
     savingFlow: Flow<ObjectSaving>,
     deletingFlow: Flow<ObjectDeleting>,
-    onSuccess: () -> Unit,
+    onSuccess: (String?) -> Unit,
     onError: () -> Unit
 ) {
     val context = LocalContext.current
@@ -19,7 +19,7 @@ fun HandleEditorResults(
     LaunchedEffect(key1 = context) {
         savingFlow.collect { event ->
             when (event) {
-                is ObjectSaving.Success -> onSuccess()
+                is ObjectSaving.Success -> onSuccess(event.id)
                 is ObjectSaving.Error -> onError()
             }
         }
@@ -28,7 +28,7 @@ fun HandleEditorResults(
     LaunchedEffect(key1 = context) {
         deletingFlow.collect { event ->
             when (event) {
-                is ObjectDeleting.Success -> onSuccess()
+                is ObjectDeleting.Success -> onSuccess(null)
                 is ObjectDeleting.Error -> onError()
             }
         }

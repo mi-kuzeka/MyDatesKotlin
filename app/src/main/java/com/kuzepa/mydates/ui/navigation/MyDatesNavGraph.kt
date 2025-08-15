@@ -47,7 +47,15 @@ fun MyDatesNavHost(
             },
             onNavigateBack = { navController.popBackStack() }
         )
-        eventTypeEditorDestination(onNavigateBack = { navController.popBackStack() })
+        eventTypeEditorDestination(onNavigateBack = { navigationResult, id ->
+            navController.popBackStack()
+            navController.currentBackStackEntry
+                ?.savedStateHandle
+                ?.apply {
+                    set(NavigationResult.EVENT_TYPE_KEY, navigationResult)
+                    id?.let { set(NavigationResult.EVENT_TYPE_ID_KEY, id) }
+                }
+        })
 
         labelsDestination(
             onNavigateToLabelEditor = { labelId ->

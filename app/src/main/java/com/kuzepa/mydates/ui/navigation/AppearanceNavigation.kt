@@ -2,7 +2,7 @@ package com.kuzepa.mydates.ui.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.kuzepa.mydates.ui.activities.appearance.composable.AppearanceScreen
+import com.kuzepa.mydates.feature.appearance.AppearanceScreen
 import kotlinx.serialization.Serializable
 
 @Serializable

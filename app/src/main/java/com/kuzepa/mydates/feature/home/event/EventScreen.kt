@@ -36,30 +36,34 @@ import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorScreen
 import com.kuzepa.mydates.ui.components.baseeditor.HandleEditorResults
 import com.kuzepa.mydates.ui.components.textfield.MyDatesTextField
+import com.kuzepa.mydates.ui.navigation.NavigationResult
+import com.kuzepa.mydates.ui.navigation.NavigationResultData
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.android.awaitFrame
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun EventScreen(
     viewModel: EventViewModel = hiltViewModel(),
-    id: Int?,
+    eventId: Int?,
     onNavigateBack: () -> Unit,
-    onNavigateToEventTypeCreator: () -> Unit
+    onNavigateToEventTypeCreator: () -> Unit,
+    eventTypeNavigationResult: NavigationResultData,
+    labelNavigationResult: NavigationResultData,
+    removeNavigationResult: (navigationKey: String) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
+    var showGoBackDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
-    var showGoBackConfirmationDialog by remember { mutableStateOf(false) }
-    var showEventTypeDialog by remember { mutableStateOf(false) }
-    var showLabelsDialog by remember { mutableStateOf(false) }
+
     val focusRequester = remember { FocusRequester() }
 
-    if (state.isNewEvent) {
-        // Request focus when the dialog appears
-        LaunchedEffect(Unit) {
-            delay(100)
+    LaunchedEffect(Unit) {
+        if (state.isNewEvent) {
+            // Request focus when the dialog appears
+            awaitFrame()
             focusRequester.requestFocus()
         }
     }
@@ -67,7 +71,7 @@ internal fun EventScreen(
     HandleEditorResults(
         savingFlow = viewModel.savingFlow,
         deletingFlow = viewModel.deletingFlow,
-        onSuccess = onNavigateBack,
+        onSuccess = { onNavigateBack() },
         onError = { /* TODO show error */ }
     )
 
@@ -77,31 +81,39 @@ internal fun EventScreen(
         ),
         isNewItem = state.isNewEvent,
         hasChanges = state.hasChanges,
-        onNavigateBack = onNavigateBack,
+        onNavigateBack = {
+            showGoBackDialog = false
+            onNavigateBack()
+        },
         onSave = { viewModel.onEvent(EventScreenEvent.Save) },
-        onDelete = { viewModel.onEvent(EventScreenEvent.Delete) },
+        onDelete = {
+            viewModel.onEvent(EventScreenEvent.Delete)
+            showDeleteDialog = false
+            onNavigateBack()
+        },
+        showGoBackDialog = showGoBackDialog,
         showDeleteDialog = showDeleteDialog,
-        showGoBackConfirmationDialog = showGoBackConfirmationDialog,
+        onShowGoBackDialogChange = { showGoBackDialog = it },
         onShowDeleteDialogChange = { showDeleteDialog = it },
-        onShowGoBackConfirmationDialogChange = { showGoBackConfirmationDialog = it },
-        deleteDialogTitle = "Delete this event?", // TODO replace with string resources
-        deleteDialogText = "You can't restore it after deleting", // TODO replace with string resources
         scrollBehavior = scrollBehavior,
-        otherDialogs = {
-            if (showEventTypeDialog) {
-                onNavigateToEventTypeCreator()
-            }
-        }
     ) {
         EventScreenContent(
             onEvent = { viewModel.onEvent(it) },
             dateMask = viewModel.getDateMask(),
             dateDelimiter = viewModel.getMaskDelimiter(),
-            eventTypes = viewModel.getAllEventTypes().map { it.name },
-            onShowEventTypeDialogChange = { showEventTypeDialog = it },
+            eventTypes = state.availableEventTypes.map { it.name },
+            onNavigateToEventType = onNavigateToEventTypeCreator,
             focusRequester = focusRequester,
             state = state
         )
+    }
+
+    LaunchedEffect(eventTypeNavigationResult.result) {
+        if (eventTypeNavigationResult.result == NavigationResult.OK) {
+            viewModel.loadEventTypes()
+            viewModel.handleEventTypeResult(eventTypeNavigationResult)
+            removeNavigationResult(NavigationResult.EVENT_TYPE_KEY)
+        }
     }
 }
 
@@ -113,7 +125,7 @@ internal fun EventScreenContent(
     dateDelimiter: Char,
     eventTypes: List<String>,
     state: EventUiState,
-    onShowEventTypeDialogChange: (Boolean) -> Unit,
+    onNavigateToEventType: () -> Unit,
     focusRequester: FocusRequester,
     modifier: Modifier = Modifier
 ) {
@@ -166,10 +178,7 @@ internal fun EventScreenContent(
                 onValueChange = { onEvent(EventScreenEvent.EventTypeChanged(it)) },
                 errorMessage = eventTypeValidationError,
                 options = eventTypes,
-                onAddNewItem = {
-                    onShowEventTypeDialogChange(true)
-                    // TODO show new event type dialog
-                },
+                onAddNewItem = onNavigateToEventType,
                 addNewItemLabel = stringResource(R.string.event_type_creator_title),
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = stringResource(R.string.event_type_spinner_placeholder)
@@ -177,11 +186,17 @@ internal fun EventScreenContent(
             EventLabelContainer(
                 label = stringResource(R.string.labels_title),
                 labels = labels,
-                onLabelClick = { /* TODO show Label Dialog */ },
-                onRemoveLabelClick = { /* TODO show confirmation Dialog */ },
+                onLabelClick = { labelId -> onEvent(EventScreenEvent.LabelClicked(labelId)) },
+                onRemoveLabelClick = { labelId ->
+                    onEvent(
+                        EventScreenEvent.RemoveLabelFromEvent(
+                            labelId
+                        )
+                    )
+                },
                 buttonRemoveDescription = stringResource(R.string.remove_label_hint),
                 addLabelText = stringResource(R.string.button_add_label),
-                onAddLabelClick = { /* TODO show Label Dialog */ },
+                onAddLabelClick = { onEvent(EventScreenEvent.NewLabelClicked) },
                 modifier = Modifier.fillMaxWidth()
             )
             MyDatesTextField(
@@ -230,7 +245,7 @@ fun EventScreenNewEventPreview() {
             dateMask = "mm/dd/yyyy",
             dateDelimiter = '/',
             eventTypes = listOf(),
-            onShowEventTypeDialogChange = {},
+            onNavigateToEventType = {},
             focusRequester = focusRequester,
             state = state
         )

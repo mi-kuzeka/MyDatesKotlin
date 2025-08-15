@@ -13,14 +13,12 @@ import com.kuzepa.mydates.domain.usecase.validation.getErrorMessage
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateNameNotEmptyAndDistinctUseCase
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.UUID
 import javax.inject.Inject
 
@@ -54,7 +52,7 @@ class EventTypeViewModel @Inject constructor(
     }
 
     private fun loadEventTypes() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             try {
                 eventTypeRepository.getAllEventTypes().collect { eventTypes ->
                     allEventTypes = eventTypes
@@ -143,20 +141,22 @@ class EventTypeViewModel @Inject constructor(
     override fun save() {
         viewModelScope.launch {
             try {
-                withContext(Dispatchers.IO) {
-                    with(_uiState.value) {
-                        eventTypeRepository.upsertEventType(
-                            EventType(
-                                id = eventType?.id ?: UUID.randomUUID().toString(),
-                                name = name,
-                                isDefault = isDefault,
-                                notificationState = notificationState,
-                                showZodiac = showZodiac
-                            )
-                        )
+                val id = _uiState.value.eventType?.id ?: UUID.randomUUID().toString()
+                with(_uiState.value) {
+                    if (isDefault) {
+                        // TODO clear previous default type
                     }
+                    eventTypeRepository.upsertEventType(
+                        EventType(
+                            id = id,
+                            name = name,
+                            isDefault = isDefault,
+                            notificationState = notificationState,
+                            showZodiac = showZodiac
+                        )
+                    )
                 }
-                savingEventTypeChannel.send(ObjectSaving.Success)
+                savingEventTypeChannel.send(ObjectSaving.Success(id = id))
             } catch (e: Exception) {
                 // TODO handle error
                 savingEventTypeChannel.send(ObjectSaving.Error(e.message.toString()))
@@ -167,9 +167,7 @@ class EventTypeViewModel @Inject constructor(
     override fun delete() {
         viewModelScope.launch() {
             try {
-                withContext(Dispatchers.IO) {
-                    eventTypeRepository.deleteEventTypeById(_uiState.value.eventType?.id ?: "")
-                }
+                eventTypeRepository.deleteEventTypeById(_uiState.value.eventType?.id ?: "")
                 deletingEventTypeChannel.send(ObjectDeleting.Success)
             } catch (e: Exception) {
                 // TODO handle error

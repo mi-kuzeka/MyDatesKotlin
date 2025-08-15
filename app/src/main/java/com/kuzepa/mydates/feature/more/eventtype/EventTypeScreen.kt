@@ -26,6 +26,7 @@ import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorDialog
 import com.kuzepa.mydates.ui.components.baseeditor.HandleEditorResults
 import com.kuzepa.mydates.ui.components.textfield.MyDatesTextField
+import com.kuzepa.mydates.ui.navigation.NavigationResult
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,7 +34,7 @@ import kotlinx.coroutines.delay
 fun EventTypeScreen(
     viewModel: EventTypeViewModel = hiltViewModel(),
     id: String?,
-    onNavigateBack: () -> Unit
+    onNavigateBack: (result: Int, id: String?) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -51,7 +52,7 @@ fun EventTypeScreen(
     HandleEditorResults(
         savingFlow = viewModel.savingFlow,
         deletingFlow = viewModel.deletingFlow,
-        onSuccess = onNavigateBack,
+        onSuccess = { id -> onNavigateBack(NavigationResult.OK, id) },
         onError = { /* TODO show error */ }
     )
 
@@ -61,7 +62,7 @@ fun EventTypeScreen(
         ),
         isNewItem = state.isNewEventType,
         hasChanges = state.hasChanges,
-        onNavigateBack = onNavigateBack,
+        onNavigateBack = { onNavigateBack(NavigationResult.CANCEL, null) },
         onSave = { viewModel.onEvent(EventTypeScreenEvent.Save) },
         onDelete = { viewModel.onEvent(EventTypeScreenEvent.Delete) },
         showDeleteDialog = showDeleteDialog,
