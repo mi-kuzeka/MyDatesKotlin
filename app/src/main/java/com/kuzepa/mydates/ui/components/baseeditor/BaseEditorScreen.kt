@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -27,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import com.kuzepa.mydates.R
+import com.kuzepa.mydates.domain.model.AlertDialogContent
 import com.kuzepa.mydates.ui.components.TopAppBar
 import com.kuzepa.mydates.ui.components.dialog.MyDatesAlertDialog
 import com.kuzepa.mydates.ui.components.icon.IconDelete
@@ -45,6 +45,7 @@ fun BaseEditorScreen(
     showDeleteDialog: Boolean,
     onShowGoBackDialogChange: (Boolean) -> Unit,
     onShowDeleteDialogChange: (Boolean) -> Unit,
+    deleteDialogContent: AlertDialogContent,
     scrollBehavior: TopAppBarScrollBehavior,
     content: @Composable () -> Unit
 ) {
@@ -124,7 +125,8 @@ fun BaseEditorScreen(
             if (showDeleteDialog) {
                 DeleteConfirmationDialog(
                     onDismissDialog = { onShowDeleteDialogChange(false) },
-                    onDelete = onDelete
+                    onDelete = onDelete,
+                    deleteDialogContent = deleteDialogContent
                 )
             }
         }
@@ -132,33 +134,31 @@ fun BaseEditorScreen(
 }
 
 @Composable
-private fun GoBackConfirmationDialog(
+fun GoBackConfirmationDialog(
     onDismissDialog: () -> Unit,
     onNavigateBack: () -> Unit
 ) {
     MyDatesAlertDialog(
-        dialogTitle = stringResource(R.string.go_back_confirmation),
-        dialogText = stringResource(R.string.go_back_confirmation_description),
-        confirmButtonText = stringResource(R.string.button_confirm_go_back),
-        dismissButtonText = stringResource(R.string.keep_editing),
         onDismissRequest = onDismissDialog,
-        onConfirmation = onNavigateBack
+        onConfirmation = onNavigateBack,
+        dialogContent = AlertDialogContent(
+            title = stringResource(R.string.go_back_confirmation),
+            message = stringResource(R.string.go_back_confirmation_description),
+            positiveButtonText = stringResource(R.string.button_confirm_go_back),
+            negativeButtonText = stringResource(R.string.keep_editing),
+        )
     )
 }
 
 @Composable
-private fun DeleteConfirmationDialog(
+fun DeleteConfirmationDialog(
     onDismissDialog: () -> Unit,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    deleteDialogContent: AlertDialogContent,
 ) {
     MyDatesAlertDialog(
-        dialogIconImageVector = Icons.Default.Delete,
-        iconDescription = "",
-        dialogTitle = "dialogTitle", // TODO replace with localized string
-        dialogText = "dialogText", // TODO replace with localized string
-        confirmButtonText = "Yes, delete", // TODO replace with localized string
-        dismissButtonText = stringResource(R.string.button_cancel),
         onDismissRequest = onDismissDialog,
-        onConfirmation = onDelete
+        onConfirmation = onDelete,
+        dialogContent = deleteDialogContent
     )
 }

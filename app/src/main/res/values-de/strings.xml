@@ -145,7 +145,7 @@
     <!-- Select button hint -->
     <string name="select_button_hint">Wählen Sie</string>
     <!-- Confirmation dialog title when save changes button pressed -->
-    <string name="adding_label_to_events_confirmation">Der Tag \"%1$s\" wird zu den ausgewählten Ereignissen hinzugefügt. Änderungen speichern?</string>
+    <string name="adding_label_to_events_confirmation_pattern">Der Tag \"%1$s\" wird zu den ausgewählten Ereignissen hinzugefügt. Änderungen speichern?</string>
     <!-- Message for user about saving data into data base -->
     <string name="saving_to_db_message">Der Speichervorgang in der Datenbank wird ausgeführt. Bitte schließen Sie die Anwendung nicht.</string>
 
@@ -184,7 +184,7 @@
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Bitte Farbe auswählen</string>
     <!-- Error message for date: incorrect format -->
-    <string name="error_date_incorrect_format">Ungültiges Datum. Erforderliches Format: %1$s</string>
+    <string name="error_date_incorrect_format_pattern">Ungültiges Datum. Erforderliches Format: %1$s</string>
 
     <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
     <string name="unsaved_changes_dialog_msg">Änderungen verwerfen und Bearbeitung beenden?</string>
@@ -196,7 +196,11 @@
     <string name="keep_editing">Bearbeiten Sie weiter</string>
 
     <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
-    <string name="delete_event_dialog_msg">Dieses Ereignis löschen?</string>
+    <string name="delete_dialog_title_pattern">Dieses %1$s löschen?</string>
+    <string name="delete_dialog_msg_pattern">Diese Aktion wird das %1$s endgültig aus Ihrer Liste löschen.</string>
+    <string name="this_event">Dieses Ereignis</string>
+    <string name="this_event_type">Diesen Ereignistyp</string>
+    <string name="this_label">Dieses Tag</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Dieses Bild löschen?</string>
@@ -269,9 +273,9 @@
     <!-- Dialog message to ask the user to confirm deleting the current event type [CHAR LIMIT=NONE] -->
     <string name="delete_event_type_dialog_msg">Diesen Ereignistyp löschen?</string>
     <!-- Dialog message to ask the user to choose another event type before deleting the current one [CHAR LIMIT=NONE] -->
-    <string name="change_event_type_dialog_msg">Sie haben Ereignisse vom Typ \"%1$s\". Wählen Sie einen Typ zur Klassifizierung dieser Ereignisse.</string>
+    <string name="change_event_type_dialog_msg_pattern">Sie haben Ereignisse vom Typ \"%1$s\". Wählen Sie einen Typ zur Klassifizierung dieser Ereignisse.</string>
     <!-- Dialog message to ask the user to choose another default event type before deleting the current one [CHAR LIMIT=NONE] -->
-    <string name="change_default_event_type_dialog_msg">Sie entfernen den Standardtyp \"%1$s\". Wählen Sie einen anderen Typ als Standardtyp.</string>
+    <string name="change_default_event_type_dialog_msg_pattern">Sie entfernen den Standardtyp \"%1$s\". Wählen Sie einen anderen Typ als Standardtyp.</string>
     <!-- Dialog button text for the option to choose another event type for events [CHAR LIMIT=20] -->
     <string name="replace_event_type_button">Durch ausgewählten Typ ersetzen</string>
     <string name="set_event_type_as_default_button">Legen Sie diesen Typ als Standard fest</string>
@@ -294,31 +298,31 @@
     <!-- Pattern for notification body, e.g. Birthday, 25 years, February 12 (Sun) -->
     <string name="reminder_notification_body_pattern">%1$s, %2$s, %3$s</string>
     <!-- Pattern for notification body, e.g. Birthday, February 12 (Sun) -->
-    <string name="reminder_body_pattern_no_age">%1$s, %2$s</string>
-    <plurals name="years">
+    <string name="reminder_body_no_age_pattern">%1$s, %2$s</string>
+    <plurals name="years_pattern">
         <item quantity="one">%1$d Jahr</item>
         <item quantity="other">%1$d Jahre</item>
     </plurals>
     <string name="today">Heute</string>
     <string name="yesterday">Gestern</string>
     <string name="tomorrow">Morgen</string>
-    <plurals name="days_left">
+    <plurals name="days_left_pattern">
         <item quantity="one">In %1$d Tag</item>
         <item quantity="other">In %1$d Tagen</item>
     </plurals>
-    <plurals name="weeks_left">
+    <plurals name="weeks_left_pattern">
         <item quantity="one">In %1$d Woche</item>
         <item quantity="other">In %1$d Wochen</item>
     </plurals>
-    <plurals name="months_left">
+    <plurals name="months_left_pattern">
         <item quantity="one">In %1$d Monat</item>
         <item quantity="other">In %1$d Monaten</item>
     </plurals>
-    <plurals name="days_left_short">
+    <plurals name="days_left_short_pattern">
         <item quantity="one">In %1$d Tag</item>
         <item quantity="other">In %1$d Tagen</item>
     </plurals>
-    <plurals name="days_ago">
+    <plurals name="days_ago_pattern">
         <item quantity="one">vor %1$d Tag</item>
         <item quantity="other">vor %1$d Tagen</item>
     </plurals>
@@ -570,10 +574,10 @@
     <string name="premium_is_active_title">Aktiv</string>
     <string name="premium_is_active_subtitle">Vielen Dank!</string>
     <string name="features_done_title">Was wurde getan:</string>
-    <string name="tags_feature_title">Tags</string>
-    <string name="tags_feature_description">Ereignisse können mit Tags markiert werden. Sie können eine beliebige Tagfarbe und ein beliebiges Tagsymbol aus der Liste auswählen.</string>
-    <string name="bulk_tagging_feature_title">Massenmarkierung von Ereignissen</string>
-    <string name="bulk_tagging_feature_description">Weisen Sie das ausgewählte Tag gleichzeitig mehreren Ereignissen zu. Diese Funktion finden Sie im Menü unter der Rubrik \"Tags\".</string>
+    <string name="labels_feature_title">Tags</string>
+    <string name="labels_feature_description">Ereignisse können mit Tags markiert werden. Sie können eine beliebige Tagfarbe und ein beliebiges Tagsymbol aus der Liste auswählen.</string>
+    <string name="bulk_labeling_feature_title">Massenmarkierung von Ereignissen</string>
+    <string name="bulk_labeling_feature_description">Weisen Sie das ausgewählte Tag gleichzeitig mehreren Ereignissen zu. Diese Funktion finden Sie im Menü unter der Rubrik \"Tags\".</string>
     <string name="filtering_notifications_feature_title">Filterbenachrichtigungen</string>
     <string name="filtering_notifications_feature_description">Wählen Sie aus, welche Arten von Ereignissen und Tags Sie benachrichtigt werden möchten und welche nicht. Diese Funktion finden Sie im Menü in den Benachrichtigungseinstellungen.</string>
     <string name="features_planned_title">Geplant:</string>

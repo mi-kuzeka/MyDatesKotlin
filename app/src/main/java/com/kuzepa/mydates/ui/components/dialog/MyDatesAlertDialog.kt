@@ -8,39 +8,32 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import com.kuzepa.mydates.domain.model.AlertDialogContent
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 import com.kuzepa.mydates.ui.theme.Shapes
 
 @Composable
 fun MyDatesAlertDialog(
-    dialogTitle: String,
-    confirmButtonText: String,
-    dismissButtonText: String,
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit,
     modifier: Modifier = Modifier,
-    dialogText: String? = null,
-    dialogIconImageVector: ImageVector? = null,
-    iconDescription: String = "",
+    dialogContent: AlertDialogContent,
 ) {
     AlertDialog(
         icon = {
-            dialogIconImageVector?.let {
+            dialogContent.icon?.let {
                 Icon(
-                    imageVector = dialogIconImageVector,
-                    contentDescription = iconDescription
+                    imageVector = dialogContent.icon,
+                    contentDescription = dialogContent.iconDescription
                 )
             }
         },
         title = {
-            Text(text = dialogTitle)
+            Text(text = dialogContent.title)
         },
         text = {
-            dialogText?.let {
-                Text(text = dialogText)
-            }
+            Text(text = dialogContent.message)
         },
         onDismissRequest = {
             onDismissRequest()
@@ -51,7 +44,7 @@ fun MyDatesAlertDialog(
                     onConfirmation()
                 }
             ) {
-                Text(confirmButtonText)
+                Text(dialogContent.positiveButtonText)
             }
         },
         dismissButton = {
@@ -60,7 +53,7 @@ fun MyDatesAlertDialog(
                     onDismissRequest()
                 }
             ) {
-                Text(dismissButtonText)
+                Text(dialogContent.negativeButtonText)
             }
         },
         shape = Shapes.defaultDialogShape,
@@ -73,14 +66,15 @@ fun MyDatesAlertDialog(
 fun MyDatesAlertDialogPreview() {
     MyDatesTheme {
         MyDatesAlertDialog(
-            dialogIconImageVector = Icons.Default.Delete,
-            iconDescription = "",
-            dialogTitle = "Delete this event?",
-            dialogText = "You can't restore it after deleting",
-            confirmButtonText = "Yes, delete",
-            dismissButtonText = "Cancel",
             onDismissRequest = {},
-            onConfirmation = {}
+            onConfirmation = {},
+            dialogContent = AlertDialogContent(
+                title = "Delete Event?",
+                message = "This will permanently delete \"[Event Name]\" from your list.",
+                positiveButtonText = "Delete",
+                negativeButtonText = "Cancel",
+                icon = Icons.Default.Delete
+            )
         )
     }
 }

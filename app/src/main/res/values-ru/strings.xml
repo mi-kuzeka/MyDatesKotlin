@@ -145,7 +145,7 @@
     <!-- Select button hint -->
     <string name="select_button_hint">Выделить</string>
     <!-- Confirmation dialog title when save changes button pressed -->
-    <string name="adding_label_to_events_confirmation">Тег \"%1$s\" будет добавлен к выделенным событиям. Сохранить изменения?</string>
+    <string name="adding_label_to_events_confirmation_pattern">Тег \"%1$s\" будет добавлен к выделенным событиям. Сохранить изменения?</string>
     <!-- Message for user about saving data into data base -->
     <string name="saving_to_db_message">Идёт сохранение в базу данных. Пожалуйста, не закрывайте приложение.</string>
 
@@ -184,7 +184,7 @@
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Выберите цвет</string>
     <!-- Error message for date: incorrect format -->
-    <string name="error_date_incorrect_format">Неверная дата. Требуемый формат: %1$s</string>
+    <string name="error_date_incorrect_format_pattern">Неверная дата. Требуемый формат: %1$s</string>
 
     <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
     <string name="unsaved_changes_dialog_msg">Отменить изменения и выйти из редактирования?</string>
@@ -196,7 +196,11 @@
     <string name="keep_editing">Продолжить редактирование</string>
 
     <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
-    <string name="delete_event_dialog_msg">Удалить это событие?</string>
+    <string name="delete_dialog_title_pattern">Удалить %1$s?</string>
+    <string name="delete_dialog_msg_pattern">Это действие навсегда удалит %1$s из вашего списка.</string>
+    <string name="this_event">это событие</string>
+    <string name="this_event_type">этот тип события</string>
+    <string name="this_label">этот тег</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Удалить это изображение?</string>
@@ -269,9 +273,9 @@
     <!-- Dialog message to ask the user to confirm deleting the current event type [CHAR LIMIT=NONE] -->
     <string name="delete_event_type_dialog_msg">Удалить этот тип события?</string>
     <!-- Dialog message to ask the user to choose another event type before deleting the current one [CHAR LIMIT=NONE] -->
-    <string name="change_event_type_dialog_msg">У вас есть события с типом \"%1$s\". Выберите, к какому типу отнести эти события.</string>
+    <string name="change_event_type_dialog_msg_pattern">У вас есть события с типом \"%1$s\". Выберите, к какому типу отнести эти события.</string>
     <!-- Dialog message to ask the user to choose another default event type before deleting the current one [CHAR LIMIT=NONE] -->
-    <string name="change_default_event_type_dialog_msg">Вы удаляете тип события \"%1$s\". Выберите другой тип, который будет использоваться по умолчанию.</string>
+    <string name="change_default_event_type_dialog_msg_pattern">Вы удаляете тип события \"%1$s\". Выберите другой тип, который будет использоваться по умолчанию.</string>
     <!-- Dialog button text for the option to choose another event type for events [CHAR LIMIT=20] -->
     <string name="replace_event_type_button">Заменить выбранным типом</string>
     <string name="set_event_type_as_default_button">Установить этот тип по умолчанию</string>
@@ -285,8 +289,8 @@
     <!-- Pattern for notification body, e.g. Birthday, 25 years, February 12 (Sun) -->
     <string name="reminder_notification_body_pattern">%1$s, %2$s, %3$s</string>
     <!-- Pattern for notification body, e.g. Birthday, February 12 (Sun) -->
-    <string name="reminder_body_pattern_no_age">%1$s, %2$s</string>
-    <plurals name="years">
+    <string name="reminder_body_no_age_pattern">%1$s, %2$s</string>
+    <plurals name="years_pattern">
         <item quantity="one">%1$d год</item>
         <item quantity="few">%1$d года</item>
         <item quantity="many">%1$d лет</item>
@@ -295,31 +299,31 @@
     <string name="today">Сегодня</string>
     <string name="yesterday">Вчера</string>
     <string name="tomorrow">Завтра</string>
-    <plurals name="days_left">
+    <plurals name="days_left_pattern">
         <item quantity="one">Через %1$d день</item>
         <item quantity="few">Через %1$d дня</item>
         <item quantity="many">Через %1$d дней</item>
         <item quantity="other">Через %1$d дней</item>
     </plurals>
-    <plurals name="weeks_left">
+    <plurals name="weeks_left_pattern">
         <item quantity="one">Через %1$d неделю</item>
         <item quantity="few">Через %1$d недели</item>
         <item quantity="many">Через %1$d недель</item>
         <item quantity="other">Через %1$d недель</item>
     </plurals>
-    <plurals name="months_left">
+    <plurals name="months_left_pattern">
         <item quantity="one">Через %1$d месяц</item>
         <item quantity="few">Через %1$d месяца</item>
         <item quantity="many">Через %1$d месяцев</item>
         <item quantity="other">Через %1$d месяцев</item>
     </plurals>
-    <plurals name="days_left_short">
+    <plurals name="days_left_short_pattern">
         <item quantity="one">Через %1$d д.</item>
         <item quantity="few">Через %1$d д.</item>
         <item quantity="many">Через %1$d д.</item>
         <item quantity="other">Через %1$d д.</item>
     </plurals>
-    <plurals name="days_ago">
+    <plurals name="days_ago_pattern">
         <item quantity="one">%1$d д. назад</item>
         <item quantity="few">%1$d д. назад</item>
         <item quantity="many">%1$d д. назад</item>
@@ -581,10 +585,10 @@
     <string name="premium_is_active_title">Активно</string>
     <string name="premium_is_active_subtitle">Большое спасибо!</string>
     <string name="features_done_title">Что сделано:</string>
-    <string name="tags_feature_title">Теги</string>
-    <string name="tags_feature_description">События можно обозначать тегами. Можно выбрать любой цвет тега и иконку из списка.</string>
-    <string name="bulk_tagging_feature_title">Массовое присвоение тега событиям</string>
-    <string name="bulk_tagging_feature_description">Назначайте выбранный тег сразу нескольким событиям. Эта функция находится в меню в разделе \"Теги\".</string>
+    <string name="labels_feature_title">Теги</string>
+    <string name="labels_feature_description">События можно обозначать тегами. Можно выбрать любой цвет тега и иконку из списка.</string>
+    <string name="bulk_labeling_feature_title">Массовое присвоение тега событиям</string>
+    <string name="bulk_labeling_feature_description">Назначайте выбранный тег сразу нескольким событиям. Эта функция находится в меню в разделе \"Теги\".</string>
     <string name="filtering_notifications_feature_title">Фильтрация уведомлений</string>
     <string name="filtering_notifications_feature_description">Выбирайте, о каких типах событий и тегах вы хотите получать уведомления, а о каких - нет. Эта функция находится в меню в настройках уведомлений.</string>
     <string name="features_planned_title">Запланировано:</string>

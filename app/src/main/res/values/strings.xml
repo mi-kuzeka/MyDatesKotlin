@@ -183,7 +183,7 @@
     <!-- Select button hint -->
     <string name="select_button_hint">Select</string>
     <!-- Confirmation dialog title when save changes button pressed -->
-    <string name="adding_label_to_events_confirmation">The tag \"%1$s\" will be added to the selected events. Save changes?</string>
+    <string name="adding_label_to_events_confirmation_pattern">The tag \"%1$s\" will be added to the selected events. Save changes?</string>
     <!-- Message for user about saving data into data base -->
     <string name="saving_to_db_message">Saving to database in progress. Please do not close the application.</string>
 
@@ -226,7 +226,7 @@
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Please select color</string>
     <!-- Error message for date: incorrect format -->
-    <string name="error_date_incorrect_format">Invalid date. Required format: %1$s</string>
+    <string name="error_date_incorrect_format_pattern">Invalid date. Required format: %1$s</string>
 
     <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
     <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
@@ -237,8 +237,12 @@
     <!-- Dialog button text for the option to keep editing current event [CHAR LIMIT=20] -->
     <string name="keep_editing">Keep Editing</string>
 
-    <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
-    <string name="delete_event_dialog_msg">Delete this event?</string>
+    <!-- Dialog message to ask the user to confirm deleting the current event, event type or label [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_title_pattern">Delete %1$s?</string>
+    <string name="delete_dialog_msg_pattern">This action will permanently delete %1$s from your list.</string>
+    <string name="this_event">this event</string>
+    <string name="this_event_type">this event type</string>
+    <string name="this_label">this tag</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Delete this image?</string>
@@ -316,9 +320,9 @@
     <!-- Dialog message to ask the user to confirm deleting the current event type [CHAR LIMIT=NONE] -->
     <string name="delete_event_type_dialog_msg">Delete this event type?</string>
     <!-- Dialog message to ask the user to choose another event type before deleting the current one [CHAR LIMIT=NONE] -->
-    <string name="change_event_type_dialog_msg">You have events with the type \"%1$s\". Choose a type to classify these events.</string>
+    <string name="change_event_type_dialog_msg_pattern">You have events with the type \"%1$s\". Choose a type to classify these events.</string>
     <!-- Dialog message to ask the user to choose another default event type before deleting the current one [CHAR LIMIT=NONE] -->
-    <string name="change_default_event_type_dialog_msg">You are removing the default type \"%1$s\". Select another type to be the default.</string>
+    <string name="change_default_event_type_dialog_msg_pattern">You are removing the default type \"%1$s\". Select another type to be the default.</string>
     <!-- Dialog button text for the option to choose another event type for events -->
     <string name="replace_event_type_button">Replace with selected type</string>
     <string name="set_event_type_as_default_button">Set this type as default</string>
@@ -341,8 +345,8 @@
     <!-- Pattern for notification body, e.g. Birthday, 25 years, February 12 (Sun) -->
     <string name="reminder_notification_body_pattern">%1$s, %2$s, %3$s</string>
     <!-- Pattern for notification body, e.g. Birthday, February 12 (Sun) -->
-    <string name="reminder_body_pattern_no_age">%1$s, %2$s</string>
-    <plurals name="years">
+    <string name="reminder_body_no_age_pattern">%1$s, %2$s</string>
+    <plurals name="years_pattern">
         <item quantity="zero">%1$d years</item>
         <item quantity="one">%1$d year</item>
         <item quantity="two">%1$d years</item>
@@ -353,14 +357,14 @@
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="tomorrow">Tomorrow</string>
-    <plurals name="days_left">
+    <plurals name="days_left_pattern">
         <item quantity="zero">Today</item>
         <item quantity="two">In %1$d days</item>
         <item quantity="few">In %1$d days</item>
         <item quantity="many">In %1$d days</item>
         <item quantity="other">In %1$d days</item>
     </plurals>
-    <plurals name="weeks_left">
+    <plurals name="weeks_left_pattern">
         <item quantity="zero">In %1$d weeks</item>
         <item quantity="one">In %1$d week</item>
         <item quantity="two">In %1$d weeks</item>
@@ -368,7 +372,7 @@
         <item quantity="many">In %1$d weeks</item>
         <item quantity="other">In %1$d weeks</item>
     </plurals>
-    <plurals name="months_left">
+    <plurals name="months_left_pattern">
         <item quantity="zero">In %1$d months</item>
         <item quantity="one">In %1$d month</item>
         <item quantity="two">In %1$d months</item>
@@ -376,14 +380,14 @@
         <item quantity="many">In %1$d months</item>
         <item quantity="other">In %1$d months</item>
     </plurals>
-    <plurals name="days_left_short">
+    <plurals name="days_left_short_pattern">
         <item quantity="zero">Today</item>
         <item quantity="two">In %1$d days</item>
         <item quantity="few">In %1$d days</item>
         <item quantity="many">In %1$d days</item>
         <item quantity="other">In %1$d days</item>
     </plurals>
-    <plurals name="days_ago">
+    <plurals name="days_ago_pattern">
         <item quantity="zero">Today</item>
         <item quantity="two">%1$d days ago</item>
         <item quantity="few">%1$d days ago</item>
@@ -653,10 +657,10 @@
     <string name="premium_is_active_title">Active</string>
     <string name="premium_is_active_subtitle">Thank you so much!</string>
     <string name="features_done_title">What\'s done:</string>
-    <string name="tags_feature_title">Tags</string>
-    <string name="tags_feature_description">Events can be marked with tags. You can select any tag color and icon from the list.</string>
-    <string name="bulk_tagging_feature_title">Bulk tagging of events</string>
-    <string name="bulk_tagging_feature_description">Assign the selected tag to multiple events at once. This function is located in the menu under the \"Tags\" section.</string>
+    <string name="labels_feature_title">Tags</string>
+    <string name="labels_feature_description">Events can be marked with tags. You can select any tag color and icon from the list.</string>
+    <string name="bulk_labeling_feature_title">Bulk tagging of events</string>
+    <string name="bulk_labeling_feature_description">Assign the selected tag to multiple events at once. This function is located in the menu under the \"Tags\" section.</string>
     <string name="filtering_notifications_feature_title">Filtering notifications</string>
     <string name="filtering_notifications_feature_description">Choose which types of events and tags you want to be notified about and which you don\'t. This feature is located in the menu in the notification settings.</string>
     <string name="features_planned_title">Planned:</string>

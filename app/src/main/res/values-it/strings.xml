@@ -145,7 +145,7 @@
     <!-- Select button hint -->
     <string name="select_button_hint">Selezionare</string>
     <!-- Confirmation dialog title when save changes button pressed -->
-    <string name="adding_label_to_events_confirmation">L\'etichetta \"%1$s\" verrà aggiunta agli eventi selezionati. Salvare le modifiche?</string>
+    <string name="adding_label_to_events_confirmation_pattern">L\'etichetta \"%1$s\" verrà aggiunta agli eventi selezionati. Salvare le modifiche?</string>
     <!-- Message for user about saving data into data base -->
     <string name="saving_to_db_message">Il salvataggio nel database è in corso. Si prega di non chiudere l\'applicazione.</string>
 
@@ -185,7 +185,7 @@
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Seleziona il colore</string>
     <!-- Error message for date: incorrect format -->
-    <string name="error_date_incorrect_format">Data non valida. Formato richiesto: %1$s</string>
+    <string name="error_date_incorrect_format_pattern">Data non valida. Formato richiesto: %1$s</string>
 
     <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
     <string name="unsaved_changes_dialog_msg">Annullare le modifiche e uscire dalla modifica?</string>
@@ -197,7 +197,11 @@
     <string name="keep_editing">Continua a modificare</string>
 
     <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
-    <string name="delete_event_dialog_msg">Eliminare questo evento?</string>
+    <string name="delete_dialog_title_pattern">Eliminare %1$s?</string>
+    <string name="delete_dialog_msg_pattern">Questa azione eliminerà definitivamente %1$s dalla tua lista.</string>
+    <string name="this_event">questo evento</string>
+    <string name="this_event_type">questo tipo di evento</string>
+    <string name="this_label">questa etichetta</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Eliminare questa immagine?</string>
@@ -270,9 +274,9 @@
     <!-- Dialog message to ask the user to confirm deleting the current event type [CHAR LIMIT=NONE] -->
     <string name="delete_event_type_dialog_msg">Eliminare questo tipo di evento?</string>
     <!-- Dialog message to ask the user to choose another event type before deleting the current one [CHAR LIMIT=NONE] -->
-    <string name="change_event_type_dialog_msg">Hai eventi di tipo \"%1$s\". Scegli un tipo per classificare questi eventi.</string>
+    <string name="change_event_type_dialog_msg_pattern">Hai eventi di tipo \"%1$s\". Scegli un tipo per classificare questi eventi.</string>
     <!-- Dialog message to ask the user to choose another default event type before deleting the current one [CHAR LIMIT=NONE] -->
-    <string name="change_default_event_type_dialog_msg">Stai rimuovendo il tipo predefinito \"%1$s\". Seleziona un altro tipo come predefinito.</string>
+    <string name="change_default_event_type_dialog_msg_pattern">Stai rimuovendo il tipo predefinito \"%1$s\". Seleziona un altro tipo come predefinito.</string>
     <!-- Dialog button text for the option to choose another event type for events [CHAR LIMIT=20] -->
     <string name="replace_event_type_button">Sostituisci con il tipo selezionato</string>
     <string name="set_event_type_as_default_button">Imposta questo tipo come predefinito</string>
@@ -295,8 +299,8 @@
     <!-- Pattern for notification body, e.g. Birthday, 25 years, February 12 (Sun) -->
     <string name="reminder_notification_body_pattern">%1$s, %2$s, %3$s</string>
     <!-- Pattern for notification body, e.g. Birthday, February 12 (Sun) -->
-    <string name="reminder_body_pattern_no_age">%1$s, %2$s</string>
-    <plurals name="years">
+    <string name="reminder_body_no_age_pattern">%1$s, %2$s</string>
+    <plurals name="years_pattern">
         <item quantity="one">%1$d anno</item>
         <item quantity="many">%1$d anni</item>
         <item quantity="other">%1$d anni</item>
@@ -304,27 +308,27 @@
     <string name="today">Oggi</string>
     <string name="yesterday">Ieri</string>
     <string name="tomorrow">Domani</string>
-    <plurals name="days_left">
+    <plurals name="days_left_pattern">
         <item quantity="one">Tra %1$d giorno</item>
         <item quantity="many">Tra %1$d giorni</item>
         <item quantity="other">Tra %1$d giorni</item>
     </plurals>
-    <plurals name="weeks_left">
+    <plurals name="weeks_left_pattern">
         <item quantity="one">Tra %1$d settimana</item>
         <item quantity="many">Tra %1$d settimane</item>
         <item quantity="other">Tra %1$d settimane</item>
     </plurals>
-    <plurals name="months_left">
+    <plurals name="months_left_pattern">
         <item quantity="one">Tra %1$d mese</item>
         <item quantity="many">Tra %1$d mesi</item>
         <item quantity="other">Tra %1$d mesi</item>
     </plurals>
-    <plurals name="days_left_short">
+    <plurals name="days_left_short_pattern">
         <item quantity="one">Tra %1$d g</item>
         <item quantity="many">Tra %1$d gg</item>
         <item quantity="other">Tra %1$d gg</item>
     </plurals>
-    <plurals name="days_ago">
+    <plurals name="days_ago_pattern">
         <item quantity="one">%1$d giorno fa</item>
         <item quantity="many">%1$d giorni fa</item>
         <item quantity="other">%1$d giorni fa</item>
@@ -577,10 +581,10 @@
     <string name="premium_is_active_title">Attiva</string>
     <string name="premium_is_active_subtitle">Grazie mille!</string>
     <string name="features_done_title">Cosa è stato fatto:</string>
-    <string name="tags_feature_title">Etichette</string>
-    <string name="tags_feature_description">Gli eventi possono essere contrassegnati con etichette. Puoi selezionare qualsiasi colore di etichetta e icona di etichetta dall\'elenco.</string>
-    <string name="bulk_tagging_feature_title">Etichettatura di massa degli eventi</string>
-    <string name="bulk_tagging_feature_description">Assegna l\'etichetta selezionata a più eventi contemporaneamente. Questa funzione si trova nel menu nella sezione \"Etichette\".</string>
+    <string name="labels_feature_title">Etichette</string>
+    <string name="labels_feature_description">Gli eventi possono essere contrassegnati con etichette. Puoi selezionare qualsiasi colore di etichetta e icona di etichetta dall\'elenco.</string>
+    <string name="bulk_labeling_feature_title">Etichettatura di massa degli eventi</string>
+    <string name="bulk_labeling_feature_description">Assegna l\'etichetta selezionata a più eventi contemporaneamente. Questa funzione si trova nel menu nella sezione \"Etichette\".</string>
     <string name="filtering_notifications_feature_title">Notifiche di filtraggio</string>
     <string name="filtering_notifications_feature_description">Scegli quali tipi di eventi e etichette vuoi essere avvisato e cosa non fai. Questa funzione si trova nel menu delle impostazioni di notifica.</string>
     <string name="features_planned_title">Pianificato:</string>

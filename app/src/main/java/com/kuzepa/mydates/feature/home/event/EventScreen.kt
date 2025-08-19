@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBarDefaults
@@ -16,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -24,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kuzepa.mydates.R
+import com.kuzepa.mydates.domain.model.AlertDialogContent
 import com.kuzepa.mydates.domain.model.Label
 import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
@@ -59,6 +63,7 @@ internal fun EventScreen(
     var showDeleteDialog by remember { mutableStateOf(false) }
 
     val focusRequester = remember { FocusRequester() }
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         if (state.isNewEvent) {
@@ -89,12 +94,24 @@ internal fun EventScreen(
         onDelete = {
             viewModel.onEvent(EventScreenEvent.Delete)
             showDeleteDialog = false
-            onNavigateBack()
         },
         showGoBackDialog = showGoBackDialog,
         showDeleteDialog = showDeleteDialog,
         onShowGoBackDialogChange = { showGoBackDialog = it },
         onShowDeleteDialogChange = { showDeleteDialog = it },
+        deleteDialogContent = AlertDialogContent(
+            title = context.getString(
+                R.string.delete_dialog_title_pattern,
+                stringResource(R.string.this_event)
+            ),
+            message = context.getString(
+                R.string.delete_dialog_msg_pattern,
+                stringResource(R.string.this_event)
+            ),
+            positiveButtonText = stringResource(R.string.button_delete),
+            negativeButtonText = stringResource(R.string.button_cancel),
+            icon = Icons.Default.Delete
+        ),
         scrollBehavior = scrollBehavior,
     ) {
         EventScreenContent(

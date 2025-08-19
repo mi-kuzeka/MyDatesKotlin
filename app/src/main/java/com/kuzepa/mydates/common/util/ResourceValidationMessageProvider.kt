@@ -11,7 +11,7 @@ class ResourceValidationMessageProvider(
         context.resources.getString(R.string.error_field_is_required)
 
     override fun getWrongDateFormatError(requiredFormat: String): String =
-        context.resources.getString(R.string.error_date_incorrect_format, requiredFormat)
+        context.resources.getString(R.string.error_date_incorrect_format_pattern, requiredFormat)
 
     override fun getSelectionRequiredError(): String {
         TODO("Not yet implemented")
