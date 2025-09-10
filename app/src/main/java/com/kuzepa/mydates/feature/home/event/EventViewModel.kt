@@ -320,7 +320,7 @@ class EventViewModel @Inject constructor(
     }
 
     override fun delete() {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             try {
                 eventRepository.deleteEventById(_uiState.value.event?.id ?: 0)
                 deletingEventChannel.send(ObjectDeleting.Success)

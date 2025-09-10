@@ -3,34 +3,52 @@ package com.kuzepa.mydates.ui.components.baseeditor
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.model.AlertDialogContent
+import com.kuzepa.mydates.domain.model.TextFieldMaxLength
+import com.kuzepa.mydates.feature.home.event.components.EventDateField
+import com.kuzepa.mydates.feature.home.event.components.EventImageChooser
+import com.kuzepa.mydates.feature.home.event.components.EventLabelContainer
+import com.kuzepa.mydates.ui.components.MyDatesCheckbox
+import com.kuzepa.mydates.ui.components.MyDatesExposedDropDown
 import com.kuzepa.mydates.ui.components.TopAppBar
 import com.kuzepa.mydates.ui.components.dialog.MyDatesAlertDialog
 import com.kuzepa.mydates.ui.components.icon.IconDelete
+import com.kuzepa.mydates.ui.components.textfield.MyDatesTextField
 import com.kuzepa.mydates.ui.theme.MyDatesColors
+import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -108,10 +126,11 @@ fun BaseEditorScreen(
                     ),
                 )
         ) {
-            Surface(
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MyDatesColors.screenBackground)
+                    .align(alignment = Alignment.TopCenter)
             ) {
                 content()
             }
@@ -161,4 +180,108 @@ fun DeleteConfirmationDialog(
         onConfirmation = onDelete,
         dialogContent = deleteDialogContent
     )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+fun BaseEditorScreenPreview() {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    MyDatesTheme {
+        BaseEditorScreen(
+            title = "Title",
+            isNewItem = true,
+            hasChanges = false,
+            onNavigateBack = {},
+            onSave = {},
+            onDelete = {},
+            showGoBackDialog = false,
+            showDeleteDialog = false,
+            onShowGoBackDialogChange = {},
+            onShowDeleteDialogChange = {},
+            deleteDialogContent = AlertDialogContent(
+                title = "Delete this event?",
+                message = "This action can't be undone",
+                positiveButtonText = "Delete",
+                negativeButtonText = "Cancel",
+                icon = Icons.Default.Delete
+            ),
+            scrollBehavior = scrollBehavior,
+        ) {
+            BaseEditorContentBox(
+                addSpacerForFabButton = true,
+                modifier = Modifier
+            ) {
+                EventImageChooser(
+                    null,
+                    chooseImage = {},
+                    rotateLeft = {},
+                    rotateRight = {},
+                    removeImage = {},
+                )
+                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
+                MyDatesTextField(
+                    label = "Name",
+                    value = "",
+                    onValueChange = { },
+                    errorMessage = null,
+                    maxLength = TextFieldMaxLength.NAME.length,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        capitalization = KeyboardCapitalization.Words
+                    ),
+                    focusRequester = null,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                EventDateField(
+                    label = stringResource(R.string.date_label),
+                    date = "",
+                    dateMask = "mm/dd/yyyy",
+                    delimiter = '/',
+                    errorMessage = "dateValidationError",
+                    onValueChange = { },
+                    modifier = Modifier.fillMaxWidth(),
+                    checkBox = {
+                        MyDatesCheckbox(
+                            checked = false,
+                            onCheckedChange = { },
+                            text = "No year",
+                            textStyle = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                )
+                MyDatesExposedDropDown(
+                    label = "Event type",
+                    value = "Birthday",
+                    onValueChange = { },
+                    errorMessage = "",
+                    options = listOf(),
+                    onAddNewItem = {},
+                    addNewItemLabel = "Add new event type",
+                    modifier = Modifier.fillMaxWidth(),
+                    placeholder = "Select event type"
+                )
+                EventLabelContainer(
+                    label = "Tags",
+                    labels = listOf(),
+                    onLabelClick = { },
+                    onRemoveLabelClick = { },
+                    buttonRemoveDescription = "Remove tags",
+                    addLabelText = "Add tag",
+                    onAddLabelClick = { },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                MyDatesTextField(
+                    label = "Notes",
+                    value = "",
+                    onValueChange = { },
+                    maxLength = TextFieldMaxLength.NOTES.length,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                    placeholder = "Additional information",
+                    singleLine = false,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+    }
 }

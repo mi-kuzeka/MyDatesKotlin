@@ -26,15 +26,15 @@ internal object MyDatesColors {
     /* Container colors */
     val screenBackground: Color
         @Composable
-        get() = MaterialTheme.colorScheme.background
+        get() = MaterialTheme.colorScheme.surface
 
     val containerColor: Color
         @Composable
-        get() = MaterialTheme.colorScheme.surfaceContainer
+        get() = MaterialTheme.colorScheme.surfaceContainerLow
 
     val focusedContainerColor: Color
         @Composable
-        get() = MaterialTheme.colorScheme.surfaceContainerHighest
+        get() = MaterialTheme.colorScheme.surfaceContainerHigh
 
     val chipContainerColor: Color
         @Composable
