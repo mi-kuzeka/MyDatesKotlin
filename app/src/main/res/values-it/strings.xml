@@ -5,6 +5,8 @@
     <string name="menu_button_hint">Mostra menù</string>
     <!-- Hint for search button [CHAR_LIMIT=20] -->
     <string name="search_button_hint">Cerca evento</string>
+
+    <!-- Dialogs -->
     <string name="button_back">Indietro</string>
     <string name="button_save">Salva</string>
     <string name="button_delete">Eliminare</string>
@@ -14,6 +16,18 @@
     <string name="go_back_confirmation_description">Tutte le modifiche verranno annullate.</string>
     <!-- Confirmation go back button hint -->
     <string name="button_confirm_go_back">Sì, torna indietro</string>
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Annullare le modifiche e uscire dalla modifica?</string>
+    <!-- Dialog button text for the option to discard user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Non salvare</string>
+    <!-- Dialog button text for the option to keep editing current event [CHAR LIMIT=20] -->
+    <string name="keep_editing">Continua a modificare</string>
+    <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_title_pattern">Eliminare %1$s?</string>
+    <string name="delete_dialog_msg_pattern">Questa azione eliminerà definitivamente %1$s dalla tua lista.</string>
+    <string name="this_event">questo evento</string>
+    <string name="this_event_type">questo tipo di evento</string>
+    <string name="this_label">questa etichetta</string>
 
     <!-- Title of empty list about no events in the list -->
     <string name="no_events_title">Nessun evento qui ancora</string>
@@ -186,22 +200,6 @@
     <string name="error_color_selection_is_required">Seleziona il colore</string>
     <!-- Error message for date: incorrect format -->
     <string name="error_date_incorrect_format_pattern">Data non valida. Formato richiesto: %1$s</string>
-
-    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
-    <string name="unsaved_changes_dialog_msg">Annullare le modifiche e uscire dalla modifica?</string>
-
-    <!-- Dialog button text for the option to discard user's changes [CHAR LIMIT=20] -->
-    <string name="discard">Non salvare</string>
-
-    <!-- Dialog button text for the option to keep editing current event [CHAR LIMIT=20] -->
-    <string name="keep_editing">Continua a modificare</string>
-
-    <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
-    <string name="delete_dialog_title_pattern">Eliminare %1$s?</string>
-    <string name="delete_dialog_msg_pattern">Questa azione eliminerà definitivamente %1$s dalla tua lista.</string>
-    <string name="this_event">questo evento</string>
-    <string name="this_event_type">questo tipo di evento</string>
-    <string name="this_label">questa etichetta</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Eliminare questa immagine?</string>

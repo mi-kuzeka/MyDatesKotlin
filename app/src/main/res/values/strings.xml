@@ -2,6 +2,8 @@
     <string name="app_name" translatable="false">My Dates</string>
     <string name="app_version_pattern">Version %1$s</string>
     <string name="support_email" translatable="false">mydates.sup@gmail.com</string>
+
+    <!-- Dialogs -->
     <string name="button_ok" translatable="false">OK</string>
     <string name="button_back">Back</string>
     <string name="button_save">Save</string>
@@ -12,6 +14,18 @@
     <string name="go_back_confirmation_description">All changes will be cancelled.</string>
     <!--- Confirmation go back button hint -->
     <string name="button_confirm_go_back">Yes, go back</string>
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <!-- Dialog button text for the option to discard user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Discard</string>
+    <!-- Dialog button text for the option to keep editing current event [CHAR LIMIT=20] -->
+    <string name="keep_editing">Keep Editing</string>
+    <!-- Dialog message to ask the user to confirm deleting the current event, event type or label [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_title_pattern">Delete %1$s?</string>
+    <string name="delete_dialog_msg_pattern">This action will permanently delete %1$s from your list.</string>
+    <string name="this_event">this event</string>
+    <string name="this_event_type">this event type</string>
+    <string name="this_label">this tag</string>
 
     <!-- SHARED PREFERENCES KEYS -->
 
@@ -227,22 +241,6 @@
     <string name="error_color_selection_is_required">Please select color</string>
     <!-- Error message for date: incorrect format -->
     <string name="error_date_incorrect_format_pattern">Invalid date. Required format: %1$s</string>
-
-    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
-    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
-
-    <!-- Dialog button text for the option to discard user's changes [CHAR LIMIT=20] -->
-    <string name="discard">Discard</string>
-
-    <!-- Dialog button text for the option to keep editing current event [CHAR LIMIT=20] -->
-    <string name="keep_editing">Keep Editing</string>
-
-    <!-- Dialog message to ask the user to confirm deleting the current event, event type or label [CHAR LIMIT=NONE] -->
-    <string name="delete_dialog_title_pattern">Delete %1$s?</string>
-    <string name="delete_dialog_msg_pattern">This action will permanently delete %1$s from your list.</string>
-    <string name="this_event">this event</string>
-    <string name="this_event_type">this event type</string>
-    <string name="this_label">this tag</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Delete this image?</string>

@@ -5,6 +5,8 @@
     <string name="menu_button_hint">Zeige das Menü</string>
     <!-- Hint for search button [CHAR_LIMIT=20] -->
     <string name="search_button_hint">Suchereignis</string>
+
+    <!-- Dialogs -->
     <string name="button_back">Zurück</string>
     <string name="button_save">Speichern</string>
     <string name="button_delete">Löschen</string>
@@ -14,6 +16,18 @@
     <string name="go_back_confirmation_description">Alle Änderungen werden verworfen.</string>
     <!-- Confirmation go back button hint -->
     <string name="button_confirm_go_back">Ja, zurückgehen</string>
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Änderungen verwerfen und Bearbeitung beenden?</string>
+    <!-- Dialog button text for the option to discard user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Verwerfen</string>
+    <!-- Dialog button text for the option to keep editing current event [CHAR LIMIT=20] -->
+    <string name="keep_editing">Bearbeiten Sie weiter</string>
+    <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_title_pattern">Dieses %1$s löschen?</string>
+    <string name="delete_dialog_msg_pattern">Diese Aktion wird das %1$s endgültig aus Ihrer Liste löschen.</string>
+    <string name="this_event">Dieses Ereignis</string>
+    <string name="this_event_type">Diesen Ereignistyp</string>
+    <string name="this_label">Dieses Tag</string>
 
     <!-- Title of empty list about no events in the list -->
     <string name="no_events_title">Hier gibt es noch keine Ereignisse</string>
@@ -185,22 +199,6 @@
     <string name="error_color_selection_is_required">Bitte Farbe auswählen</string>
     <!-- Error message for date: incorrect format -->
     <string name="error_date_incorrect_format_pattern">Ungültiges Datum. Erforderliches Format: %1$s</string>
-
-    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
-    <string name="unsaved_changes_dialog_msg">Änderungen verwerfen und Bearbeitung beenden?</string>
-
-    <!-- Dialog button text for the option to discard user's changes [CHAR LIMIT=20] -->
-    <string name="discard">Verwerfen</string>
-
-    <!-- Dialog button text for the option to keep editing current event [CHAR LIMIT=20] -->
-    <string name="keep_editing">Bearbeiten Sie weiter</string>
-
-    <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
-    <string name="delete_dialog_title_pattern">Dieses %1$s löschen?</string>
-    <string name="delete_dialog_msg_pattern">Diese Aktion wird das %1$s endgültig aus Ihrer Liste löschen.</string>
-    <string name="this_event">Dieses Ereignis</string>
-    <string name="this_event_type">Diesen Ereignistyp</string>
-    <string name="this_label">Dieses Tag</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Dieses Bild löschen?</string>

@@ -5,6 +5,8 @@
     <string name="menu_button_hint">Меню</string>
     <!-- Hint for search button [CHAR_LIMIT=20] -->
     <string name="search_button_hint">Поиск события</string>
+
+    <!-- Dialogs -->
     <string name="button_back">Назад</string>
     <string name="button_save">Сохранить</string>
     <string name="button_delete">Удалить</string>
@@ -14,6 +16,18 @@
     <string name="go_back_confirmation_description">Все изменения будут отменены.</string>
     <!-- Confirmation go back button hint -->
     <string name="button_confirm_go_back">Да, вернуться назад</string>
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Отменить изменения и выйти из редактирования?</string>
+    <!-- Dialog button text for the option to discard user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Отменить изменения</string>
+    <!-- Dialog button text for the option to keep editing current event [CHAR LIMIT=20] -->
+    <string name="keep_editing">Продолжить редактирование</string>
+    <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_title_pattern">Удалить %1$s?</string>
+    <string name="delete_dialog_msg_pattern">Это действие навсегда удалит %1$s из вашего списка.</string>
+    <string name="this_event">это событие</string>
+    <string name="this_event_type">этот тип события</string>
+    <string name="this_label">этот тег</string>
 
     <!-- Title of empty list about no events in the list -->
     <string name="no_events_title">Здесь пока нет событий</string>
@@ -185,22 +199,6 @@
     <string name="error_color_selection_is_required">Выберите цвет</string>
     <!-- Error message for date: incorrect format -->
     <string name="error_date_incorrect_format_pattern">Неверная дата. Требуемый формат: %1$s</string>
-
-    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
-    <string name="unsaved_changes_dialog_msg">Отменить изменения и выйти из редактирования?</string>
-
-    <!-- Dialog button text for the option to discard user's changes [CHAR LIMIT=20] -->
-    <string name="discard">Отменить изменения</string>
-
-    <!-- Dialog button text for the option to keep editing current event [CHAR LIMIT=20] -->
-    <string name="keep_editing">Продолжить редактирование</string>
-
-    <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
-    <string name="delete_dialog_title_pattern">Удалить %1$s?</string>
-    <string name="delete_dialog_msg_pattern">Это действие навсегда удалит %1$s из вашего списка.</string>
-    <string name="this_event">это событие</string>
-    <string name="this_event_type">этот тип события</string>
-    <string name="this_label">этот тег</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Удалить это изображение?</string>
