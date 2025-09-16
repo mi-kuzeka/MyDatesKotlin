@@ -100,15 +100,13 @@
     <!-- EVENT TAGS -->
     <!-- Title for field Tags in event creator/editor -->
     <string name="labels_title">Etichette</string>
-    <!-- Title for field Tag name in tag creator/editor -->
-    <string name="label_name_title">Nome dell\'etichetta</string>
     <!-- Tags hint (explanation with example) for user -->
     <string name="labels_hint">Puoi aggiungere tag per questo evento (ad esempio \"Amici\")</string>
     <!-- Title for field Tag color in tag creator/editor -->
-    <string name="label_color">Étiqueter la couleur</string>
+    <string name="label_color">Colore</string>
     <!-- Hint of the button for changing tag icon -->
     <string name="button_change_label_icon_hint">Modifica l\'icona dell\'etichetta</string>
-    <string name="label_icon_hint">Icona dell\'etichetta</string>
+    <string name="label_icon">Icona</string>
     <string name="label_preview_title">Anteprima dell\'etichetta</string>
     <string name="remove_label_hint">Rimuovi l\'etichetta</string>
     <!-- Notification statuses hints -->
@@ -194,8 +192,8 @@
 
     <!-- Error message for required fields -->
     <string name="error_field_is_required">Questo campo è obbligatorio</string>
-    <!-- Error message for duplicated label name -->
-    <string name="error_label_name_is_duplicated">Esiste già un\'etichetta con lo stesso nome. Scegli un nome diverso.</string>
+    <!-- Error message for duplicated name -->
+    <string name="error_name_is_duplicated">Il nome è ripetuto. Scegline un altro.</string>
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Seleziona il colore</string>
     <!-- Error message for date: incorrect format -->

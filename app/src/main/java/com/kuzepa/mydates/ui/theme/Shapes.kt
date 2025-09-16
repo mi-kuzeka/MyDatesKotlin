@@ -7,6 +7,9 @@ internal object Shapes {
     val labelChipShape: RoundedCornerShape
         get() = RoundedCornerShape(4.dp)
 
+    val labelColorChipShape: RoundedCornerShape
+        get() = RoundedCornerShape(6.dp)
+
     val defaultDialogShape: RoundedCornerShape
         get() = RoundedCornerShape(8.dp)
 

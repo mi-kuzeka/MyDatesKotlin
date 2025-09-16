@@ -1,4 +1,6 @@
-package com.kuzepa.mydates.domain.model
+package com.kuzepa.mydates.domain.model.label
+
+import com.kuzepa.mydates.domain.model.NotificationFilterState
 
 data class Label(
     val id: String,

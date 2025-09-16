@@ -1,0 +1,18 @@
+package com.kuzepa.mydates.feature.more.label
+
+import com.kuzepa.mydates.common.util.labelcolor.LabelColor
+import com.kuzepa.mydates.domain.model.NotificationFilterState
+import com.kuzepa.mydates.domain.model.label.Label
+import com.kuzepa.mydates.domain.model.label.LabelIcon
+
+data class LabelUiState(
+    val isNewLabel: Boolean = true,
+    val label: Label? = null,
+    val hasChanges: Boolean = false,
+    val name: String = "",
+    val nameFirstLetter: String = "",
+    val nameValidationError: String? = null,
+    val colorId: Int = LabelColor.RED.id,
+    val icon: LabelIcon = LabelIcon.FIRST_LETTER,
+    val notificationState: NotificationFilterState = NotificationFilterState.FILTER_STATE_ON
+)

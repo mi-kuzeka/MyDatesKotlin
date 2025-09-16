@@ -28,9 +28,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.model.AlertDialogContent
-import com.kuzepa.mydates.domain.model.Label
 import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
+import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.feature.home.event.components.EventDateField
 import com.kuzepa.mydates.feature.home.event.components.EventImageChooser
 import com.kuzepa.mydates.feature.home.event.components.EventLabelContainer
@@ -52,6 +52,7 @@ internal fun EventScreen(
     eventId: Int?,
     onNavigateBack: () -> Unit,
     onNavigateToEventTypeCreator: () -> Unit,
+    onNavigateToLabelEditor: (id: String?) -> Unit,
     eventTypeNavigationResult: NavigationResultData,
     labelNavigationResult: NavigationResultData,
     removeNavigationResult: (navigationKey: String) -> Unit
@@ -120,6 +121,7 @@ internal fun EventScreen(
             dateDelimiter = viewModel.getMaskDelimiter(),
             eventTypes = state.availableEventTypes.map { it.name },
             onNavigateToEventType = onNavigateToEventTypeCreator,
+            onNavigateToLabel = onNavigateToLabelEditor,
             focusRequester = focusRequester,
             state = state
         )
@@ -129,6 +131,13 @@ internal fun EventScreen(
         if (eventTypeNavigationResult.result == NavigationResult.OK) {
             viewModel.loadEventTypes()
             viewModel.handleEventTypeResult(eventTypeNavigationResult)
+            removeNavigationResult(NavigationResult.EVENT_TYPE_KEY)
+        }
+    }
+
+    LaunchedEffect(labelNavigationResult.result) {
+        if (labelNavigationResult.result == NavigationResult.OK) {
+            viewModel.handleLabelResult(labelNavigationResult)
             removeNavigationResult(NavigationResult.EVENT_TYPE_KEY)
         }
     }
@@ -143,6 +152,7 @@ internal fun EventScreenContent(
     eventTypes: List<String>,
     state: EventUiState,
     onNavigateToEventType: () -> Unit,
+    onNavigateToLabel: (id: String?) -> Unit,
     focusRequester: FocusRequester,
     modifier: Modifier = Modifier
 ) {
@@ -203,17 +213,13 @@ internal fun EventScreenContent(
             EventLabelContainer(
                 label = stringResource(R.string.labels_title),
                 labels = labels,
-                onLabelClick = { labelId -> onEvent(EventScreenEvent.LabelClicked(labelId)) },
+                onLabelClick = { labelId -> onNavigateToLabel(labelId) },
                 onRemoveLabelClick = { labelId ->
-                    onEvent(
-                        EventScreenEvent.RemoveLabelFromEvent(
-                            labelId
-                        )
-                    )
+                    onEvent(EventScreenEvent.RemoveLabelFromEvent(labelId))
                 },
                 buttonRemoveDescription = stringResource(R.string.remove_label_hint),
                 addLabelText = stringResource(R.string.button_add_label),
-                onAddLabelClick = { onEvent(EventScreenEvent.NewLabelClicked) },
+                onAddLabelClick = { onNavigateToLabel(null) },
                 modifier = Modifier.fillMaxWidth()
             )
             MyDatesTextField(
@@ -263,6 +269,7 @@ fun EventScreenNewEventPreview() {
             dateDelimiter = '/',
             eventTypes = listOf(),
             onNavigateToEventType = {},
+            onNavigateToLabel = {},
             focusRequester = focusRequester,
             state = state
         )

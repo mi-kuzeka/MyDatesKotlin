@@ -82,6 +82,15 @@ internal object MyDatesColors {
         @Composable
         get() = MaterialTheme.colorScheme.primary
 
+    /* Chip colors */
+    val selectedChipColor: Color
+        @Composable
+        get() = MaterialTheme.colorScheme.primary
+
+    val unselectedChipColor: Color
+        @Composable
+        get() = MaterialTheme.colorScheme.secondaryContainer
+
 
     val segmentedButtonColors: SegmentedButtonColors
         @Composable

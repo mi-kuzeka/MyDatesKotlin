@@ -8,4 +8,5 @@
 
     <dimen name="fab_size">56dp</dimen>
     <dimen name="icon_size">20dp</dimen>
+    <dimen name="color_chip_size">36dp</dimen>
 </resources>

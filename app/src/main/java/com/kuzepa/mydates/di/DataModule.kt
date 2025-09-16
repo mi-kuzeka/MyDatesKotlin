@@ -2,8 +2,8 @@ package com.kuzepa.mydates.di
 
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventType
-import com.kuzepa.mydates.domain.model.Label
 import com.kuzepa.mydates.domain.model.SortOption
+import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.domain.repository.DbEventRepository
 import com.kuzepa.mydates.domain.repository.DbEventTypeRepository
 import com.kuzepa.mydates.domain.repository.DbLabelRepository
@@ -88,6 +88,18 @@ class FakeEventTypeRepository @Inject constructor() : EventTypeRepository {
 }
 
 class FakeLabelRepository @Inject constructor() : LabelRepository {
+    override suspend fun upsertLabel(label: Label) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getLabelById(id: String): Label? {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteLabelById(id: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun getAllLabels(): Flow<List<Label>> {
         TODO("Not yet implemented")
     }

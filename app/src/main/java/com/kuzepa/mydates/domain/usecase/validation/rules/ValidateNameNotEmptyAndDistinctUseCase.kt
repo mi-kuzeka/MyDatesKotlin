@@ -13,8 +13,8 @@ class ValidateNameNotEmptyAndDistinctUseCase @Inject constructor(
         }
         if (nameList.isEmpty()) return ValidationResult.Valid
 
-        return if (nameList.any { name -> name.equals(input, ignoreCase = true) }) {
-            ValidationResult.Invalid(validationMessageProvider.getFiledIsNotDistinctError())
+        return if (nameList.any { name -> name.equals(input.trim(), ignoreCase = true) }) {
+            ValidationResult.Invalid(validationMessageProvider.getFieldIsNotDistinctError())
         } else {
             ValidationResult.Valid
         }

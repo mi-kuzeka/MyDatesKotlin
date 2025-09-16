@@ -1,6 +1,7 @@
 package com.kuzepa.mydates.domain.model
 
 import android.graphics.Bitmap
+import com.kuzepa.mydates.domain.model.label.Label
 
 data class Event(
     val id: Int = 0,

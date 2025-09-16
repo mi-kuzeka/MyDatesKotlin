@@ -76,6 +76,7 @@ fun BaseEditorDialog(
                     modifier = Modifier
                         .wrapContentSize()
                         .background(MyDatesColors.screenBackground)
+                        .weight(1f)
                 ) {
                     content()
                 }

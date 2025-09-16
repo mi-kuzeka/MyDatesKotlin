@@ -3,7 +3,7 @@ package com.kuzepa.mydates.feature.home.event
 import android.graphics.Bitmap
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventType
-import com.kuzepa.mydates.domain.model.Label
+import com.kuzepa.mydates.domain.model.label.Label
 
 data class EventUiState(
     val isNewEvent: Boolean = true,

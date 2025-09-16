@@ -1,10 +1,6 @@
 package com.kuzepa.mydates.ui.components.chip
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.MaterialTheme
@@ -14,25 +10,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.kuzepa.mydates.domain.formatter.labelicon.IconType
-import com.kuzepa.mydates.domain.formatter.labelicon.getIconResIdByCode
-import com.kuzepa.mydates.domain.formatter.labelicon.getIconType
-import com.kuzepa.mydates.domain.model.Label
-import com.kuzepa.mydates.domain.model.NotificationFilterState
-import com.kuzepa.mydates.ui.components.icon.IconRemove
-import com.kuzepa.mydates.ui.theme.MyDatesColors
-import com.kuzepa.mydates.ui.theme.Shapes
+import com.kuzepa.mydates.common.util.labelcolor.LabelColor
 import com.kuzepa.mydates.common.util.labelcolor.getContrastedColor
-import com.kuzepa.mydates.common.util.labelcolor.getEventLabelColor
 import com.kuzepa.mydates.common.util.labelcolor.randomColor
 import com.kuzepa.mydates.common.util.labelcolor.toInt
+import com.kuzepa.mydates.domain.model.NotificationFilterState
+import com.kuzepa.mydates.domain.model.label.IconType
+import com.kuzepa.mydates.domain.model.label.Label
+import com.kuzepa.mydates.domain.model.label.LabelIcon
+import com.kuzepa.mydates.ui.components.icon.IconRemove
+import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
+import com.kuzepa.mydates.ui.theme.Shapes
 import kotlin.random.Random
 
 @Composable
@@ -47,16 +39,13 @@ fun LabelChip(
         mutableStateOf(label.name.first().toString())
     }
     var labelColor by remember(label.color) {
-        mutableStateOf(getEventLabelColor(label.color))
+        mutableStateOf(LabelColor.getColorFromId(label.color))
     }
     var labelIconColor by remember(labelColor) {
         mutableStateOf(labelColor.getContrastedColor())
     }
-    var iconType by remember(label.iconId) {
-        mutableStateOf(getIconType(label.iconId))
-    }
-    var iconId by remember(label.iconId) {
-        mutableStateOf(getIconResIdByCode(label.iconId))
+    var labelIcon by remember(label.iconId) {
+        mutableStateOf(LabelIcon.fromId(label.iconId))
     }
     InputChip(
         label = {
@@ -68,36 +57,14 @@ fun LabelChip(
         selected = true,
         onClick = { onLabelClick(label.id) },
         leadingIcon = {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(InputChipDefaults.AvatarSize)
-                    .clip(Shapes.labelChipShape)
-                    .background(color = labelColor)
-            ) {
-                when (iconType) {
-                    IconType.FIRST_LETTER -> {
-                        Text(
-                            text = firstLetter,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = labelIconColor
-                        )
-                    }
-
-                    IconType.ICON -> {
-                        iconId?.let {
-                            Icon(
-                                painter = painterResource(it),
-                                tint = labelIconColor,
-                                contentDescription = "",
-                                modifier = Modifier.padding(4.dp)
-                            )
-                        }
-                    }
-
-                    else -> {}
-                }
-            }
+            IconChip(
+                chipSize = InputChipDefaults.AvatarSize,
+                color = labelColor,
+                iconType = labelIcon?.iconType ?: IconType.FIRST_LETTER,
+                firstLetter = firstLetter,
+                iconDrawableResId = labelIcon?.drawableRes,
+                iconColor = labelIconColor
+            )
         },
         trailingIcon = {
             IconRemove(

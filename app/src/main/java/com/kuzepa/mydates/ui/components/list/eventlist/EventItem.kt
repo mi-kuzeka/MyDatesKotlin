@@ -21,14 +21,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.R
+import com.kuzepa.mydates.common.util.dateformat.toFormattedDate
 import com.kuzepa.mydates.domain.formatter.dateformat.DateShowingMode
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventDate
 import com.kuzepa.mydates.domain.model.EventType
-import com.kuzepa.mydates.domain.model.Label
 import com.kuzepa.mydates.domain.model.NotificationFilterState
+import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.ui.theme.MyDatesColors
-import com.kuzepa.mydates.common.util.dateformat.toFormattedDate
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable

@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
+import com.kuzepa.mydates.feature.more.label.LabelScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -34,10 +35,10 @@ fun NavController.navigateToBulkLabelAssignment(id: String) {
 @Serializable
 internal data class LabelEditor(val id: String?) : NavRoute()
 
-fun NavGraphBuilder.labelEditorDestination(onNavigateBack: () -> Unit) {
+fun NavGraphBuilder.labelEditorDestination(onNavigateBack: (result: Int, id: String?) -> Unit) {
     dialog<LabelEditor> { backStackEntry ->
         val labelEditor: LabelEditor = backStackEntry.toRoute()
-//                LabelEditorScreen(id = labelEditor.id)
+        LabelScreen(id = labelEditor.id, onNavigateBack = onNavigateBack)
     }
 }
 

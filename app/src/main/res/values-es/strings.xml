@@ -102,13 +102,11 @@
     <string name="labels_title">Etiquetas</string>
     <!-- Tags hint (explanation with example) for user -->
     <string name="labels_hint">Puedes agregar etiquetas para este evento (por ejemplo, \"Amigos\")</string>
-    <!-- Title for field Tag name in tag creator/editor -->
-    <string name="label_name_title">Nombre de etiqueta</string>
     <!-- Title for field Tag color in tag creator/editor -->
-    <string name="label_color">Color de etiqueta</string>
+    <string name="label_color">Color</string>
     <!-- Hint of the button for changing tag icon -->
     <string name="button_change_label_icon_hint">Cambiar icono de etiqueta</string>
-    <string name="label_icon_hint">Icono de etiqueta</string>
+    <string name="label_icon">Icono</string>
     <string name="label_preview_title">Vista previa de la etiqueta</string>
     <string name="remove_label_hint">Quitar la etiqueta</string>
     <!-- Notification statuses hints -->
@@ -192,8 +190,8 @@
 
     <!-- Error message for required fields -->
     <string name="error_field_is_required">Este campo es obligatorio</string>
-    <!-- Error message for duplicated label name -->
-    <string name="error_label_name_is_duplicated">Ya existe una etiqueta con el mismo nombre. Elija un nombre diferente.</string>
+    <!-- Error message for duplicated name -->
+    <string name="error_name_is_duplicated">El nombre está repetido. Por favor, elige otro.</string>
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Por favor seleccione color</string>
     <!-- Error message for date: incorrect format -->

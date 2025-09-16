@@ -17,16 +17,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.R
-import com.kuzepa.mydates.domain.model.Label
-import com.kuzepa.mydates.domain.model.NotificationFilterState
-import com.kuzepa.mydates.ui.theme.MyDatesColors
-import com.kuzepa.mydates.ui.components.chip.AddLabelChip
-import com.kuzepa.mydates.ui.components.chip.LabelChip
-import com.kuzepa.mydates.ui.theme.Shapes
-import com.kuzepa.mydates.ui.components.supportingtext.MyDatesSupportingTextBox
 import com.kuzepa.mydates.common.util.labelcolor.randomColor
 import com.kuzepa.mydates.common.util.labelcolor.toInt
+import com.kuzepa.mydates.domain.model.NotificationFilterState
+import com.kuzepa.mydates.domain.model.label.Label
+import com.kuzepa.mydates.ui.components.chip.AddLabelChip
+import com.kuzepa.mydates.ui.components.chip.LabelChip
+import com.kuzepa.mydates.ui.components.supportingtext.MyDatesSupportingTextBox
+import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
+import com.kuzepa.mydates.ui.theme.Shapes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -80,6 +80,7 @@ fun EventLabelContainer(
                 )
             }
         }
+        // Necessary to fill the remaining space to match all container styles
         MyDatesSupportingTextBox {
 
         }

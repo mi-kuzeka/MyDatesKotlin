@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kuzepa.mydates.ui.theme.MyDatesColors
-import com.kuzepa.mydates.ui.theme.Shapes
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
+import com.kuzepa.mydates.ui.theme.Shapes
 
 @Composable
 fun AddLabelChip(
@@ -29,7 +29,7 @@ fun AddLabelChip(
             )
         },
         selected = true,
-        onClick = { onAddLabelClick() },
+        onClick = onAddLabelClick,
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Add,

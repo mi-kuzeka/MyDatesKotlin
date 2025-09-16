@@ -7,8 +7,10 @@ import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventType
 import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.hasYear
+import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
+import com.kuzepa.mydates.domain.repository.LabelRepository
 import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectDeleting
 import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectSaving
 import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
@@ -32,6 +34,7 @@ import javax.inject.Inject
 class EventViewModel @Inject constructor(
     private val eventRepository: EventRepository,
     private val eventTypeRepository: EventTypeRepository,
+    private val labelRepository: LabelRepository,
     private val dateFormatProvider: DateFormatProvider,
     private val validateTextNotEmpty: ValidateTextNotEmptyUseCase,
     private val validateDate: ValidateDateUseCase,
@@ -71,8 +74,31 @@ class EventViewModel @Inject constructor(
         }
     }
 
-    fun setEventType(name: String) {
+    private fun setEventType(name: String) {
         _uiState.update { it.copy(hasChanges = true, eventTypeName = name) }
+    }
+
+    fun handleLabelResult(result: NavigationResultData) {
+        result.id?.let { id ->
+            viewModelScope.launch {
+                try {
+                    val label = labelRepository.getLabelById(id)
+                    label?.let {
+                        addLabel(label)
+                    }
+                } catch (e: Exception) {
+                    // TODO handle error
+                }
+            }
+        }
+    }
+
+    private fun addLabel(label: Label) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                labels = currentState.labels + label
+            )
+        }
     }
 
     override fun onEvent(event: EventScreenEvent) {

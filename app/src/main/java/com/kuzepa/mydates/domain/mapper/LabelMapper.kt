@@ -1,8 +1,8 @@
 package com.kuzepa.mydates.domain.mapper
 
 import com.kuzepa.mydates.data.local.database.entity.LabelEntity
-import com.kuzepa.mydates.domain.model.Label
 import com.kuzepa.mydates.domain.model.NotificationFilterState
+import com.kuzepa.mydates.domain.model.label.Label
 
 fun LabelEntity.toLabel(): Label {
     return Label(

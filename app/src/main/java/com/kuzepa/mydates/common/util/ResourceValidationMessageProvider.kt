@@ -17,7 +17,6 @@ class ResourceValidationMessageProvider(
         TODO("Not yet implemented")
     }
 
-    override fun getFiledIsNotDistinctError(): String {
-        TODO("Not yet implemented")
-    }
+    override fun getFieldIsNotDistinctError(): String =
+        context.resources.getString(R.string.error_name_is_duplicated)
 }

@@ -1,7 +1,7 @@
 package com.kuzepa.mydates.feature.home.event
 
 import android.graphics.Bitmap
-import com.kuzepa.mydates.domain.model.Label
+import com.kuzepa.mydates.domain.model.label.Label
 
 sealed class EventScreenEvent {
     data class ImageChanged(val image: Bitmap) : EventScreenEvent()

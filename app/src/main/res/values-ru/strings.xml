@@ -102,13 +102,11 @@
     <string name="labels_title">Теги</string>
     <!-- Tags hint (explanation with example) for user -->
     <string name="labels_hint">Вы можете добавить теги для этого события (например, \"Друзья\")</string>
-    <!-- Title for field Tag name in tag creator/editor -->
-    <string name="label_name_title">Название тега</string>
     <!-- Title for field Tag color in tag creator/editor -->
-    <string name="label_color">Цвет тега</string>
+    <string name="label_color">Цвет</string>
     <!-- Hint of the button for changing tag icon -->
     <string name="button_change_label_icon_hint">Изменить иконку тега</string>
-    <string name="label_icon_hint">Иконка тега</string>
+    <string name="label_icon">Иконка</string>
     <string name="label_preview_title">Предварительный просмотр тега</string>
     <string name="remove_label_hint">Удалить тег</string>
     <!-- Notification statuses hints -->
@@ -193,8 +191,8 @@
 
     <!-- Error message for required fields -->
     <string name="error_field_is_required">Это поле обязательное</string>
-    <!-- Error message for duplicated label name -->
-    <string name="error_label_name_is_duplicated">Тег с таким названием уже существует. Выберите другое название.</string>
+    <!-- Error message for duplicated name -->
+    <string name="error_name_is_duplicated">Название повторяется. Выберите другое.</string>
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Выберите цвет</string>
     <!-- Error message for date: incorrect format -->

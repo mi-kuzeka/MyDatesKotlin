@@ -4,5 +4,5 @@ interface ValidationMessageProvider {
     fun getEmptyFieldError(): String
     fun getWrongDateFormatError(requiredFormat: String): String
     fun getSelectionRequiredError(): String
-    fun getFiledIsNotDistinctError(): String
+    fun getFieldIsNotDistinctError(): String
 }

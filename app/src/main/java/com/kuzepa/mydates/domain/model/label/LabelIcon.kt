@@ -1,0 +1,89 @@
+package com.kuzepa.mydates.domain.model.label
+
+import androidx.annotation.DrawableRes
+import com.kuzepa.mydates.R
+
+enum class LabelIcon(val id: Int, @DrawableRes val drawableRes: Int?, val iconType: IconType) {
+    NO_ICON(-1, null, IconType.NO_ICON),
+    FIRST_LETTER(0, null, IconType.FIRST_LETTER),
+    FAVORITE(1, R.drawable.label_ic_favorite, IconType.ICON),
+    STAR(2, R.drawable.label_ic_star, IconType.ICON),
+    FLAG(3, R.drawable.label_ic_flag_2, IconType.ICON),
+    DIAMOND(4, R.drawable.label_ic_diamond, IconType.ICON),
+    CAKE(5, R.drawable.label_ic_cake, IconType.ICON),
+    CELEBRATION(6, R.drawable.label_ic_celebration, IconType.ICON),
+    BOMB(7, R.drawable.label_ic_bomb, IconType.ICON),
+    HANDSHAKE(8, R.drawable.label_ic_handshake, IconType.ICON),
+    SCHOOL(9, R.drawable.label_ic_school, IconType.ICON),
+    WORK(10, R.drawable.label_ic_work, IconType.ICON),
+    BACKPACK(11, R.drawable.label_ic_personal_bag, IconType.ICON),
+    CONSTRUCTION(12, R.drawable.label_ic_construction, IconType.ICON),
+    SCIENCE(13, R.drawable.label_ic_science, IconType.ICON),
+    BOOK(14, R.drawable.label_ic_menu_book, IconType.ICON),
+    KEY_ICON(15, R.drawable.label_ic_key, IconType.ICON),
+    BULB(16, R.drawable.label_ic_emoji_objects, IconType.ICON),
+    MUSIC_NOTE(17, R.drawable.label_ic_music_note, IconType.ICON),
+    SPOKE(18, R.drawable.label_ic_spoke, IconType.ICON),
+    PHONE_ENABLED(19, R.drawable.label_ic_phone_enabled, IconType.ICON),
+    SMARTPHONE(20, R.drawable.label_ic_smartphone, IconType.ICON),
+    DESKTOP(21, R.drawable.label_ic_desktop_mac, IconType.ICON),
+    MAIL(22, R.drawable.label_ic_mail, IconType.ICON),
+    JOYSTICK(23, R.drawable.label_ic_stadia_controller, IconType.ICON),
+    DICE(24, R.drawable.label_ic_casino, IconType.ICON),
+    SPORT_BALL(25, R.drawable.label_ic_sports_and_outdoors, IconType.ICON),
+    ICE_SKATING(26, R.drawable.label_ic_ice_skating, IconType.ICON),
+    EXERCISE(27, R.drawable.label_ic_exercise, IconType.ICON),
+    SELF_CARE(28, R.drawable.label_ic_self_care, IconType.ICON),
+    LUGGAGE(29, R.drawable.label_ic_luggage, IconType.ICON),
+    LOCAL_BAR(30, R.drawable.label_ic_local_bar, IconType.ICON),
+    COFFEE(31, R.drawable.label_ic_coffee, IconType.ICON),
+    CLOUD(32, R.drawable.label_ic_cloud, IconType.ICON),
+    ELECTRIC_BOLT(33, R.drawable.label_ic_electric_bolt, IconType.ICON),
+    CLEAR_DAY(34, R.drawable.label_ic_clear_day, IconType.ICON),
+    TWILIGHT(35, R.drawable.label_ic_wb_twilight, IconType.ICON),
+    WAVES(36, R.drawable.label_ic_waves, IconType.ICON),
+    ECO(37, R.drawable.label_ic_eco, IconType.ICON),
+    FLOWER(38, R.drawable.label_ic_filter_vintage, IconType.ICON),
+    TULIP(39, R.drawable.label_ic_deceased, IconType.ICON),
+    WATER_LILY(40, R.drawable.label_ic_spa, IconType.ICON),
+    TREE(41, R.drawable.label_ic_nature, IconType.ICON),
+    TREES(42, R.drawable.label_ic_forest, IconType.ICON),
+    HIVE(43, R.drawable.label_ic_hive, IconType.ICON),
+    PETS(44, R.drawable.label_ic_pets, IconType.ICON),
+    CAMPING(45, R.drawable.label_ic_camping, IconType.ICON),
+    FAMILY_HOME(46, R.drawable.label_ic_family_home, IconType.ICON),
+    COTTAGE(47, R.drawable.label_ic_cottage, IconType.ICON),
+    CITY(48, R.drawable.label_ic_location_city, IconType.ICON),
+    CHURCH(49, R.drawable.label_ic_church, IconType.ICON),
+    FAMILY_HISTORY(50, R.drawable.label_ic_family_history, IconType.ICON),
+    HUB(51, R.drawable.label_ic_hub, IconType.ICON),
+    PLANET(52, R.drawable.label_ic_public, IconType.ICON),
+    ROCKET(53, R.drawable.label_ic_rocket_launch, IconType.ICON),
+    AIRPLANE(54, R.drawable.label_ic_travel, IconType.ICON),
+    CAR(55, R.drawable.label_ic_directions_car, IconType.ICON),
+    BIKE(56, R.drawable.label_ic_directions_bike, IconType.ICON),
+    GYMNASTICS(57, R.drawable.label_ic_sports_gymnastics, IconType.ICON),
+    YOGA(58, R.drawable.label_ic_self_improvement, IconType.ICON),
+    FAMILY(59, R.drawable.label_ic_family_restroom, IconType.ICON),
+    DIVERSITY(60, R.drawable.label_ic_diversity_4, IconType.ICON),
+    GROUP(61, R.drawable.label_ic_group, IconType.ICON),
+    PERSON(62, R.drawable.label_ic_person, IconType.ICON),
+    SMART_TOY(63, R.drawable.label_ic_smart_toy, IconType.ICON),
+    FACE_MALE(64, R.drawable.label_ic_face, IconType.ICON),
+    FACE_FEMALE(65, R.drawable.label_ic_face_3, IconType.ICON),
+    VERY_SATISFIED(66, R.drawable.label_ic_sentiment_very_satisfied, IconType.ICON),
+    SATISFIED(67, R.drawable.label_ic_sentiment_satisfied, IconType.ICON),
+    DISSATISFIED(68, R.drawable.label_ic_sentiment_dissatisfied, IconType.ICON),
+    DO_NOT_DISTURB(69, R.drawable.label_ic_do_not_disturb, IconType.ICON);
+
+    companion object {
+        fun fromId(id: Int): LabelIcon? = entries.find { it.id == id }
+        fun getAllIcons(): List<LabelIcon> = entries
+    }
+}
+
+enum class IconType {
+    NO_ICON,
+    FIRST_LETTER,
+    ICON
+}

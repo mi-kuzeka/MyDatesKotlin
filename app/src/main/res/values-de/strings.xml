@@ -102,13 +102,11 @@
     <string name="labels_title">Tags</string>
     <!-- Tags hint (explanation with example) for user -->
     <string name="labels_hint">Sie können Tags für dieses Ereignis hinzufügen (z.B. \"Freunde\")</string>
-    <!-- Title for field Tag name in tag creator/editor -->
-    <string name="label_name_title">Tag-Name</string>
     <!-- Title for field Tag color in tag creator/editor -->
-    <string name="label_color">Tag-Farbe</string>
+    <string name="label_color">Farbe</string>
     <!-- Hint of the button for changing tag icon -->
     <string name="button_change_label_icon_hint">Tag-Symbol ändern</string>
-    <string name="label_icon_hint">Tag-Symbol</string>
+    <string name="label_icon">Symbol</string>
     <string name="label_preview_title">Tag-Vorschau</string>
     <string name="remove_label_hint">Entfernen Sie das Tag</string>
     <!-- Notification statuses hints -->
@@ -193,8 +191,8 @@
 
     <!-- Error message for required fields -->
     <string name="error_field_is_required">Dieses Feld ist erforderlich</string>
-    <!-- Error message for duplicated label name -->
-    <string name="error_label_name_is_duplicated">Ein Tag mit demselben Namen existiert bereits. Wählen Sie einen anderen Namen.</string>
+    <!-- Error message for duplicated name -->
+    <string name="error_name_is_duplicated">Der Name wird wiederholt. Bitte wählen Sie einen anderen.</string>
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Bitte Farbe auswählen</string>
     <!-- Error message for date: incorrect format -->
