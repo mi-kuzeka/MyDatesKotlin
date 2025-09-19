@@ -1,24 +1,29 @@
 package com.kuzepa.mydates.data.local.database.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import androidx.room.Upsert
+import androidx.room.Update
 import com.kuzepa.mydates.data.local.database.entity.EventEntity
 import com.kuzepa.mydates.data.local.database.entity.EventWithTypeAndLabels
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EventDao {
-    @Upsert()
-    suspend fun upsertEvent(event: EventEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertEvent(event: EventEntity): Long
+
+    @Update
+    suspend fun updateEvent(event: EventEntity)
 
     @Transaction
     @Query("SELECT * FROM events WHERE id=:id;")
-    suspend fun getEventById(id: Int): EventWithTypeAndLabels?
+    suspend fun getEventById(id: Long): EventWithTypeAndLabels?
 
     @Query("DELETE FROM events WHERE id=:id;")
-    suspend fun deleteEventById(id: Int)
+    suspend fun deleteEventById(id: Long)
 
     @Transaction
     @Query("SELECT * FROM events;")

@@ -45,7 +45,7 @@ class FakeEventRepository @Inject constructor() : EventRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun deleteEventById(id: Int) {
+    override suspend fun deleteEventById(id: Long) {
         TODO("Not yet implemented")
     }
 
@@ -60,7 +60,7 @@ class FakeEventRepository @Inject constructor() : EventRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getEventById(id: Int): Event? {
+    override suspend fun getEventById(id: Long): Event? {
         TODO("Not yet implemented")
     }
 }

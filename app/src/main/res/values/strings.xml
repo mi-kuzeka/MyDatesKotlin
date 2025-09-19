@@ -140,12 +140,14 @@
     <!-- Hint of the button for changing tag icon -->
     <string name="button_change_label_icon_hint">Change tag icon</string>
     <string name="label_icon">Icon</string>
+    <!-- Title of the button to show more icons to choose -->
+    <string name="more_icons_button">Other icons</string>
     <string name="label_preview_title">Tag preview</string>
     <string name="remove_label_hint">Remove tag</string>
     <!-- Notification statuses hints -->
     <string name="notification_status_turned_on_hint">Turned on</string>
     <string name="notification_status_turned_off_hint">Turned off</string>
-    <string name="notification_status_turned_forbidden_hint">Forbidden</string>
+    <string name="notification_status_forbidden_hint">Forbidden</string>
     <string name="tap_on_notification_status_hint">Tap on the status to turn notifications on/off</string>
     <!-- Hint for close button -->
     <string name="close_button_hint">Close</string>
@@ -496,7 +498,7 @@
     <string name="event_preview_item_label_second">Work</string>
 
     <!-- Notifications -->
-    <string name="notification_settings_title">Notifications</string>
+    <string name="notifications_title">Notifications</string>
     <string name="customize_notifications_button_text">Customize notifications</string>
     <string name="notification_time_title">Notification time on the day of the event</string>
     <string name="notification_time_hint">The notification will arrive within the time period you select</string>

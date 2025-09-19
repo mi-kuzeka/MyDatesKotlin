@@ -6,10 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.data.local.database.dao.EventDao
+import com.kuzepa.mydates.data.local.database.dao.EventLabelJoinDao
 import com.kuzepa.mydates.data.local.database.dao.EventTypeDao
 import com.kuzepa.mydates.data.local.database.dao.LabelDao
 import com.kuzepa.mydates.data.local.database.entity.EventEntity
-import com.kuzepa.mydates.data.local.database.entity.EventLabelCrossRef
+import com.kuzepa.mydates.data.local.database.entity.EventLabelJoin
 import com.kuzepa.mydates.data.local.database.entity.EventTypeEntity
 import com.kuzepa.mydates.data.local.database.entity.LabelEntity
 import javax.inject.Provider
@@ -19,7 +20,7 @@ import javax.inject.Provider
         EventEntity::class,
         EventTypeEntity::class,
         LabelEntity::class,
-        EventLabelCrossRef::class
+        EventLabelJoin::class
     ],
     version = 14
 )
@@ -27,6 +28,7 @@ abstract class MyDatesDatabase : RoomDatabase() {
     abstract fun eventDao(): EventDao
     abstract fun eventTypeDao(): EventTypeDao
     abstract fun labelDao(): LabelDao
+    abstract fun eventLabelJoinDao(): EventLabelJoinDao
 
     companion object {
         private const val DATABASE_NAME = "mydates.db"

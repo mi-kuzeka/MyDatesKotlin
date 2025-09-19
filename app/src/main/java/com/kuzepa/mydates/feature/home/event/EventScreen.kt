@@ -49,7 +49,7 @@ import kotlinx.coroutines.android.awaitFrame
 @Composable
 internal fun EventScreen(
     viewModel: EventViewModel = hiltViewModel(),
-    eventId: Int?,
+    eventId: Long?,
     onNavigateBack: () -> Unit,
     onNavigateToEventTypeCreator: () -> Unit,
     onNavigateToLabelEditor: (id: String?) -> Unit,
@@ -130,15 +130,15 @@ internal fun EventScreen(
     LaunchedEffect(eventTypeNavigationResult.result) {
         if (eventTypeNavigationResult.result == NavigationResult.OK) {
             viewModel.loadEventTypes()
-            viewModel.handleEventTypeResult(eventTypeNavigationResult)
+            viewModel.onEvent(EventScreenEvent.OnEventTypeNavigationResult(labelNavigationResult))
             removeNavigationResult(NavigationResult.EVENT_TYPE_KEY)
         }
     }
 
     LaunchedEffect(labelNavigationResult.result) {
         if (labelNavigationResult.result == NavigationResult.OK) {
-            viewModel.handleLabelResult(labelNavigationResult)
-            removeNavigationResult(NavigationResult.EVENT_TYPE_KEY)
+            viewModel.onEvent(EventScreenEvent.OnLabelNavigationResult(labelNavigationResult))
+            removeNavigationResult(NavigationResult.LABEL_KEY)
         }
     }
 }

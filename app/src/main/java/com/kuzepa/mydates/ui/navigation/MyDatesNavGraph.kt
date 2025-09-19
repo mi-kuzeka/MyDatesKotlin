@@ -26,7 +26,9 @@ fun MyDatesNavHost(
         eventEditorDestination(
             onNavigateBack = { navController.popBackStack() },
             onNavigateToEventTypeCreator = { navController.navigateToEventTypeEditor(null) },
-            onNavigateToLabelEditor = { labelId -> navController.navigateToLabelEditor(id = labelId) }
+            onNavigateToLabelEditor = { labelId ->
+                navController.navigateToLabelEditor(id = labelId, isOpenedFromEvent = true)
+            }
         )
 
         appearanceDestination()
@@ -60,7 +62,7 @@ fun MyDatesNavHost(
 
         labelsDestination(
             onNavigateToLabelEditor = { labelId ->
-                navController.navigateToLabelEditor(labelId)
+                navController.navigateToLabelEditor(labelId, isOpenedFromEvent = false)
             },
             onNavigateToBulkLabelAssignment = { labelId ->
                 navController.navigateToBulkLabelAssignment(labelId)

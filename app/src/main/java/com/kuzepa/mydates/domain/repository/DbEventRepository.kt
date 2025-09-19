@@ -1,6 +1,7 @@
 package com.kuzepa.mydates.domain.repository
 
 import com.kuzepa.mydates.data.local.database.dao.EventDao
+import com.kuzepa.mydates.data.local.database.dao.EventLabelJoinDao
 import com.kuzepa.mydates.domain.mapper.toEvent
 import com.kuzepa.mydates.domain.mapper.toEventEntity
 import com.kuzepa.mydates.domain.model.Event
@@ -10,17 +11,30 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DbEventRepository @Inject constructor(
-    private val eventDao: EventDao
+    private val eventDao: EventDao,
+    private val eventLabelJoinDao: EventLabelJoinDao
 ) : EventRepository {
     override suspend fun upsertEvent(event: Event) {
-        eventDao.upsertEvent(event.toEventEntity())
+        val isNewEvent = event.id == 0L
+        var eventId: Long
+        if (isNewEvent) {
+            eventId = eventDao.insertEvent(event.toEventEntity())
+        } else {
+            eventId = event.id
+            eventDao.updateEvent(event.toEventEntity())
+        }
+
+        // Update links to labels
+        eventLabelJoinDao.syncLinks(
+            isNewEvent, eventId, event.labels.map { it.id }
+        )
     }
 
-    override suspend fun getEventById(id: Int): Event? {
+    override suspend fun getEventById(id: Long): Event? {
         return eventDao.getEventById(id)?.toEvent()
     }
 
-    override suspend fun deleteEventById(id: Int) {
+    override suspend fun deleteEventById(id: Long) {
         eventDao.deleteEventById(id)
     }
 

@@ -24,8 +24,11 @@ fun NavGraphBuilder.labelsDestination(
     }
 }
 
-fun NavController.navigateToLabelEditor(id: String?) {
-    navigate(route = LabelEditor(id = id))
+fun NavController.navigateToLabelEditor(
+    id: String?,
+    isOpenedFromEvent: Boolean
+) {
+    navigate(route = LabelEditor(id = id, isOpenedFromEvent = isOpenedFromEvent))
 }
 
 fun NavController.navigateToBulkLabelAssignment(id: String) {
@@ -33,12 +36,21 @@ fun NavController.navigateToBulkLabelAssignment(id: String) {
 }
 
 @Serializable
-internal data class LabelEditor(val id: String?) : NavRoute()
+internal data class LabelEditor(
+    val id: String?,
+    val isOpenedFromEvent: Boolean
+) : NavRoute()
 
-fun NavGraphBuilder.labelEditorDestination(onNavigateBack: (result: Int, id: String?) -> Unit) {
+fun NavGraphBuilder.labelEditorDestination(
+    onNavigateBack: (result: Int, id: String?) -> Unit
+) {
     dialog<LabelEditor> { backStackEntry ->
         val labelEditor: LabelEditor = backStackEntry.toRoute()
-        LabelScreen(id = labelEditor.id, onNavigateBack = onNavigateBack)
+        LabelScreen(
+            id = labelEditor.id,
+            isOpenedFromEvent = labelEditor.isOpenedFromEvent,
+            onNavigateBack = onNavigateBack
+        )
     }
 }
 

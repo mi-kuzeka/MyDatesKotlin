@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 
 @Entity(
-    tableName = "event_label_cross_ref",
+    tableName = "event_label_join",
     primaryKeys = ["event_id", "label_id"],
     foreignKeys = [
         ForeignKey(
@@ -23,7 +23,7 @@ import androidx.room.ForeignKey.Companion.CASCADE
         ),
     ]
 )
-data class EventLabelCrossRef(
-    @ColumnInfo(name = "event_id") val eventId: Int,
+data class EventLabelJoin(
+    @ColumnInfo(name = "event_id") val eventId: Long,
     @ColumnInfo(name = "label_id") val labelId: String
 )

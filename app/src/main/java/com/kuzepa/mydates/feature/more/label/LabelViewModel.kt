@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
@@ -46,7 +47,7 @@ class LabelViewModel @Inject constructor(
 
 
     init {
-        _uiState.value = _uiState.value.copy(isNewLabel = labelId == null)
+        _uiState.update { it.copy(isNewLabel = labelId == null) }
         loadLabels()
     }
 
@@ -66,45 +67,56 @@ class LabelViewModel @Inject constructor(
     }
 
     private fun Label.populateScreenFields() {
-        _uiState.value.copy(
-            label = this,
-            name = name,
-            colorId = color,
-            icon = LabelIcon.fromId(iconId) ?: LabelIcon.FIRST_LETTER,
-            notificationState = notificationState
-        )
+        _uiState.update {
+            it.copy(
+                label = this,
+                name = name,
+                nameFirstLetter = name.take(1),
+                colorId = color,
+                icon = LabelIcon.fromId(iconId) ?: LabelIcon.FIRST_LETTER,
+                notificationState = notificationState
+            )
+        }
     }
 
     override fun onEvent(event: LabelScreenEvent) {
         when (event) {
             is LabelScreenEvent.NameChanged -> {
-                _uiState.value = _uiState.value.copy(
-                    hasChanges = true,
-                    name = event.name,
-                    nameFirstLetter = event.name.take(1)
-                )
+                _uiState.update {
+                    it.copy(
+                        hasChanges = true,
+                        name = event.name,
+                        nameFirstLetter = event.name.take(1)
+                    )
+                }
                 validateName()
             }
 
             is LabelScreenEvent.ColorChanged -> {
-                _uiState.value = _uiState.value.copy(
-                    hasChanges = true,
-                    colorId = event.color
-                )
+                _uiState.update {
+                    it.copy(
+                        hasChanges = true,
+                        colorId = event.color
+                    )
+                }
             }
 
             is LabelScreenEvent.IconChanged -> {
-                _uiState.value = _uiState.value.copy(
-                    hasChanges = true,
-                    icon = event.icon
-                )
+                _uiState.update {
+                    it.copy(
+                        hasChanges = true,
+                        icon = event.icon
+                    )
+                }
             }
 
             is LabelScreenEvent.NotificationStateChanged -> {
-                _uiState.value = _uiState.value.copy(
-                    hasChanges = true,
-                    notificationState = event.notificationState
-                )
+                _uiState.update {
+                    it.copy(
+                        hasChanges = true,
+                        notificationState = event.notificationState
+                    )
+                }
             }
 
             is LabelScreenEvent.Save -> {
@@ -121,11 +133,13 @@ class LabelViewModel @Inject constructor(
         val validationResult: ValidationResult =
             validateNameNotEmptyAndDistinct(
                 input = _uiState.value.name,
-                nameList = allLabels.map { it.name }
+                nameList = allLabels.filter { it.id != labelId }.map { it.name }
             )
-        _uiState.value = _uiState.value.copy(
-            nameValidationError = validationResult.getErrorMessage()
-        )
+        _uiState.update {
+            it.copy(
+                nameValidationError = validationResult.getErrorMessage()
+            )
+        }
     }
 
     override fun isValid(): Boolean {

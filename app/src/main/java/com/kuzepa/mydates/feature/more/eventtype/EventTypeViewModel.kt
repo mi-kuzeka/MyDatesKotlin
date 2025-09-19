@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
@@ -47,7 +48,7 @@ class EventTypeViewModel @Inject constructor(
 
 
     init {
-        _uiState.value = _uiState.value.copy(isNewEventType = eventTypeId == null)
+        _uiState.update { it.copy(isNewEventType = eventTypeId == null) }
         loadEventTypes()
     }
 
@@ -67,49 +68,59 @@ class EventTypeViewModel @Inject constructor(
     }
 
     private fun EventType.populateScreenFields() {
-        _uiState.value.copy(
-            eventType = this,
-            name = name,
-            isDefault = isDefault,
-            showZodiac = showZodiac,
-            notificationState = notificationState
-        )
+        _uiState.update {
+            it.copy(
+                eventType = this,
+                name = name,
+                isDefault = isDefault,
+                showZodiac = showZodiac,
+                notificationState = notificationState
+            )
+        }
     }
 
     override fun onEvent(event: EventTypeScreenEvent) {
         when (event) {
             is EventTypeScreenEvent.NameChanged -> {
-                _uiState.value = _uiState.value.copy(
-                    hasChanges = true,
-                    name = event.name
-                )
+                _uiState.update {
+                    it.copy(
+                        hasChanges = true,
+                        name = event.name
+                    )
+                }
                 validateName()
             }
 
             is EventTypeScreenEvent.IsDefaultChanged -> {
-                _uiState.value = _uiState.value.copy(
-                    hasChanges = true,
-                    isDefault = event.isDefault
-                )
+                _uiState.update {
+                    it.copy(
+                        hasChanges = true,
+                        isDefault = event.isDefault
+                    )
+                }
             }
 
             is EventTypeScreenEvent.ShowZodiacChanged -> {
-                _uiState.value = _uiState.value.copy(
-                    hasChanges = true,
-                    showZodiac = event.showZodiac
-                )
+                _uiState.update {
+                    it.copy(
+                        hasChanges = true,
+                        showZodiac = event.showZodiac
+                    )
+                }
             }
 
 
             is EventTypeScreenEvent.ShowNotificationsChanged -> {
-                _uiState.value = _uiState.value.copy(
-                    hasChanges = true,
-                    notificationState = if (event.showNotifications) {
-                        NotificationFilterState.FILTER_STATE_ON
-                    } else {
-                        NotificationFilterState.FILTER_STATE_OFF
-                    }
-                )
+                _uiState.update {
+                    it.copy(
+                        hasChanges = true,
+                        notificationState = if (event.showNotifications) {
+                            NotificationFilterState.FILTER_STATE_ON
+                        } else {
+                            NotificationFilterState.FILTER_STATE_OFF
+                        }
+                    )
+                }
             }
 
             EventTypeScreenEvent.Save -> {
@@ -126,11 +137,13 @@ class EventTypeViewModel @Inject constructor(
         val validationResult: ValidationResult =
             validateNameNotEmptyAndDistinct(
                 input = _uiState.value.name,
-                nameList = allEventTypes.map { it.name }
+                nameList = allEventTypes.filter { it.id != eventTypeId }.map { it.name }
             )
-        _uiState.value = _uiState.value.copy(
-            nameValidationError = validationResult.getErrorMessage()
-        )
+        _uiState.update {
+            it.copy(
+                nameValidationError = validationResult.getErrorMessage()
+            )
+        }
     }
 
     override fun isValid(): Boolean {

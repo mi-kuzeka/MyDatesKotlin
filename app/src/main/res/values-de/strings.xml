@@ -107,12 +107,14 @@
     <!-- Hint of the button for changing tag icon -->
     <string name="button_change_label_icon_hint">Tag-Symbol ändern</string>
     <string name="label_icon">Symbol</string>
+    <!-- Title of the button to show more icons to choose -->
+    <string name="more_icons_button">Andere Symbole</string>
     <string name="label_preview_title">Tag-Vorschau</string>
     <string name="remove_label_hint">Entfernen Sie das Tag</string>
     <!-- Notification statuses hints -->
     <string name="notification_status_turned_on_hint">Aktiviert</string>
     <string name="notification_status_turned_off_hint">Deaktiviert</string>
-    <string name="notification_status_turned_forbidden_hint">Verboten</string>
+    <string name="notification_status_forbidden_hint">Verboten</string>
     <string name="tap_on_notification_status_hint">Tippen Sie auf den Status, um Benachrichtigungen ein-/auszuschalten</string>
     <!-- Hint for close button -->
     <string name="close_button_hint">Schließen</string>
@@ -424,7 +426,7 @@
     <string name="event_preview_item_name">Name des Ereignisses</string>
     <string name="event_preview_item_label_first">Familie</string>
     <string name="event_preview_item_label_second">Arbeit</string>
-    <string name="notification_settings_title">Benachrichtigungen</string>
+    <string name="notifications_title">Benachrichtigungen</string>
     <string name="customize_notifications_button_text">Benachrichtigungen anpassen</string>
     <string name="notification_time_title">Benachrichtigungszeit am Tag des Ereignisses</string>
     <string name="notification_time_hint">Die Benachrichtigung wird innerhalb des von Ihnen gewählten Zeitraums eintreffen</string>

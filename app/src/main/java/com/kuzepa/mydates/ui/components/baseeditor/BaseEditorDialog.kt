@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,6 +42,7 @@ fun BaseEditorDialog(
     onShowGoBackDialogChange: (Boolean) -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
     deleteDialogContent: AlertDialogContent,
+    showDeleteButton: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val onDismissRequest = {
@@ -56,13 +58,16 @@ fun BaseEditorDialog(
                 .wrapContentSize(),
             shape = Shapes.defaultDialogShape,
         ) {
-            Column {
+            Column(
+                modifier = Modifier
+                    .wrapContentHeight()
+            ) {
                 TopAppBar(
                     title = title,
                     canGoBack = false,
                     onGoBack = {},
                     endIcon = {
-                        if (!isNewItem) {
+                        if (showDeleteButton && !isNewItem) {
                             IconDelete(
                                 onClick = { onShowDeleteDialogChange(true) },
                                 contentDescription = stringResource(R.string.button_delete)
@@ -76,7 +81,7 @@ fun BaseEditorDialog(
                     modifier = Modifier
                         .wrapContentSize()
                         .background(MyDatesColors.screenBackground)
-                        .weight(1f)
+                        .weight(1f, fill = false)
                 ) {
                     content()
                 }

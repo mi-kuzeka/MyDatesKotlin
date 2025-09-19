@@ -41,7 +41,7 @@ class EventViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : BaseEditorViewModel<EventUiState, EventScreenEvent>() {
 
-    private val eventId: Int? by lazy { savedStateHandle.get<Int>("id")?.takeIf { it > 0 } }
+    private val eventId: Long? by lazy { savedStateHandle.get<Long>("id")?.takeIf { it > 0 } }
     private val _uiState = MutableStateFlow(EventUiState())
     override val uiState: StateFlow<EventUiState> = _uiState.asStateFlow()
     private val dateDelimiter: Char by lazy { dateFormatProvider.getDelimiter() }
@@ -78,13 +78,17 @@ class EventViewModel @Inject constructor(
         _uiState.update { it.copy(hasChanges = true, eventTypeName = name) }
     }
 
-    fun handleLabelResult(result: NavigationResultData) {
+    private fun handleLabelResult(result: NavigationResultData) {
         result.id?.let { id ->
             viewModelScope.launch {
                 try {
-                    val label = labelRepository.getLabelById(id)
-                    label?.let {
-                        addLabel(label)
+                    val newLabel = labelRepository.getLabelById(id)
+                    newLabel?.let {
+                        if (_uiState.value.labels.firstOrNull { it.id == newLabel.id } == null) {
+                            addLabel(newLabel)
+                        } else {
+                            updateLabel(newLabel)
+                        }
                     }
                 } catch (e: Exception) {
                     // TODO handle error
@@ -94,9 +98,20 @@ class EventViewModel @Inject constructor(
     }
 
     private fun addLabel(label: Label) {
-        _uiState.update { currentState ->
-            currentState.copy(
-                labels = currentState.labels + label
+        _uiState.update {
+            it.copy(
+                hasChanges = true,
+                labels = it.labels + label
+            )
+        }
+    }
+
+    private fun updateLabel(newLabel: Label) {
+        _uiState.update {
+            it.copy(
+                labels = it.labels.map { oldLabel ->
+                    if (oldLabel.id == newLabel.id) newLabel else oldLabel
+                }
             )
         }
     }
@@ -172,13 +187,12 @@ class EventViewModel @Inject constructor(
                 }
             }
 
-            is EventScreenEvent.AddLabel -> {
-                _uiState.update {
-                    it.copy(
-                        hasChanges = true,
-                        labels = _uiState.value.labels + event.label
-                    )
-                }
+            is EventScreenEvent.OnLabelNavigationResult -> {
+                handleLabelResult(event.labelNavigationResult)
+            }
+
+            is EventScreenEvent.OnEventTypeNavigationResult -> {
+                handleEventTypeResult(event.eventTypeNavigationResult)
             }
 
             is EventScreenEvent.NewLabelClicked -> {
@@ -264,7 +278,7 @@ class EventViewModel @Inject constructor(
         }
     }
 
-    private fun fillEventById(id: Int) {
+    private fun fillEventById(id: Long) {
         viewModelScope.launch {
             try {
                 val event = eventRepository.getEventById(id = id)
@@ -287,7 +301,7 @@ class EventViewModel @Inject constructor(
                 hideYear = !date.hasYear(),
                 notes = notes,
                 image = image,
-                labels = labels,
+                labels = labels.toList(),
                 event = this
             )
         }
@@ -327,7 +341,7 @@ class EventViewModel @Inject constructor(
                 eventRepository.upsertEvent(
                     with(_uiState.value) {
                         Event(
-                            id = event?.id ?: 0,
+                            id = event?.id ?: 0L,
                             name = name,
                             date = eventDate,
                             type = eventType,

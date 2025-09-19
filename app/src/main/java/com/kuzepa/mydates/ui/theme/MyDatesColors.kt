@@ -1,8 +1,10 @@
 package com.kuzepa.mydates.ui.theme
 
+import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedButtonColors
 import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SelectableChipColors
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -83,6 +85,39 @@ internal object MyDatesColors {
         get() = MaterialTheme.colorScheme.primary
 
     /* Chip colors */
+    val notificationOnChipColors: SelectableChipColors
+        @Composable
+        get() = InputChipDefaults.inputChipColors(
+            selectedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            leadingIconColor = MaterialTheme.colorScheme.primary,
+            selectedLeadingIconColor = MaterialTheme.colorScheme.primary,
+            labelColor = MaterialTheme.colorScheme.primary,
+            selectedLabelColor = MaterialTheme.colorScheme.primary,
+        )
+
+    val notificationOffChipColors: SelectableChipColors
+        @Composable
+        get() = InputChipDefaults.inputChipColors(
+            selectedContainerColor = MaterialTheme.colorScheme.outlineVariant,
+            containerColor = MaterialTheme.colorScheme.outlineVariant,
+            leadingIconColor = MaterialTheme.colorScheme.secondary,
+            selectedLeadingIconColor = MaterialTheme.colorScheme.secondary,
+            labelColor = MaterialTheme.colorScheme.secondary,
+            selectedLabelColor = MaterialTheme.colorScheme.secondary,
+        )
+
+    val notificationForbiddenChipColors: SelectableChipColors
+        @Composable
+        get() = InputChipDefaults.inputChipColors(
+            selectedContainerColor = MaterialTheme.colorScheme.errorContainer,
+            containerColor = MaterialTheme.colorScheme.errorContainer,
+            leadingIconColor = MaterialTheme.colorScheme.onErrorContainer,
+            selectedLeadingIconColor = MaterialTheme.colorScheme.onErrorContainer,
+            labelColor = MaterialTheme.colorScheme.onErrorContainer,
+            selectedLabelColor = MaterialTheme.colorScheme.onErrorContainer,
+        )
+
     val selectedChipColor: Color
         @Composable
         get() = MaterialTheme.colorScheme.primary

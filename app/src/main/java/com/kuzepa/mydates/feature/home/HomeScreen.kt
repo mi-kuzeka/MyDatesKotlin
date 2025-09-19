@@ -31,7 +31,7 @@ import kotlin.math.min
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun HomeScreen(
-    onNavigateToEventEditor: (Int) -> Unit,
+    onNavigateToEventEditor: (Long) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     //TODO fill with real data from resources

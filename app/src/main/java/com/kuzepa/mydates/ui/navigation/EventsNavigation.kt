@@ -12,19 +12,19 @@ import kotlinx.serialization.Serializable
 internal object Home : TopLevelRoute()
 
 fun NavGraphBuilder.eventsDestination(
-    onNavigateToEventEditor: (id: Int?) -> Unit
+    onNavigateToEventEditor: (id: Long?) -> Unit
 ) {
     composable<Home> {
         HomeScreen(onNavigateToEventEditor = onNavigateToEventEditor)
     }
 }
 
-fun NavController.navigateToEventEditor(id: Int?) {
+fun NavController.navigateToEventEditor(id: Long?) {
     navigate(route = EventEditor(id = id))
 }
 
 @Serializable
-internal data class EventEditor(val id: Int?) : NavRoute()
+internal data class EventEditor(val id: Long?) : NavRoute()
 
 fun NavGraphBuilder.eventEditorDestination(
     onNavigateBack: () -> Unit,

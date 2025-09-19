@@ -101,7 +101,11 @@ fun Modifier.chipBorder(
             shape = shape
         )
     } else {
-        Modifier
+        border(
+            width = 0.dp,
+            color = Color.Transparent,
+            shape = shape
+        )
     }
 }
 
@@ -166,6 +170,22 @@ fun SelectableChipPreviewIcon() {
             iconColor = Color.Black,
             selectable = true,
             selected = false,
+        )
+    }
+}
+
+@Preview
+@Composable
+fun UnselectableChipPreviewIcon() {
+    MyDatesTheme {
+        IconChip(
+            chipSize = 24.dp,
+            color = LabelColor.LIGHT_BLUE.color,
+            iconType = IconType.ICON,
+            firstLetter = "F",
+            iconDrawableResId = LabelIcon.KEY_ICON.drawableRes,
+            iconColor = Color.Black,
+            selectable = false
         )
     }
 }

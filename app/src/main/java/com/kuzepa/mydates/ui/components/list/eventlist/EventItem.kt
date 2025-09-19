@@ -34,7 +34,7 @@ import com.kuzepa.mydates.ui.theme.MyDatesTheme
 @Composable
 fun EventItem(
     event: Event?,
-    onNavigateToEventEditor: (Int) -> Unit,
+    onNavigateToEventEditor: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     event?.let {

@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import com.kuzepa.mydates.domain.model.label.Label
 
 data class Event(
-    val id: Int = 0,
+    val id: Long = 0L,
     val name: String,
     val date: EventDate,
     val type: EventType,

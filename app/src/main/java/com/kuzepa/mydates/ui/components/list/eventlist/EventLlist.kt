@@ -13,7 +13,7 @@ import com.kuzepa.mydates.ui.components.list.state.EmptyView
 @Composable
 fun EventList(
     events: List<Event>,
-    onNavigateToEventEditor: (Int) -> Unit,
+    onNavigateToEventEditor: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (events.isEmpty()) {

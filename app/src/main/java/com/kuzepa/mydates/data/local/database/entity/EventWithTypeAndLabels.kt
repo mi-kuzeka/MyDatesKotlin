@@ -19,7 +19,7 @@ data class EventWithTypeAndLabels(
         parentColumn = "id",
         entityColumn = "id",
         associateBy = Junction(
-            EventLabelCrossRef::class,
+            EventLabelJoin::class,
             parentColumn = "event_id",
             entityColumn = "label_id"
         )

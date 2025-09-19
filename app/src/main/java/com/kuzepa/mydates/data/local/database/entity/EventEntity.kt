@@ -19,7 +19,7 @@ import androidx.room.PrimaryKey
 )
 data class EventEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Long,
     @ColumnInfo(name = "name")
     val name: String,
     @ColumnInfo(name = "month")

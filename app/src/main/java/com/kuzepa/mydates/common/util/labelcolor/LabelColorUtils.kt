@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.graphics.ColorUtils
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.random.Random
 
 fun Color.toInt(): Int = this.toArgb()
@@ -23,10 +24,10 @@ fun Color.getContrastedColor(
         else Color.White
     }
 
-    val targetLightness = if (lightness > 0.45f) {
-        lightness - 0.4f
+    val targetLightness = if (this.green > 0.85f || lightness > 0.62f) {
+        max(lightness - 0.6f, 0f)
     } else {
-        lightness + 0.4f
+        min(lightness + 0.7f, 1f)
     }
 
     val targetSaturation = max(saturation, 0.35f)

@@ -12,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -29,8 +30,9 @@ import com.kuzepa.mydates.domain.model.TextFieldMaxLength
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorDialog
 import com.kuzepa.mydates.ui.components.baseeditor.HandleEditorResults
-import com.kuzepa.mydates.ui.components.selectioncontainer.ColorSelectionContainer
-import com.kuzepa.mydates.ui.components.selectioncontainer.IconSelectionContainer
+import com.kuzepa.mydates.ui.components.container.chipcontainer.NotificationFilterSingleChipContainer
+import com.kuzepa.mydates.ui.components.container.selectioncontainer.ColorSelectionContainer
+import com.kuzepa.mydates.ui.components.container.selectioncontainer.IconSelectionContainer
 import com.kuzepa.mydates.ui.components.textfield.MyDatesTextField
 import com.kuzepa.mydates.ui.navigation.NavigationResult
 import kotlinx.coroutines.android.awaitFrame
@@ -40,6 +42,7 @@ import kotlinx.coroutines.android.awaitFrame
 fun LabelScreen(
     viewModel: LabelViewModel = hiltViewModel(),
     id: String?,
+    isOpenedFromEvent: Boolean,
     onNavigateBack: (result: Int, id: String?) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -92,6 +95,7 @@ fun LabelScreen(
             negativeButtonText = stringResource(R.string.button_cancel),
             icon = Icons.Default.Delete
         ),
+        showDeleteButton = !isOpenedFromEvent
     ) {
         LabelScreenContent(
             onEvent = { viewModel.onEvent(it) },
@@ -112,6 +116,7 @@ fun LabelScreenContent(
         modifier = modifier
     ) {
         with(state) {
+            var iconsAreExpanded by rememberSaveable { mutableStateOf(false) }
             // TODO Preview
             MyDatesTextField(
                 label = stringResource(R.string.name_label),
@@ -127,7 +132,7 @@ fun LabelScreenContent(
                 modifier = Modifier.fillMaxWidth()
             )
             ColorSelectionContainer(
-                containerLabel = stringResource(R.string.label_color),
+                containerTitle = stringResource(R.string.label_color),
                 selectedColorId = colorId,
                 onSelected = { newColor -> onEvent(LabelScreenEvent.ColorChanged(newColor)) },
                 onSelectCustomColor = { customColor ->
@@ -138,14 +143,23 @@ fun LabelScreenContent(
             val color = remember(colorId) { LabelColor.getColorFromId(colorId) }
             val iconColor = remember(colorId) { color.getContrastedColor() }
             IconSelectionContainer(
-                containerLabel = stringResource(R.string.label_icon),
+                containerTitle = stringResource(R.string.label_icon),
                 selectedIcon = icon,
                 firstLetter = nameFirstLetter,
                 color = color,
                 iconColor = iconColor,
-                onSelected = { labelIcon -> onEvent(LabelScreenEvent.IconChanged(labelIcon)) }
+                onSelected = { labelIcon -> onEvent(LabelScreenEvent.IconChanged(labelIcon)) },
+                moreIconsTitle = stringResource(R.string.more_icons_button),
+                isExpanded = iconsAreExpanded,
+                onExpandedChanged = { iconsAreExpanded = it }
             )
-            //TODO Notifications
+            NotificationFilterSingleChipContainer(
+                containerTitle = stringResource(R.string.notifications_title),
+                canBeForbidden = true,
+                currentState = notificationState,
+                onUpdateState = { onEvent(LabelScreenEvent.NotificationStateChanged(it)) },
+                showHintIcon = true
+            )
         }
     }
 

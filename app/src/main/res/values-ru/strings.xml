@@ -107,12 +107,14 @@
     <!-- Hint of the button for changing tag icon -->
     <string name="button_change_label_icon_hint">Изменить иконку тега</string>
     <string name="label_icon">Иконка</string>
+    <!-- Title of the button to show more icons to choose -->
+    <string name="more_icons_button">Другие иконки</string>
     <string name="label_preview_title">Предварительный просмотр тега</string>
     <string name="remove_label_hint">Удалить тег</string>
     <!-- Notification statuses hints -->
     <string name="notification_status_turned_on_hint">Включены</string>
     <string name="notification_status_turned_off_hint">Отключены</string>
-    <string name="notification_status_turned_forbidden_hint">Запрещены</string>
+    <string name="notification_status_forbidden_hint">Запрещены</string>
     <string name="tap_on_notification_status_hint">Нажмите на статус, чтобы включить/отключить уведомления</string>
     <!-- Hint for close button -->
     <string name="close_button_hint">Закрыть</string>
@@ -435,7 +437,7 @@
     <string name="event_preview_item_name">Название события</string>
     <string name="event_preview_item_label_first">Семья</string>
     <string name="event_preview_item_label_second">Работа</string>
-    <string name="notification_settings_title">Уведомления</string>
+    <string name="notifications_title">Уведомления</string>
     <string name="customize_notifications_button_text">Настроить уведомления</string>
     <string name="notification_time_title">Время уведомления в день события</string>
     <string name="notification_time_hint">Уведомление придёт в выбранном вами промежутке времени</string>

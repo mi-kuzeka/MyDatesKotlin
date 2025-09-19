@@ -13,5 +13,16 @@ enum class NotificationFilterState(val value: Int) {
                 FILTER_STATE_ON
             }
         }
+
+        fun getNextState(
+            currentState: NotificationFilterState,
+            canBeForbidden: Boolean
+        ): NotificationFilterState {
+            return when (currentState) {
+                FILTER_STATE_ON -> FILTER_STATE_OFF
+                FILTER_STATE_OFF -> if (canBeForbidden) FILTER_STATE_FORBIDDEN else FILTER_STATE_ON
+                FILTER_STATE_FORBIDDEN -> FILTER_STATE_ON
+            }
+        }
     }
 }

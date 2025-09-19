@@ -107,12 +107,14 @@
     <!-- Hint of the button for changing tag icon -->
     <string name="button_change_label_icon_hint">Modifier l\'icône de l\'étiquette</string>
     <string name="label_icon">Icône</string>
+    <!-- Title of the button to show more icons to choose -->
+    <string name="more_icons_button">Autres icônes</string>
     <string name="label_preview_title">Aperçu des étiquettes</string>
     <string name="remove_label_hint">Retirer l\'étiquette</string>
     <!-- Notification statuses hints -->
     <string name="notification_status_turned_on_hint">Activées</string>
     <string name="notification_status_turned_off_hint">Désactivées</string>
-    <string name="notification_status_turned_forbidden_hint">Interdites</string>
+    <string name="notification_status_forbidden_hint">Interdites</string>
     <string name="tap_on_notification_status_hint">Appuyez sur le statut pour activer/désactiver les notifications</string>
     <!-- Hint for close button -->
     <string name="close_button_hint">Fermer</string>
@@ -431,7 +433,7 @@
     <string name="event_preview_item_name">Nom de l\'événement</string>
     <string name="event_preview_item_label_first">Famille</string>
     <string name="event_preview_item_label_second">Emploi</string>
-    <string name="notification_settings_title">Notifications</string>
+    <string name="notifications_title">Notifications</string>
     <string name="customize_notifications_button_text">Personnaliser les notifications</string>
     <string name="notification_time_title">Heure de notification le jour de l\'événement</string>
     <string name="notification_time_hint">La notification arrivera dans le délai que vous sélectionnez</string>

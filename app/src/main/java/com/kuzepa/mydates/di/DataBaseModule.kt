@@ -31,4 +31,7 @@ object DataBaseModule {
 
     @Provides
     fun provideLabelDao(db: MyDatesDatabase) = db.labelDao()
+
+    @Provides
+    fun provideEventLabelJoinDao(db: MyDatesDatabase) = db.eventLabelJoinDao()
 }
