@@ -31,14 +31,15 @@ import com.kuzepa.mydates.domain.model.AlertDialogContent
 import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
 import com.kuzepa.mydates.domain.model.label.Label
+import com.kuzepa.mydates.domain.usecase.label.LabelsFetching
 import com.kuzepa.mydates.feature.home.event.components.EventDateField
 import com.kuzepa.mydates.feature.home.event.components.EventImageChooser
 import com.kuzepa.mydates.feature.home.event.components.EventLabelContainer
 import com.kuzepa.mydates.ui.components.MyDatesCheckbox
-import com.kuzepa.mydates.ui.components.MyDatesExposedDropDown
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorScreen
 import com.kuzepa.mydates.ui.components.baseeditor.HandleEditorResults
+import com.kuzepa.mydates.ui.components.dropdown.MyDatesExposedDropDown
 import com.kuzepa.mydates.ui.components.textfield.MyDatesTextField
 import com.kuzepa.mydates.ui.navigation.NavigationResult
 import com.kuzepa.mydates.ui.navigation.NavigationResultData
@@ -52,6 +53,7 @@ internal fun EventScreen(
     eventId: Long?,
     onNavigateBack: () -> Unit,
     onNavigateToEventTypeCreator: () -> Unit,
+    onNavigateToLabelChooser: () -> Unit,
     onNavigateToLabelEditor: (id: String?) -> Unit,
     eventTypeNavigationResult: NavigationResultData,
     labelNavigationResult: NavigationResultData,
@@ -80,6 +82,24 @@ internal fun EventScreen(
         onSuccess = { onNavigateBack() },
         onError = { /* TODO show error */ }
     )
+
+    LaunchedEffect(key1 = context) {
+        viewModel.fetchingLabelsFlow.collect { event ->
+            when (event) {
+                is LabelsFetching.Success -> {
+                    if (state.dropdownLabels.isEmpty()) {
+                        onNavigateToLabelEditor(null)
+                    } else {
+                        onNavigateToLabelChooser()
+                    }
+                }
+
+                is LabelsFetching.Error -> {
+                    /* TODO show error */
+                }
+            }
+        }
+    }
 
     BaseEditorScreen(
         title = stringResource(
@@ -130,7 +150,7 @@ internal fun EventScreen(
     LaunchedEffect(eventTypeNavigationResult.result) {
         if (eventTypeNavigationResult.result == NavigationResult.OK) {
             viewModel.loadEventTypes()
-            viewModel.onEvent(EventScreenEvent.OnEventTypeNavigationResult(labelNavigationResult))
+            viewModel.onEvent(EventScreenEvent.OnEventTypeNavigationResult(eventTypeNavigationResult))
             removeNavigationResult(NavigationResult.EVENT_TYPE_KEY)
         }
     }
@@ -219,7 +239,7 @@ internal fun EventScreenContent(
                 },
                 buttonRemoveDescription = stringResource(R.string.remove_label_hint),
                 addLabelText = stringResource(R.string.button_add_label),
-                onAddLabelClick = { onNavigateToLabel(null) },
+                onAddLabelClick = { onEvent(EventScreenEvent.NewLabelClicked) },
                 modifier = Modifier.fillMaxWidth()
             )
             MyDatesTextField(

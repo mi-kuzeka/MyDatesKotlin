@@ -29,6 +29,7 @@ internal data class EventEditor(val id: Long?) : NavRoute()
 fun NavGraphBuilder.eventEditorDestination(
     onNavigateBack: () -> Unit,
     onNavigateToEventTypeCreator: () -> Unit,
+    onNavigateToLabelChooser: () -> Unit,
     onNavigateToLabelEditor: (id: String?) -> Unit,
 ) {
     composable<EventEditor> { backStackEntry ->
@@ -46,6 +47,7 @@ fun NavGraphBuilder.eventEditorDestination(
             eventId = eventEditor.id,
             onNavigateBack = onNavigateBack,
             onNavigateToEventTypeCreator = onNavigateToEventTypeCreator,
+            onNavigateToLabelChooser = onNavigateToLabelChooser,
             onNavigateToLabelEditor = onNavigateToLabelEditor,
             eventTypeNavigationResult = NavigationResultData(
                 result = eventTypeNavigationResult,

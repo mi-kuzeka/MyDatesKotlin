@@ -21,4 +21,7 @@ internal object Shapes {
 
     val selectedTabShape: RoundedCornerShape
         get() = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+
+    val buttonShape: RoundedCornerShape
+        get() = RoundedCornerShape(6.dp)
 }

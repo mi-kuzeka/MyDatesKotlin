@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
 import com.kuzepa.mydates.feature.more.label.LabelScreen
+import com.kuzepa.mydates.feature.more.label.labelchooser.LabelChooserScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -24,6 +25,10 @@ fun NavGraphBuilder.labelsDestination(
     }
 }
 
+fun NavController.navigateToLabelChooser() {
+    navigate(route = LabelChooser)
+}
+
 fun NavController.navigateToLabelEditor(
     id: String?,
     isOpenedFromEvent: Boolean
@@ -33,6 +38,19 @@ fun NavController.navigateToLabelEditor(
 
 fun NavController.navigateToBulkLabelAssignment(id: String) {
     navigate(route = BulkLabelAssignment(id = id))
+}
+
+@Serializable
+internal object LabelChooser : NavRoute()
+
+fun NavGraphBuilder.labelChooserDestination(
+    onNavigateBack: (result: Int, id: String?) -> Unit
+) {
+    dialog<LabelChooser> { backStackEntry ->
+        LabelChooserScreen(
+            onNavigateBack = onNavigateBack
+        )
+    }
 }
 
 @Serializable

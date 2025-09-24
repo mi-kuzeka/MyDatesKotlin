@@ -16,7 +16,6 @@ sealed class EventScreenEvent {
     data class OnLabelNavigationResult(val labelNavigationResult: NavigationResultData) : EventScreenEvent()
     data class OnEventTypeNavigationResult(val eventTypeNavigationResult: NavigationResultData) : EventScreenEvent()
     object NewLabelClicked : EventScreenEvent()
-    data class LabelClicked(val labelId: String) : EventScreenEvent()
     data class NotesChanged(val notes: String) : EventScreenEvent()
     object Save : EventScreenEvent()
     object Delete : EventScreenEvent()

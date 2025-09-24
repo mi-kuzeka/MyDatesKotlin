@@ -13,6 +13,7 @@ import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import com.kuzepa.mydates.domain.repository.LabelRepository
 import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectDeleting
 import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectSaving
+import com.kuzepa.mydates.domain.usecase.label.LabelsFetching
 import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
 import com.kuzepa.mydates.domain.usecase.validation.getErrorMessage
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateDateUseCase
@@ -24,6 +25,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -52,6 +54,9 @@ class EventViewModel @Inject constructor(
     private val deletingEventChannel = Channel<ObjectDeleting>()
     override val deletingFlow = deletingEventChannel.receiveAsFlow()
 
+    private val fetchingLabelsChannel = Channel<LabelsFetching>()
+    val fetchingLabelsFlow = fetchingLabelsChannel.receiveAsFlow()
+
     init {
         loadEventTypes()
 
@@ -61,8 +66,27 @@ class EventViewModel @Inject constructor(
 
     fun loadEventTypes() {
         viewModelScope.launch {
-            eventTypeRepository.getAllEventTypes().collect { eventTypes ->
-                _uiState.update { it.copy(availableEventTypes = eventTypes) }
+            val eventTypes = eventTypeRepository.getAllEventTypes().firstOrNull() ?: emptyList()
+            _uiState.update { it.copy(availableEventTypes = eventTypes) }
+        }
+    }
+
+    private fun loadDropDownLabels() {
+        viewModelScope.launch {
+            try {
+                val allLabels = labelRepository.getAllLabels().firstOrNull() ?: emptyList()
+                val eventLabelIds = _uiState.value.labels.mapTo(HashSet()) { it.id }
+                _uiState.update { state ->
+                    state.copy(
+                        dropdownLabels = allLabels.filter { label -> label.id !in eventLabelIds }
+                            .toList()
+                    )
+                }
+
+                fetchingLabelsChannel.send(LabelsFetching.Success)
+            } catch (e: Exception) {
+                // TODO handle error
+                fetchingLabelsChannel.send(LabelsFetching.Error(e.message.toString()))
             }
         }
     }
@@ -196,11 +220,7 @@ class EventViewModel @Inject constructor(
             }
 
             is EventScreenEvent.NewLabelClicked -> {
-                // TODO show label creator
-            }
-
-            is EventScreenEvent.LabelClicked -> {
-                // TODO show label editor
+                loadDropDownLabels()
             }
 
             is EventScreenEvent.NotesChanged -> {

@@ -16,6 +16,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -45,7 +46,6 @@ class LabelViewModel @Inject constructor(
     private val deletingLabelChannel = Channel<ObjectDeleting>()
     override val deletingFlow = deletingLabelChannel.receiveAsFlow()
 
-
     init {
         _uiState.update { it.copy(isNewLabel = labelId == null) }
         loadLabels()
@@ -54,11 +54,9 @@ class LabelViewModel @Inject constructor(
     private fun loadLabels() {
         viewModelScope.launch {
             try {
-                labelRepository.getAllLabels().collect { labels ->
-                    allLabels = labels
-                    if (!_uiState.value.isNewLabel && allLabels.isNotEmpty()) {
-                        allLabels.firstOrNull { it.id == labelId }?.populateScreenFields()
-                    }
+                allLabels = labelRepository.getAllLabels().firstOrNull() ?: emptyList()
+                if (!_uiState.value.isNewLabel && allLabels.isNotEmpty()) {
+                    allLabels.firstOrNull { it.id == labelId }?.populateScreenFields()
                 }
             } catch (e: Exception) {
                 // TODO handle error

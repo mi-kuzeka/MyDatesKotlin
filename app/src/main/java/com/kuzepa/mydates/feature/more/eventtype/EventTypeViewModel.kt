@@ -17,6 +17,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -55,11 +56,9 @@ class EventTypeViewModel @Inject constructor(
     private fun loadEventTypes() {
         viewModelScope.launch {
             try {
-                eventTypeRepository.getAllEventTypes().collect { eventTypes ->
-                    allEventTypes = eventTypes
-                    if (!_uiState.value.isNewEventType && allEventTypes.isNotEmpty()) {
-                        allEventTypes.firstOrNull { it.id == eventTypeId }?.populateScreenFields()
-                    }
+                allEventTypes = eventTypeRepository.getAllEventTypes().firstOrNull() ?: emptyList()
+                if (!_uiState.value.isNewEventType && allEventTypes.isNotEmpty()) {
+                    allEventTypes.firstOrNull { it.id == eventTypeId }?.populateScreenFields()
                 }
             } catch (e: Exception) {
                 // TODO handle error

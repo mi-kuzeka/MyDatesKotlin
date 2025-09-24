@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.ui.components
+package com.kuzepa.mydates.ui.components.dropdown
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,11 +16,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.kuzepa.mydates.ui.theme.MyDatesColors
+import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.ui.components.supportingtext.MyDatesErrorText
 import com.kuzepa.mydates.ui.components.supportingtext.MyDatesSupportingTextBox
 import com.kuzepa.mydates.ui.components.textfield.TextFieldLabel
 import com.kuzepa.mydates.ui.components.textfield.TextFieldPlaceholder
+import com.kuzepa.mydates.ui.theme.MyDatesColors
+import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -100,5 +102,21 @@ internal fun MyDatesExposedDropDown(
                 MyDatesErrorText(errorMessage)
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun MyDatesExposedDropDownPreview() {
+    MyDatesTheme {
+        MyDatesExposedDropDown(
+            value = "Birthday",
+            onValueChange = {},
+            label = "Event type",
+            errorMessage = null,
+            options = listOf("Birthday", "Anniversary"),
+            addNewItemLabel = "Add new item",
+            onAddNewItem = {}
+        )
     }
 }

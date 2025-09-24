@@ -26,6 +26,7 @@ fun MyDatesNavHost(
         eventEditorDestination(
             onNavigateBack = { navController.popBackStack() },
             onNavigateToEventTypeCreator = { navController.navigateToEventTypeEditor(null) },
+            onNavigateToLabelChooser = { navController.navigateToLabelChooser() },
             onNavigateToLabelEditor = { labelId ->
                 navController.navigateToLabelEditor(id = labelId, isOpenedFromEvent = true)
             }
@@ -78,6 +79,16 @@ fun MyDatesNavHost(
                     id?.let { set(NavigationResult.LABEL_ID_KEY, id) }
                 }
         })
+        labelChooserDestination(onNavigateBack = { navigationResult, id ->
+            navController.popBackStack()
+            navController.currentBackStackEntry
+                ?.savedStateHandle
+                ?.apply {
+                    set(NavigationResult.LABEL_KEY, navigationResult)
+                    id?.let { set(NavigationResult.LABEL_ID_KEY, id) }
+                }
+        }
+        )
         bulkLabelAssignmentDestination(onNavigateBack = { navController.popBackStack() })
 
         dataTransferDestination(

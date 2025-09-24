@@ -23,6 +23,10 @@ data class EventUiState(
      */
     val labels: List<Label> = emptyList(),
     /**
+     * Label list for dropdown in LabelChooser dialog
+     */
+    val dropdownLabels: List<Label> = emptyList(),
+    /**
      * All available event types
      */
     val availableEventTypes: List<EventType> = emptyList()

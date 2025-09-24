@@ -42,9 +42,9 @@ import com.kuzepa.mydates.feature.home.event.components.EventDateField
 import com.kuzepa.mydates.feature.home.event.components.EventImageChooser
 import com.kuzepa.mydates.feature.home.event.components.EventLabelContainer
 import com.kuzepa.mydates.ui.components.MyDatesCheckbox
-import com.kuzepa.mydates.ui.components.MyDatesExposedDropDown
 import com.kuzepa.mydates.ui.components.TopAppBar
 import com.kuzepa.mydates.ui.components.dialog.MyDatesAlertDialog
+import com.kuzepa.mydates.ui.components.dropdown.MyDatesExposedDropDown
 import com.kuzepa.mydates.ui.components.icon.IconDelete
 import com.kuzepa.mydates.ui.components.textfield.MyDatesTextField
 import com.kuzepa.mydates.ui.theme.MyDatesColors

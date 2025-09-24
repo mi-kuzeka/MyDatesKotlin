@@ -41,8 +41,9 @@ fun BaseEditorDialog(
     onShowDeleteDialogChange: (Boolean) -> Unit,
     onShowGoBackDialogChange: (Boolean) -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
-    deleteDialogContent: AlertDialogContent,
+    deleteDialogContent: AlertDialogContent?,
     showDeleteButton: Boolean = true,
+    confirmationButtonText: String? = null,
     content: @Composable () -> Unit
 ) {
     val onDismissRequest = {
@@ -105,11 +106,13 @@ fun BaseEditorDialog(
                     TextButton(
                         onClick = { onSave() },
                     ) {
-                        Text(text = stringResource(R.string.button_save))
+                        Text(
+                            text = confirmationButtonText ?: stringResource(R.string.button_save)
+                        )
                     }
                 }
 
-                if (showDeleteDialog) {
+                if (showDeleteDialog && deleteDialogContent != null) {
                     DeleteConfirmationDialog(
                         onDismissDialog = { onShowDeleteDialogChange(false) },
                         onDelete = onDelete,
