@@ -10,6 +10,7 @@
     <dimen name="fab_size">56dp</dimen>
     <dimen name="icon_size">20dp</dimen>
     <dimen name="icon_help_size">22dp</dimen>
+    <dimen name="default_icon_size">24dp</dimen>
     <dimen name="color_chip_size">36dp</dimen>
     <dimen name="min_clickable_size">48dp</dimen>
 </resources>
