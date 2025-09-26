@@ -29,6 +29,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import java.util.UUID
 import javax.inject.Inject
 
@@ -44,6 +45,7 @@ class EventViewModel @Inject constructor(
 ) : BaseEditorViewModel<EventUiState, EventScreenEvent>() {
 
     private val eventId: Long? by lazy { savedStateHandle.get<Long>("id")?.takeIf { it > 0 } }
+
     private val _uiState = MutableStateFlow(EventUiState())
     override val uiState: StateFlow<EventUiState> = _uiState.asStateFlow()
     private val dateDelimiter: Char by lazy { dateFormatProvider.getDelimiter() }
@@ -330,6 +332,9 @@ class EventViewModel @Inject constructor(
     fun getDateMask(): String = dateFormatProvider.getShowingMask(_uiState.value.hideYear)
 
     fun getMaskDelimiter(): Char = dateDelimiter
+
+    fun getLabelIdListAsJson(): String =
+        Json.encodeToString(_uiState.value.labels.map { it.id }.toList())
 
     private suspend fun createAndGetNewEventType(name: String): EventType {
         val eventType = EventType(

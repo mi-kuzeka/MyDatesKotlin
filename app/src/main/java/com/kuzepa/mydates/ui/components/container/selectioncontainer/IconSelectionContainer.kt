@@ -114,7 +114,7 @@ fun IconSelectionContainer(
                             firstLetter = firstLetter,
                             selectable = true,
                             selected = selectedIcon == labelIcon,
-                            onSelected = { onSelected(labelIcon) }
+                            onClick = { onSelected(labelIcon) }
                         )
                     }
                 }

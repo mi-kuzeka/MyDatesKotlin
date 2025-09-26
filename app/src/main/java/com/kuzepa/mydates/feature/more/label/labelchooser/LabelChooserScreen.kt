@@ -30,13 +30,18 @@ import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorDialog
 import com.kuzepa.mydates.ui.components.button.MyDatesButton
 import com.kuzepa.mydates.ui.components.dropdown.LabelDropDown
 import com.kuzepa.mydates.ui.navigation.NavigationResult
+import com.kuzepa.mydates.ui.navigation.NavigationResultData
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LabelChooserScreen(
     viewModel: LabelChooserViewModel = hiltViewModel(),
-    onNavigateBack: (result: Int, id: String?) -> Unit
+    eventLabelIdsJson: String,
+    onNavigateToLabelEditor: (id: String?) -> Unit,
+    onNavigateBack: (result: Int, id: String?) -> Unit,
+    labelNavigationResult: NavigationResultData,
+    removeNavigationResult: () -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -74,7 +79,15 @@ fun LabelChooserScreen(
         LabelChooserScreenContent(
             onEvent = { viewModel.onEvent(it) },
             state = state,
+            onNavigateToLabelEditor = onNavigateToLabelEditor
         )
+    }
+
+    LaunchedEffect(labelNavigationResult.result) {
+        if (labelNavigationResult.result == NavigationResult.OK) {
+            viewModel.onEvent(LabelChooserScreenEvent.OnLabelNavigationResult(labelNavigationResult))
+            removeNavigationResult()
+        }
     }
 }
 
@@ -82,6 +95,7 @@ fun LabelChooserScreen(
 fun LabelChooserScreenContent(
     onEvent: (LabelChooserScreenEvent) -> Unit,
     state: LabelChooserUiState,
+    onNavigateToLabelEditor: (id: String?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     BaseEditorContentBox(
@@ -108,7 +122,9 @@ fun LabelChooserScreenContent(
                 MyDatesButton(
                     icon = Icons.Outlined.Edit,
                     onClick = {
-                        // TODO edit this tag
+                        selectedLabel?.let {
+                            onNavigateToLabelEditor(state.selectedLabel?.id)
+                        }
                     }
                 )
             }
@@ -116,7 +132,7 @@ fun LabelChooserScreenContent(
                 icon = Icons.Outlined.Add,
                 text = stringResource(R.string.button_add_label),
                 onClick = {
-                    // TODO create new tag
+                    onNavigateToLabelEditor(null)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -131,7 +147,8 @@ fun LabelChooserScreenContentPreview() {
     MyDatesTheme {
         LabelChooserScreenContent(
             onEvent = {},
-            state = LabelChooserUiState()
+            state = LabelChooserUiState(),
+            onNavigateToLabelEditor = {}
         )
     }
 }

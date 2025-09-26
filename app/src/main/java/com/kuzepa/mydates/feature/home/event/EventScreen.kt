@@ -53,7 +53,7 @@ internal fun EventScreen(
     eventId: Long?,
     onNavigateBack: () -> Unit,
     onNavigateToEventTypeCreator: () -> Unit,
-    onNavigateToLabelChooser: () -> Unit,
+    onNavigateToLabelChooser: (eventLabelIdsJson: String) -> Unit,
     onNavigateToLabelEditor: (id: String?) -> Unit,
     eventTypeNavigationResult: NavigationResultData,
     labelNavigationResult: NavigationResultData,
@@ -90,7 +90,7 @@ internal fun EventScreen(
                     if (state.dropdownLabels.isEmpty()) {
                         onNavigateToLabelEditor(null)
                     } else {
-                        onNavigateToLabelChooser()
+                        onNavigateToLabelChooser(viewModel.getLabelIdListAsJson())
                     }
                 }
 

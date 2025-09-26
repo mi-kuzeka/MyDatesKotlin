@@ -1,5 +1,6 @@
 package com.kuzepa.mydates.ui.components.chip
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
@@ -11,8 +12,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.kuzepa.mydates.R
 import com.kuzepa.mydates.common.util.labelcolor.LabelColor
 import com.kuzepa.mydates.common.util.labelcolor.getContrastedColor
 import com.kuzepa.mydates.common.util.labelcolor.randomColor
@@ -36,7 +39,7 @@ fun LabelChip(
     modifier: Modifier = Modifier
 ) {
     var firstLetter by remember(label.name) {
-        mutableStateOf(label.name.first().toString())
+        mutableStateOf(label.name.take(1))
     }
     var labelColor by remember(label.color) {
         mutableStateOf(LabelColor.getColorFromId(label.color))
@@ -63,7 +66,8 @@ fun LabelChip(
                 iconType = labelIcon?.iconType ?: IconType.FIRST_LETTER,
                 firstLetter = firstLetter,
                 iconDrawableResId = labelIcon?.drawableRes,
-                iconColor = labelIconColor
+                iconColor = labelIconColor,
+                onClick = { onLabelClick(label.id) }
             )
         },
         trailingIcon = {
@@ -81,11 +85,12 @@ fun LabelChip(
             labelColor = MyDatesColors.defaultTextColor,
             selectedLabelColor = MyDatesColors.defaultTextColor,
         ),
+        shape = Shapes.labelChipShape,
         elevation = InputChipDefaults.inputChipElevation(
             elevation = 2.dp
         ),
-        shape = Shapes.labelChipShape,
         modifier = modifier
+            .height(dimensionResource(R.dimen.color_chip_size))
     )
 }
 

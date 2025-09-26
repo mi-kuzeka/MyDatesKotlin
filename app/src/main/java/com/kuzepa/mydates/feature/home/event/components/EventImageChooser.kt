@@ -36,8 +36,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.ui.theme.MyDatesColors
-import com.kuzepa.mydates.ui.theme.Shapes
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
+import com.kuzepa.mydates.ui.theme.Shapes
 
 @Composable
 internal fun EventImageChooser(
@@ -54,7 +54,7 @@ internal fun EventImageChooser(
                 dimensionResource(R.dimen.event_image_chooser_size)
             )
             .clip(shape = Shapes.imageBoxShape)
-            .background(MyDatesColors.containerColor)
+            .background(MaterialTheme.colorScheme.primaryContainer)
     ) {
         if (image == null) {
             Column(

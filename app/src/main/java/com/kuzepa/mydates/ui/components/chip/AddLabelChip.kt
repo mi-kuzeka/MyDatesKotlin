@@ -1,5 +1,6 @@
 package com.kuzepa.mydates.ui.components.chip
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Icon
@@ -9,8 +10,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.kuzepa.mydates.R
 import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 import com.kuzepa.mydates.ui.theme.Shapes
@@ -44,11 +47,12 @@ fun AddLabelChip(
             labelColor = MyDatesColors.actionChipTextColor,
             selectedLabelColor = MyDatesColors.actionChipTextColor,
         ),
+        shape = Shapes.labelChipShape,
         elevation = InputChipDefaults.inputChipElevation(
             elevation = 2.dp
         ),
-        shape = Shapes.labelChipShape,
         modifier = modifier
+            .height(dimensionResource(R.dimen.color_chip_size))
     )
 }
 

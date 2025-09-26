@@ -57,7 +57,7 @@ fun ColorSelectionContainer(
                         iconType = IconType.NO_ICON,
                         selectable = true,
                         selected = selectedColorId == labelColor.id,
-                        onSelected = { onSelected(labelColor.id) }
+                        onClick = { onSelected(labelColor.id) }
                     )
                 }
             }

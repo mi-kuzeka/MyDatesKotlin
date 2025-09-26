@@ -49,8 +49,10 @@ fun EventLabelContainer(
                 .clip(Shapes.defaultContainerShape)
                 .background(color = MyDatesColors.containerColor)
                 .padding(
-                    horizontal = dimensionResource(R.dimen.padding_default),
-                    vertical = dimensionResource(R.dimen.padding_small)
+                    start = dimensionResource(R.dimen.padding_default),
+                    end = dimensionResource(R.dimen.padding_default),
+                    top = dimensionResource(R.dimen.padding_small),
+                    bottom = dimensionResource(R.dimen.padding_default)
                 )
         ) {
             Text(
@@ -59,10 +61,14 @@ fun EventLabelContainer(
                 color = MyDatesColors.textFieldLabelColor
             )
             FlowRow(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth()
+                    .padding(top = dimensionResource(R.dimen.padding_small)),
                 horizontalArrangement = Arrangement.spacedBy(
-                    dimensionResource(R.dimen.padding_default)
+                    dimensionResource(R.dimen.padding_small)
                 ),
+                verticalArrangement = Arrangement.spacedBy(
+                    dimensionResource(R.dimen.padding_small)
+                )
             ) {
                 labels.forEach { label ->
                     key(label.id) {

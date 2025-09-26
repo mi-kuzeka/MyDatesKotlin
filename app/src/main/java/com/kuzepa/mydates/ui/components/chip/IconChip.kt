@@ -17,11 +17,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.kuzepa.mydates.R
 import com.kuzepa.mydates.common.util.labelcolor.LabelColor
+import com.kuzepa.mydates.common.util.labelcolor.getContrastedColor
 import com.kuzepa.mydates.domain.model.label.IconType
 import com.kuzepa.mydates.domain.model.label.LabelIcon
 import com.kuzepa.mydates.ui.theme.MyDatesColors
@@ -39,7 +43,8 @@ fun IconChip(
     iconColor: Color = Color.Transparent,
     selectable: Boolean = false,
     selected: Boolean = false,
-    onSelected: () -> Unit = {}
+    clickable: Boolean = true,
+    onClick: () -> Unit = {}
 ) {
     Box(
         contentAlignment = Alignment.Center,
@@ -56,17 +61,17 @@ fun IconChip(
             .clip(Shapes.labelColorChipShape)
             .padding(1.dp)
             .background(color)
-            .clickable { onSelected() }
+            .clickable(enabled = clickable) { onClick() }
     ) {
         when (iconType) {
             IconType.FIRST_LETTER -> {
                 BasicText(
                     text = firstLetter,
                     style = MaterialTheme.typography.labelLarge,
-                    autoSize = TextAutoSize.StepBased(),
-                    color = { iconColor },
-                    modifier = Modifier
-                        .padding(3.dp)
+                    autoSize = TextAutoSize.StepBased(
+                        minFontSize = 10.sp
+                    ),
+                    color = { iconColor }
                 )
             }
 
@@ -76,7 +81,7 @@ fun IconChip(
                         painter = painterResource(it),
                         tint = iconColor,
                         contentDescription = "",
-                        modifier = Modifier.padding(4.dp)
+                        modifier = Modifier.padding(2.dp)
                     )
                 }
             }
@@ -186,6 +191,21 @@ fun UnselectableChipPreviewIcon() {
             iconDrawableResId = LabelIcon.KEY_ICON.drawableRes,
             iconColor = Color.Black,
             selectable = false
+        )
+    }
+}
+
+@Preview
+@Composable
+fun LittleUnselectableChipPreviewIcon() {
+    MyDatesTheme {
+        IconChip(
+            chipSize = dimensionResource(R.dimen.icon_help_size),
+            color = LabelColor.LIGHT_BLUE.color,
+            iconType = IconType.FIRST_LETTER,
+            firstLetter = "C",
+            iconDrawableResId = null,
+            iconColor = LabelColor.LIGHT_BLUE.color.getContrastedColor()
         )
     }
 }

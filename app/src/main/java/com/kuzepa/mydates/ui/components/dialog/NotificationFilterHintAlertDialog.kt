@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.ui.components.chip.NotificationFilterChip
+import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @Composable
@@ -29,7 +30,6 @@ fun NotificationFilterHintAlertDialog(
             Column(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(horizontal = dimensionResource(R.dimen.padding_default))
             ) {
                 NotificationFilterChip(
                     currentState = NotificationFilterState.FILTER_STATE_ON,
@@ -93,7 +93,8 @@ fun NotificationFilterHintAlertDialog(
             ) {
                 Text(stringResource(R.string.button_ok))
             }
-        }
+        },
+        containerColor = MyDatesColors.screenBackground
     )
 }
 

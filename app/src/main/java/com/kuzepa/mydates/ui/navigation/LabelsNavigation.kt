@@ -25,8 +25,8 @@ fun NavGraphBuilder.labelsDestination(
     }
 }
 
-fun NavController.navigateToLabelChooser() {
-    navigate(route = LabelChooser)
+fun NavController.navigateToLabelChooser(eventLabelIdsJson: String) {
+    navigate(route = LabelChooser(eventLabelIdsJson))
 }
 
 fun NavController.navigateToLabelEditor(
@@ -41,14 +41,32 @@ fun NavController.navigateToBulkLabelAssignment(id: String) {
 }
 
 @Serializable
-internal object LabelChooser : NavRoute()
+internal data class LabelChooser(val eventLabelIdsJson: String) : NavRoute()
 
 fun NavGraphBuilder.labelChooserDestination(
-    onNavigateBack: (result: Int, id: String?) -> Unit
+    onNavigateBack: (result: Int, id: String?) -> Unit,
+    onNavigateToLabelEditor: (id: String?) -> Unit,
 ) {
     dialog<LabelChooser> { backStackEntry ->
+        val labelChooser: LabelChooser = backStackEntry.toRoute()
+        val savedStateHandle = backStackEntry.savedStateHandle
+
+        val labelNavigationResult =
+            savedStateHandle.get<Int>(NavigationResult.LABEL_KEY)
+        val labelId = savedStateHandle.get<String?>(NavigationResult.LABEL_ID_KEY)
+
         LabelChooserScreen(
-            onNavigateBack = onNavigateBack
+            eventLabelIdsJson = labelChooser.eventLabelIdsJson,
+            onNavigateBack = onNavigateBack,
+            onNavigateToLabelEditor = onNavigateToLabelEditor,
+            labelNavigationResult = NavigationResultData(
+                result = labelNavigationResult,
+                id = labelId
+            ),
+            removeNavigationResult = {
+                savedStateHandle.remove<Int>(NavigationResult.LABEL_KEY)
+                savedStateHandle.remove<String?>(NavigationResult.LABEL_ID_KEY)
+            }
         )
     }
 }
