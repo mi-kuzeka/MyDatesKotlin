@@ -22,6 +22,7 @@ import com.kuzepa.mydates.domain.usecase.validation.getErrorMessage
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateDateUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateTextNotEmptyUseCase
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorViewModel
+import com.kuzepa.mydates.ui.navigation.ImageCropperNavigationResultData
 import com.kuzepa.mydates.ui.navigation.NavigationResultData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -128,8 +129,8 @@ class EventViewModel @Inject constructor(
         }
     }
 
-    fun handleImageCropperResult(result: NavigationResultData) {
-        result.id?.let { imagePath ->
+    fun handleImageCropperResult(result: ImageCropperNavigationResultData) {
+        result.imagePath?.let { imagePath ->
             viewModelScope.launch {
                 val image = getImageFromCache(imagePath)
                 if (image.isSuccess) {

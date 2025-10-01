@@ -40,7 +40,7 @@ fun MyDatesNavHost(
                 ?.savedStateHandle
                 ?.apply {
                     set(NavigationResult.IMAGE_CROPPER_KEY, navigationResult)
-                    filePath?.let { set(NavigationResult.IMAGE_PATH_KEY, filePath) }
+                    filePath?.let { set(NavigationResult.IMAGE_PATH_KEY, it) }
                 }
         })
 
@@ -69,7 +69,7 @@ fun MyDatesNavHost(
                 ?.savedStateHandle
                 ?.apply {
                     set(NavigationResult.EVENT_TYPE_KEY, navigationResult)
-                    id?.let { set(NavigationResult.EVENT_TYPE_ID_KEY, id) }
+                    id?.let { set(NavigationResult.EVENT_TYPE_ID_KEY, it) }
                 }
         })
 
@@ -82,15 +82,31 @@ fun MyDatesNavHost(
             },
             onNavigateBack = { navController.popBackStack() }
         )
-        labelEditorDestination(onNavigateBack = { navigationResult, id ->
-            navController.popBackStack()
-            navController.currentBackStackEntry
-                ?.savedStateHandle
-                ?.apply {
-                    set(NavigationResult.LABEL_KEY, navigationResult)
-                    id?.let { set(NavigationResult.LABEL_ID_KEY, id) }
-                }
-        })
+        labelEditorDestination(
+            onNavigateBack = { navigationResult, id ->
+                navController.popBackStack()
+                navController.currentBackStackEntry
+                    ?.savedStateHandle
+                    ?.apply {
+                        set(NavigationResult.LABEL_KEY, navigationResult)
+                        id?.let { set(NavigationResult.LABEL_ID_KEY, it) }
+                    }
+            },
+            onNavigateToColorPicker = { color ->
+                navController.navigateToColorPicker(color)
+            }
+        )
+        colorPickerDestination(
+            onNavigateBack = { navigationResult, color ->
+                navController.popBackStack()
+                navController.currentBackStackEntry
+                    ?.savedStateHandle
+                    ?.apply {
+                        set(NavigationResult.COLOR_PICKER_KEY, navigationResult)
+                        color?.let { set(NavigationResult.COLOR_KEY, it) }
+                    }
+            }
+        )
         labelChooserDestination(
             onNavigateBack = { navigationResult, id ->
                 navController.popBackStack()
@@ -98,7 +114,7 @@ fun MyDatesNavHost(
                     ?.savedStateHandle
                     ?.apply {
                         set(NavigationResult.LABEL_KEY, navigationResult)
-                        id?.let { set(NavigationResult.LABEL_ID_KEY, id) }
+                        id?.let { set(NavigationResult.LABEL_ID_KEY, it) }
                     }
             },
             onNavigateToLabelEditor = { labelId ->

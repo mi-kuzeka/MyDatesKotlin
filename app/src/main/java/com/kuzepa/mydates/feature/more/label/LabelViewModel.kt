@@ -91,11 +91,13 @@ class LabelViewModel @Inject constructor(
             }
 
             is LabelScreenEvent.ColorChanged -> {
-                _uiState.update {
-                    it.copy(
-                        hasChanges = true,
-                        colorId = event.color
-                    )
+                event.color?.let {
+                    _uiState.update {
+                        it.copy(
+                            hasChanges = true,
+                            colorId = event.color
+                        )
+                    }
                 }
             }
 

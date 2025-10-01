@@ -86,6 +86,8 @@ dependencies {
 
     // Image cropper
     implementation(libs.android.image.cropper)
+    // Color picker
+    implementation(libs.compose.colorpicker)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

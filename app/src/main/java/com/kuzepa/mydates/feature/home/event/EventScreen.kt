@@ -44,6 +44,7 @@ import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorScreen
 import com.kuzepa.mydates.ui.components.baseeditor.HandleEditorResults
 import com.kuzepa.mydates.ui.components.dropdown.MyDatesExposedDropDown
 import com.kuzepa.mydates.ui.components.textfield.MyDatesTextField
+import com.kuzepa.mydates.ui.navigation.ImageCropperNavigationResultData
 import com.kuzepa.mydates.ui.navigation.NavigationResult
 import com.kuzepa.mydates.ui.navigation.NavigationResultData
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
@@ -59,9 +60,9 @@ internal fun EventScreen(
     onNavigateToLabelChooser: (eventLabelIdsJson: String) -> Unit,
     onNavigateToLabelEditor: (id: String?) -> Unit,
     onNavigateToImageCropper: (imageUriString: String) -> Unit,
-    eventTypeNavigationResult: NavigationResultData,
-    labelNavigationResult: NavigationResultData,
-    imageCropperNavigationResult: NavigationResultData,
+    eventTypeNavigationResultData: NavigationResultData,
+    labelNavigationResultData: NavigationResultData,
+    imageCropperNavigationResultData: ImageCropperNavigationResultData,
     removeNavigationResult: (navigationKey: String) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -153,24 +154,24 @@ internal fun EventScreen(
         )
     }
 
-    LaunchedEffect(eventTypeNavigationResult.result) {
-        if (eventTypeNavigationResult.result == NavigationResult.OK) {
+    LaunchedEffect(eventTypeNavigationResultData.result) {
+        if (eventTypeNavigationResultData.result == NavigationResult.OK) {
             viewModel.loadEventTypes()
-            viewModel.onEvent(EventScreenEvent.OnEventTypeNavigationResult(eventTypeNavigationResult))
+            viewModel.onEvent(EventScreenEvent.OnEventTypeNavigationResult(eventTypeNavigationResultData))
             removeNavigationResult(NavigationResult.EVENT_TYPE_KEY)
         }
     }
 
-    LaunchedEffect(labelNavigationResult.result) {
-        if (labelNavigationResult.result == NavigationResult.OK) {
-            viewModel.onEvent(EventScreenEvent.OnLabelNavigationResult(labelNavigationResult))
+    LaunchedEffect(labelNavigationResultData.result) {
+        if (labelNavigationResultData.result == NavigationResult.OK) {
+            viewModel.onEvent(EventScreenEvent.OnLabelNavigationResult(labelNavigationResultData))
             removeNavigationResult(NavigationResult.LABEL_KEY)
         }
     }
 
-    LaunchedEffect(imageCropperNavigationResult.result) {
-        if (imageCropperNavigationResult.result == NavigationResult.OK) {
-            viewModel.onEvent(EventScreenEvent.ImageChosen(imageCropperNavigationResult))
+    LaunchedEffect(imageCropperNavigationResultData.result) {
+        if (imageCropperNavigationResultData.result == NavigationResult.OK) {
+            viewModel.onEvent(EventScreenEvent.ImageChosen(imageCropperNavigationResultData))
             removeNavigationResult(NavigationResult.IMAGE_CROPPER_KEY)
         }
     }

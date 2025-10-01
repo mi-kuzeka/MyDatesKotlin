@@ -5,7 +5,7 @@ import com.kuzepa.mydates.domain.model.label.LabelIcon
 
 sealed class LabelScreenEvent {
     data class NameChanged(val name: String) : LabelScreenEvent()
-    data class ColorChanged(val color: Int) : LabelScreenEvent()
+    data class ColorChanged(val color: Int?) : LabelScreenEvent()
     data class IconChanged(val icon: LabelIcon) : LabelScreenEvent()
     data class NotificationStateChanged(val notificationState: NotificationFilterState) :
         LabelScreenEvent()

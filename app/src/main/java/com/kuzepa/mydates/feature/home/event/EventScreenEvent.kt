@@ -2,6 +2,7 @@ package com.kuzepa.mydates.feature.home.event
 
 import android.graphics.Bitmap
 import com.kuzepa.mydates.domain.model.label.Label
+import com.kuzepa.mydates.ui.navigation.ImageCropperNavigationResultData
 import com.kuzepa.mydates.ui.navigation.NavigationResultData
 
 sealed class EventScreenEvent {
@@ -19,7 +20,7 @@ sealed class EventScreenEvent {
     data class OnEventTypeNavigationResult(val eventTypeNavigationResult: NavigationResultData) :
         EventScreenEvent()
 
-    data class ImageChosen(val imageCropperNavigationResult: NavigationResultData) :
+    data class ImageChosen(val imageCropperNavigationResult: ImageCropperNavigationResultData) :
         EventScreenEvent()
 
     data object RotateImageLeft : EventScreenEvent()

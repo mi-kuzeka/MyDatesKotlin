@@ -34,6 +34,7 @@ import com.kuzepa.mydates.ui.components.container.chipcontainer.NotificationFilt
 import com.kuzepa.mydates.ui.components.container.selectioncontainer.ColorSelectionContainer
 import com.kuzepa.mydates.ui.components.container.selectioncontainer.IconSelectionContainer
 import com.kuzepa.mydates.ui.components.textfield.MyDatesTextField
+import com.kuzepa.mydates.ui.navigation.ColorPickerNavigationResultData
 import com.kuzepa.mydates.ui.navigation.NavigationResult
 import kotlinx.coroutines.android.awaitFrame
 
@@ -43,7 +44,10 @@ fun LabelScreen(
     viewModel: LabelViewModel = hiltViewModel(),
     id: String?,
     isOpenedFromEvent: Boolean,
-    onNavigateBack: (result: Int, id: String?) -> Unit
+    onNavigateBack: (result: Int, id: String?) -> Unit,
+    onNavigateToColorPicker: (color: Int?) -> Unit,
+    colorPickerNavigationResultData: ColorPickerNavigationResultData,
+    removeNavigationResult: (navigationKey: String) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -101,7 +105,15 @@ fun LabelScreen(
             onEvent = { viewModel.onEvent(it) },
             state = state,
             focusRequester = focusRequester,
+            onNavigateToColorPicker = onNavigateToColorPicker
         )
+    }
+
+    LaunchedEffect(colorPickerNavigationResultData.result) {
+        if (colorPickerNavigationResultData.result == NavigationResult.OK) {
+            viewModel.onEvent(LabelScreenEvent.ColorChanged(colorPickerNavigationResultData.color))
+            removeNavigationResult(NavigationResult.COLOR_PICKER_KEY)
+        }
     }
 }
 
@@ -110,6 +122,7 @@ fun LabelScreenContent(
     onEvent: (LabelScreenEvent) -> Unit,
     state: LabelUiState,
     focusRequester: FocusRequester,
+    onNavigateToColorPicker: (Int?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     BaseEditorContentBox(
@@ -136,7 +149,7 @@ fun LabelScreenContent(
                 selectedColorId = colorId,
                 onSelected = { newColor -> onEvent(LabelScreenEvent.ColorChanged(newColor)) },
                 onSelectCustomColor = { customColor ->
-                    // TODO show color picker
+                    onNavigateToColorPicker(customColor)
                 },
                 modifier = Modifier.fillMaxWidth()
             )

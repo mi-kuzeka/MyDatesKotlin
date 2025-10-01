@@ -6,6 +6,7 @@
 
     <dimen name="event_image_chooser_size">175dp</dimen>
     <dimen name="image_action_button_size">40dp</dimen>
+    <dimen name="color_preview_size">80dp</dimen>
 
     <dimen name="fab_size">56dp</dimen>
     <dimen name="icon_size">20dp</dimen>

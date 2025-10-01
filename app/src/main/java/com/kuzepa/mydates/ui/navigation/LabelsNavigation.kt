@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
+import com.kuzepa.mydates.feature.more.colorpicker.ColorPickerScreen
 import com.kuzepa.mydates.feature.more.label.LabelScreen
 import com.kuzepa.mydates.feature.more.label.labelchooser.LabelChooserScreen
 import kotlinx.serialization.Serializable
@@ -34,6 +35,10 @@ fun NavController.navigateToLabelEditor(
     isOpenedFromEvent: Boolean
 ) {
     navigate(route = LabelEditor(id = id, isOpenedFromEvent = isOpenedFromEvent))
+}
+
+fun NavController.navigateToColorPicker(color: Int?) {
+    navigate(route = ColorPicker(color = color))
 }
 
 fun NavController.navigateToBulkLabelAssignment(id: String) {
@@ -78,13 +83,48 @@ internal data class LabelEditor(
 ) : NavRoute()
 
 fun NavGraphBuilder.labelEditorDestination(
-    onNavigateBack: (result: Int, id: String?) -> Unit
+    onNavigateBack: (result: Int, id: String?) -> Unit,
+    onNavigateToColorPicker: (color: Int?) -> Unit,
 ) {
     dialog<LabelEditor> { backStackEntry ->
         val labelEditor: LabelEditor = backStackEntry.toRoute()
+        val savedStateHandle = backStackEntry.savedStateHandle
+
+        val colorPickerNavigationResult =
+            savedStateHandle.get<Int>(NavigationResult.COLOR_PICKER_KEY)
+        val color = savedStateHandle.get<Int?>(NavigationResult.COLOR_KEY)
+
         LabelScreen(
             id = labelEditor.id,
             isOpenedFromEvent = labelEditor.isOpenedFromEvent,
+            onNavigateBack = onNavigateBack,
+            onNavigateToColorPicker = onNavigateToColorPicker,
+            colorPickerNavigationResultData = ColorPickerNavigationResultData(
+                result = colorPickerNavigationResult,
+                color = color
+            ),
+            removeNavigationResult = { navigationKey ->
+                when (navigationKey) {
+                    NavigationResult.COLOR_PICKER_KEY -> {
+                        savedStateHandle.remove<Int>(NavigationResult.COLOR_PICKER_KEY)
+                        savedStateHandle.remove<Int?>(NavigationResult.COLOR_KEY)
+                    }
+                }
+            }
+        )
+    }
+}
+
+@Serializable
+internal data class ColorPicker(val color: Int?) : NavRoute()
+
+fun NavGraphBuilder.colorPickerDestination(
+    onNavigateBack: (result: Int, color: Int?) -> Unit
+) {
+    dialog<ColorPicker> { backStackEntry ->
+        val colorPicker: ColorPicker = backStackEntry.toRoute()
+        ColorPickerScreen(
+            color = colorPicker.color,
             onNavigateBack = onNavigateBack
         )
     }

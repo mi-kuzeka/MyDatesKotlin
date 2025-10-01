@@ -55,17 +55,17 @@ fun NavGraphBuilder.eventEditorDestination(
             onNavigateToLabelChooser = onNavigateToLabelChooser,
             onNavigateToLabelEditor = onNavigateToLabelEditor,
             onNavigateToImageCropper = onNavigateToImageCropper,
-            eventTypeNavigationResult = NavigationResultData(
+            eventTypeNavigationResultData = NavigationResultData(
                 result = eventTypeNavigationResult,
                 id = eventTypeId
             ),
-            labelNavigationResult = NavigationResultData(
+            labelNavigationResultData = NavigationResultData(
                 result = labelNavigationResult,
                 id = labelId
             ),
-            imageCropperNavigationResult = NavigationResultData(
+            imageCropperNavigationResultData = ImageCropperNavigationResultData(
                 result = imageCropperNavigationResult,
-                id = imagePath
+                imagePath = imagePath
             ),
             removeNavigationResult = { navigationKey ->
                 when (navigationKey) {
