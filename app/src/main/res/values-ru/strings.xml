@@ -28,6 +28,7 @@
     <string name="this_event">это событие</string>
     <string name="this_event_type">этот тип события</string>
     <string name="this_label">этот тег</string>
+    <string name="this_image">это изображение</string>
 
     <!-- Title of empty list about no events in the list -->
     <string name="no_events_title">Здесь пока нет событий</string>

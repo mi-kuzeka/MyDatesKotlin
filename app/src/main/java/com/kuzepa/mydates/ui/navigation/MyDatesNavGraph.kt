@@ -29,8 +29,20 @@ fun MyDatesNavHost(
             onNavigateToLabelChooser = { eventIds -> navController.navigateToLabelChooser(eventIds) },
             onNavigateToLabelEditor = { labelId ->
                 navController.navigateToLabelEditor(id = labelId, isOpenedFromEvent = true)
+            },
+            onNavigateToImageCropper = { imageUriString ->
+                navController.navigateToImageCropper(imageUriString = imageUriString)
             }
         )
+        imageCropperDestination(onNavigateBack = { navigationResult, filePath ->
+            navController.popBackStack()
+            navController.currentBackStackEntry
+                ?.savedStateHandle
+                ?.apply {
+                    set(NavigationResult.IMAGE_CROPPER_KEY, navigationResult)
+                    filePath?.let { set(NavigationResult.IMAGE_PATH_KEY, filePath) }
+                }
+        })
 
         appearanceDestination()
 

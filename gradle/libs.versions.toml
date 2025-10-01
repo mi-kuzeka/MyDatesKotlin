@@ -1,6 +1,7 @@
 [versions]
 activityCompose = "1.10.1"
 agp = "8.11.2"
+androidImageCropper = "4.6.0"
 hiltNavigationCompose = "1.2.0"
 appcompat = "1.7.1"
 composeBom = "2025.07.00"
@@ -18,6 +19,7 @@ roomRuntime = "2.7.2"
 pagingComposeAndroid = "3.3.6"
 
 [libraries]
+android-image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "androidImageCropper" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }

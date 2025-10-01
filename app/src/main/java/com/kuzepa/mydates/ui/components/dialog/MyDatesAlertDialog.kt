@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.domain.model.AlertDialogContent
+import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 import com.kuzepa.mydates.ui.theme.Shapes
 
@@ -33,7 +34,8 @@ fun MyDatesAlertDialog(
             Text(text = dialogContent.title)
         },
         text = {
-            Text(text = dialogContent.message)
+            if (dialogContent.message.isNotEmpty())
+                Text(text = dialogContent.message)
         },
         onDismissRequest = {
             onDismissRequest()
@@ -57,6 +59,7 @@ fun MyDatesAlertDialog(
             }
         },
         shape = Shapes.defaultDialogShape,
+        containerColor = MyDatesColors.screenBackground,
         modifier = modifier
     )
 }

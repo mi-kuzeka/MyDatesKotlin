@@ -7,6 +7,8 @@ object NavigationResult {
     const val EVENT_TYPE_ID_KEY = "event_type_id"
     const val LABEL_KEY = "label_navigation_result"
     const val LABEL_ID_KEY = "label_id"
+    const val IMAGE_CROPPER_KEY = "image_cropper"
+    const val IMAGE_PATH_KEY = "image_path"
 }
 
 data class NavigationResultData(

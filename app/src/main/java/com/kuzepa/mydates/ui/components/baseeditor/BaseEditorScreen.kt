@@ -262,7 +262,7 @@ fun BaseEditorScreenPreview() {
                     placeholder = "Select event type"
                 )
                 EventLabelContainer(
-                    label = "Tags",
+                    title = "Tags",
                     labels = listOf(),
                     onLabelClick = { },
                     onRemoveLabelClick = { },

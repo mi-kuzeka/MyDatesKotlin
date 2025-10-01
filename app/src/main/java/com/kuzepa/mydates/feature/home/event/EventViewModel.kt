@@ -2,6 +2,7 @@ package com.kuzepa.mydates.feature.home.event
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.kuzepa.mydates.common.util.image.getRotatedImage
 import com.kuzepa.mydates.domain.formatter.dateformat.DateFormatProvider
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventType
@@ -13,6 +14,8 @@ import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import com.kuzepa.mydates.domain.repository.LabelRepository
 import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectDeleting
 import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectSaving
+import com.kuzepa.mydates.domain.usecase.image.DeleteCachedImageUseCase
+import com.kuzepa.mydates.domain.usecase.image.GetImageFromCacheUseCase
 import com.kuzepa.mydates.domain.usecase.label.LabelsFetching
 import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
 import com.kuzepa.mydates.domain.usecase.validation.getErrorMessage
@@ -41,6 +44,8 @@ class EventViewModel @Inject constructor(
     private val dateFormatProvider: DateFormatProvider,
     private val validateTextNotEmpty: ValidateTextNotEmptyUseCase,
     private val validateDate: ValidateDateUseCase,
+    private val getImageFromCache: GetImageFromCacheUseCase,
+    private val deleteCachedImage: DeleteCachedImageUseCase,
     savedStateHandle: SavedStateHandle
 ) : BaseEditorViewModel<EventUiState, EventScreenEvent>() {
 
@@ -118,6 +123,23 @@ class EventViewModel @Inject constructor(
                     }
                 } catch (e: Exception) {
                     // TODO handle error
+                }
+            }
+        }
+    }
+
+    fun handleImageCropperResult(result: NavigationResultData) {
+        result.id?.let { imagePath ->
+            viewModelScope.launch {
+                val image = getImageFromCache(imagePath)
+                if (image.isSuccess) {
+                    _uiState.update {
+                        it.copy(
+                            image = image.getOrNull(),
+                            hasChanges = true
+                        )
+                    }
+                    deleteCachedImage(imagePath)
                 }
             }
         }
@@ -219,6 +241,49 @@ class EventViewModel @Inject constructor(
 
             is EventScreenEvent.OnEventTypeNavigationResult -> {
                 handleEventTypeResult(event.eventTypeNavigationResult)
+            }
+
+            is EventScreenEvent.ImageChosen -> {
+                handleImageCropperResult(event.imageCropperNavigationResult)
+            }
+
+            is EventScreenEvent.RotateImageLeft -> {
+                _uiState.value.image?.let { image ->
+                    try {
+                        val rotatedBitmap = getRotatedImage(image, -90f)
+                        _uiState.update {
+                            it.copy(
+                                image = rotatedBitmap,
+                                hasChanges = true
+                            )
+                        }
+                    } catch (_: Exception) {
+                    }
+                }
+            }
+
+            is EventScreenEvent.RotateImageRight -> {
+                _uiState.value.image?.let { image ->
+                    try {
+                        val rotatedBitmap = getRotatedImage(image, 90f)
+                        _uiState.update {
+                            it.copy(
+                                image = rotatedBitmap,
+                                hasChanges = true
+                            )
+                        }
+                    } catch (_: Exception) {
+                    }
+                }
+            }
+
+            is EventScreenEvent.DeleteImage -> {
+                _uiState.update {
+                    it.copy(
+                        image = null,
+                        hasChanges = true
+                    )
+                }
             }
 
             is EventScreenEvent.NewLabelClicked -> {

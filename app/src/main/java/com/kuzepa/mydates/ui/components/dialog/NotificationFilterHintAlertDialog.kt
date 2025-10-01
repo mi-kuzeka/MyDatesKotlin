@@ -18,6 +18,7 @@ import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.ui.components.chip.NotificationFilterChip
 import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
+import com.kuzepa.mydates.ui.theme.Shapes
 
 @Composable
 fun NotificationFilterHintAlertDialog(
@@ -84,6 +85,7 @@ fun NotificationFilterHintAlertDialog(
                 )
             }
         },
+        shape = Shapes.defaultDialogShape,
         onDismissRequest = { onCloseDialog() },
         confirmButton = {
             TextButton(

@@ -1,9 +1,10 @@
-package com.kuzepa.mydates.domain.repository
+package com.kuzepa.mydates.data.repository
 
 import com.kuzepa.mydates.data.local.database.dao.EventLabelJoinDao
 import com.kuzepa.mydates.domain.mapper.toEventLabelJoin
 import com.kuzepa.mydates.domain.mapper.toEventLabelLink
 import com.kuzepa.mydates.domain.model.EventLabelLink
+import com.kuzepa.mydates.domain.repository.EventLabelJoinRepository
 import javax.inject.Inject
 
 class DbEventLabelJoinRepository @Inject constructor(

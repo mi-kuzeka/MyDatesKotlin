@@ -1,5 +1,8 @@
 package com.kuzepa.mydates.feature.home.event
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -55,8 +58,10 @@ internal fun EventScreen(
     onNavigateToEventTypeCreator: () -> Unit,
     onNavigateToLabelChooser: (eventLabelIdsJson: String) -> Unit,
     onNavigateToLabelEditor: (id: String?) -> Unit,
+    onNavigateToImageCropper: (imageUriString: String) -> Unit,
     eventTypeNavigationResult: NavigationResultData,
     labelNavigationResult: NavigationResultData,
+    imageCropperNavigationResult: NavigationResultData,
     removeNavigationResult: (navigationKey: String) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -143,6 +148,7 @@ internal fun EventScreen(
             onNavigateToEventType = onNavigateToEventTypeCreator,
             onNavigateToLabel = onNavigateToLabelEditor,
             focusRequester = focusRequester,
+            onNavigateToImageCropper = onNavigateToImageCropper,
             state = state
         )
     }
@@ -161,6 +167,13 @@ internal fun EventScreen(
             removeNavigationResult(NavigationResult.LABEL_KEY)
         }
     }
+
+    LaunchedEffect(imageCropperNavigationResult.result) {
+        if (imageCropperNavigationResult.result == NavigationResult.OK) {
+            viewModel.onEvent(EventScreenEvent.ImageChosen(imageCropperNavigationResult))
+            removeNavigationResult(NavigationResult.IMAGE_CROPPER_KEY)
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -174,8 +187,14 @@ internal fun EventScreenContent(
     onNavigateToEventType: () -> Unit,
     onNavigateToLabel: (id: String?) -> Unit,
     focusRequester: FocusRequester,
+    onNavigateToImageCropper: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val pickMedia =
+        rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            uri?.let { onNavigateToImageCropper(it.toString()) }
+        }
+
     BaseEditorContentBox(
         addSpacerForFabButton = true,
         modifier = modifier
@@ -183,10 +202,16 @@ internal fun EventScreenContent(
         with(state) {
             EventImageChooser(
                 image,
-                chooseImage = {},
-                rotateLeft = {},
-                rotateRight = {},
-                removeImage = {},
+                chooseImage = {
+                    pickMedia.launch(
+                        PickVisualMediaRequest(
+                            ActivityResultContracts.PickVisualMedia.ImageOnly
+                        )
+                    )
+                },
+                rotateLeft = { onEvent(EventScreenEvent.RotateImageLeft) },
+                rotateRight = { onEvent(EventScreenEvent.RotateImageRight) },
+                removeImage = { onEvent(EventScreenEvent.DeleteImage) },
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
             MyDatesTextField(
@@ -231,7 +256,7 @@ internal fun EventScreenContent(
                 placeholder = stringResource(R.string.event_type_spinner_placeholder)
             )
             EventLabelContainer(
-                label = stringResource(R.string.labels_title),
+                title = stringResource(R.string.labels_title),
                 labels = labels,
                 onLabelClick = { labelId -> onNavigateToLabel(labelId) },
                 onRemoveLabelClick = { labelId ->
@@ -291,6 +316,7 @@ fun EventScreenNewEventPreview() {
             onNavigateToEventType = {},
             onNavigateToLabel = {},
             focusRequester = focusRequester,
+            onNavigateToImageCropper = {},
             state = state
         )
     }

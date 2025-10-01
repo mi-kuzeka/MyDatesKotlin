@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.domain.repository
+package com.kuzepa.mydates.data.repository
 
 import com.kuzepa.mydates.data.local.database.dao.EventDao
 import com.kuzepa.mydates.data.local.database.dao.EventLabelJoinDao
@@ -6,6 +6,7 @@ import com.kuzepa.mydates.domain.mapper.toEvent
 import com.kuzepa.mydates.domain.mapper.toEventEntity
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.SortOption
+import com.kuzepa.mydates.domain.repository.EventRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

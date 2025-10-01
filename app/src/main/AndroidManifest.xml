@@ -15,7 +15,7 @@
         <activity
             android:name=".feature.main.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:theme="@style/Theme.MyDates">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

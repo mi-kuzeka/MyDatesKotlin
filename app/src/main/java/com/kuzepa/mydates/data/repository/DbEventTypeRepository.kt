@@ -1,9 +1,10 @@
-package com.kuzepa.mydates.domain.repository
+package com.kuzepa.mydates.data.repository
 
 import com.kuzepa.mydates.data.local.database.dao.EventTypeDao
 import com.kuzepa.mydates.domain.mapper.toEventType
 import com.kuzepa.mydates.domain.mapper.toEventTypeEntity
 import com.kuzepa.mydates.domain.model.EventType
+import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

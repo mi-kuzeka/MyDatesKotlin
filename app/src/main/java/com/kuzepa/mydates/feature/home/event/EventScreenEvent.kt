@@ -13,8 +13,18 @@ sealed class EventScreenEvent {
     data class EventTypeChanged(val eventTypeName: String) : EventScreenEvent()
     data class LabelsChanged(val labels: List<Label>) : EventScreenEvent()
     data class RemoveLabelFromEvent(val labelId: String) : EventScreenEvent()
-    data class OnLabelNavigationResult(val labelNavigationResult: NavigationResultData) : EventScreenEvent()
-    data class OnEventTypeNavigationResult(val eventTypeNavigationResult: NavigationResultData) : EventScreenEvent()
+    data class OnLabelNavigationResult(val labelNavigationResult: NavigationResultData) :
+        EventScreenEvent()
+
+    data class OnEventTypeNavigationResult(val eventTypeNavigationResult: NavigationResultData) :
+        EventScreenEvent()
+
+    data class ImageChosen(val imageCropperNavigationResult: NavigationResultData) :
+        EventScreenEvent()
+
+    data object RotateImageLeft : EventScreenEvent()
+    data object RotateImageRight : EventScreenEvent()
+    data object DeleteImage : EventScreenEvent()
     object NewLabelClicked : EventScreenEvent()
     data class NotesChanged(val notes: String) : EventScreenEvent()
     object Save : EventScreenEvent()

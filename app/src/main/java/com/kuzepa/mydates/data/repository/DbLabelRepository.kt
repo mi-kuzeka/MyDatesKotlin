@@ -1,9 +1,10 @@
-package com.kuzepa.mydates.domain.repository
+package com.kuzepa.mydates.data.repository
 
 import com.kuzepa.mydates.data.local.database.dao.LabelDao
 import com.kuzepa.mydates.domain.mapper.toLabel
 import com.kuzepa.mydates.domain.mapper.toLabelEntity
 import com.kuzepa.mydates.domain.model.label.Label
+import com.kuzepa.mydates.domain.repository.LabelRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

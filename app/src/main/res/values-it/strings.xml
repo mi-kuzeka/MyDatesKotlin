@@ -28,6 +28,7 @@
     <string name="this_event">questo evento</string>
     <string name="this_event_type">questo tipo di evento</string>
     <string name="this_label">questa etichetta</string>
+    <string name="this_image">questa immagine</string>
 
     <!-- Title of empty list about no events in the list -->
     <string name="no_events_title">Nessun evento qui ancora</string>

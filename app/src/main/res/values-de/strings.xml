@@ -23,11 +23,12 @@
     <!-- Dialog button text for the option to keep editing current event [CHAR LIMIT=20] -->
     <string name="keep_editing">Bearbeiten Sie weiter</string>
     <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
-    <string name="delete_dialog_title_pattern">Dieses %1$s löschen?</string>
-    <string name="delete_dialog_msg_pattern">Diese Aktion wird das %1$s endgültig aus Ihrer Liste löschen.</string>
+    <string name="delete_dialog_title_pattern">%1$s löschen?</string>
+    <string name="delete_dialog_msg_pattern">Diese Aktion wird %1$s endgültig aus Ihrer Liste löschen.</string>
     <string name="this_event">Dieses Ereignis</string>
     <string name="this_event_type">Diesen Ereignistyp</string>
     <string name="this_label">Dieses Tag</string>
+    <string name="this_image">Dieses Bild</string>
 
     <!-- Title of empty list about no events in the list -->
     <string name="no_events_title">Hier gibt es noch keine Ereignisse</string>

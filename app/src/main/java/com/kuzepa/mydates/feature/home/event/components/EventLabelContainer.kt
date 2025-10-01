@@ -31,7 +31,7 @@ import com.kuzepa.mydates.ui.theme.Shapes
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EventLabelContainer(
-    label: String,
+    title: String,
     labels: List<Label>,
     onLabelClick: (id: String) -> Unit,
     onRemoveLabelClick: (id: String) -> Unit,
@@ -56,12 +56,13 @@ fun EventLabelContainer(
                 )
         ) {
             Text(
-                text = label,
+                text = title,
                 style = MaterialTheme.typography.labelMedium,
                 color = MyDatesColors.textFieldLabelColor
             )
             FlowRow(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(top = dimensionResource(R.dimen.padding_small)),
                 horizontalArrangement = Arrangement.spacedBy(
                     dimensionResource(R.dimen.padding_small)
@@ -118,7 +119,7 @@ fun EventLabelContainerPreview() {
         var lastId = 2
 
         EventLabelContainer(
-            label = "Tags",
+            title = "Tags",
             labels = labels,
             onLabelClick = {},
             onRemoveLabelClick = { labelId ->

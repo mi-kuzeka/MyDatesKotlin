@@ -26,6 +26,7 @@
     <string name="this_event">this event</string>
     <string name="this_event_type">this event type</string>
     <string name="this_label">this tag</string>
+    <string name="this_image">this image</string>
 
     <!-- SHARED PREFERENCES KEYS -->
 
