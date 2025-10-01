@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kuzepa.mydates.R
-import com.kuzepa.mydates.common.util.labelcolor.toInt
 import com.kuzepa.mydates.ui.components.FullScreenLoading
 import com.kuzepa.mydates.ui.components.dialog.ErrorDialog
 import com.kuzepa.mydates.ui.navigation.NavigationResult
@@ -50,8 +49,6 @@ fun ImageCropperScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val coroutineScope = rememberCoroutineScope()
     val cropperState = rememberImageCropperState(state.imageUri)
-
-    val primaryColor = MaterialTheme.colorScheme.primary.toInt()
 
     // Handle success state
     LaunchedEffect(state.savedImagePath) {
