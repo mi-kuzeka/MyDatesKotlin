@@ -32,6 +32,7 @@ data class ColorPickerNavigationResultData(
     val color: Int?
 )
 
+// TODO remove if unused
 internal fun removeNavigationResult(navigationKey: String, savedStateHandle: SavedStateHandle) {
     when (navigationKey) {
         NavigationResult.EVENT_TYPE_KEY -> {
