@@ -1,16 +1,20 @@
 package com.kuzepa.mydates.ui.navigation
 
+import androidx.compose.ui.input.key.Key.Companion.Help
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import com.kuzepa.mydates.feature.more.MoreScreen
+import com.kuzepa.mydates.ui.components.ScreenWithBottomBar
 import kotlinx.serialization.Serializable
 
 @Serializable
 internal object More : TopLevelRoute()
 
 fun NavGraphBuilder.moreDestination(
+    navController: NavHostController,
     onNavigateToEventTypes: () -> Unit,
     onNavigateToLabels: () -> Unit,
     onNavigateToDataTransfer: () -> Unit,
@@ -20,15 +24,18 @@ fun NavGraphBuilder.moreDestination(
     onNavigateToAbout: () -> Unit,
 ) {
     composable<More> {
-        MoreScreen(
-            onNavigateToEventTypes = onNavigateToEventTypes,
-            onNavigateToLabels = onNavigateToLabels,
-            onNavigateToDataTransfer = onNavigateToDataTransfer,
-            onNavigateToSettings = onNavigateToSettings,
-            onNavigateToDonation = onNavigateToDonation,
-            onNavigateToHelp = onNavigateToHelp,
-            onNavigateToAbout = onNavigateToAbout
-        )
+        ScreenWithBottomBar(navController) { modifier ->
+            MoreScreen(
+                onNavigateToEventTypes = onNavigateToEventTypes,
+                onNavigateToLabels = onNavigateToLabels,
+                onNavigateToDataTransfer = onNavigateToDataTransfer,
+                onNavigateToSettings = onNavigateToSettings,
+                onNavigateToDonation = onNavigateToDonation,
+                onNavigateToHelp = onNavigateToHelp,
+                onNavigateToAbout = onNavigateToAbout,
+                modifier = modifier
+            )
+        }
     }
 }
 

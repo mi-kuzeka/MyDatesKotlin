@@ -29,8 +29,8 @@ import com.kuzepa.mydates.ui.common.composable.MyDatesSwitch
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorDialog
 import com.kuzepa.mydates.ui.components.baseeditor.HandleEditorResults
+import com.kuzepa.mydates.ui.components.rememberOnEvent
 import com.kuzepa.mydates.ui.components.textfield.MyDatesTextField
-import com.kuzepa.mydates.ui.navigation.NavigationResult
 import kotlinx.coroutines.android.awaitFrame
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,10 +38,11 @@ import kotlinx.coroutines.android.awaitFrame
 fun EventTypeScreen(
     viewModel: EventTypeViewModel = hiltViewModel(),
     id: String?,
-    onNavigateBack: (result: Int, id: String?) -> Unit
+    onNavigateBack: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    val onEvent = viewModel.rememberOnEvent()
 
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showGoBackConfirmationDialog by remember { mutableStateOf(false) }
@@ -59,7 +60,7 @@ fun EventTypeScreen(
     HandleEditorResults(
         savingFlow = viewModel.savingFlow,
         deletingFlow = viewModel.deletingFlow,
-        onSuccess = { id -> onNavigateBack(NavigationResult.OK, id) },
+        onSuccess = { id -> onNavigateBack() },
         onError = { /* TODO show error */ }
     )
 
@@ -69,9 +70,9 @@ fun EventTypeScreen(
         ),
         isNewItem = state.isNewEventType,
         hasChanges = state.hasChanges,
-        onNavigateBack = { onNavigateBack(NavigationResult.CANCEL, null) },
-        onSave = { viewModel.onEvent(EventTypeScreenEvent.Save) },
-        onDelete = { viewModel.onEvent(EventTypeScreenEvent.Delete) },
+        onNavigateBack = { onNavigateBack() },
+        onSave = { onEvent(EventTypeScreenEvent.Save) },
+        onDelete = { onEvent(EventTypeScreenEvent.Delete) },
         showDeleteDialog = showDeleteDialog,
         showGoBackConfirmationDialog = showGoBackConfirmationDialog,
         onShowDeleteDialogChange = { showDeleteDialog = it },
@@ -89,10 +90,10 @@ fun EventTypeScreen(
             positiveButtonText = stringResource(R.string.button_delete),
             negativeButtonText = stringResource(R.string.button_cancel),
             icon = Icons.Default.Delete
-        ),
+        )
     ) {
         EventTypeScreenContent(
-            onEvent = { viewModel.onEvent(it) },
+            onEvent = onEvent,
             state = state,
             focusRequester = focusRequester,
         )

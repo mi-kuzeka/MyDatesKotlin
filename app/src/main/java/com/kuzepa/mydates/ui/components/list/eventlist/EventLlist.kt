@@ -14,7 +14,7 @@ import com.kuzepa.mydates.ui.components.list.state.EmptyView
 fun EventList(
     events: List<Event>,
     onNavigateToEventEditor: (Long) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     if (events.isEmpty()) {
         EmptyView(modifier)
@@ -26,7 +26,8 @@ fun EventList(
         ) {
             items(
                 items = events,
-                key = { event -> event.id }
+                key = { event -> event.id },
+                contentType = { it.type }
             ) { event ->
                 EventItem(
                     event = event,

@@ -4,5 +4,6 @@ import com.kuzepa.mydates.domain.model.label.Label
 
 data class LabelChooserUiState(
     val labels: List<Label> = emptyList(),
-    val selectedLabel: Label? = null
+    val selectedLabel: Label? = null,
+    val selectedLabelId: String? = null
 )

@@ -14,7 +14,7 @@ fun EventDate.getNotificationDateCode(): Int {
 fun EventDate.formatDate(formatPattern: String): String {
     val calendar = Calendar.getInstance().apply {
         if (hasYear()) set(Calendar.YEAR, year)
-        set(Calendar.MONTH, month)
+        set(Calendar.MONTH, month - 1)
         set(Calendar.DAY_OF_MONTH, day)
     }
     return SimpleDateFormat(formatPattern, Locale.getDefault()).format(calendar.time)
@@ -106,21 +106,21 @@ fun EventDate?.isDateValid(): Boolean {
     if (this == null) return false
     if (month !in 1..12) return false
     if (day !in 1..31) return false
-    return when (month) {
+    when (month) {
         2 -> {
-            if (day <= 28) true
-            if (day > 29) false
+            if (day <= 28) return true
+            if (day > 29) return false
             // only day=29 is left at this step
-            if (hasYear()) {
-                return isLeapYear(year)
+            return if (hasYear()) {
+                isLeapYear(year)
             } else {
                 true
             }
         }
 
-        4, 6, 9, 11 -> day <= 30
+        4, 6, 9, 11 -> return day <= 30
 
-        else -> true
+        else -> return true
     }
 }
 

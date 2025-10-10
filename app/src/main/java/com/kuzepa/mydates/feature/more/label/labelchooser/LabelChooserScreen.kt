@@ -29,8 +29,7 @@ import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorDialog
 import com.kuzepa.mydates.ui.components.button.MyDatesButton
 import com.kuzepa.mydates.ui.components.dropdown.LabelDropDown
-import com.kuzepa.mydates.ui.navigation.NavigationResult
-import com.kuzepa.mydates.ui.navigation.NavigationResultData
+import com.kuzepa.mydates.ui.components.rememberOnEvent
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,20 +38,22 @@ fun LabelChooserScreen(
     viewModel: LabelChooserViewModel = hiltViewModel(),
     eventLabelIdsJson: String,
     onNavigateToLabelEditor: (id: String?) -> Unit,
-    onNavigateBack: (result: Int, id: String?) -> Unit,
-    labelNavigationResult: NavigationResultData,
-    removeNavigationResult: () -> Unit,
+    onNavigateBack: () -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     var showGoBackConfirmationDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
+    val onEvent = viewModel.rememberOnEvent()
 
     LaunchedEffect(key1 = context) {
         viewModel.savingFlow.collect { event ->
             when (event) {
-                is ObjectSaving.Success -> onNavigateBack(NavigationResult.OK, event.id)
+                is ObjectSaving.Success -> {
+                    onNavigateBack()
+                }
+
                 is ObjectSaving.Error -> {
                     //TODO handle error
                 }
@@ -64,8 +65,8 @@ fun LabelChooserScreen(
         title = stringResource(R.string.choose_label_title),
         isNewItem = true,
         hasChanges = false,
-        onNavigateBack = { onNavigateBack(NavigationResult.CANCEL, null) },
-        onSave = { viewModel.onEvent(LabelChooserScreenEvent.Save) },
+        onNavigateBack = { onNavigateBack() },
+        onSave = { onEvent(LabelChooserScreenEvent.Save) },
         onDelete = { },
         showDeleteDialog = false,
         showGoBackConfirmationDialog = showGoBackConfirmationDialog,
@@ -77,17 +78,10 @@ fun LabelChooserScreen(
         confirmationButtonText = stringResource(R.string.button_ok)
     ) {
         LabelChooserScreenContent(
-            onEvent = { viewModel.onEvent(it) },
+            onEvent = { onEvent(it) },
             state = state,
             onNavigateToLabelEditor = onNavigateToLabelEditor
         )
-    }
-
-    LaunchedEffect(labelNavigationResult.result) {
-        if (labelNavigationResult.result == NavigationResult.OK) {
-            viewModel.onEvent(LabelChooserScreenEvent.OnLabelNavigationResult(labelNavigationResult))
-            removeNavigationResult()
-        }
     }
 }
 

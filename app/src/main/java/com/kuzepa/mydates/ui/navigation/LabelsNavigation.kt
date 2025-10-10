@@ -14,13 +14,13 @@ import kotlinx.serialization.Serializable
 internal object Labels : NavRoute()
 
 fun NavGraphBuilder.labelsDestination(
-    onNavigateToLabelEditor: (id: String?) -> Unit,
+    onNavigateToLabelEditor: (id: String?, fromEvent: Boolean, showDeleteButton: Boolean) -> Unit,
     onNavigateToBulkLabelAssignment: (id: String) -> Unit,
     onNavigateBack: () -> Unit
 ) {
     composable<Labels> {
 //                LabelsScreen(
-        //                onNavigateToLabelEditor = onNavigateToLabelEditor,
+        //                onNavigateToLabelEditor = { onNavigateToLabelEditor(it, false, true },
         //                onNavigateToBulkLabelAssignment = onNavigateToBulkLabelAssignment
         //                )
     }
@@ -32,9 +32,10 @@ fun NavController.navigateToLabelChooser(eventLabelIdsJson: String) {
 
 fun NavController.navigateToLabelEditor(
     id: String?,
-    isOpenedFromEvent: Boolean
+    isOpenedFromEvent: Boolean,
+    showDeleteButton: Boolean
 ) {
-    navigate(route = LabelEditor(id = id, isOpenedFromEvent = isOpenedFromEvent))
+    navigate(route = LabelEditor(id, isOpenedFromEvent, showDeleteButton))
 }
 
 fun NavController.navigateToColorPicker(color: Int?) {
@@ -49,29 +50,15 @@ fun NavController.navigateToBulkLabelAssignment(id: String) {
 internal data class LabelChooser(val eventLabelIdsJson: String) : NavRoute()
 
 fun NavGraphBuilder.labelChooserDestination(
-    onNavigateBack: (result: Int, id: String?) -> Unit,
-    onNavigateToLabelEditor: (id: String?) -> Unit,
+    onNavigateBack: () -> Unit,
+    onNavigateToLabelEditor: (id: String?, fromEvent: Boolean, showDeleteButton: Boolean) -> Unit,
 ) {
     dialog<LabelChooser> { backStackEntry ->
         val labelChooser: LabelChooser = backStackEntry.toRoute()
-        val savedStateHandle = backStackEntry.savedStateHandle
-
-        val labelNavigationResult =
-            savedStateHandle.get<Int>(NavigationResult.LABEL_KEY)
-        val labelId = savedStateHandle.get<String?>(NavigationResult.LABEL_ID_KEY)
-
         LabelChooserScreen(
             eventLabelIdsJson = labelChooser.eventLabelIdsJson,
             onNavigateBack = onNavigateBack,
-            onNavigateToLabelEditor = onNavigateToLabelEditor,
-            labelNavigationResult = NavigationResultData(
-                result = labelNavigationResult,
-                id = labelId
-            ),
-            removeNavigationResult = {
-                savedStateHandle.remove<Int>(NavigationResult.LABEL_KEY)
-                savedStateHandle.remove<String?>(NavigationResult.LABEL_ID_KEY)
-            }
+            onNavigateToLabelEditor = { onNavigateToLabelEditor(it, false, false) },
         )
     }
 }
@@ -79,38 +66,22 @@ fun NavGraphBuilder.labelChooserDestination(
 @Serializable
 internal data class LabelEditor(
     val id: String?,
-    val isOpenedFromEvent: Boolean
+    val isOpenedFromEvent: Boolean,
+    val showDeleteButton: Boolean
 ) : NavRoute()
 
 fun NavGraphBuilder.labelEditorDestination(
-    onNavigateBack: (result: Int, id: String?) -> Unit,
+    onNavigateBack: () -> Unit,
     onNavigateToColorPicker: (color: Int?) -> Unit,
 ) {
     dialog<LabelEditor> { backStackEntry ->
         val labelEditor: LabelEditor = backStackEntry.toRoute()
-        val savedStateHandle = backStackEntry.savedStateHandle
-
-        val colorPickerNavigationResult =
-            savedStateHandle.get<Int>(NavigationResult.COLOR_PICKER_KEY)
-        val color = savedStateHandle.get<Int?>(NavigationResult.COLOR_KEY)
-
         LabelScreen(
             id = labelEditor.id,
             isOpenedFromEvent = labelEditor.isOpenedFromEvent,
+            showDeleteButton = labelEditor.showDeleteButton,
             onNavigateBack = onNavigateBack,
             onNavigateToColorPicker = onNavigateToColorPicker,
-            colorPickerNavigationResultData = ColorPickerNavigationResultData(
-                result = colorPickerNavigationResult,
-                color = color
-            ),
-            removeNavigationResult = { navigationKey ->
-                when (navigationKey) {
-                    NavigationResult.COLOR_PICKER_KEY -> {
-                        savedStateHandle.remove<Int>(NavigationResult.COLOR_PICKER_KEY)
-                        savedStateHandle.remove<Int?>(NavigationResult.COLOR_KEY)
-                    }
-                }
-            }
         )
     }
 }
@@ -119,7 +90,7 @@ fun NavGraphBuilder.labelEditorDestination(
 internal data class ColorPicker(val color: Int?) : NavRoute()
 
 fun NavGraphBuilder.colorPickerDestination(
-    onNavigateBack: (result: Int, color: Int?) -> Unit
+    onNavigateBack: () -> Unit
 ) {
     dialog<ColorPicker> { backStackEntry ->
         val colorPicker: ColorPicker = backStackEntry.toRoute()

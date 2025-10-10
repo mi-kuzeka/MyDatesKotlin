@@ -1,12 +1,13 @@
 package com.kuzepa.mydates.feature.more.label.labelchooser
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.domain.repository.LabelRepository
 import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectSaving
-import com.kuzepa.mydates.ui.navigation.NavigationResultData
+import com.kuzepa.mydates.ui.components.BaseViewModel
+import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
+import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -22,8 +23,9 @@ import javax.inject.Inject
 @HiltViewModel
 class LabelChooserViewModel @Inject constructor(
     private val labelRepository: LabelRepository,
+    private val navigationDialogResult: NavigationDialogResult,
     savedStateHandle: SavedStateHandle
-) : ViewModel() {
+) : BaseViewModel<LabelChooserScreenEvent>() {
     private val eventLabelIdsJson: String? by lazy { savedStateHandle.get<String>("eventLabelIdsJson") }
     private val _uiState = MutableStateFlow(LabelChooserUiState())
     val uiState: StateFlow<LabelChooserUiState> = _uiState.asStateFlow()
@@ -33,6 +35,7 @@ class LabelChooserViewModel @Inject constructor(
 
     init {
         loadLabels()
+        observeDialogResults()
     }
 
     private fun loadLabels() {
@@ -51,10 +54,15 @@ class LabelChooserViewModel @Inject constructor(
                     } else {
                         labels.filter { it.id !in eventLabelIdList }
                     }
+                    val selectedLabel: Label? = _uiState.value.selectedLabelId?.let { id ->
+                        availableLabels.firstOrNull { it.id == id }
+                    } ?: availableLabels.firstOrNull()
+
                     _uiState.update {
                         it.copy(
                             labels = availableLabels,
-                            selectedLabel = availableLabels.firstOrNull()
+                            selectedLabel = selectedLabel,
+                            selectedLabelId = selectedLabel?.id
                         )
                     }
                 }
@@ -64,65 +72,45 @@ class LabelChooserViewModel @Inject constructor(
         }
     }
 
-    fun onEvent(event: LabelChooserScreenEvent) {
+    private fun observeDialogResults() {
+        viewModelScope.launch {
+            navigationDialogResult.dialogResultData.collect { result ->
+                when (result) {
+                    is DialogResultData.LabelResult -> {
+                        handleLabelResult(result.id)
+                        navigationDialogResult.clearDialogResultData()
+                    }
+
+                    else -> {}
+                }
+            }
+        }
+    }
+
+    override fun onEvent(event: LabelChooserScreenEvent) {
         when (event) {
             is LabelChooserScreenEvent.LabelSelected -> {
                 _uiState.update {
                     it.copy(
-                        selectedLabel = event.label
+                        selectedLabel = event.label,
+                        selectedLabelId = event.label.id
                     )
                 }
-            }
-
-            is LabelChooserScreenEvent.OnLabelNavigationResult -> {
-                handleLabelResult(event.navigationResult)
             }
 
             is LabelChooserScreenEvent.Save -> {
+                val id = _uiState.value.selectedLabelId
+                navigationDialogResult.setDialogResultData(DialogResultData.EventLabelResult(id))
                 viewModelScope.launch {
-                    savingLabelChooserChannel.send(
-                        ObjectSaving.Success(id = _uiState.value.selectedLabel?.id)
-                    )
+                    savingLabelChooserChannel.send(ObjectSaving.Success(id = id))
                 }
             }
         }
     }
 
-    private fun handleLabelResult(result: NavigationResultData) {
-        result.id?.let { id ->
-            val label: Label? = _uiState.value.labels.firstOrNull { it.id == id }
-            label?.let {
-                updateLabel(it)
-            } ?: {
-                viewModelScope.launch {
-                    try {
-                        val newLabel = labelRepository.getLabelById(id)
-                        newLabel?.let { addLabel(it) }
-                    } catch (e: Exception) {
-                        // TODO handle error
-                    }
-                }
-            }
-        }
-    }
-
-    private fun addLabel(label: Label) {
-        _uiState.update {
-            it.copy(
-                labels = it.labels + label,
-                selectedLabel = label
-            )
-        }
-    }
-
-    private fun updateLabel(newLabel: Label) {
-        _uiState.update {
-            it.copy(
-                labels = it.labels.map { oldLabel ->
-                    if (oldLabel.id == newLabel.id) newLabel else oldLabel
-                },
-                selectedLabel = newLabel
-            )
+    private fun handleLabelResult(labelId: String?) {
+        labelId?.let { id ->
+            _uiState.update { it.copy(selectedLabelId = id) }
         }
     }
 }

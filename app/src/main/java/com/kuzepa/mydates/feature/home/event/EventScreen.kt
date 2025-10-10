@@ -43,10 +43,9 @@ import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorScreen
 import com.kuzepa.mydates.ui.components.baseeditor.HandleEditorResults
 import com.kuzepa.mydates.ui.components.dropdown.MyDatesExposedDropDown
+import com.kuzepa.mydates.ui.components.rememberOnEvent
 import com.kuzepa.mydates.ui.components.textfield.MyDatesTextField
-import com.kuzepa.mydates.ui.navigation.ImageCropperNavigationResultData
 import com.kuzepa.mydates.ui.navigation.NavigationResult
-import com.kuzepa.mydates.ui.navigation.NavigationResultData
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 import kotlinx.coroutines.android.awaitFrame
 
@@ -55,18 +54,15 @@ import kotlinx.coroutines.android.awaitFrame
 internal fun EventScreen(
     viewModel: EventViewModel = hiltViewModel(),
     eventId: Long?,
-    onNavigateBack: () -> Unit,
+    onNavigateBack: (result: Int, eventMonth: Int?) -> Unit,
     onNavigateToEventTypeCreator: () -> Unit,
     onNavigateToLabelChooser: (eventLabelIdsJson: String) -> Unit,
     onNavigateToLabelEditor: (id: String?) -> Unit,
     onNavigateToImageCropper: (imageUriString: String) -> Unit,
-    eventTypeNavigationResultData: NavigationResultData,
-    labelNavigationResultData: NavigationResultData,
-    imageCropperNavigationResultData: ImageCropperNavigationResultData,
-    removeNavigationResult: (navigationKey: String) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    val onEvent = viewModel.rememberOnEvent()
 
     var showGoBackDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
@@ -85,7 +81,7 @@ internal fun EventScreen(
     HandleEditorResults(
         savingFlow = viewModel.savingFlow,
         deletingFlow = viewModel.deletingFlow,
-        onSuccess = { onNavigateBack() },
+        onSuccess = { onNavigateBack(NavigationResult.OK, viewModel.eventMonth) },
         onError = { /* TODO show error */ }
     )
 
@@ -115,11 +111,11 @@ internal fun EventScreen(
         hasChanges = state.hasChanges,
         onNavigateBack = {
             showGoBackDialog = false
-            onNavigateBack()
+            onNavigateBack(NavigationResult.CANCEL, null)
         },
-        onSave = { viewModel.onEvent(EventScreenEvent.Save) },
+        onSave = { onEvent(EventScreenEvent.Save) },
         onDelete = {
-            viewModel.onEvent(EventScreenEvent.Delete)
+            onEvent(EventScreenEvent.Delete)
             showDeleteDialog = false
         },
         showGoBackDialog = showGoBackDialog,
@@ -139,10 +135,10 @@ internal fun EventScreen(
             negativeButtonText = stringResource(R.string.button_cancel),
             icon = Icons.Default.Delete
         ),
-        scrollBehavior = scrollBehavior,
+        scrollBehavior = scrollBehavior
     ) {
         EventScreenContent(
-            onEvent = { viewModel.onEvent(it) },
+            onEvent = onEvent,
             dateMask = viewModel.getDateMask(),
             dateDelimiter = viewModel.getMaskDelimiter(),
             eventTypes = state.availableEventTypes.map { it.name },
@@ -152,28 +148,6 @@ internal fun EventScreen(
             onNavigateToImageCropper = onNavigateToImageCropper,
             state = state
         )
-    }
-
-    LaunchedEffect(eventTypeNavigationResultData.result) {
-        if (eventTypeNavigationResultData.result == NavigationResult.OK) {
-            viewModel.loadEventTypes()
-            viewModel.onEvent(EventScreenEvent.OnEventTypeNavigationResult(eventTypeNavigationResultData))
-            removeNavigationResult(NavigationResult.EVENT_TYPE_KEY)
-        }
-    }
-
-    LaunchedEffect(labelNavigationResultData.result) {
-        if (labelNavigationResultData.result == NavigationResult.OK) {
-            viewModel.onEvent(EventScreenEvent.OnLabelNavigationResult(labelNavigationResultData))
-            removeNavigationResult(NavigationResult.LABEL_KEY)
-        }
-    }
-
-    LaunchedEffect(imageCropperNavigationResultData.result) {
-        if (imageCropperNavigationResultData.result == NavigationResult.OK) {
-            viewModel.onEvent(EventScreenEvent.ImageChosen(imageCropperNavigationResultData))
-            removeNavigationResult(NavigationResult.IMAGE_CROPPER_KEY)
-        }
     }
 }
 

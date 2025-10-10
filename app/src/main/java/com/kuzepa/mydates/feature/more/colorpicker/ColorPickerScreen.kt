@@ -34,9 +34,8 @@ import com.github.skydoves.colorpicker.compose.ColorEnvelope
 import com.github.skydoves.colorpicker.compose.HsvColorPicker
 import com.github.skydoves.colorpicker.compose.rememberColorPickerController
 import com.kuzepa.mydates.R
-import com.kuzepa.mydates.common.util.labelcolor.toInt
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorDialog
-import com.kuzepa.mydates.ui.navigation.NavigationResult
+import com.kuzepa.mydates.ui.components.rememberOnEvent
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 import com.kuzepa.mydates.ui.theme.Shapes
 
@@ -45,24 +44,28 @@ import com.kuzepa.mydates.ui.theme.Shapes
 internal fun ColorPickerScreen(
     viewModel: ColorPickerViewModel = hiltViewModel(),
     color: Int?,
-    onNavigateBack: (result: Int, color: Int?) -> Unit
+    onNavigateBack: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    val onEvent = viewModel.rememberOnEvent()
 
     BaseEditorDialog(
         title = stringResource(R.string.color_picker_title),
         isNewItem = false,
         hasChanges = false,
-        onNavigateBack = { onNavigateBack(NavigationResult.CANCEL, null) },
-        onSave = { onNavigateBack(NavigationResult.OK, state.color.toInt()) },
+        onNavigateBack = { onNavigateBack() },
+        onSave = {
+            onEvent(ColorPickerScreenEvent.SetDialogResult)
+            onNavigateBack()
+        },
         showDeleteButton = false,
         scrollBehavior = scrollBehavior
     ) {
         ColorPickerScreenContent(
             color = state.color,
             onColorChanged = { newColor ->
-                viewModel.onEvent(ColorPickerScreenEvent.ColorChanged(newColor))
+                onEvent(ColorPickerScreenEvent.ColorChanged(newColor))
             }
         )
     }

@@ -4,51 +4,44 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 
 @Composable
 fun MyDatesNavHost(
-    navController: NavHostController,
-    modifier: Modifier
+    navController: NavHostController
 ) {
+    val navigationActions = remember(navController) {
+        NavigationActions(navController)
+    }
+
     NavHost(
         navController = navController,
         startDestination = Home,
         enterTransition = { fadeIn(animationSpec = tween(700)) },
-        exitTransition = { fadeOut(animationSpec = tween(400)) },
-        modifier = modifier
+        exitTransition = { fadeOut(animationSpec = tween(400)) }
     ) {
-        eventsDestination(onNavigateToEventEditor = { eventId ->
-            navController.navigateToEventEditor(id = eventId)
-        })
-        eventEditorDestination(
-            onNavigateBack = { navController.popBackStack() },
-            onNavigateToEventTypeCreator = { navController.navigateToEventTypeEditor(null) },
-            onNavigateToLabelChooser = { eventIds -> navController.navigateToLabelChooser(eventIds) },
-            onNavigateToLabelEditor = { labelId ->
-                navController.navigateToLabelEditor(id = labelId, isOpenedFromEvent = true)
-            },
-            onNavigateToImageCropper = { imageUriString ->
-                navController.navigateToImageCropper(imageUriString = imageUriString)
-            }
+        eventsDestination(
+            navController = navController,
+            onNavigateToEventEditor = navigationActions::navigateToEventEditor
         )
-        imageCropperDestination(onNavigateBack = { navigationResult, filePath ->
-            navController.popBackStack()
-            navController.currentBackStackEntry
-                ?.savedStateHandle
-                ?.apply {
-                    set(NavigationResult.IMAGE_CROPPER_KEY, navigationResult)
-                    filePath?.let { set(NavigationResult.IMAGE_PATH_KEY, it) }
-                }
-        })
+        eventEditorDestination(
+            onNavigateBack = navigationActions::onNavigateBackFromEventEditor,
+            onNavigateToEventTypeCreator = navigationActions::navigateToEventTypeCreator,
+            onNavigateToLabelChooser = navigationActions::navigateToLabelChooser,
+            onNavigateToLabelEditor = navigationActions::navigateToLabelEditor,
+            onNavigateToImageCropper = navigationActions::navigateToImageCropper
+        )
+        imageCropperDestination(onNavigateBack = navigationActions::onNavigateBack)
 
-        appearanceDestination()
+        appearanceDestination(navController = navController)
 
-        searchDestination()
+        searchDestination(navController = navController)
 
         moreDestination(
+            navController = navController,
             onNavigateToEventTypes = { navController.navigateToEventTypes() },
             onNavigateToLabels = { navController.navigateToLabels() },
             onNavigateToDataTransfer = { navController.navigateToDataTransfer() },
@@ -58,101 +51,126 @@ fun MyDatesNavHost(
             onNavigateToAbout = { navController.navigateToAbout() },
         )
         eventTypesDestination(
-            onNavigateToEventTypeEditor = { eventTypeId ->
-                navController.navigateToEventTypeEditor(eventTypeId)
-            },
-            onNavigateBack = { navController.popBackStack() }
+            onNavigateToEventTypeEditor = navigationActions::navigateToEventTypeEditor,
+            onNavigateBack = navigationActions::onNavigateBack
         )
-        eventTypeEditorDestination(onNavigateBack = { navigationResult, id ->
-            navController.popBackStack()
-            navController.currentBackStackEntry
-                ?.savedStateHandle
-                ?.apply {
-                    set(NavigationResult.EVENT_TYPE_KEY, navigationResult)
-                    id?.let { set(NavigationResult.EVENT_TYPE_ID_KEY, it) }
-                }
-        })
+        eventTypeEditorDestination(
+            onNavigateBack = navigationActions::onNavigateBack
+        )
 
         labelsDestination(
-            onNavigateToLabelEditor = { labelId ->
-                navController.navigateToLabelEditor(labelId, isOpenedFromEvent = false)
-            },
+            onNavigateToLabelEditor = navigationActions::navigateToLabelEditor,
             onNavigateToBulkLabelAssignment = { labelId ->
                 navController.navigateToBulkLabelAssignment(labelId)
             },
-            onNavigateBack = { navController.popBackStack() }
+            onNavigateBack = navigationActions::onNavigateBack
         )
         labelEditorDestination(
-            onNavigateBack = { navigationResult, id ->
-                navController.popBackStack()
-                navController.currentBackStackEntry
-                    ?.savedStateHandle
-                    ?.apply {
-                        set(NavigationResult.LABEL_KEY, navigationResult)
-                        id?.let { set(NavigationResult.LABEL_ID_KEY, it) }
-                    }
-            },
-            onNavigateToColorPicker = { color ->
-                navController.navigateToColorPicker(color)
-            }
+            onNavigateBack = navigationActions::onNavigateBack,
+            onNavigateToColorPicker = navigationActions::navigateToColorPicker
         )
         colorPickerDestination(
-            onNavigateBack = { navigationResult, color ->
-                navController.popBackStack()
-                navController.currentBackStackEntry
-                    ?.savedStateHandle
-                    ?.apply {
-                        set(NavigationResult.COLOR_PICKER_KEY, navigationResult)
-                        color?.let { set(NavigationResult.COLOR_KEY, it) }
-                    }
-            }
+            onNavigateBack = navigationActions::onNavigateBack
         )
         labelChooserDestination(
-            onNavigateBack = { navigationResult, id ->
-                navController.popBackStack()
-                navController.currentBackStackEntry
-                    ?.savedStateHandle
-                    ?.apply {
-                        set(NavigationResult.LABEL_KEY, navigationResult)
-                        id?.let { set(NavigationResult.LABEL_ID_KEY, it) }
-                    }
-            },
-            onNavigateToLabelEditor = { labelId ->
-                navController.navigateToLabelEditor(id = labelId, isOpenedFromEvent = true)
-            }
+            onNavigateBack = navigationActions::onNavigateBack,
+            onNavigateToLabelEditor = navigationActions::navigateToLabelEditor
         )
-        bulkLabelAssignmentDestination(onNavigateBack = { navController.popBackStack() })
+        bulkLabelAssignmentDestination(onNavigateBack = navigationActions::onNavigateBack)
 
         dataTransferDestination(
             onNavigateToContactsImport = { navController.navigateToContactsImport() },
             onNavigateToCsvImport = { navController.navigateToCsvImport() },
             onNavigateToCsvExport = { navController.navigateToCsvExport() },
-            onNavigateBack = { navController.popBackStack() }
+            onNavigateBack = navigationActions::onNavigateBack
         )
-        contactsImportDestination(onNavigateBack = { navController.popBackStack() })
-        csvImportDestination(onNavigateBack = { navController.popBackStack() })
-        csvExportDestination(onNavigateBack = { navController.popBackStack() })
+        contactsImportDestination(onNavigateBack = navigationActions::onNavigateBack)
+        csvImportDestination(onNavigateBack = navigationActions::onNavigateBack)
+        csvExportDestination(onNavigateBack = navigationActions::onNavigateBack)
 
         settingsDestination(
             onNavigateToNotificationSettings = { navController.navigateToNotificationSettings() },
             onNavigateToNotificationFilter = { navController.navigateToNotificationFilter() },
-            onNavigateBack = { navController.popBackStack() }
+            onNavigateBack = navigationActions::onNavigateBack
         )
-        notificationSettingsDestination(onNavigateBack = { navController.popBackStack() })
-        notificationFilterDestination(onNavigateBack = { navController.popBackStack() })
+        notificationSettingsDestination(onNavigateBack = navigationActions::onNavigateBack)
+        notificationFilterDestination(onNavigateBack = navigationActions::onNavigateBack)
 
-        donationDestination(onNavigateBack = { navController.popBackStack() })
+        donationDestination(onNavigateBack = navigationActions::onNavigateBack)
 
         helpDestination(
             onNavigateToNotificationTroubleshoot =
                 { navController.navigateToNotificationTroubleshoot() },
-            onNavigateBack = { navController.popBackStack() }
+            onNavigateBack = navigationActions::onNavigateBack
         )
-        notificationTroubleshootDestination(onNavigateBack = { navController.popBackStack() })
+        notificationTroubleshootDestination(onNavigateBack = navigationActions::onNavigateBack)
 
         aboutDestination(
             onNavigateToThirdPartyLibraries = { navController.navigateToThirdPartyLibraries() },
-            onNavigateBack = { navController.popBackStack() }
+            onNavigateBack = navigationActions::onNavigateBack
         )
+    }
+}
+
+@Stable
+class NavigationActions(private val navController: NavHostController) {
+    fun navigateToEventEditor(eventId: Long?) {
+        navController.navigateToEventEditor(id = eventId)
+    }
+
+    fun onNavigateBackFromEventEditor(result: Int, eventMonth: Int?) {
+        onNavigateBackWithResult(
+            resultKey = NavigationResult.EVENT_KEY,
+            result = result,
+            dataKey = NavigationResult.EVENT_MONTH_KEY,
+            data = eventMonth
+        )
+    }
+
+    fun navigateToImageCropper(imageUriString: String) {
+        navController.navigateToImageCropper(imageUriString = imageUriString)
+    }
+
+    fun navigateToEventTypeCreator() {
+        navigateToEventTypeEditor(null)
+    }
+
+    fun navigateToEventTypeEditor(eventTypeId: String?) {
+        navController.navigateToEventTypeEditor(eventTypeId)
+    }
+
+    fun navigateToLabelChooser(eventLabelIdsJson: String) {
+        navController.navigateToLabelChooser(eventLabelIdsJson)
+    }
+
+    fun navigateToLabelEditor(labelId: String?, fromEvent: Boolean, showDeleteButton: Boolean) {
+        navController.navigateToLabelEditor(
+            id = labelId,
+            isOpenedFromEvent = fromEvent,
+            showDeleteButton = showDeleteButton
+        )
+    }
+
+    fun navigateToColorPicker(color: Int?) {
+        navController.navigateToColorPicker(color)
+    }
+
+    fun onNavigateBack() = navController.popBackStack()
+
+    private fun <T> onNavigateBackWithResult(
+        resultKey: String,
+        result: Int,
+        dataKey: String,
+        data: T
+    ) {
+        onNavigateBack()
+        if (result == NavigationResult.OK) {
+            navController.currentBackStackEntry
+                ?.savedStateHandle
+                ?.apply {
+                    set(resultKey, result)
+                    data?.let { set(dataKey, it) }
+                }
+        }
     }
 }

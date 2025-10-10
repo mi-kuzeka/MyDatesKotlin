@@ -36,7 +36,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.ui.components.FullScreenLoading
 import com.kuzepa.mydates.ui.components.dialog.ErrorDialog
-import com.kuzepa.mydates.ui.navigation.NavigationResult
 import com.kuzepa.mydates.ui.theme.MyDatesColors
 import kotlinx.coroutines.launch
 
@@ -44,7 +43,7 @@ import kotlinx.coroutines.launch
 fun ImageCropperScreen(
     viewModel: ImageCropperViewModel = hiltViewModel(),
     imageUriString: String,
-    onNavigateBack: (result: Int, filePath: String?) -> Unit
+    onNavigateBack: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val coroutineScope = rememberCoroutineScope()
@@ -53,11 +52,11 @@ fun ImageCropperScreen(
     // Handle success state
     LaunchedEffect(state.savedImagePath) {
         state.savedImagePath?.let { path ->
-            onNavigateBack(NavigationResult.OK, path)
+            onNavigateBack()
         }
     }
 
-    BackHandler(onBack = { onNavigateBack(NavigationResult.CANCEL, null) })
+    BackHandler(onBack = { onNavigateBack() })
 
     Column(
         modifier = Modifier
@@ -81,7 +80,7 @@ fun ImageCropperScreen(
                     }
                 }
             },
-            onClose = { onNavigateBack(NavigationResult.CANCEL, null) }
+            onClose = { onNavigateBack() }
         )
     }
 

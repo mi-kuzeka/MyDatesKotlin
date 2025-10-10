@@ -1,8 +1,10 @@
 package com.kuzepa.mydates.feature.more.eventtype
 
+import androidx.compose.runtime.Immutable
 import com.kuzepa.mydates.domain.model.EventType
 import com.kuzepa.mydates.domain.model.NotificationFilterState
 
+@Immutable
 data class EventTypeUiState(
     val isNewEventType: Boolean = true,
     val eventType: EventType? = null,

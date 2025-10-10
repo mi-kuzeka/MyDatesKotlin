@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SecondaryScrollableTabRow
@@ -18,8 +17,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.kuzepa.mydates.R
+import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.Shapes
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -28,19 +29,21 @@ import kotlinx.coroutines.launch
 @Composable
 fun CustomTabs(
     tabList: List<String>,
-    pagerState: PagerState,
+    currentPage: Int,
     updateCurrentPage: (Int) -> Unit,
-    coroutineScope: CoroutineScope
+    coroutineScope: CoroutineScope,
+    modifier: Modifier = Modifier
 ) {
     SecondaryScrollableTabRow(
-        selectedTabIndex = pagerState.currentPage,
+        selectedTabIndex = currentPage,
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         edgePadding = 0.dp,
         indicator = { },
-        divider = {}
+        divider = {},
+        modifier = modifier
     ) {
         tabList.forEachIndexed { index, title ->
-            val selected = pagerState.currentPage == index
+            val selected = currentPage == index
             val modifier = Modifier
                 .clickable(
                     // Remove ripple effect
@@ -50,11 +53,10 @@ fun CustomTabs(
                     // onClick event
                     coroutineScope.launch {
                         updateCurrentPage(index)
-                        pagerState.animateScrollToPage(index)
                     }
                 }
             val backgroundColor = if (selected) {
-                MaterialTheme.colorScheme.onSecondary
+                MyDatesColors.containerColor
             } else {
                 Color.Unspecified
             }
@@ -72,8 +74,13 @@ fun CustomTabs(
             ) {
                 Text(
                     text = title,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = if (selected) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.secondary
+                    },
                     style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = if (selected) FontWeight.Medium else FontWeight.Normal,
                     modifier = Modifier
                         .padding(vertical = dimensionResource(R.dimen.padding_small))
                 )

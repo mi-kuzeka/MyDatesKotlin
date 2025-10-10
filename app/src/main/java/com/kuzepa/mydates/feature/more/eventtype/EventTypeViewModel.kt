@@ -12,6 +12,8 @@ import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
 import com.kuzepa.mydates.domain.usecase.validation.getErrorMessage
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateNameNotEmptyAndDistinctUseCase
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorViewModel
+import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
+import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,6 +31,7 @@ class EventTypeViewModel @Inject constructor(
     private val eventRepository: EventRepository,
     private val eventTypeRepository: EventTypeRepository,
     private val validateNameNotEmptyAndDistinct: ValidateNameNotEmptyAndDistinctUseCase,
+    private val navigationDialogResult: NavigationDialogResult,
     savedStateHandle: SavedStateHandle
 ) : BaseEditorViewModel<EventTypeUiState, EventTypeScreenEvent>() {
     private val eventTypeId: String? = savedStateHandle.get<String>("id")
@@ -168,6 +171,7 @@ class EventTypeViewModel @Inject constructor(
                         )
                     )
                 }
+                navigationDialogResult.setDialogResultData(DialogResultData.EventTypeResult(id))
                 savingEventTypeChannel.send(ObjectSaving.Success(id = id))
             } catch (e: Exception) {
                 // TODO handle error

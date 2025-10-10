@@ -93,6 +93,7 @@ fun IconSelectionContainer(
             }
         }
         if (isExpanded) {
+            val chipSize = dimensionResource(R.dimen.color_chip_size)
             FlowRow(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -106,7 +107,7 @@ fun IconSelectionContainer(
                 allIcons.forEach { labelIcon ->
                     key(labelIcon.id) {
                         IconChip(
-                            chipSize = dimensionResource(R.dimen.color_chip_size),
+                            chipSize = chipSize,
                             color = color,
                             iconType = labelIcon.iconType,
                             iconDrawableResId = labelIcon.drawableRes,

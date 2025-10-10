@@ -1,23 +1,27 @@
 package com.kuzepa.mydates.feature.home
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateSetOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kuzepa.mydates.domain.model.MonthPager
 import com.kuzepa.mydates.feature.home.components.CustomTabs
@@ -25,136 +29,124 @@ import com.kuzepa.mydates.ui.components.list.eventlist.EventList
 import com.kuzepa.mydates.ui.components.list.state.EmptyView
 import com.kuzepa.mydates.ui.components.list.state.ErrorView
 import com.kuzepa.mydates.ui.components.list.state.LoadingView
+import com.kuzepa.mydates.ui.components.rememberOnEvent
+import com.kuzepa.mydates.ui.theme.MyDatesColors
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun HomeScreen(
+    viewModel: HomeViewModel = hiltViewModel(),
     onNavigateToEventEditor: (Long) -> Unit,
-    viewModel: HomeViewModel = hiltViewModel()
+    onMonthChanged: ((Int) -> Unit) -> Unit,
+    modifier: Modifier
 ) {
-    //TODO fill with real data from resources
-    val tabs =
-        listOf(
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-        )
-    // TODO replace firstPage with current month
+    val configuration = LocalConfiguration.current
+    val resources = LocalContext.current.resources
+    val tabs = remember(configuration) { viewModel.getTabNames(resources) }
+
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val onEvent = viewModel.rememberOnEvent()
+    val eventPageStates = remember(viewModel.eventPageStates) { viewModel.eventPageStates }
+
     val pagerState = rememberPagerState(
-        initialPage = MonthPager.FIRST_PAGE,
+        initialPage = state.currentPage,
         pageCount = { MonthPager.PAGE_COUNT }
     )
     val coroutineScope = rememberCoroutineScope()
 
-    // Track current active state
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val lifecycleState by lifecycleOwner.lifecycle.currentStateFlow.collectAsStateWithLifecycle()
+    LaunchedEffect(pagerState.currentPage) {
+        snapshotFlow { pagerState.currentPage }
+            .distinctUntilChanged()
+            .collect { page ->
+                onEvent(HomeScreenEvent.UpdateCurrentPage(page))
+            }
+    }
 
-    val observedPages = remember { mutableStateSetOf<Int>() }
+    LaunchedEffect(state.currentPage) {
+        val currentPage = state.currentPage
+        if (pagerState.currentPage == currentPage) return@LaunchedEffect
 
-    // Preload adjacent pages
-    LaunchedEffect(pagerState.currentPage, lifecycleState) {
-        val current = pagerState.currentPage
-
+        pagerState.scrollToPage(currentPage)
         val preloadRange = max(
             MonthPager.FIRST_PAGE,
-            current - MonthPager.PRELOAD_PAGES_COUNT
+            currentPage - MonthPager.PRELOAD_PAGES_COUNT
         )..min(
             MonthPager.LAST_PAGE,
-            current + MonthPager.PRELOAD_PAGES_COUNT
+            currentPage + MonthPager.PRELOAD_PAGES_COUNT
         )
 
         // Stop observing pages outside of preload range
-        (observedPages.toSet() - preloadRange.toSet()).forEach { page ->
-            viewModel.stopObservingPage(page)
-            observedPages.remove(page)
-        }
+        onEvent(HomeScreenEvent.StopObservingPagesOutsideRange(preloadRange))
 
         // Start observing new pages in preload range
-        if (lifecycleState.isAtLeast(Lifecycle.State.STARTED)) {
-            preloadRange.forEach { page ->
-                if (page !in observedPages) {
-                    viewModel.observePage(page)
-                    observedPages.add(page)
-                }
-            }
+        preloadRange.forEach { page ->
+            onEvent(HomeScreenEvent.ObservePage(page))
         }
     }
 
-    // Handle background/foreground transitions
-    DisposableEffect(lifecycleOwner) {
-        val observer = object : DefaultLifecycleObserver {
-            override fun onStop(owner: LifecycleOwner) {
-                viewModel.stopObservingAll()
-                observedPages.clear()
-            }
-
-            override fun onStart(owner: LifecycleOwner) {
-                observedPages.forEach { page ->
-                    viewModel.observePage(page)
-                }
-            }
-        }
-
-        lifecycleOwner.lifecycle.addObserver(observer)
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
+    LaunchedEffect(onMonthChanged) {
+        onMonthChanged({ onEvent(HomeScreenEvent.OnEventNavigationResult(it)) })
     }
 
-    Column {
+    Column(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top))
+    ) {
         CustomTabs(
             tabs,
-            pagerState,
-            updateCurrentPage = { viewModel.setCurrentPage(it) },
-            coroutineScope
+            pagerState.currentPage,
+            updateCurrentPage = { onEvent(HomeScreenEvent.UpdateCurrentPage(it)) },
+            coroutineScope,
+            modifier = Modifier
+                .windowInsetsPadding(
+                    WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal)
+                )
         )
 
         HorizontalPager(
             state = pagerState,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MyDatesColors.containerColor)
+                .windowInsetsPadding(
+                    WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal)
+                ),
             beyondViewportPageCount = MonthPager.PRELOAD_PAGES_COUNT,
             key = { page -> page },  // This ensures proper page identity
         ) { pageIndex ->
-            val state = viewModel.eventPageStates[pageIndex]
+            val pageState = remember(eventPageStates[pageIndex]) { eventPageStates[pageIndex] }
 
-            // Handle initial state
-            if (state == null) {
-                // Show loading only if we should be loading this page
-                if (pageIndex in observedPages) {
-                    LoadingView()
-                } else {
-                    // Show empty state if not yet loaded
-                    EmptyView()
-                }
-            } else {
-                val state = viewModel.eventPageStates[pageIndex] ?: EventPageState.Loading
-                when (state) {
-                    EventPageState.Loading -> LoadingView()
-                    is EventPageState.Error -> ErrorView(
-                        message = state.message,
-                        onRetry = {
-                            viewModel.observePage(pageIndex)
+            when (pageState) {
+                null -> {
+                    if (abs(pageIndex - pagerState.currentPage) <= MonthPager.PRELOAD_PAGES_COUNT) {
+                        LaunchedEffect(pageIndex) {
+                            onEvent(HomeScreenEvent.ObservePage(pageIndex))
                         }
-                    )
-
-                    is EventPageState.Success -> {
-                        EventList(
-                            events = state.events,
-                            onNavigateToEventEditor = onNavigateToEventEditor
-                        )
+                        LoadingView()
+                    } else {
+                        EmptyView()
                     }
+                }
+
+                is EventPageState.Loading -> {
+                    LoadingView()
+                }
+
+                is EventPageState.Error -> ErrorView(
+                    message = pageState.message,
+                    onRetry = { onEvent(HomeScreenEvent.ObservePage(pageIndex)) }
+                )
+
+                is EventPageState.Success -> {
+                    EventList(
+                        events = pageState.events,
+                        onNavigateToEventEditor = onNavigateToEventEditor
+                    )
                 }
             }
         }

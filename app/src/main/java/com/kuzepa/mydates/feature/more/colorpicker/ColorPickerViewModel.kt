@@ -2,8 +2,11 @@ package com.kuzepa.mydates.feature.more.colorpicker
 
 import androidx.core.graphics.ColorUtils
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import com.kuzepa.mydates.common.util.labelcolor.toColor
+import com.kuzepa.mydates.common.util.labelcolor.toInt
+import com.kuzepa.mydates.ui.components.BaseViewModel
+import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
+import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,8 +17,9 @@ import kotlin.random.Random
 
 @HiltViewModel
 class ColorPickerViewModel @Inject constructor(
+    private val navigationDialogResult: NavigationDialogResult,
     savedStateHandle: SavedStateHandle
-) : ViewModel() {
+) : BaseViewModel<ColorPickerScreenEvent>() {
     private val initialColor: Int? = savedStateHandle.get<Int>("color")
     private val _uiState = MutableStateFlow(ColorPickerUiState())
     val uiState: StateFlow<ColorPickerUiState> = _uiState.asStateFlow()
@@ -40,12 +44,18 @@ class ColorPickerViewModel @Inject constructor(
         }
     }
 
-    fun onEvent(event: ColorPickerScreenEvent) {
+    override fun onEvent(event: ColorPickerScreenEvent) {
         when (event) {
             is ColorPickerScreenEvent.ColorChanged -> {
                 _uiState.update {
                     it.copy(color = event.color)
                 }
+            }
+
+            is ColorPickerScreenEvent.SetDialogResult -> {
+                navigationDialogResult.setDialogResultData(
+                    DialogResultData.ColorPickerResult(_uiState.value.color.toInt())
+                )
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.kuzepa.mydates.feature.more
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 @Composable
 internal fun MoreScreen(
@@ -11,5 +12,6 @@ internal fun MoreScreen(
     onNavigateToDonation: () -> Unit,
     onNavigateToHelp: () -> Unit,
     onNavigateToAbout: () -> Unit,
+    modifier: Modifier
 ) {
 }

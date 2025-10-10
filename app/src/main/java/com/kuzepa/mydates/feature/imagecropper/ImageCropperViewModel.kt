@@ -6,6 +6,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kuzepa.mydates.domain.usecase.image.SaveImageToCacheUseCase
+import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
+import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ImageCropperViewModel @Inject constructor(
     private val saveImageToCacheUseCase: SaveImageToCacheUseCase,
+    private val navigationDialogResult: NavigationDialogResult,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val imageUriString: String? by lazy { savedStateHandle.get<String>("imageUriString") }
@@ -43,10 +46,12 @@ class ImageCropperViewModel @Inject constructor(
         viewModelScope.launch {
             val result = saveImageToCacheUseCase(bitmap)
             if (result.isSuccess) {
+                val imagePath = result.getOrDefault(null)
+                navigationDialogResult.setDialogResultData(DialogResultData.ImageCropperResult(imagePath))
                 _uiState.update {
                     it.copy(
                         isLoading = false,
-                        savedImagePath = result.getOrDefault(null),
+                        savedImagePath = imagePath,
                         error = null
                     )
                 }

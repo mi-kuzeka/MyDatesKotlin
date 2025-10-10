@@ -22,8 +22,8 @@ import com.kuzepa.mydates.domain.usecase.validation.getErrorMessage
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateDateUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateTextNotEmptyUseCase
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorViewModel
-import com.kuzepa.mydates.ui.navigation.ImageCropperNavigationResultData
-import com.kuzepa.mydates.ui.navigation.NavigationResultData
+import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
+import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -47,6 +47,7 @@ class EventViewModel @Inject constructor(
     private val validateDate: ValidateDateUseCase,
     private val getImageFromCache: GetImageFromCacheUseCase,
     private val deleteCachedImage: DeleteCachedImageUseCase,
+    private val navigationDialogResult: NavigationDialogResult,
     savedStateHandle: SavedStateHandle
 ) : BaseEditorViewModel<EventUiState, EventScreenEvent>() {
 
@@ -64,18 +65,45 @@ class EventViewModel @Inject constructor(
 
     private val fetchingLabelsChannel = Channel<LabelsFetching>()
     val fetchingLabelsFlow = fetchingLabelsChannel.receiveAsFlow()
+    var eventMonth: Int? = null
 
     init {
         loadEventTypes()
 
         _uiState.update { it.copy(isNewEvent = eventId == null) }
         eventId?.let { fillEventById(it) } ?: setDefaultEventType()
+        observeDialogResults()
     }
 
     fun loadEventTypes() {
         viewModelScope.launch {
             val eventTypes = eventTypeRepository.getAllEventTypes().firstOrNull() ?: emptyList()
             _uiState.update { it.copy(availableEventTypes = eventTypes) }
+        }
+    }
+
+    private fun observeDialogResults() {
+        viewModelScope.launch {
+            navigationDialogResult.dialogResultData.collect { result ->
+                when (result) {
+                    is DialogResultData.ImageCropperResult -> {
+                        handleImageCropperResult(result.imagePath)
+                        navigationDialogResult.clearDialogResultData()
+                    }
+
+                    is DialogResultData.EventLabelResult -> {
+                        handleLabelResult(result.id)
+                        navigationDialogResult.clearDialogResultData()
+                    }
+
+                    is DialogResultData.EventTypeResult -> {
+                        handleEventTypeResult(result.id)
+                        navigationDialogResult.clearDialogResultData()
+                    }
+
+                    else -> {}
+                }
+            }
         }
     }
 
@@ -99,8 +127,8 @@ class EventViewModel @Inject constructor(
         }
     }
 
-    fun handleEventTypeResult(result: NavigationResultData) {
-        result.id?.let { id ->
+    private fun handleEventTypeResult(eventTypeId: String?) {
+        eventTypeId?.let { id ->
             _uiState.value.availableEventTypes.find { it.id == id }
                 ?.let { setEventType(it.name) }
         }
@@ -110,8 +138,8 @@ class EventViewModel @Inject constructor(
         _uiState.update { it.copy(hasChanges = true, eventTypeName = name) }
     }
 
-    private fun handleLabelResult(result: NavigationResultData) {
-        result.id?.let { id ->
+    private fun handleLabelResult(labelId: String?) {
+        labelId?.let { id ->
             viewModelScope.launch {
                 try {
                     val newLabel = labelRepository.getLabelById(id)
@@ -129,8 +157,8 @@ class EventViewModel @Inject constructor(
         }
     }
 
-    fun handleImageCropperResult(result: ImageCropperNavigationResultData) {
-        result.imagePath?.let { imagePath ->
+    fun handleImageCropperResult(imagePath: String?) {
+        imagePath?.let { imagePath ->
             viewModelScope.launch {
                 val image = getImageFromCache(imagePath)
                 if (image.isSuccess) {
@@ -234,18 +262,6 @@ class EventViewModel @Inject constructor(
                         labels = updatedLabels
                     )
                 }
-            }
-
-            is EventScreenEvent.OnLabelNavigationResult -> {
-                handleLabelResult(event.labelNavigationResult)
-            }
-
-            is EventScreenEvent.OnEventTypeNavigationResult -> {
-                handleEventTypeResult(event.eventTypeNavigationResult)
-            }
-
-            is EventScreenEvent.ImageChosen -> {
-                handleImageCropperResult(event.imageCropperNavigationResult)
             }
 
             is EventScreenEvent.RotateImageLeft -> {
@@ -442,6 +458,7 @@ class EventViewModel @Inject constructor(
                         )
                     }
                 )
+                eventMonth = eventDate.month
                 savingEventChannel.send(ObjectSaving.Success())
             } catch (e: Exception) {
                 // TODO handle error

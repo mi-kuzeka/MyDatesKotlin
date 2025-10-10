@@ -45,24 +45,24 @@ fun EventItem(
                 .padding(dimensionResource(R.dimen.padding_small))
                 .height(IntrinsicSize.Min)
         ) {
-            if (event.image == null) {
+            if (it.image == null) {
                 // TODO show image from resources
             } else {
-                Image(bitmap = event.image.asImageBitmap(), contentDescription = null)
+                Image(bitmap = it.image.asImageBitmap(), contentDescription = null)
             }
             Column(
                 modifier = Modifier
                     .weight(1f)
             ) {
                 Text(
-                    text = event.name,
+                    text = it.name,
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Medium,
                     color = MyDatesColors.accentTextColor
                 )
                 Row {
                     Text(
-                        text = event.date.toFormattedDate(DateShowingMode.VIEW_MODE),
+                        text = it.date.toFormattedDate(DateShowingMode.VIEW_MODE),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium,
                         color = MyDatesColors.textFieldLabelColor
@@ -70,7 +70,7 @@ fun EventItem(
                     //TODO show zodiac icon if active
                 }
                 Text(
-                    text = event.type.name,
+                    text = it.type.name,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MyDatesColors.textFieldLabelColor
                 )

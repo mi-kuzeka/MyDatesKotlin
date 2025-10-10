@@ -77,6 +77,7 @@ fun BaseEditorScreen(
     }
 
     Scaffold(
+        contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
             TopAppBar(
                 title = title,
@@ -89,12 +90,20 @@ fun BaseEditorScreen(
                     }
                 },
                 scrollBehavior = scrollBehavior,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .windowInsetsPadding(
+                        WindowInsets.safeDrawing.only(WindowInsetsSides.Top)
+                    ),
                 endIcon = {
                     if (!isNewItem) {
                         IconDelete(
                             onClick = { onShowDeleteDialogChange(true) },
-                            contentDescription = stringResource(R.string.button_delete)
+                            contentDescription = stringResource(R.string.button_delete),
+                            modifier = Modifier
+                                .windowInsetsPadding(
+                                    WindowInsets.safeDrawing.only(WindowInsetsSides.End)
+                                )
                         )
                     }
                 }
@@ -105,6 +114,12 @@ fun BaseEditorScreen(
                 onClick = onSave,
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                modifier = Modifier
+                    .windowInsetsPadding(
+                        WindowInsets.safeDrawing.only(
+                            WindowInsetsSides.Bottom + WindowInsetsSides.End
+                        )
+                    )
             ) {
                 Icon(
                     imageVector = Icons.Default.Done,
@@ -118,18 +133,13 @@ fun BaseEditorScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .background(MyDatesColors.screenBackground)
                 .padding(innerPadding)
                 .consumeWindowInsets(innerPadding)
-                .windowInsetsPadding(
-                    WindowInsets.safeDrawing.only(
-                        WindowInsetsSides.Vertical,
-                    ),
-                )
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(MyDatesColors.screenBackground)
                     .align(alignment = Alignment.TopCenter)
             ) {
                 content()
@@ -206,7 +216,7 @@ fun BaseEditorScreenPreview() {
                 negativeButtonText = "Cancel",
                 icon = Icons.Default.Delete
             ),
-            scrollBehavior = scrollBehavior,
+            scrollBehavior = scrollBehavior
         ) {
             BaseEditorContentBox(
                 addSpacerForFabButton = true,

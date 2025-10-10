@@ -11,6 +11,8 @@ import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
 import com.kuzepa.mydates.domain.usecase.validation.getErrorMessage
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateNameNotEmptyAndDistinctUseCase
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorViewModel
+import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
+import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +29,7 @@ import javax.inject.Inject
 class LabelViewModel @Inject constructor(
     private val labelRepository: LabelRepository,
     private val validateNameNotEmptyAndDistinct: ValidateNameNotEmptyAndDistinctUseCase,
+    private val navigationDialogResult: NavigationDialogResult,
     savedStateHandle: SavedStateHandle
 ) : BaseEditorViewModel<LabelUiState, LabelScreenEvent>() {
 
@@ -49,6 +52,7 @@ class LabelViewModel @Inject constructor(
     init {
         _uiState.update { it.copy(isNewLabel = labelId == null) }
         loadLabels()
+        observeDialogResults()
     }
 
     private fun loadLabels() {
@@ -60,6 +64,21 @@ class LabelViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 // TODO handle error
+            }
+        }
+    }
+
+    private fun observeDialogResults() {
+        viewModelScope.launch {
+            navigationDialogResult.dialogResultData.collect { result ->
+                when (result) {
+                    is DialogResultData.ColorPickerResult -> {
+                        onEvent(LabelScreenEvent.ColorChanged(result.color))
+                        navigationDialogResult.clearDialogResultData()
+                    }
+
+                    else -> {}
+                }
             }
         }
     }
@@ -168,6 +187,15 @@ class LabelViewModel @Inject constructor(
                 savingLabelChannel.send(ObjectSaving.Error(e.message.toString()))
             }
         }
+    }
+
+    fun setNavigationResult(id: String?, isOpenedFromEvent: Boolean) {
+        navigationDialogResult.setDialogResultData(
+            when {
+                isOpenedFromEvent -> DialogResultData.EventLabelResult(id)
+                else -> DialogResultData.LabelResult(id)
+            }
+        )
     }
 
     override fun delete() {

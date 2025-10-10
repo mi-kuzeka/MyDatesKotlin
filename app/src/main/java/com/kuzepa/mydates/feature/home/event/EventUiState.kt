@@ -1,10 +1,12 @@
 package com.kuzepa.mydates.feature.home.event
 
 import android.graphics.Bitmap
+import androidx.compose.runtime.Immutable
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventType
 import com.kuzepa.mydates.domain.model.label.Label
 
+@Immutable
 data class EventUiState(
     val isNewEvent: Boolean = true,
     val event: Event? = null,

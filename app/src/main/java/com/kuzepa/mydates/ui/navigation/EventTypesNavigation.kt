@@ -27,7 +27,7 @@ fun NavController.navigateToEventTypeEditor(id: String?) {
 @Serializable
 internal data class EventTypeEditor(val id: String?) : NavRoute()
 
-fun NavGraphBuilder.eventTypeEditorDestination(onNavigateBack: (result: Int, id: String?) -> Unit) {
+fun NavGraphBuilder.eventTypeEditorDestination(onNavigateBack: () -> Unit) {
     dialog<EventTypeEditor> { backStackEntry ->
         val eventTypeEditor: EventTypeEditor = backStackEntry.toRoute()
         EventTypeScreen(id = eventTypeEditor.id, onNavigateBack = onNavigateBack)

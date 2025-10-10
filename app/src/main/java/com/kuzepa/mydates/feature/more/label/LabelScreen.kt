@@ -33,9 +33,8 @@ import com.kuzepa.mydates.ui.components.baseeditor.HandleEditorResults
 import com.kuzepa.mydates.ui.components.container.chipcontainer.NotificationFilterSingleChipContainer
 import com.kuzepa.mydates.ui.components.container.selectioncontainer.ColorSelectionContainer
 import com.kuzepa.mydates.ui.components.container.selectioncontainer.IconSelectionContainer
+import com.kuzepa.mydates.ui.components.rememberOnEvent
 import com.kuzepa.mydates.ui.components.textfield.MyDatesTextField
-import com.kuzepa.mydates.ui.navigation.ColorPickerNavigationResultData
-import com.kuzepa.mydates.ui.navigation.NavigationResult
 import kotlinx.coroutines.android.awaitFrame
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,13 +43,13 @@ fun LabelScreen(
     viewModel: LabelViewModel = hiltViewModel(),
     id: String?,
     isOpenedFromEvent: Boolean,
-    onNavigateBack: (result: Int, id: String?) -> Unit,
+    showDeleteButton: Boolean,
+    onNavigateBack: () -> Unit,
     onNavigateToColorPicker: (color: Int?) -> Unit,
-    colorPickerNavigationResultData: ColorPickerNavigationResultData,
-    removeNavigationResult: (navigationKey: String) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    val onEvent = viewModel.rememberOnEvent()
 
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showGoBackConfirmationDialog by remember { mutableStateOf(false) }
@@ -68,7 +67,10 @@ fun LabelScreen(
     HandleEditorResults(
         savingFlow = viewModel.savingFlow,
         deletingFlow = viewModel.deletingFlow,
-        onSuccess = { id -> onNavigateBack(NavigationResult.OK, id) },
+        onSuccess = { id ->
+            viewModel.setNavigationResult(id, isOpenedFromEvent)
+            onNavigateBack()
+        },
         onError = { /* TODO show error */ }
     )
 
@@ -78,9 +80,9 @@ fun LabelScreen(
         ),
         isNewItem = state.isNewLabel,
         hasChanges = state.hasChanges,
-        onNavigateBack = { onNavigateBack(NavigationResult.CANCEL, null) },
-        onSave = { viewModel.onEvent(LabelScreenEvent.Save) },
-        onDelete = { viewModel.onEvent(LabelScreenEvent.Delete) },
+        onNavigateBack = { onNavigateBack() },
+        onSave = { onEvent(LabelScreenEvent.Save) },
+        onDelete = { onEvent(LabelScreenEvent.Delete) },
         showDeleteDialog = showDeleteDialog,
         showGoBackConfirmationDialog = showGoBackConfirmationDialog,
         onShowDeleteDialogChange = { showDeleteDialog = it },
@@ -99,21 +101,14 @@ fun LabelScreen(
             negativeButtonText = stringResource(R.string.button_cancel),
             icon = Icons.Default.Delete
         ),
-        showDeleteButton = !isOpenedFromEvent
+        showDeleteButton = showDeleteButton
     ) {
         LabelScreenContent(
-            onEvent = { viewModel.onEvent(it) },
+            onEvent = onEvent,
             state = state,
             focusRequester = focusRequester,
             onNavigateToColorPicker = onNavigateToColorPicker
         )
-    }
-
-    LaunchedEffect(colorPickerNavigationResultData.result) {
-        if (colorPickerNavigationResultData.result == NavigationResult.OK) {
-            viewModel.onEvent(LabelScreenEvent.ColorChanged(colorPickerNavigationResultData.color))
-            removeNavigationResult(NavigationResult.COLOR_PICKER_KEY)
-        }
     }
 }
 
@@ -154,7 +149,7 @@ fun LabelScreenContent(
                 modifier = Modifier.fillMaxWidth()
             )
             val color = remember(colorId) { LabelColor.getColorFromId(colorId) }
-            val iconColor = remember(colorId) { color.getContrastedColor() }
+            val iconColor = remember(color) { color.getContrastedColor() }
             IconSelectionContainer(
                 containerTitle = stringResource(R.string.label_icon),
                 selectedIcon = icon,

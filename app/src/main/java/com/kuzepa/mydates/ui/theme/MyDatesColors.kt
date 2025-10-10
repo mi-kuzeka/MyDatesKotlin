@@ -8,6 +8,7 @@ import androidx.compose.material3.SelectableChipColors
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
 
 internal object MyDatesColors {
@@ -27,60 +28,74 @@ internal object MyDatesColors {
 
     /* Container colors */
     val screenBackground: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.surface
 
     val containerColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.surfaceContainer
 
     val focusedContainerColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.surfaceContainerHighest
 
     val chipContainerColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.secondaryContainer
 
     val actionChipContainerColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.primaryContainer
 
     val actionChipTextColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.onPrimaryContainer
 
     /* Text colors */
     val defaultTextColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.onSurface
 
     val errorTextColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.error
 
     val accentTextColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.primary
 
     val textFieldLabelColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.secondary
 
     val focusedTextFieldLabelColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.primary
 
     val placeholderColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.outline
 
     /* Checkbox colors */
     val checkBoxTextColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.primary
 
     val checkBoxColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.primary
 
@@ -119,10 +134,12 @@ internal object MyDatesColors {
         )
 
     val selectedChipColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.primary
 
     val unselectedChipColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.secondaryContainer
 
@@ -139,6 +156,7 @@ internal object MyDatesColors {
         )
 
     val activeContainerColor: Color
+        @ReadOnlyComposable
         @Composable
         get() = MaterialTheme.colorScheme.secondaryContainer
 
