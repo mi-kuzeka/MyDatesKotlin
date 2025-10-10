@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -77,7 +79,6 @@ fun BaseEditorScreen(
     }
 
     Scaffold(
-        contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
             TopAppBar(
                 title = title,
@@ -91,19 +92,12 @@ fun BaseEditorScreen(
                 },
                 scrollBehavior = scrollBehavior,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .windowInsetsPadding(
-                        WindowInsets.safeDrawing.only(WindowInsetsSides.Top)
-                    ),
+                    .fillMaxWidth(),
                 endIcon = {
                     if (!isNewItem) {
                         IconDelete(
                             onClick = { onShowDeleteDialogChange(true) },
-                            contentDescription = stringResource(R.string.button_delete),
-                            modifier = Modifier
-                                .windowInsetsPadding(
-                                    WindowInsets.safeDrawing.only(WindowInsetsSides.End)
-                                )
+                            contentDescription = stringResource(R.string.button_delete)
                         )
                     }
                 }
@@ -116,9 +110,8 @@ fun BaseEditorScreen(
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier
                     .windowInsetsPadding(
-                        WindowInsets.safeDrawing.only(
-                            WindowInsetsSides.Bottom + WindowInsetsSides.End
-                        )
+                        WindowInsets.safeDrawing.exclude(WindowInsets.ime)
+                            .only(WindowInsetsSides.Bottom + WindowInsetsSides.End)
                     )
             ) {
                 Icon(
@@ -136,6 +129,10 @@ fun BaseEditorScreen(
                 .background(MyDatesColors.screenBackground)
                 .padding(innerPadding)
                 .consumeWindowInsets(innerPadding)
+                .windowInsetsPadding(
+                    WindowInsets.safeDrawing.exclude(WindowInsets.ime)
+                        .only(WindowInsetsSides.Horizontal)
+                )
         ) {
             Box(
                 modifier = Modifier

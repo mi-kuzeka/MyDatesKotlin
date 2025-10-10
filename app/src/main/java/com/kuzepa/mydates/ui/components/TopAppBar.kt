@@ -1,8 +1,11 @@
 package com.kuzepa.mydates.ui.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.exclude
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -43,11 +46,7 @@ fun TopAppBar(
         navigationIcon = {
             if (canGoBack) {
                 IconButton(
-                    onClick = { onGoBack() },
-                    modifier = Modifier
-                        .windowInsetsPadding(
-                            WindowInsets.safeDrawing.only(WindowInsetsSides.Start)
-                        )
+                    onClick = { onGoBack() }
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -63,6 +62,11 @@ fun TopAppBar(
         },
         scrollBehavior = scrollBehavior,
         modifier = modifier
+            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .windowInsetsPadding(
+                WindowInsets.safeDrawing.exclude(WindowInsets.ime)
+                    .only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
+            )
     )
 }
 
