@@ -129,8 +129,16 @@ class EventViewModel @Inject constructor(
 
     private fun handleEventTypeResult(eventTypeId: String?) {
         eventTypeId?.let { id ->
-            _uiState.value.availableEventTypes.find { it.id == id }
-                ?.let { setEventType(it.name) }
+            viewModelScope.launch {
+                try {
+                    val newEventType = eventTypeRepository.getEventTypeById(id)
+                    newEventType?.let {
+                        addEventTypeToListAndSelect(newEventType)
+                    }
+                } catch (e: Exception) {
+                    // TODO handle error
+                }
+            }
         }
     }
 
@@ -145,7 +153,7 @@ class EventViewModel @Inject constructor(
                     val newLabel = labelRepository.getLabelById(id)
                     newLabel?.let {
                         if (_uiState.value.labels.firstOrNull { it.id == newLabel.id } == null) {
-                            addLabel(newLabel)
+                            addLabelToList(newLabel)
                         } else {
                             updateLabel(newLabel)
                         }
@@ -174,7 +182,17 @@ class EventViewModel @Inject constructor(
         }
     }
 
-    private fun addLabel(label: Label) {
+    private fun addEventTypeToListAndSelect(eventType: EventType) {
+        _uiState.update {
+            it.copy(
+                hasChanges = true,
+                availableEventTypes = it.availableEventTypes + eventType,
+                eventTypeName = eventType.name
+            )
+        }
+    }
+
+    private fun addLabelToList(label: Label) {
         _uiState.update {
             it.copy(
                 hasChanges = true,
