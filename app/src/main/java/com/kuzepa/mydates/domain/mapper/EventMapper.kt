@@ -2,9 +2,9 @@ package com.kuzepa.mydates.domain.mapper
 
 import com.kuzepa.mydates.data.local.database.entity.EventEntity
 import com.kuzepa.mydates.data.local.database.entity.EventWithTypeAndLabels
-import com.kuzepa.mydates.domain.formatter.getNotificationDateCode
 import com.kuzepa.mydates.domain.formatter.toBitmap
 import com.kuzepa.mydates.domain.formatter.toByteArray
+import com.kuzepa.mydates.domain.formatter.toNotificationDateCode
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventDate
 
@@ -31,6 +31,6 @@ fun Event.toEventEntity(): EventEntity {
         notes = notes,
         eventTypeId = type.id,
         image = image.toByteArray(),
-        notificationDate = date.getNotificationDateCode()
+        notificationDate = date.toNotificationDateCode()
     )
 }

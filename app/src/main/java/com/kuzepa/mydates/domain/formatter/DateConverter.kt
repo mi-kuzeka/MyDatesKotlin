@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-fun EventDate.getNotificationDateCode(): Int {
+fun EventDate.toNotificationDateCode(): Int {
     return month * 100 + day
 }
 

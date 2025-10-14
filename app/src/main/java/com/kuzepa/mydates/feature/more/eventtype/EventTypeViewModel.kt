@@ -158,18 +158,18 @@ class EventTypeViewModel @Inject constructor(
             try {
                 val id = _uiState.value.eventType?.id ?: UUID.randomUUID().toString()
                 with(_uiState.value) {
-                    if (isDefault) {
-                        // TODO clear previous default type
-                    }
-                    eventTypeRepository.upsertEventType(
-                        EventType(
-                            id = id,
-                            name = name,
-                            isDefault = isDefault,
-                            notificationState = notificationState,
-                            showZodiac = showZodiac
-                        )
+                    val eventType = EventType(
+                        id = id,
+                        name = name,
+                        isDefault = isDefault,
+                        notificationState = notificationState,
+                        showZodiac = showZodiac
                     )
+                    if (isDefault) {
+                        eventTypeRepository.clearDefaultAndUpsertEventType(eventType)
+                    } else {
+                        eventTypeRepository.upsertEventType(eventType)
+                    }
                 }
                 navigationDialogResult.setDialogResultData(DialogResultData.EventTypeResult(id))
                 savingEventTypeChannel.send(ObjectSaving.Success(id = id))

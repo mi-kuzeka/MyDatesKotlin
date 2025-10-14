@@ -16,6 +16,10 @@ class DbEventTypeRepository @Inject constructor(
         eventTypeDao.upsertEventType(eventType.toEventTypeEntity())
     }
 
+    override suspend fun clearDefaultAndUpsertEventType(eventType: EventType) {
+        eventTypeDao.clearDefaultAndUpsertEventType(eventType.toEventTypeEntity())
+    }
+
     override suspend fun getEventTypeById(id: String): EventType? {
         return eventTypeDao.getEventTypeById(id)?.toEventType()
     }
