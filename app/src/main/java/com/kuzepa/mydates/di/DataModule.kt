@@ -53,18 +53,9 @@ class FakeEventRepository @Inject constructor() : EventRepository {
         _events.value = events.toList()
     }
 
-    fun clearAllEvents() {
-        _events.value = emptyList()
-    }
-
     fun simulateError(error: Exception) {
         shouldThrowError = true
         errorToThrow = error
-    }
-
-    fun clearError() {
-        shouldThrowError = false
-        errorToThrow = null
     }
 
     override suspend fun upsertEvent(event: Event) {
@@ -162,18 +153,9 @@ class FakeEventTypeRepository @Inject constructor() : EventTypeRepository {
         _eventTypes.value = eventTypes.toList()
     }
 
-    fun clearAllEventTypes() {
-        _eventTypes.value = emptyList()
-    }
-
     fun simulateError(error: Exception) {
         shouldThrowError = true
         errorToThrow = error
-    }
-
-    fun clearError() {
-        shouldThrowError = false
-        errorToThrow = null
     }
 
     override suspend fun upsertEventType(eventType: EventType) {
@@ -266,18 +248,9 @@ class FakeLabelRepository @Inject constructor() : LabelRepository {
         _labels.value = labels.toList()
     }
 
-    fun clearAllLabels() {
-        _labels.value = emptyList()
-    }
-
     fun simulateError(error: Exception) {
         shouldThrowError = true
         errorToThrow = error
-    }
-
-    fun clearError() {
-        shouldThrowError = false
-        errorToThrow = null
     }
 
     override suspend fun upsertLabel(label: Label) {
