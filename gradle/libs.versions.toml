@@ -1,21 +1,21 @@
 [versions]
-activityCompose = "1.10.1"
+activityCompose = "1.11.0"
 agp = "8.11.2"
 androidImageCropper = "4.6.0"
-hiltNavigationCompose = "1.2.0"
+hiltNavigationCompose = "1.3.0"
 appcompat = "1.7.1"
-composeBom = "2025.07.00"
-coreKtx = "1.16.0"
+composeBom = "2025.10.00"
+coreKtx = "1.17.0"
 espressoCore = "3.7.0"
-hilt = "2.57"
+hilt = "2.57.2"
 junit = "4.13.2"
 junitVersion = "1.3.0"
-kotlin = "2.2.0"
+kotlin = "2.2.20"
 kotlinxSerializationJson = "1.9.0"
 ksp = "2.1.21-2.0.2"
-lifecycleRuntimeKtx = "2.9.2"
-navigationCompose = "2.9.3"
-roomRuntime = "2.7.2"
+lifecycleRuntimeKtx = "2.9.4"
+navigationCompose = "2.9.5"
+roomRuntime = "2.8.2"
 pagingComposeAndroid = "3.3.6"
 colorpicker = "1.1.2"
 
@@ -51,6 +51,7 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 androidx-paging-compose-android = { group = "androidx.paging", name = "paging-compose-android", version.ref = "pagingComposeAndroid" }
 compose-colorpicker = { module = "com.github.skydoves:colorpicker-compose", version.ref = "colorpicker" }
