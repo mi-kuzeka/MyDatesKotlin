@@ -6,9 +6,9 @@ import com.kuzepa.mydates.common.util.image.getRotatedImage
 import com.kuzepa.mydates.domain.formatter.dateformat.DateFormatProvider
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventType
-import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.hasYear
 import com.kuzepa.mydates.domain.model.label.Label
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import com.kuzepa.mydates.domain.repository.LabelRepository

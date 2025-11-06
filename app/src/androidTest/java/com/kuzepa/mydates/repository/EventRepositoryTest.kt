@@ -7,10 +7,10 @@ import com.kuzepa.mydates.domain.formatter.toNotificationDateCode
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventDate
 import com.kuzepa.mydates.domain.model.EventType
-import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.SortOption
 import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.domain.model.label.LabelIcon
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Test

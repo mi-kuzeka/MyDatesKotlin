@@ -1,5 +1,6 @@
 package com.kuzepa.mydates.feature.home
 
+import android.content.Context
 import android.content.res.Resources
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.snapshots.SnapshotStateMap
@@ -10,8 +11,10 @@ import com.kuzepa.mydates.domain.model.MonthPager
 import com.kuzepa.mydates.domain.model.SortOption
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
+import com.kuzepa.mydates.feature.eventlist.EventItemData
 import com.kuzepa.mydates.ui.components.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,6 +30,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val eventRepository: EventRepository,
     private val eventTypeRepository: EventTypeRepository,
+    @param:ApplicationContext private val context: Context
 ) : BaseViewModel<HomeScreenEvent>() {
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
@@ -73,7 +77,16 @@ class HomeViewModel @Inject constructor(
                     }
                 }
                 .collect { events ->
-                    _eventPageStates[page] = EventPageState.Success(events)
+                    // TODO add delimiter to this list
+                    val eventListItems = events.map {
+                        EventItemData.fromEvent(
+                            event = it,
+                            context,
+                            // TODO get from preferences
+                            isCompactAgeMode = true
+                        )
+                    }
+                    _eventPageStates[page] = EventPageState.Success(eventListItems)
                 }
         }
     }

@@ -3,9 +3,9 @@ package com.kuzepa.mydates.repository
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kuzepa.mydates.common.util.labelcolor.LabelColor
 import com.kuzepa.mydates.di.FakeLabelRepository
-import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.domain.model.label.LabelIcon
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Test

@@ -88,6 +88,8 @@ dependencies {
     implementation(libs.android.image.cropper)
     // Color picker
     implementation(libs.compose.colorpicker)
+    // Date/time library
+    implementation(libs.joda.time)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

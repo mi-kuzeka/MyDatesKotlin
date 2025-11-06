@@ -36,6 +36,7 @@ data class EventEntity(
     val image: ByteArray?,
     @ColumnInfo(name = "notification_date")
     val notificationDate: Int
+    // If you're adding a new field then add to the methods equals and hashCode
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

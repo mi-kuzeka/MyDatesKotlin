@@ -1,7 +1,7 @@
 package com.kuzepa.mydates.feature.more.label
 
-import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.label.LabelIcon
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 
 sealed class LabelScreenEvent {
     data class NameChanged(val name: String) : LabelScreenEvent()

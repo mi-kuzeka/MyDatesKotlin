@@ -19,9 +19,9 @@ import androidx.compose.ui.unit.dp
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.common.util.labelcolor.LabelColor
 import com.kuzepa.mydates.common.util.labelcolor.getContrastedColor
-import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.label.IconType
 import com.kuzepa.mydates.domain.model.label.LabelIcon
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 import com.kuzepa.mydates.ui.theme.Shapes

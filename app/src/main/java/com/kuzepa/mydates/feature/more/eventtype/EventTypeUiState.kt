@@ -2,7 +2,7 @@ package com.kuzepa.mydates.feature.more.eventtype
 
 import androidx.compose.runtime.Immutable
 import com.kuzepa.mydates.domain.model.EventType
-import com.kuzepa.mydates.domain.model.NotificationFilterState
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 
 @Immutable
 data class EventTypeUiState(

@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.common.util.dateformat
+package com.kuzepa.mydates.common.dateformat
 
 import com.kuzepa.mydates.domain.formatter.dateformat.DateFormatProvider
 import com.kuzepa.mydates.domain.formatter.dateformat.DateShowingMode

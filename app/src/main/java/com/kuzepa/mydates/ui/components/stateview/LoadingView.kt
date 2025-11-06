@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.ui.components.list.state
+package com.kuzepa.mydates.ui.components.stateview
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

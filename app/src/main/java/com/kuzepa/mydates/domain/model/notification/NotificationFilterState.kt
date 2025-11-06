@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.domain.model
+package com.kuzepa.mydates.domain.model.notification
 
 enum class NotificationFilterState(val value: Int) {
     FILTER_STATE_ON(0),

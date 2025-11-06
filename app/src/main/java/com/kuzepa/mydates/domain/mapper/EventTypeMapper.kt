@@ -2,7 +2,7 @@ package com.kuzepa.mydates.domain.mapper
 
 import com.kuzepa.mydates.data.local.database.entity.EventTypeEntity
 import com.kuzepa.mydates.domain.model.EventType
-import com.kuzepa.mydates.domain.model.NotificationFilterState
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 
 fun EventTypeEntity.toEventType(): EventType {
     return EventType(

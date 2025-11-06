@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.common.util.dateformat
+package com.kuzepa.mydates.common.dateformat
 
 import android.content.Context
 import com.kuzepa.mydates.domain.formatter.dateformat.DateField

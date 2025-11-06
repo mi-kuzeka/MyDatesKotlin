@@ -1,39 +1,40 @@
 package com.kuzepa.mydates.domain.formatter.dateformat
 
 object DateFormatPattern {
-    object Delimiter {
-        const val SLASH = '/'
-        const val HYPHEN = '-'
-        const val DOT = '.'
+
+    enum class Delimiter(val delimiter: Char) {
+        SLASH('/'),
+        HYPHEN('-'),
+        DOT('.')
     }
 
-    object Month {
+    enum class Month(val format: String) {
         /*
         E.g.: 01
          */
-        const val NUMBER = "MM"
+        NUMBER("MM"),
 
         /*
         E.g.: Jan.
          */
-        const val STRING_SHORT = "MMM"
+        STRING_SHORT("MMM"),
 
         /*
         E.g.: January
          */
-        const val STRING_FULL = "MMMM"
+        STRING_FULL("MMMM")
     }
 
-    object Day {
+    enum class Day(val format: String) {
         /*
         E.g.: 1
          */
-        const val SHORT = "d"
+        SHORT("d"),
 
         /*
         E.g.: 01
          */
-        const val FULL = "dd"
+        FULL("dd")
     }
 
     const val YEAR = "yyyy"

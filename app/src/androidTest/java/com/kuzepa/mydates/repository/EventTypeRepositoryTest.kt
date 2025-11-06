@@ -3,7 +3,7 @@ package com.kuzepa.mydates.repository
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kuzepa.mydates.di.FakeEventTypeRepository
 import com.kuzepa.mydates.domain.model.EventType
-import com.kuzepa.mydates.domain.model.NotificationFilterState
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Test

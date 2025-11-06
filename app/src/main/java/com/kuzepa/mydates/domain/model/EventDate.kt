@@ -7,3 +7,5 @@ data class EventDate(
 )
 
 fun EventDate.hasYear() = year > -1
+
+fun EventDate.getEmptyAge() = -1

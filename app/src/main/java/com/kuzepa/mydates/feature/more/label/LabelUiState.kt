@@ -2,9 +2,9 @@ package com.kuzepa.mydates.feature.more.label
 
 import androidx.compose.runtime.Immutable
 import com.kuzepa.mydates.common.util.labelcolor.LabelColor
-import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.domain.model.label.LabelIcon
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 
 @Immutable
 data class LabelUiState(

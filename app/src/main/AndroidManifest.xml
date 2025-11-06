@@ -14,8 +14,9 @@
         android:theme="@style/Theme.MyDates">
         <activity
             android:name=".feature.main.MainActivity"
-            android:exported="true"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
+            android:exported="true"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.MyDates">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -19,6 +19,9 @@ internal object Shapes {
     val imageBoxShape: RoundedCornerShape
         get() = RoundedCornerShape(16.dp)
 
+    val smallImageBoxShape: RoundedCornerShape
+        get() = RoundedCornerShape(8.dp)
+
     val selectedTabShape: RoundedCornerShape
         get() = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
 

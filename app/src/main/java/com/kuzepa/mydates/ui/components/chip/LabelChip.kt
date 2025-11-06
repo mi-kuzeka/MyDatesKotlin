@@ -20,10 +20,10 @@ import com.kuzepa.mydates.common.util.labelcolor.LabelColor
 import com.kuzepa.mydates.common.util.labelcolor.getContrastedColor
 import com.kuzepa.mydates.common.util.labelcolor.randomColor
 import com.kuzepa.mydates.common.util.labelcolor.toInt
-import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.label.IconType
 import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.domain.model.label.LabelIcon
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import com.kuzepa.mydates.ui.components.icon.IconRemove
 import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme

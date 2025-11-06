@@ -1,12 +1,18 @@
 package com.kuzepa.mydates.domain.formatter
 
+import android.icu.util.Calendar
 import com.kuzepa.mydates.domain.formatter.dateformat.DateField
 import com.kuzepa.mydates.domain.model.EventDate
 import com.kuzepa.mydates.domain.model.hasYear
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Locale
 
+/**
+ * Converts event date to an Int with format Mdd
+ * E.g.:
+ *  EventDate(month = 3, day = 8, year = 2000) -> result = 308
+ *  EventDate(month = 10, day = 21, year = -1) -> result = 1021
+ */
 fun EventDate.toNotificationDateCode(): Int {
     return month * 100 + day
 }
@@ -27,11 +33,11 @@ fun EventDate.toEditedDateString(
     for (dateField in dateFieldOrder) {
         when (dateField) {
             DateField.MONTH -> {
-                result += month.toString().padStart(2, '0')
+                result += month.toFixedLengthString(length = 2)
             }
 
             DateField.DAY -> {
-                result += day.toString().padStart(2, '0')
+                result += day.toFixedLengthString(length = 2)
             }
 
             DateField.YEAR -> {
@@ -126,3 +132,14 @@ fun EventDate?.isDateValid(): Boolean {
 
 private fun isLeapYear(year: Int): Boolean =
     ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+
+fun EventDate.getCalendarWithCurrentYear(currentYear: Int): Calendar =
+    Calendar.getInstance().apply {
+        set(Calendar.YEAR, currentYear)
+        set(Calendar.MONTH, month - 1)
+        set(Calendar.DAY_OF_MONTH, day)
+        set(Calendar.HOUR_OF_DAY, 0)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }

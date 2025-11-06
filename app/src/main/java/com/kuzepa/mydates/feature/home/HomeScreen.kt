@@ -20,16 +20,16 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.ui.platform.LocalResources
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kuzepa.mydates.domain.model.MonthPager
+import com.kuzepa.mydates.feature.eventlist.EventList
 import com.kuzepa.mydates.feature.home.components.CustomTabs
-import com.kuzepa.mydates.ui.components.list.eventlist.EventList
-import com.kuzepa.mydates.ui.components.list.state.EmptyView
-import com.kuzepa.mydates.ui.components.list.state.ErrorView
-import com.kuzepa.mydates.ui.components.list.state.LoadingView
 import com.kuzepa.mydates.ui.components.rememberOnEvent
+import com.kuzepa.mydates.ui.components.stateview.EmptyView
+import com.kuzepa.mydates.ui.components.stateview.ErrorView
+import com.kuzepa.mydates.ui.components.stateview.LoadingView
 import com.kuzepa.mydates.ui.theme.MyDatesColors
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlin.math.abs
@@ -45,7 +45,7 @@ fun HomeScreen(
     modifier: Modifier
 ) {
     val configuration = LocalConfiguration.current
-    val resources = LocalContext.current.resources
+    val resources = LocalResources.current
     val tabs = remember(configuration) { viewModel.getTabNames(resources) }
 
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -144,7 +144,7 @@ fun HomeScreen(
 
                 is EventPageState.Success -> {
                     EventList(
-                        events = pageState.events,
+                        eventListItems = pageState.eventListItems,
                         onNavigateToEventEditor = onNavigateToEventEditor
                     )
                 }

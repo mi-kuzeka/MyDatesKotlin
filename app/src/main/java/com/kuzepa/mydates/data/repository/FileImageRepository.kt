@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 class FileImageRepository @Inject constructor(
-    @ApplicationContext private val context: Context
+    @param:ApplicationContext private val context: Context
 ) : ImageRepository {
     override suspend fun saveBitmapToCache(
         bitmap: Bitmap,

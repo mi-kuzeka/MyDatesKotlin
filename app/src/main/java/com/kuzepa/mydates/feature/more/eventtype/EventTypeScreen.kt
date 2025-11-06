@@ -19,12 +19,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.model.AlertDialogContent
-import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import com.kuzepa.mydates.ui.common.composable.MyDatesSwitch
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorDialog

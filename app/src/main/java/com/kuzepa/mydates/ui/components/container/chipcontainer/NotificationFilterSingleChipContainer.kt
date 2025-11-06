@@ -3,7 +3,7 @@ package com.kuzepa.mydates.ui.components.container.chipcontainer
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.kuzepa.mydates.domain.model.NotificationFilterState
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import com.kuzepa.mydates.ui.components.container.BaseNotificationFilterChipContainer
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 

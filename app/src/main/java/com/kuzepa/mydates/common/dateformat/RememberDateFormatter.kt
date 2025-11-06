@@ -1,5 +1,6 @@
-package com.kuzepa.mydates.common.util.dateformat
+package com.kuzepa.mydates.common.dateformat
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
@@ -17,6 +18,13 @@ fun rememberDateFormatter(): DateFormatterWrapper {
             DateFormatterEntryPoint::class.java
         ).dateFormatterWrapper()
     }
+}
+
+fun getDateFormatter(context: Context): DateFormatterWrapper {
+    return EntryPointAccessors.fromApplication(
+        context,
+        DateFormatterEntryPoint::class.java
+    ).dateFormatterWrapper()
 }
 
 @InstallIn(SingletonComponent::class)

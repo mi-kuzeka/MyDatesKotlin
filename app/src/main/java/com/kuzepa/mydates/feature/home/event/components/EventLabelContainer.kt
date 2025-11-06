@@ -19,8 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.common.util.labelcolor.randomColor
 import com.kuzepa.mydates.common.util.labelcolor.toInt
-import com.kuzepa.mydates.domain.model.NotificationFilterState
 import com.kuzepa.mydates.domain.model.label.Label
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import com.kuzepa.mydates.ui.components.chip.AddLabelChip
 import com.kuzepa.mydates.ui.components.chip.LabelChip
 import com.kuzepa.mydates.ui.components.supportingtext.MyDatesSupportingTextBox

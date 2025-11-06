@@ -1,15 +1,19 @@
 package com.kuzepa.mydates.di
 
 import android.content.Context
+import com.kuzepa.mydates.common.dateformat.DataStoreDateFormatProvider
+import com.kuzepa.mydates.common.dateformat.DateFormatterWrapper
+import com.kuzepa.mydates.common.userpreferences.DataStoreUserPreferencesProvider
+import com.kuzepa.mydates.common.util.ResourceValidationMessageProvider
+import com.kuzepa.mydates.data.local.manager.LocaleManagerImpl
 import com.kuzepa.mydates.domain.formatter.dateformat.DateFormatProvider
+import com.kuzepa.mydates.domain.manager.LocaleManager
+import com.kuzepa.mydates.domain.repository.UserPreferencesRepository
 import com.kuzepa.mydates.domain.usecase.validation.ValidationMessageProvider
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateDateUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateNameNotEmptyAndDistinctUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateSelectionRequiredUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateTextNotEmptyUseCase
-import com.kuzepa.mydates.common.util.ResourceValidationMessageProvider
-import com.kuzepa.mydates.common.util.dateformat.DataStoreDateFormatProvider
-import com.kuzepa.mydates.common.util.dateformat.DateFormatterWrapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -75,5 +79,22 @@ object AppModule {
         validationMessageProvider: ValidationMessageProvider
     ): ValidateNameNotEmptyAndDistinctUseCase {
         return ValidateNameNotEmptyAndDistinctUseCase(validationMessageProvider)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserPreferencesRepository(
+        @ApplicationContext context: Context
+    ): UserPreferencesRepository {
+        return DataStoreUserPreferencesProvider(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocaleManager(
+        userPreferencesRepository: UserPreferencesRepository,
+        @ApplicationContext context: Context
+    ): LocaleManager {
+        return LocaleManagerImpl(userPreferencesRepository, context)
     }
 }

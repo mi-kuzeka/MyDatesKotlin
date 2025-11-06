@@ -29,7 +29,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
@@ -38,6 +37,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.model.AlertDialogContent
+import com.kuzepa.mydates.feature.home.components.EmptyEventImage
 import com.kuzepa.mydates.ui.components.baseeditor.DeleteConfirmationDialog
 import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
@@ -73,6 +73,7 @@ internal fun EventImageChooser(
                         .padding(all = dimensionResource(R.dimen.padding_small))
                 ) {
                     EmptyEventImage(
+                        contentDescription = stringResource(R.string.choose_image),
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                     )
@@ -126,16 +127,6 @@ internal fun EventImage(image: Bitmap, modifier: Modifier = Modifier) {
         bitmap = image.asImageBitmap(),
         contentDescription = stringResource(R.string.event_image_description),
         modifier = modifier.fillMaxSize()
-    )
-}
-
-@Composable
-internal fun EmptyEventImage(modifier: Modifier = Modifier) {
-    Image(
-        painter = painterResource(R.drawable.empty_list_white),
-        contentDescription = stringResource(R.string.choose_image),
-        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-        modifier = modifier
     )
 }
 
