@@ -83,7 +83,9 @@ class HomeViewModel @Inject constructor(
                             event = it,
                             context,
                             // TODO get from preferences
-                            isCompactAgeMode = true
+                            isCompactAgeMode = true,
+                            // TODO get from preferences
+                            showZodiacSign = true
                         )
                     }
                     _eventPageStates[page] = EventPageState.Success(eventListItems)

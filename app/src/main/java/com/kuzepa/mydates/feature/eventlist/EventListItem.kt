@@ -39,7 +39,8 @@ data class EventItemData(
         fun fromEvent(
             event: Event,
             context: Context,
-            isCompactAgeMode: Boolean
+            isCompactAgeMode: Boolean,
+            showZodiacSign: Boolean
         ): EventItemData {
             val eventDate = event.date
             return EventItemData(
@@ -53,7 +54,7 @@ data class EventItemData(
                 ),
                 daysToEventText = eventDate.getDaysToThisEvent(context),
                 isUpcoming = eventDate.isUpcomingEvent(),
-                zodiac = eventDate.getZodiacSign()
+                zodiac = if (showZodiacSign) eventDate.getZodiacSign() else null
             )
         }
     }

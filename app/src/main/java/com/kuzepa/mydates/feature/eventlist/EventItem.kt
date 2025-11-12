@@ -13,8 +13,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Text
+import androidx.compose.material3.TooltipAnchorPosition
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -37,6 +46,7 @@ import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 import com.kuzepa.mydates.ui.theme.Shapes
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EventItem(
     eventItemData: EventItemData?,
@@ -83,13 +93,44 @@ fun EventItem(
                     style = MaterialTheme.typography.titleMedium,
                     color = MyDatesColors.accentTextColor
                 )
-                Row {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(
+                        dimensionResource(R.dimen.padding_extra_small)
+                    )
+                ) {
                     Text(
                         text = data.formattedDate,
                         style = MaterialTheme.typography.titleSmall,
-                        color = MyDatesColors.textFieldLabelColor
+                        color = MyDatesColors.textFieldLabelColor,
+                        modifier = Modifier
+                            .wrapContentWidth()
                     )
-                    //TODO show zodiac icon if active
+                    data.zodiac?.let { zodiacSign ->
+                        zodiacSign.iconRes?.let { iconRes ->
+                            TooltipBox(
+                                positionProvider = TooltipDefaults.rememberTooltipPositionProvider(
+                                    positioning = TooltipAnchorPosition.Above,
+                                    spacingBetweenTooltipAndAnchor = dimensionResource(R.dimen.padding_extra_small)
+                                ),
+                                tooltip = {
+                                    zodiacSign.nameRes?.let { nameRes ->
+                                        PlainTooltip { Text(stringResource(nameRes)) }
+                                    }
+                                },
+                                state = rememberTooltipState()
+                            ) {
+                                Icon(
+                                    painter = painterResource(iconRes),
+                                    contentDescription =
+                                        zodiacSign.nameRes?.let { stringResource(it) } ?: "",
+                                    tint = MyDatesColors.textFieldLabelColor,
+                                    modifier = Modifier
+                                        .size(dimensionResource(R.dimen.icon_zodiac_size))
+                                )
+                            }
+                        }
+                    }
                 }
                 Text(
                     text = data.event.type.name,
@@ -177,7 +218,8 @@ fun EventItemPreview() {
         val eventItemData = EventItemData.fromEvent(
             event,
             context = LocalContext.current,
-            isCompactAgeMode = false
+            isCompactAgeMode = false,
+            showZodiacSign = true
         )
         EventItem(
             eventItemData = eventItemData,

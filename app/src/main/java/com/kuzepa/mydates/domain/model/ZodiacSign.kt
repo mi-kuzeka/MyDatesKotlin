@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.kuzepa.mydates.R
 
-enum class ZodiacSign(id: Int, @DrawableRes val iconRes: Int?, @StringRes name: Int?) {
+enum class ZodiacSign(val id: Int, @param:DrawableRes val iconRes: Int?, @param:StringRes val nameRes: Int?) {
     ARIES(1, R.drawable.zodiac_aries, R.string.zodiac_aries),
     TAURUS(2, R.drawable.zodiac_taurus, R.string.zodiac_taurus),
     GEMINI(3, R.drawable.zodiac_gemini, R.string.zodiac_gemini),
