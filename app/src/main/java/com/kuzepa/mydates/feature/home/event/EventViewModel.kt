@@ -25,12 +25,12 @@ import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorViewModel
 import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
 import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -57,14 +57,15 @@ class EventViewModel @Inject constructor(
     override val uiState: StateFlow<EventUiState> = _uiState.asStateFlow()
     private val dateDelimiter: Char by lazy { dateFormatProvider.getDelimiter() }
 
-    private val savingEventChannel = Channel<ObjectSaving>()
-    override val savingFlow = savingEventChannel.receiveAsFlow()
+    private val savingEventSharedFlow =
+        MutableSharedFlow<ObjectSaving>()
+    override val savingFlow = savingEventSharedFlow.asSharedFlow()
 
-    private val deletingEventChannel = Channel<ObjectDeleting>()
-    override val deletingFlow = deletingEventChannel.receiveAsFlow()
+    private val deletingEventSharedFlow = MutableSharedFlow<ObjectDeleting>()
+    override val deletingFlow = deletingEventSharedFlow.asSharedFlow()
 
-    private val fetchingLabelsChannel = Channel<LabelsFetching>()
-    val fetchingLabelsFlow = fetchingLabelsChannel.receiveAsFlow()
+    private val fetchingLabelsSharedFlow = MutableSharedFlow<LabelsFetching>()
+    val fetchingLabelsFlow = fetchingLabelsSharedFlow.asSharedFlow()
     var eventMonth: Int? = null
 
     init {
@@ -119,10 +120,10 @@ class EventViewModel @Inject constructor(
                     )
                 }
 
-                fetchingLabelsChannel.send(LabelsFetching.Success)
+                fetchingLabelsSharedFlow.emit(LabelsFetching.Success)
             } catch (e: Exception) {
                 // TODO handle error
-                fetchingLabelsChannel.send(LabelsFetching.Error(e.message.toString()))
+                fetchingLabelsSharedFlow.emit(LabelsFetching.Error(e.message.toString()))
             }
         }
     }
@@ -477,10 +478,10 @@ class EventViewModel @Inject constructor(
                     }
                 )
                 eventMonth = eventDate.month
-                savingEventChannel.send(ObjectSaving.Success())
+                savingEventSharedFlow.emit(ObjectSaving.Success())
             } catch (e: Exception) {
                 // TODO handle error
-                savingEventChannel.send(ObjectSaving.Error(e.message.toString()))
+                savingEventSharedFlow.emit(ObjectSaving.Error(e.message.toString()))
             }
         }
     }
@@ -489,10 +490,10 @@ class EventViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 eventRepository.deleteEventById(_uiState.value.event?.id ?: 0)
-                deletingEventChannel.send(ObjectDeleting.Success)
+                deletingEventSharedFlow.emit(ObjectDeleting.Success)
             } catch (e: Exception) {
                 // TODO handle error
-                deletingEventChannel.send(ObjectDeleting.Error(e.message.toString()))
+                deletingEventSharedFlow.emit(ObjectDeleting.Error(e.message.toString()))
             }
         }
     }

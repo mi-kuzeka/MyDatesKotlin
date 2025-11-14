@@ -9,12 +9,12 @@ import com.kuzepa.mydates.ui.components.BaseViewModel
 import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
 import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -30,8 +30,8 @@ class LabelChooserViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(LabelChooserUiState())
     val uiState: StateFlow<LabelChooserUiState> = _uiState.asStateFlow()
 
-    private val savingLabelChooserChannel = Channel<ObjectSaving>()
-    val savingFlow: Flow<ObjectSaving> = savingLabelChooserChannel.receiveAsFlow()
+    private val savingLabelChooserSharedFlow = MutableSharedFlow<ObjectSaving>()
+    val savingFlow: Flow<ObjectSaving> = savingLabelChooserSharedFlow.asSharedFlow()
 
     init {
         loadLabels()
@@ -102,7 +102,7 @@ class LabelChooserViewModel @Inject constructor(
                 val id = _uiState.value.selectedLabelId
                 navigationDialogResult.setDialogResultData(DialogResultData.EventLabelResult(id))
                 viewModelScope.launch {
-                    savingLabelChooserChannel.send(ObjectSaving.Success(id = id))
+                    savingLabelChooserSharedFlow.emit(ObjectSaving.Success(id = id))
                 }
             }
         }

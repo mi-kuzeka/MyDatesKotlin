@@ -14,12 +14,12 @@ import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorViewModel
 import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
 import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -43,11 +43,11 @@ class LabelViewModel @Inject constructor(
      */
     private var allLabels: List<Label> = emptyList()
 
-    private val savingLabelChannel = Channel<ObjectSaving>()
-    override val savingFlow = savingLabelChannel.receiveAsFlow()
+    private val savingLabelSharedFlow = MutableSharedFlow<ObjectSaving>()
+    override val savingFlow = savingLabelSharedFlow.asSharedFlow()
 
-    private val deletingLabelChannel = Channel<ObjectDeleting>()
-    override val deletingFlow = deletingLabelChannel.receiveAsFlow()
+    private val deletingLabelSharedFlow = MutableSharedFlow<ObjectDeleting>()
+    override val deletingFlow = deletingLabelSharedFlow.asSharedFlow()
 
     init {
         _uiState.update { it.copy(isNewLabel = labelId == null) }
@@ -181,10 +181,10 @@ class LabelViewModel @Inject constructor(
                         )
                     )
                 }
-                savingLabelChannel.send(ObjectSaving.Success(id = id))
+                savingLabelSharedFlow.emit(ObjectSaving.Success(id = id))
             } catch (e: Exception) {
                 // TODO handle error
-                savingLabelChannel.send(ObjectSaving.Error(e.message.toString()))
+                savingLabelSharedFlow.emit(ObjectSaving.Error(e.message.toString()))
             }
         }
     }
@@ -202,10 +202,10 @@ class LabelViewModel @Inject constructor(
         viewModelScope.launch() {
             try {
                 labelRepository.deleteLabelById(_uiState.value.label?.id ?: "")
-                deletingLabelChannel.send(ObjectDeleting.Success)
+                deletingLabelSharedFlow.emit(ObjectDeleting.Success)
             } catch (e: Exception) {
                 // TODO handle error
-                deletingLabelChannel.send(ObjectDeleting.Error(e.message.toString()))
+                deletingLabelSharedFlow.emit(ObjectDeleting.Error(e.message.toString()))
             }
         }
     }

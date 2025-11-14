@@ -15,12 +15,12 @@ import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorViewModel
 import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
 import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -44,11 +44,11 @@ class EventTypeViewModel @Inject constructor(
      */
     private var allEventTypes: List<EventType> = emptyList()
 
-    private val savingEventTypeChannel = Channel<ObjectSaving>()
-    override val savingFlow = savingEventTypeChannel.receiveAsFlow()
+    private val savingEventTypeSharedFlow = MutableSharedFlow<ObjectSaving>()
+    override val savingFlow = savingEventTypeSharedFlow.asSharedFlow()
 
-    private val deletingEventTypeChannel = Channel<ObjectDeleting>()
-    override val deletingFlow = deletingEventTypeChannel.receiveAsFlow()
+    private val deletingEventTypeSharedFlow = MutableSharedFlow<ObjectDeleting>()
+    override val deletingFlow = deletingEventTypeSharedFlow.asSharedFlow()
 
 
     init {
@@ -172,10 +172,10 @@ class EventTypeViewModel @Inject constructor(
                     }
                 }
                 navigationDialogResult.setDialogResultData(DialogResultData.EventTypeResult(id))
-                savingEventTypeChannel.send(ObjectSaving.Success(id = id))
+                savingEventTypeSharedFlow.emit(ObjectSaving.Success(id = id))
             } catch (e: Exception) {
                 // TODO handle error
-                savingEventTypeChannel.send(ObjectSaving.Error(e.message.toString()))
+                savingEventTypeSharedFlow.emit(ObjectSaving.Error(e.message.toString()))
             }
         }
     }
@@ -184,10 +184,10 @@ class EventTypeViewModel @Inject constructor(
         viewModelScope.launch() {
             try {
                 eventTypeRepository.deleteEventTypeById(_uiState.value.eventType?.id ?: "")
-                deletingEventTypeChannel.send(ObjectDeleting.Success)
+                deletingEventTypeSharedFlow.emit(ObjectDeleting.Success)
             } catch (e: Exception) {
                 // TODO handle error
-                deletingEventTypeChannel.send(ObjectDeleting.Error(e.message.toString()))
+                deletingEventTypeSharedFlow.emit(ObjectDeleting.Error(e.message.toString()))
             }
         }
     }
