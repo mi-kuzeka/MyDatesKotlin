@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,7 +22,6 @@ import com.kuzepa.mydates.common.util.labelcolor.toInt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-@Stable
 class ImageCropperState() {
     internal var cropImageView by mutableStateOf<CropImageView?>(null)
         private set
