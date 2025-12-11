@@ -17,12 +17,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectSaving
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
@@ -44,14 +46,14 @@ fun LabelChooserScreen(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     var showGoBackConfirmationDialog by remember { mutableStateOf(false) }
-    val context = LocalContext.current
     val onEvent = viewModel.rememberOnEvent()
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
 
-    LaunchedEffect(key1 = context) {
+    LaunchedEffect(key1 = Unit) {
         viewModel.savingFlow.collect { event ->
-            when (event) {
-                is ObjectSaving.Success -> {
-                    onNavigateBack()
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                when (event) {
+                    is ObjectSaving.Success -> onNavigateBack()
                 }
             }
         }
