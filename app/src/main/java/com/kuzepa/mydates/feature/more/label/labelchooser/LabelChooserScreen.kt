@@ -53,10 +53,6 @@ fun LabelChooserScreen(
                 is ObjectSaving.Success -> {
                     onNavigateBack()
                 }
-
-                is ObjectSaving.Error -> {
-                    //TODO handle error
-                }
             }
         }
     }

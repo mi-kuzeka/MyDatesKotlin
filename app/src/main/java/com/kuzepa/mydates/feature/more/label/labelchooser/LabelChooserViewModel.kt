@@ -9,7 +9,6 @@ import com.kuzepa.mydates.ui.components.BaseViewModel
 import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
 import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,8 +29,8 @@ class LabelChooserViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(LabelChooserUiState())
     val uiState: StateFlow<LabelChooserUiState> = _uiState.asStateFlow()
 
-    private val savingLabelChooserSharedFlow = MutableSharedFlow<ObjectSaving>()
-    val savingFlow: Flow<ObjectSaving> = savingLabelChooserSharedFlow.asSharedFlow()
+    private val savingLabelChooserSharedFlow = MutableSharedFlow<ObjectSaving>(replay = 0)
+    val savingFlow = savingLabelChooserSharedFlow.asSharedFlow()
 
     init {
         loadLabels()

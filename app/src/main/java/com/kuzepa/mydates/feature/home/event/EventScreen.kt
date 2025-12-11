@@ -79,8 +79,7 @@ internal fun EventScreen(
     }
 
     HandleEditorResults(
-        savingFlow = viewModel.savingFlow,
-        deletingFlow = viewModel.deletingFlow,
+        editorResultEventFlow = viewModel.editorResultEventFlow,
         onSuccess = { onNavigateBack(NavigationResult.OK, viewModel.eventMonth) },
         onError = { /* TODO show error */ }
     )

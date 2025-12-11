@@ -6,8 +6,7 @@ import com.kuzepa.mydates.domain.model.EventType
 import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
-import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectDeleting
-import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectSaving
+import com.kuzepa.mydates.domain.usecase.baseeditor.EditorResultEvent
 import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
 import com.kuzepa.mydates.domain.usecase.validation.getErrorMessage
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateNameNotEmptyAndDistinctUseCase
@@ -44,11 +43,8 @@ class EventTypeViewModel @Inject constructor(
      */
     private var allEventTypes: List<EventType> = emptyList()
 
-    private val savingEventTypeSharedFlow = MutableSharedFlow<ObjectSaving>()
-    override val savingFlow = savingEventTypeSharedFlow.asSharedFlow()
-
-    private val deletingEventTypeSharedFlow = MutableSharedFlow<ObjectDeleting>()
-    override val deletingFlow = deletingEventTypeSharedFlow.asSharedFlow()
+    private val _editorResultEventFlow = MutableSharedFlow<EditorResultEvent>(replay = 0)
+    override val editorResultEventFlow = _editorResultEventFlow.asSharedFlow()
 
 
     init {
@@ -172,10 +168,10 @@ class EventTypeViewModel @Inject constructor(
                     }
                 }
                 navigationDialogResult.setDialogResultData(DialogResultData.EventTypeResult(id))
-                savingEventTypeSharedFlow.emit(ObjectSaving.Success(id = id))
+                _editorResultEventFlow.emit(EditorResultEvent.SaveSuccess(id = id))
             } catch (e: Exception) {
                 // TODO handle error
-                savingEventTypeSharedFlow.emit(ObjectSaving.Error(e.message.toString()))
+                _editorResultEventFlow.emit(EditorResultEvent.OperationError(e.message.toString()))
             }
         }
     }
@@ -184,10 +180,10 @@ class EventTypeViewModel @Inject constructor(
         viewModelScope.launch() {
             try {
                 eventTypeRepository.deleteEventTypeById(_uiState.value.eventType?.id ?: "")
-                deletingEventTypeSharedFlow.emit(ObjectDeleting.Success)
+                _editorResultEventFlow.emit(EditorResultEvent.DeleteSuccess)
             } catch (e: Exception) {
                 // TODO handle error
-                deletingEventTypeSharedFlow.emit(ObjectDeleting.Error(e.message.toString()))
+                _editorResultEventFlow.emit(EditorResultEvent.OperationError(e.message.toString()))
             }
         }
     }

@@ -12,8 +12,7 @@ import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import com.kuzepa.mydates.domain.repository.LabelRepository
-import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectDeleting
-import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectSaving
+import com.kuzepa.mydates.domain.usecase.baseeditor.EditorResultEvent
 import com.kuzepa.mydates.domain.usecase.image.DeleteCachedImageUseCase
 import com.kuzepa.mydates.domain.usecase.image.GetImageFromCacheUseCase
 import com.kuzepa.mydates.domain.usecase.label.LabelsFetching
@@ -57,12 +56,8 @@ class EventViewModel @Inject constructor(
     override val uiState: StateFlow<EventUiState> = _uiState.asStateFlow()
     private val dateDelimiter: Char by lazy { dateFormatProvider.getDelimiter() }
 
-    private val savingEventSharedFlow =
-        MutableSharedFlow<ObjectSaving>()
-    override val savingFlow = savingEventSharedFlow.asSharedFlow()
-
-    private val deletingEventSharedFlow = MutableSharedFlow<ObjectDeleting>()
-    override val deletingFlow = deletingEventSharedFlow.asSharedFlow()
+    private val _editorResultEventFlow = MutableSharedFlow<EditorResultEvent>(replay = 0)
+    override val editorResultEventFlow = _editorResultEventFlow.asSharedFlow()
 
     private val fetchingLabelsSharedFlow = MutableSharedFlow<LabelsFetching>()
     val fetchingLabelsFlow = fetchingLabelsSharedFlow.asSharedFlow()
@@ -478,10 +473,10 @@ class EventViewModel @Inject constructor(
                     }
                 )
                 eventMonth = eventDate.month
-                savingEventSharedFlow.emit(ObjectSaving.Success())
+                _editorResultEventFlow.emit(EditorResultEvent.SaveSuccess())
             } catch (e: Exception) {
                 // TODO handle error
-                savingEventSharedFlow.emit(ObjectSaving.Error(e.message.toString()))
+                _editorResultEventFlow.emit(EditorResultEvent.OperationError(e.message.toString()))
             }
         }
     }
@@ -490,10 +485,10 @@ class EventViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 eventRepository.deleteEventById(_uiState.value.event?.id ?: 0)
-                deletingEventSharedFlow.emit(ObjectDeleting.Success)
+                _editorResultEventFlow.emit(EditorResultEvent.DeleteSuccess)
             } catch (e: Exception) {
                 // TODO handle error
-                deletingEventSharedFlow.emit(ObjectDeleting.Error(e.message.toString()))
+                _editorResultEventFlow.emit(EditorResultEvent.OperationError(e.message.toString()))
             }
         }
     }

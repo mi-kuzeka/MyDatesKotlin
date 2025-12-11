@@ -5,8 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.domain.model.label.LabelIcon
 import com.kuzepa.mydates.domain.repository.LabelRepository
-import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectDeleting
-import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectSaving
+import com.kuzepa.mydates.domain.usecase.baseeditor.EditorResultEvent
 import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
 import com.kuzepa.mydates.domain.usecase.validation.getErrorMessage
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateNameNotEmptyAndDistinctUseCase
@@ -43,11 +42,8 @@ class LabelViewModel @Inject constructor(
      */
     private var allLabels: List<Label> = emptyList()
 
-    private val savingLabelSharedFlow = MutableSharedFlow<ObjectSaving>()
-    override val savingFlow = savingLabelSharedFlow.asSharedFlow()
-
-    private val deletingLabelSharedFlow = MutableSharedFlow<ObjectDeleting>()
-    override val deletingFlow = deletingLabelSharedFlow.asSharedFlow()
+    private val _editorResultEventFlow = MutableSharedFlow<EditorResultEvent>(replay = 0)
+    override val editorResultEventFlow = _editorResultEventFlow.asSharedFlow()
 
     init {
         _uiState.update { it.copy(isNewLabel = labelId == null) }
@@ -181,10 +177,10 @@ class LabelViewModel @Inject constructor(
                         )
                     )
                 }
-                savingLabelSharedFlow.emit(ObjectSaving.Success(id = id))
+                _editorResultEventFlow.emit(EditorResultEvent.SaveSuccess(id = id))
             } catch (e: Exception) {
                 // TODO handle error
-                savingLabelSharedFlow.emit(ObjectSaving.Error(e.message.toString()))
+                _editorResultEventFlow.emit(EditorResultEvent.OperationError(e.message.toString()))
             }
         }
     }
@@ -199,13 +195,13 @@ class LabelViewModel @Inject constructor(
     }
 
     override fun delete() {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             try {
                 labelRepository.deleteLabelById(_uiState.value.label?.id ?: "")
-                deletingLabelSharedFlow.emit(ObjectDeleting.Success)
+                _editorResultEventFlow.emit(EditorResultEvent.DeleteSuccess)
             } catch (e: Exception) {
                 // TODO handle error
-                deletingLabelSharedFlow.emit(ObjectDeleting.Error(e.message.toString()))
+                _editorResultEventFlow.emit(EditorResultEvent.OperationError(e.message.toString()))
             }
         }
     }

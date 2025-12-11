@@ -2,34 +2,28 @@ package com.kuzepa.mydates.ui.components.baseeditor
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.platform.LocalContext
-import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectDeleting
-import com.kuzepa.mydates.domain.usecase.baseeditor.ObjectSaving
-import kotlinx.coroutines.flow.Flow
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
+import com.kuzepa.mydates.domain.usecase.baseeditor.EditorResultEvent
+import kotlinx.coroutines.flow.SharedFlow
 
 @Composable
 fun HandleEditorResults(
-    savingFlow: Flow<ObjectSaving>,
-    deletingFlow: Flow<ObjectDeleting>,
+    editorResultEventFlow: SharedFlow<EditorResultEvent>,
     onSuccess: (String?) -> Unit,
     onError: () -> Unit
 ) {
-    val context = LocalContext.current
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
 
-    LaunchedEffect(key1 = context) {
-        savingFlow.collect { event ->
-            when (event) {
-                is ObjectSaving.Success -> onSuccess(event.id)
-                is ObjectSaving.Error -> onError()
-            }
-        }
-    }
-
-    LaunchedEffect(key1 = context) {
-        deletingFlow.collect { event ->
-            when (event) {
-                is ObjectDeleting.Success -> onSuccess(null)
-                is ObjectDeleting.Error -> onError()
+    LaunchedEffect(key1 = Unit) {
+        lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            editorResultEventFlow.collect { event ->
+                when (event) {
+                    is EditorResultEvent.SaveSuccess -> onSuccess(event.id)
+                    is EditorResultEvent.DeleteSuccess -> onSuccess(null)
+                    is EditorResultEvent.OperationError -> onError()
+                }
             }
         }
     }

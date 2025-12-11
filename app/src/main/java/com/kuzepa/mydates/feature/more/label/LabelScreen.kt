@@ -65,8 +65,7 @@ fun LabelScreen(
     }
 
     HandleEditorResults(
-        savingFlow = viewModel.savingFlow,
-        deletingFlow = viewModel.deletingFlow,
+        editorResultEventFlow = viewModel.editorResultEventFlow,
         onSuccess = { id ->
             viewModel.setNavigationResult(id, isOpenedFromEvent)
             onNavigateBack()

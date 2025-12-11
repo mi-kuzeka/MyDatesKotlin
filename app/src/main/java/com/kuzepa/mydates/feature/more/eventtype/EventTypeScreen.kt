@@ -58,8 +58,7 @@ fun EventTypeScreen(
     }
 
     HandleEditorResults(
-        savingFlow = viewModel.savingFlow,
-        deletingFlow = viewModel.deletingFlow,
+        editorResultEventFlow = viewModel.editorResultEventFlow,
         onSuccess = { id -> onNavigateBack() },
         onError = { /* TODO show error */ }
     )
