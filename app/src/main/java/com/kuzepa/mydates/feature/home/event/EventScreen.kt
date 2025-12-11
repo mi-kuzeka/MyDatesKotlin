@@ -85,7 +85,7 @@ internal fun EventScreen(
         onError = { /* TODO show error */ }
     )
 
-    LaunchedEffect(key1 = context) {
+    LaunchedEffect(Unit) {
         viewModel.fetchingLabelsFlow.collect { event ->
             when (event) {
                 is LabelsFetching.Success -> {
