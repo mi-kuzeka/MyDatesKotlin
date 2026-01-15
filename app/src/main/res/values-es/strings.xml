@@ -327,11 +327,11 @@
     <string name="reminder_notification_channel_name">Recordatorios de eventos</string>
 
     <!-- Separator title for past events [CHAR LIMIT=20] -->
-    <string name="past_events_title">Eventos pasados</string>
+    <string name="past_events_header">Eventos pasados</string>
     <!-- Separator title for today's events [CHAR LIMIT=20] -->
-    <string name="today_events_title">Hoy</string>
+    <string name="today_events_header">Hoy</string>
     <!-- Separator title for upcoming events [CHAR LIMIT=20] -->
-    <string name="upcoming_events_title">Próximos eventos</string>
+    <string name="upcoming_events_header">Próximos eventos</string>
     <!-- String for checkbox "Show past events at the bottom of the list" [CHAR LIMIT=NONE] -->
     <string name="past_events_checkbox_text">Mostrar eventos pasados al final de la lista</string>
 

@@ -30,7 +30,6 @@ import com.kuzepa.mydates.ui.components.rememberOnEvent
 import com.kuzepa.mydates.ui.components.stateview.EmptyView
 import com.kuzepa.mydates.ui.components.stateview.ErrorView
 import com.kuzepa.mydates.ui.components.stateview.LoadingView
-import com.kuzepa.mydates.ui.theme.MyDatesColors
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlin.math.abs
 import kotlin.math.max
@@ -112,7 +111,7 @@ fun HomeScreen(
             state = pagerState,
             modifier = Modifier
                 .fillMaxSize()
-                .background(MyDatesColors.containerColor)
+                .background(MaterialTheme.colorScheme.surfaceContainer)
                 .windowInsetsPadding(
                     WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal)
                 ),
@@ -144,7 +143,7 @@ fun HomeScreen(
 
                 is EventPageState.Success -> {
                     EventList(
-                        eventListItems = pageState.eventListItems,
+                        eventListGrouping = pageState.eventListGrouping,
                         onNavigateToEventEditor = onNavigateToEventEditor
                     )
                 }

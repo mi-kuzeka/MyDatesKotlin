@@ -56,11 +56,12 @@ fun EventItem(
     eventItemData?.let { data ->
         Row(
             horizontalArrangement = Arrangement.spacedBy(
-                space = dimensionResource(R.dimen.padding_extra_small)
+                space = dimensionResource(R.dimen.padding_small)
             ),
             modifier = modifier
                 .fillMaxWidth()
                 .clickable(onClick = { onNavigateToEventEditor(eventItemData.event.id) })
+                .background(color = MaterialTheme.colorScheme.surfaceBright)
                 .padding(dimensionResource(R.dimen.padding_small))
                 .height(IntrinsicSize.Min)
         ) {

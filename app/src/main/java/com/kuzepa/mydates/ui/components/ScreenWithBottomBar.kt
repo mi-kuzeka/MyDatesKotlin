@@ -82,7 +82,9 @@ internal fun ScreenWithBottomBar(
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                containerColor = MaterialTheme.colorScheme.secondaryContainer
+            ) {
                 bottomNavItems.forEach { bottomNavItem ->
                     val selected =
                         currentDestination?.containsRoute(route = bottomNavItem.route) == true

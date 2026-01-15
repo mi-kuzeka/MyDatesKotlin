@@ -3,7 +3,7 @@ package com.kuzepa.mydates.repository
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kuzepa.mydates.common.util.labelcolor.LabelColor
 import com.kuzepa.mydates.di.FakeEventRepository
-import com.kuzepa.mydates.domain.formatter.toNotificationDateCode
+import com.kuzepa.mydates.domain.formatter.toDateCode
 import com.kuzepa.mydates.domain.model.Event
 import com.kuzepa.mydates.domain.model.EventDate
 import com.kuzepa.mydates.domain.model.EventType
@@ -60,7 +60,7 @@ class EventRepositoryTest {
             type = eventType,
             notes = "Some notes",
             labels = labels,
-            notificationDateCode = eventDate.toNotificationDateCode()
+            notificationDateCode = eventDate.toDateCode()
         )
     }
 
@@ -188,9 +188,9 @@ class EventRepositoryTest {
 
         // Then
         assertEquals(3, result.size)
-        assertEquals(eventDate2.toNotificationDateCode(), result[0].notificationDateCode)
-        assertEquals(eventDate3.toNotificationDateCode(), result[1].notificationDateCode)
-        assertEquals(eventDate1.toNotificationDateCode(), result[2].notificationDateCode)
+        assertEquals(eventDate2.toDateCode(), result[0].notificationDateCode)
+        assertEquals(eventDate3.toDateCode(), result[1].notificationDateCode)
+        assertEquals(eventDate1.toDateCode(), result[2].notificationDateCode)
     }
 
     @Test
@@ -210,9 +210,9 @@ class EventRepositoryTest {
 
         // Then
         assertEquals(3, result.size)
-        assertEquals(eventDate1.toNotificationDateCode(), result[0].notificationDateCode)
-        assertEquals(eventDate3.toNotificationDateCode(), result[1].notificationDateCode)
-        assertEquals(eventDate2.toNotificationDateCode(), result[2].notificationDateCode)
+        assertEquals(eventDate1.toDateCode(), result[0].notificationDateCode)
+        assertEquals(eventDate3.toDateCode(), result[1].notificationDateCode)
+        assertEquals(eventDate2.toDateCode(), result[2].notificationDateCode)
     }
 
     @Test

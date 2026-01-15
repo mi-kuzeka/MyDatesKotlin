@@ -15,7 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -47,7 +46,6 @@ fun EventTypeScreen(
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showGoBackConfirmationDialog by remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
-    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         if (state.isNewEventType) {
@@ -78,11 +76,11 @@ fun EventTypeScreen(
         onShowGoBackDialogChange = { showGoBackConfirmationDialog = it },
         scrollBehavior = scrollBehavior,
         deleteDialogContent = AlertDialogContent(
-            title = context.getString(
+            title = stringResource(
                 R.string.delete_dialog_title_pattern,
                 stringResource(R.string.this_event_type)
             ),
-            message = context.getString(
+            message = stringResource(
                 R.string.delete_dialog_msg_pattern,
                 stringResource(R.string.this_event_type)
             ),

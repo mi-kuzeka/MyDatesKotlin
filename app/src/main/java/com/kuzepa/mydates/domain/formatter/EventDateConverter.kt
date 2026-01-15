@@ -13,8 +13,12 @@ import java.util.Locale
  *  EventDate(month = 3, day = 8, year = 2000) -> result = 308
  *  EventDate(month = 10, day = 21, year = -1) -> result = 1021
  */
-fun EventDate.toNotificationDateCode(): Int {
+fun EventDate.toDateCode(): Int {
     return month * 100 + day
+}
+
+fun Calendar.toDateCode(): Int {
+    return (get(Calendar.MONTH) + 1) * 100 + get(Calendar.DAY_OF_MONTH)
 }
 
 fun EventDate.formatDate(formatPattern: String): String {

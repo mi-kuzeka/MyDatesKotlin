@@ -25,6 +25,14 @@ data class EventListDelimiter(
     val title: String,
 ) : EventListItem()
 
+data class EventListGrouping(
+    val today: List<EventItemData>,
+    val upcoming: List<EventItemData>,
+    val past: List<EventItemData>
+)
+
+fun EventListGrouping.isEmpty(): Boolean = today.isEmpty() && upcoming.isEmpty() && past.isEmpty()
+
 data class EventItemData(
     override val id: Long,
     val event: Event,

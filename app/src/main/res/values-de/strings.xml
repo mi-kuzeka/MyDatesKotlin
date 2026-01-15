@@ -280,11 +280,11 @@
     <string name="set_event_type_as_default_button">Legen Sie diesen Typ als Standard fest</string>
 
     <!-- Separator title for past events [CHAR LIMIT=20] -->
-    <string name="past_events_title">Vergangene Ereignisse</string>
+    <string name="past_events_header">Vergangene Ereignisse</string>
     <!-- Separator title for today's events [CHAR LIMIT=20] -->
-    <string name="today_events_title">Heute</string>
+    <string name="today_events_header">Heute</string>
     <!-- Separator title for upcoming events [CHAR LIMIT=20] -->
-    <string name="upcoming_events_title">Kommende Ereignisse</string>
+    <string name="upcoming_events_header">Kommende Ereignisse</string>
     <!-- String for checkbox "Show past events at the bottom of the list" [CHAR LIMIT=NONE] -->
     <string name="past_events_checkbox_text">Vergangene Ereignisse werden unten in der Liste angezeigt</string>
 
