@@ -21,6 +21,7 @@ android {
         versionName = "2025.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -39,6 +40,7 @@ android {
     kotlin {
         compilerOptions {
             jvmTarget = JvmTarget.JVM_21
+            freeCompilerArgs.add("-XXLanguage:+ExplicitBackingFields")
         }
     }
     buildFeatures {
@@ -90,6 +92,8 @@ dependencies {
     implementation(libs.compose.colorpicker)
     // Date/time library
     implementation(libs.joda.time)
+    // Emoji picker
+    implementation(libs.androidx.emoji2.emojipicker)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
