@@ -53,6 +53,7 @@ import kotlinx.coroutines.android.awaitFrame
 @Composable
 internal fun EventScreen(
     viewModel: EventViewModel = hiltViewModel(),
+    // this parameter is used in viewModel
     eventId: Long?,
     onNavigateBack: (result: Int, eventMonth: Int?) -> Unit,
     onNavigateToEventTypeCreator: () -> Unit,
@@ -122,11 +123,11 @@ internal fun EventScreen(
         onShowGoBackDialogChange = { showGoBackDialog = it },
         onShowDeleteDialogChange = { showDeleteDialog = it },
         deleteDialogContent = AlertDialogContent(
-            title = context.getString(
+            title = stringResource(
                 R.string.delete_dialog_title_pattern,
                 stringResource(R.string.this_event)
             ),
-            message = context.getString(
+            message = stringResource(
                 R.string.delete_dialog_msg_pattern,
                 stringResource(R.string.this_event)
             ),

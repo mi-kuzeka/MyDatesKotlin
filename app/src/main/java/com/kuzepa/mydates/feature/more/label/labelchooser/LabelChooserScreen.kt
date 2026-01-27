@@ -38,6 +38,7 @@ import com.kuzepa.mydates.ui.theme.MyDatesTheme
 @Composable
 fun LabelChooserScreen(
     viewModel: LabelChooserViewModel = hiltViewModel(),
+    // this parameter is used in viewModel
     eventLabelIdsJson: String,
     onNavigateToLabelEditor: (id: String?) -> Unit,
     onNavigateBack: () -> Unit,

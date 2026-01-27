@@ -41,6 +41,7 @@ import kotlinx.coroutines.android.awaitFrame
 @Composable
 fun LabelScreen(
     viewModel: LabelViewModel = hiltViewModel(),
+    // this parameter is used in viewModel
     id: String?,
     isOpenedFromEvent: Boolean,
     showDeleteButton: Boolean,
@@ -88,11 +89,11 @@ fun LabelScreen(
         onShowGoBackDialogChange = { showGoBackConfirmationDialog = it },
         scrollBehavior = scrollBehavior,
         deleteDialogContent = AlertDialogContent(
-            title = context.getString(
+            title = stringResource(
                 R.string.delete_dialog_title_pattern,
                 stringResource(R.string.this_label)
             ),
-            message = context.getString(
+            message = stringResource(
                 R.string.delete_dialog_msg_pattern,
                 stringResource(R.string.this_label)
             ),
