@@ -105,33 +105,45 @@ internal object MyDatesColors {
         get() = InputChipDefaults.inputChipColors(
             selectedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
             containerColor = MaterialTheme.colorScheme.secondaryContainer,
-            leadingIconColor = MaterialTheme.colorScheme.primary,
-            selectedLeadingIconColor = MaterialTheme.colorScheme.primary,
-            labelColor = MaterialTheme.colorScheme.primary,
-            selectedLabelColor = MaterialTheme.colorScheme.primary,
+            leadingIconColor = notificationOnTextColor,
+            selectedLeadingIconColor = notificationOnTextColor,
+            labelColor = notificationOnTextColor,
+            selectedLabelColor = notificationOnTextColor,
         )
+    val notificationOnTextColor: Color
+        @ReadOnlyComposable
+        @Composable
+        get() = MaterialTheme.colorScheme.primary
 
     val notificationOffChipColors: SelectableChipColors
         @Composable
         get() = InputChipDefaults.inputChipColors(
             selectedContainerColor = MaterialTheme.colorScheme.outlineVariant,
             containerColor = MaterialTheme.colorScheme.outlineVariant,
-            leadingIconColor = MaterialTheme.colorScheme.secondary,
-            selectedLeadingIconColor = MaterialTheme.colorScheme.secondary,
-            labelColor = MaterialTheme.colorScheme.secondary,
-            selectedLabelColor = MaterialTheme.colorScheme.secondary,
+            leadingIconColor = notificationOffTextColor,
+            selectedLeadingIconColor = notificationOffTextColor,
+            labelColor = notificationOffTextColor,
+            selectedLabelColor = notificationOffTextColor,
         )
+    val notificationOffTextColor: Color
+        @ReadOnlyComposable
+        @Composable
+        get() = MaterialTheme.colorScheme.secondary
 
     val notificationForbiddenChipColors: SelectableChipColors
         @Composable
         get() = InputChipDefaults.inputChipColors(
             selectedContainerColor = MaterialTheme.colorScheme.errorContainer,
             containerColor = MaterialTheme.colorScheme.errorContainer,
-            leadingIconColor = MaterialTheme.colorScheme.onErrorContainer,
-            selectedLeadingIconColor = MaterialTheme.colorScheme.onErrorContainer,
-            labelColor = MaterialTheme.colorScheme.onErrorContainer,
-            selectedLabelColor = MaterialTheme.colorScheme.onErrorContainer,
+            leadingIconColor = notificationForbiddenTextColor,
+            selectedLeadingIconColor = notificationForbiddenTextColor,
+            labelColor = notificationForbiddenTextColor,
+            selectedLabelColor = notificationForbiddenTextColor,
         )
+    val notificationForbiddenTextColor: Color
+        @ReadOnlyComposable
+        @Composable
+        get() = MaterialTheme.colorScheme.onErrorContainer
 
     val selectedChipColor: Color
         @ReadOnlyComposable

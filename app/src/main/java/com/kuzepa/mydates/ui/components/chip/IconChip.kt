@@ -51,6 +51,9 @@ fun IconChip(
     val iconPadding = remember {
         if (chipSize > 24.dp) 2.dp else 1.dp
     }
+    val showingFirstLetter = remember(firstLetter) {
+        firstLetter.ifBlank { "?" }
+    }
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
@@ -71,7 +74,7 @@ fun IconChip(
         when (iconType) {
             IconType.FIRST_LETTER -> {
                 BasicText(
-                    text = firstLetter,
+                    text = showingFirstLetter,
                     style = MaterialTheme.typography.labelLarge,
                     autoSize = TextAutoSize.StepBased(
                         minFontSize = 10.sp

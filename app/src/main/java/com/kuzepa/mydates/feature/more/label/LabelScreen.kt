@@ -15,7 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -55,7 +54,6 @@ fun LabelScreen(
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showGoBackConfirmationDialog by remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
-    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         if (state.isNewLabel) {
@@ -166,15 +164,6 @@ fun LabelScreenContent(
                         }
                     } else {
                         onEvent(LabelScreenEvent.IconChanged(labelIcon))
-                    }
-                },
-                moreIconsTitle = stringResource(R.string.more_icons_button),
-                isExpanded = iconsAreExpanded,
-                onExpandedChanged = { expanded ->
-                    if (expanded) {
-                        onEvent(LabelScreenEvent.ExpandIcons)
-                    } else {
-                        onEvent(LabelScreenEvent.CollapseIcons)
                     }
                 },
                 showEmojiPicker = emojiPickerIsShowing,

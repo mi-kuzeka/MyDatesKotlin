@@ -1,7 +1,10 @@
 package com.kuzepa.mydates.ui.components.chip
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.MaterialTheme
@@ -11,8 +14,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kuzepa.mydates.R
@@ -50,12 +56,38 @@ fun LabelChip(
     var labelIcon by remember(label.iconId) {
         mutableStateOf(LabelIcon.fromId(label.iconId))
     }
+    val notificationStateIcon =
+        if (label.notificationState == NotificationFilterState.FILTER_STATE_ON) {
+            painterResource(R.drawable.ic_notifications_active_filled)
+        } else {
+            painterResource(R.drawable.ic_notifications_off_filled)
+        }
+    val notificationStateColor: Color = when (label.notificationState) {
+        NotificationFilterState.FILTER_STATE_ON -> MyDatesColors.notificationOnTextColor.copy(alpha = 0.5f)
+        NotificationFilterState.FILTER_STATE_OFF -> MyDatesColors.notificationOffTextColor.copy(alpha = 0.5f)
+        NotificationFilterState.FILTER_STATE_FORBIDDEN -> MyDatesColors.notificationForbiddenTextColor.copy(alpha = 0.5f)
+    }
     InputChip(
         label = {
-            Text(
-                text = label.name,
-                style = MaterialTheme.typography.bodyMedium,
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(
+                    4.dp
+                )
+            ) {
+                Text(
+                    text = label.name,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                Icon(
+                    painter = notificationStateIcon,
+                    contentDescription = "",
+                    tint = notificationStateColor,
+                    modifier = Modifier.size(
+                        dimensionResource(R.dimen.icon_size)
+                    )
+                )
+            }
         },
         selected = true,
         onClick = { onLabelClick(label.id) },

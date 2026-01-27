@@ -463,7 +463,7 @@ class EventViewModel @Inject constructor(
                     with(_uiState.value) {
                         Event(
                             id = event?.id,
-                            name = name,
+                            name = name.trim(),
                             date = eventDate,
                             type = eventType,
                             notes = notes,

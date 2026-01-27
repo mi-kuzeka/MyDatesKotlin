@@ -162,14 +162,6 @@ class LabelViewModel @Inject constructor(
                 _uiState.update { it.copy(emojiPickerIsShowing = false) }
             }
 
-            is LabelScreenEvent.ExpandIcons -> {
-                _uiState.update { it.copy(iconsAreExpanded = true) }
-            }
-
-            is LabelScreenEvent.CollapseIcons -> {
-                _uiState.update { it.copy(iconsAreExpanded = false, emojiPickerIsShowing = false) }
-            }
-
             is LabelScreenEvent.Save -> {
                 if (isValid()) save()
             }
@@ -206,7 +198,7 @@ class LabelViewModel @Inject constructor(
                     labelRepository.upsertLabel(
                         Label(
                             id = id,
-                            name = name,
+                            name = name.trim(),
                             color = colorId,
                             iconId = icon.id,
                             notificationState = notificationState,

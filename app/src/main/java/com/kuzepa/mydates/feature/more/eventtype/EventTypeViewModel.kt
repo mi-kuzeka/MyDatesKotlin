@@ -156,7 +156,7 @@ class EventTypeViewModel @Inject constructor(
                 with(_uiState.value) {
                     val eventType = EventType(
                         id = id,
-                        name = name,
+                        name = name.trim(),
                         isDefault = isDefault,
                         notificationState = notificationState,
                         showZodiac = showZodiac
