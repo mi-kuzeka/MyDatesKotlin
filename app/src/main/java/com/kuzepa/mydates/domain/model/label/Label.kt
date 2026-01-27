@@ -7,5 +7,6 @@ data class Label(
     val name: String,
     val color: Int,
     val notificationState: NotificationFilterState,
-    val iconId: Int
+    val iconId: Int,
+    val emoji: String
 )

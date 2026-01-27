@@ -12,7 +12,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -27,6 +26,7 @@ import com.kuzepa.mydates.common.util.labelcolor.LabelColor
 import com.kuzepa.mydates.common.util.labelcolor.getContrastedColor
 import com.kuzepa.mydates.domain.model.AlertDialogContent
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
+import com.kuzepa.mydates.domain.model.label.IconType
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorDialog
 import com.kuzepa.mydates.ui.components.baseeditor.HandleEditorResults
@@ -123,7 +123,6 @@ fun LabelScreenContent(
         modifier = modifier
     ) {
         with(state) {
-            var iconsAreExpanded by rememberSaveable { mutableStateOf(false) }
             // TODO Preview
             MyDatesTextField(
                 label = stringResource(R.string.name_label),
@@ -152,13 +151,36 @@ fun LabelScreenContent(
             IconSelectionContainer(
                 containerTitle = stringResource(R.string.label_icon),
                 selectedIcon = icon,
+                emoji = emoji,
                 firstLetter = nameFirstLetter,
                 color = color,
                 iconColor = iconColor,
-                onSelected = { labelIcon -> onEvent(LabelScreenEvent.IconChanged(labelIcon)) },
+                onSelected = { labelIcon ->
+                    if (labelIcon.iconType == IconType.EMOJI) {
+                        if (emojiPickerIsShowing) {
+                            onEvent(LabelScreenEvent.HideEmojiPicker)
+                        } else {
+                            onEvent(LabelScreenEvent.IconChanged(labelIcon))
+                            onEvent(LabelScreenEvent.ShowEmojiPicker)
+                        }
+                    } else {
+                        onEvent(LabelScreenEvent.IconChanged(labelIcon))
+                    }
+                },
                 moreIconsTitle = stringResource(R.string.more_icons_button),
                 isExpanded = iconsAreExpanded,
-                onExpandedChanged = { iconsAreExpanded = it }
+                onExpandedChanged = { expanded ->
+                    if (expanded) {
+                        onEvent(LabelScreenEvent.ExpandIcons)
+                    } else {
+                        onEvent(LabelScreenEvent.CollapseIcons)
+                    }
+                },
+                showEmojiPicker = emojiPickerIsShowing,
+                onEmojiPicked = { emoji ->
+                    onEvent(LabelScreenEvent.HideEmojiPicker)
+                    onEvent(LabelScreenEvent.EmojiPicked(emoji))
+                }
             )
             NotificationFilterSingleChipContainer(
                 containerTitle = stringResource(R.string.notifications_title),

@@ -271,14 +271,16 @@ fun EventScreenNewEventPreview() {
                     name = "Friends",
                     color = 6,
                     notificationState = NotificationFilterState.FILTER_STATE_ON,
-                    iconId = 0
+                    iconId = 0,
+                    emoji = ""
                 ),
                 Label(
                     id = "2",
                     name = "Family",
                     color = 3,
                     notificationState = NotificationFilterState.FILTER_STATE_ON,
-                    iconId = 10
+                    iconId = 10,
+                    emoji = ""
                 )
             ),
         )

@@ -17,7 +17,7 @@ android {
         applicationId = "com.kuzepa.mydates"
         minSdk = 24
         targetSdk = 36
-        versionCode = 30
+        versionCode = 32
         versionName = "2025.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

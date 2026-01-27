@@ -17,7 +17,7 @@ import com.kuzepa.mydates.ui.components.stateview.EmptyView
 @Composable
 fun EventList(
     eventListGrouping: EventListGrouping,
-    onNavigateToEventEditor: (Long) -> Unit,
+    onNavigateToEventEditor: (Long?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (eventListGrouping.isEmpty()) {

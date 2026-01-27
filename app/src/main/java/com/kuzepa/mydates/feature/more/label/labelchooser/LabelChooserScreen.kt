@@ -122,7 +122,7 @@ fun LabelChooserScreenContent(
             }
             MyDatesButton(
                 icon = Icons.Outlined.Add,
-                text = stringResource(R.string.button_add_label),
+                text = stringResource(R.string.label_creator_title),
                 onClick = {
                     onNavigateToLabelEditor(null)
                 },

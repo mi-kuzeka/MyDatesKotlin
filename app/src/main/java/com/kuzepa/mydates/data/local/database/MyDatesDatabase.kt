@@ -13,6 +13,7 @@ import com.kuzepa.mydates.data.local.database.entity.EventEntity
 import com.kuzepa.mydates.data.local.database.entity.EventLabelJoin
 import com.kuzepa.mydates.data.local.database.entity.EventTypeEntity
 import com.kuzepa.mydates.data.local.database.entity.LabelEntity
+import com.kuzepa.mydates.data.local.database.migrations.Migrations
 import javax.inject.Provider
 
 @Database(
@@ -22,8 +23,10 @@ import javax.inject.Provider
         LabelEntity::class,
         EventLabelJoin::class
     ],
-    version = 14
+    // should be equal to the app version in which the db is updated
+    version = 32
 )
+
 abstract class MyDatesDatabase : RoomDatabase() {
     abstract fun eventDao(): EventDao
     abstract fun eventTypeDao(): EventTypeDao
@@ -37,6 +40,8 @@ abstract class MyDatesDatabase : RoomDatabase() {
             context: Context,
             eventTypeProvider: Provider<EventTypeDao>
         ): MyDatesDatabase {
+            val birthdayEventTypeName = context.applicationContext
+                .getString(R.string.event_type_birthday_name)
             return Room.databaseBuilder(
                 context.applicationContext,
                 MyDatesDatabase::class.java,
@@ -44,10 +49,37 @@ abstract class MyDatesDatabase : RoomDatabase() {
             ).addCallback(
                 DataBaseInitializer(
                     eventTypeProvider = eventTypeProvider,
-                    birthdayEventTypeName = context.applicationContext
-                        .getString(R.string.event_type_birthday_name)
+                    birthdayEventTypeName = birthdayEventTypeName
                 )
+            ).addMigrations(
+                Migrations.getMigration1to2(),
+                Migrations.getMigration2to3(),
+                Migrations.getMigration3to4(),
+                Migrations.getMigration4to13(birthdayEventTypeName),
+                Migrations.getMigration13to32()
             ).build()
+        }
+    }
+}
+
+class MyDatesDatabaseInstance {
+    companion object {
+        @Volatile
+        private var INSTANCE: MyDatesDatabase? = null
+
+        fun getInstance(
+            context: Context,
+            eventTypeProvider: Provider<EventTypeDao>
+        ): MyDatesDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = MyDatesDatabase
+                    .buildDatabase(
+                        context,
+                        eventTypeProvider
+                    )
+                INSTANCE = instance
+                instance
+            }
         }
     }
 }

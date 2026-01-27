@@ -87,6 +87,7 @@ class LabelViewModel @Inject constructor(
                 nameFirstLetter = name.take(1),
                 colorId = color,
                 icon = LabelIcon.fromId(iconId) ?: LabelIcon.FIRST_LETTER,
+                emoji = emoji,
                 notificationState = notificationState
             )
         }
@@ -125,6 +126,25 @@ class LabelViewModel @Inject constructor(
                 }
             }
 
+            is LabelScreenEvent.EmojiPicked -> {
+                if (event.emoji == null) {
+                    _uiState.update {
+                        it.copy(
+                            hasChanges = true,
+                            icon = LabelIcon.EMOJI
+                        )
+                    }
+                } else {
+                    _uiState.update {
+                        it.copy(
+                            hasChanges = true,
+                            icon = LabelIcon.EMOJI,
+                            emoji = event.emoji
+                        )
+                    }
+                }
+            }
+
             is LabelScreenEvent.NotificationStateChanged -> {
                 _uiState.update {
                     it.copy(
@@ -132,6 +152,22 @@ class LabelViewModel @Inject constructor(
                         notificationState = event.notificationState
                     )
                 }
+            }
+
+            is LabelScreenEvent.ShowEmojiPicker -> {
+                _uiState.update { it.copy(emojiPickerIsShowing = true) }
+            }
+
+            is LabelScreenEvent.HideEmojiPicker -> {
+                _uiState.update { it.copy(emojiPickerIsShowing = false) }
+            }
+
+            is LabelScreenEvent.ExpandIcons -> {
+                _uiState.update { it.copy(iconsAreExpanded = true) }
+            }
+
+            is LabelScreenEvent.CollapseIcons -> {
+                _uiState.update { it.copy(iconsAreExpanded = false, emojiPickerIsShowing = false) }
             }
 
             is LabelScreenEvent.Save -> {
@@ -173,7 +209,8 @@ class LabelViewModel @Inject constructor(
                             name = name,
                             color = colorId,
                             iconId = icon.id,
-                            notificationState = notificationState
+                            notificationState = notificationState,
+                            emoji = emoji
                         )
                     )
                 }

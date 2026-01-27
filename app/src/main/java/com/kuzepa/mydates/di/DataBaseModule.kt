@@ -2,6 +2,7 @@ package com.kuzepa.mydates.di
 
 import android.content.Context
 import com.kuzepa.mydates.data.local.database.MyDatesDatabase
+import com.kuzepa.mydates.data.local.database.MyDatesDatabaseInstance
 import com.kuzepa.mydates.data.local.database.dao.EventTypeDao
 import dagger.Module
 import dagger.Provides
@@ -20,7 +21,7 @@ object DataBaseModule {
         @ApplicationContext appContext: Context,
         eventTypeProvider: Provider<EventTypeDao>
     ): MyDatesDatabase {
-        return MyDatesDatabase.buildDatabase(appContext, eventTypeProvider)
+        return MyDatesDatabaseInstance.getInstance(appContext, eventTypeProvider)
     }
 
     @Provides

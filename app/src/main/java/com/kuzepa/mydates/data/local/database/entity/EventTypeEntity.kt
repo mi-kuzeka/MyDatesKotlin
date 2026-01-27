@@ -6,15 +6,15 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "event_types")
 data class EventTypeEntity(
-    @PrimaryKey()
+    @PrimaryKey
     val id: String,
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "name", defaultValue = "")
     val name: String,
-    @ColumnInfo(name = "is_default")
+    @ColumnInfo(name = "is_default", defaultValue = "0")
     val isDefault: Boolean,
-    @ColumnInfo(name = "notification_state")
+    @ColumnInfo(name = "notification_state", defaultValue = "0")
     val notificationState: Int,
-    @ColumnInfo(name = "show_zodiac")
+    @ColumnInfo(name = "show_zodiac", defaultValue = "0")
     val showZodiac: Boolean
 )
 

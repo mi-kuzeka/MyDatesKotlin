@@ -31,7 +31,7 @@ fun NotificationFilterHintAlertDialog(
         title = { Text(text = stringResource(R.string.notification_filter_help_hint)) },
         text = {
             Column(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState())
             ) {
@@ -99,7 +99,8 @@ fun NotificationFilterHintAlertDialog(
                 Text(stringResource(R.string.button_ok))
             }
         },
-        containerColor = MyDatesColors.screenBackground
+        containerColor = MyDatesColors.screenBackground,
+        modifier = modifier
     )
 }
 

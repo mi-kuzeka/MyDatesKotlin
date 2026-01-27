@@ -12,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,12 +41,16 @@ fun IconChip(
     modifier: Modifier = Modifier,
     firstLetter: String = "",
     iconDrawableResId: Int? = null,
+    emoji: String? = null,
     iconColor: Color = Color.Transparent,
     selectable: Boolean = false,
     selected: Boolean = false,
     clickable: Boolean = true,
     onClick: () -> Unit = {}
 ) {
+    val iconPadding = remember {
+        if (chipSize > 24.dp) 2.dp else 1.dp
+    }
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
@@ -71,8 +76,22 @@ fun IconChip(
                     autoSize = TextAutoSize.StepBased(
                         minFontSize = 10.sp
                     ),
-                    color = { iconColor }
+                    color = { iconColor },
+                    modifier = Modifier.padding(all = iconPadding)
                 )
+            }
+
+            IconType.EMOJI -> {
+                emoji?.let {
+                    BasicText(
+                        text = it,
+                        style = MaterialTheme.typography.labelMedium,
+                        autoSize = TextAutoSize.StepBased(
+                            minFontSize = 8.sp
+                        ),
+                        modifier = Modifier.padding(all = iconPadding)
+                    )
+                }
             }
 
             IconType.ICON -> {
@@ -81,7 +100,7 @@ fun IconChip(
                         painter = painterResource(it),
                         tint = iconColor,
                         contentDescription = "",
-                        modifier = Modifier.padding(2.dp)
+                        modifier = Modifier.padding(iconPadding)
                     )
                 }
             }
@@ -173,6 +192,23 @@ fun SelectableChipPreviewIcon() {
             firstLetter = "F",
             iconDrawableResId = LabelIcon.KEY_ICON.drawableRes,
             iconColor = Color.Black,
+            selectable = true,
+            selected = false,
+        )
+    }
+}
+
+@Preview
+@Composable
+fun SelectableChipPreviewEmoji() {
+    MyDatesTheme {
+        IconChip(
+            chipSize = 48.dp,
+            color = LabelColor.PINK.color,
+            iconType = IconType.EMOJI,
+            firstLetter = "F",
+            iconColor = Color.Black,
+            emoji = "\uD83C\uDF1A",
             selectable = true,
             selected = false,
         )

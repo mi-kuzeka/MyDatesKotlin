@@ -64,6 +64,7 @@ fun LabelChip(
                 chipSize = InputChipDefaults.AvatarSize,
                 color = labelColor,
                 iconType = labelIcon?.iconType ?: IconType.FIRST_LETTER,
+                emoji = label.emoji,
                 firstLetter = firstLetter,
                 iconDrawableResId = labelIcon?.drawableRes,
                 iconColor = labelIconColor,
@@ -104,7 +105,8 @@ fun LabelChipPreview() {
                 name = "Friends",
                 color = randomColor.toInt(),
                 notificationState = NotificationFilterState.FILTER_STATE_ON,
-                iconId = Random.nextInt(69)
+                iconId = Random.nextInt(69),
+                emoji = ""
             ),
             onLabelClick = {},
             onRemoveLabelClick = {},

@@ -4,21 +4,26 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
+import androidx.room.Index
 
 @Entity(
     tableName = "event_label_join",
     primaryKeys = ["event_id", "label_id"],
+    indices = [
+        Index("event_id"),
+        Index("label_id")
+    ],
     foreignKeys = [
         ForeignKey(
             entity = EventEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("event_id"),
+            parentColumns = ["id"],
+            childColumns = ["event_id"],
             onDelete = CASCADE
         ),
         ForeignKey(
             entity = LabelEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("label_id"),
+            parentColumns = ["id"],
+            childColumns = ["label_id"],
             onDelete = CASCADE
         ),
     ]

@@ -6,6 +6,7 @@ import com.kuzepa.mydates.R
 enum class LabelIcon(val id: Int, @DrawableRes val drawableRes: Int?, val iconType: IconType) {
     NO_ICON(-1, null, IconType.NO_ICON),
     FIRST_LETTER(0, null, IconType.FIRST_LETTER),
+    EMOJI(1001, null, IconType.EMOJI),
     FAVORITE(1, R.drawable.label_ic_favorite, IconType.ICON),
     STAR(2, R.drawable.label_ic_star, IconType.ICON),
     FLAG(3, R.drawable.label_ic_flag_2, IconType.ICON),
@@ -85,5 +86,6 @@ enum class LabelIcon(val id: Int, @DrawableRes val drawableRes: Int?, val iconTy
 enum class IconType {
     NO_ICON,
     FIRST_LETTER,
+    EMOJI,
     ICON
 }

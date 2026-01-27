@@ -462,7 +462,7 @@ class EventViewModel @Inject constructor(
                 eventRepository.upsertEvent(
                     with(_uiState.value) {
                         Event(
-                            id = event?.id ?: 0L,
+                            id = event?.id,
                             name = name,
                             date = eventDate,
                             type = eventType,

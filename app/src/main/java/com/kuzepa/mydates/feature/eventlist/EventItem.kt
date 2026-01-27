@@ -50,7 +50,7 @@ import com.kuzepa.mydates.ui.theme.Shapes
 @Composable
 fun EventItem(
     eventItemData: EventItemData?,
-    onNavigateToEventEditor: (Long) -> Unit,
+    onNavigateToEventEditor: (Long?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     eventItemData?.let { data ->
@@ -198,21 +198,24 @@ fun EventItemPreview() {
                     name = "Friends",
                     color = 1,
                     notificationState = NotificationFilterState.FILTER_STATE_ON,
-                    iconId = 1
+                    iconId = 1,
+                    emoji = ""
                 ),
                 Label(
                     id = "2",
                     name = "Family",
                     color = 2,
                     notificationState = NotificationFilterState.FILTER_STATE_ON,
-                    iconId = 2
+                    iconId = 2,
+                    emoji = ""
                 ),
                 Label(
                     id = "3",
                     name = "Other",
                     color = 3,
                     notificationState = NotificationFilterState.FILTER_STATE_ON,
-                    iconId = 3
+                    iconId = 3,
+                    emoji = ""
                 )
             )
         )

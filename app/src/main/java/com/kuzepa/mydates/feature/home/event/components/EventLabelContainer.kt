@@ -20,6 +20,7 @@ import com.kuzepa.mydates.R
 import com.kuzepa.mydates.common.util.labelcolor.randomColor
 import com.kuzepa.mydates.common.util.labelcolor.toInt
 import com.kuzepa.mydates.domain.model.label.Label
+import com.kuzepa.mydates.domain.model.label.LabelIcon
 import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import com.kuzepa.mydates.ui.components.chip.AddLabelChip
 import com.kuzepa.mydates.ui.components.chip.LabelChip
@@ -105,14 +106,24 @@ fun EventLabelContainerPreview() {
                     name = "Friends",
                     color = 6,
                     notificationState = NotificationFilterState.FILTER_STATE_ON,
-                    iconId = 0
+                    iconId = LabelIcon.FIRST_LETTER.id,
+                    emoji = ""
                 ),
                 Label(
                     id = "2",
                     name = "Family",
                     color = 3,
                     notificationState = NotificationFilterState.FILTER_STATE_ON,
-                    iconId = 10
+                    iconId = LabelIcon.WORK.id,
+                    emoji = ""
+                ),
+                Label(
+                    id = "3",
+                    name = "Other",
+                    color = 5,
+                    notificationState = NotificationFilterState.FILTER_STATE_ON,
+                    iconId = LabelIcon.EMOJI.id,
+                    emoji = "\uD83C\uDFFF"
                 )
             )
         }
@@ -134,7 +145,8 @@ fun EventLabelContainerPreview() {
                         name = "Tag $lastId",
                         color = randomColor.toInt(),
                         notificationState = NotificationFilterState.FILTER_STATE_ON,
-                        iconId = lastId
+                        iconId = lastId,
+                        emoji = ""
                     )
                 )
             },

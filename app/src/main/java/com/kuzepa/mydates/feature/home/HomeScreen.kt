@@ -39,7 +39,7 @@ import kotlin.math.min
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    onNavigateToEventEditor: (Long) -> Unit,
+    onNavigateToEventEditor: (Long?) -> Unit,
     onMonthChanged: ((Int) -> Unit) -> Unit,
     modifier: Modifier
 ) {

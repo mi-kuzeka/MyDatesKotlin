@@ -100,6 +100,7 @@ fun LabelDropDownMenuItem(
                 chipSize = dimensionResource(R.dimen.default_icon_size),
                 color = labelColor,
                 iconType = labelIcon?.iconType ?: IconType.FIRST_LETTER,
+                emoji = label.emoji,
                 firstLetter = label.name.take(1),
                 iconDrawableResId = labelIcon?.drawableRes,
                 iconColor = labelIconColor
@@ -129,7 +130,8 @@ fun MyDatesDropDownPreview() {
                 name = "Friends",
                 color = 3,
                 notificationState = NotificationFilterState.FILTER_STATE_ON,
-                iconId = LabelIcon.FIRST_LETTER.id
+                iconId = LabelIcon.FIRST_LETTER.id,
+                emoji = ""
             ),
             onValueChange = {},
             options = listOf(
@@ -138,14 +140,16 @@ fun MyDatesDropDownPreview() {
                     name = "Friends",
                     color = 3,
                     notificationState = NotificationFilterState.FILTER_STATE_ON,
-                    iconId = LabelIcon.CONSTRUCTION.id
+                    iconId = LabelIcon.CONSTRUCTION.id,
+                    emoji = ""
                 ),
                 Label(
                     id = "2",
                     name = "Others",
                     color = 6,
                     notificationState = NotificationFilterState.FILTER_STATE_OFF,
-                    iconId = LabelIcon.KEY_ICON.id
+                    iconId = LabelIcon.KEY_ICON.id,
+                    emoji = ""
                 )
             ),
         )

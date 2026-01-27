@@ -10,7 +10,8 @@ fun LabelEntity.toLabel(): Label {
         name = name,
         color = color,
         notificationState = NotificationFilterState.fromInt(notificationState),
-        iconId = iconId
+        iconId = iconId,
+        emoji = emoji
     )
 }
 
@@ -20,6 +21,7 @@ fun Label.toLabelEntity(): LabelEntity {
         name = name,
         color = color,
         notificationState = notificationState.value,
-        iconId = iconId
+        iconId = iconId,
+        emoji = emoji
     )
 }

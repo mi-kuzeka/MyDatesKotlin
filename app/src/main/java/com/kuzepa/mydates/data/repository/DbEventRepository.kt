@@ -16,7 +16,7 @@ class DbEventRepository @Inject constructor(
     private val eventLabelJoinDao: EventLabelJoinDao
 ) : EventRepository {
     override suspend fun upsertEvent(event: Event) {
-        val isNewEvent = event.id == 0L
+        val isNewEvent = event.id == null
         var eventId: Long
         if (isNewEvent) {
             eventId = eventDao.insertEvent(event.toEventEntity())

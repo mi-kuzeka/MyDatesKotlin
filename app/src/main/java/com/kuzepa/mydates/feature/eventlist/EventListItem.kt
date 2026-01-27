@@ -52,7 +52,7 @@ data class EventItemData(
         ): EventItemData {
             val eventDate = event.date
             return EventItemData(
-                id = event.id,
+                id = event.id ?: 0L,
                 event = event,
                 formattedDate = eventDate.toFormattedDate(context, DateShowingMode.VIEW_MODE),
                 showTurnsWord = eventDate.isUpcomingEvent(),

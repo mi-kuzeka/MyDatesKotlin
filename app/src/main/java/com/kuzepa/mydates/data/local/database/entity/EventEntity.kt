@@ -4,23 +4,26 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.RESTRICT
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "events",
+    indices = [Index("event_type_id")],
     foreignKeys = [
         ForeignKey(
             entity = EventTypeEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("event_type_id"),
+            parentColumns = ["id"],
+            childColumns = ["event_type_id"],
             onDelete = RESTRICT
         )
     ]
 )
 data class EventEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long,
-    @ColumnInfo(name = "name")
+    @PrimaryKey
+    @ColumnInfo(typeAffinity = ColumnInfo.INTEGER)
+    val id: Long?,
+    @ColumnInfo(name = "name", defaultValue = "")
     val name: String,
     @ColumnInfo(name = "month")
     val month: Int,
@@ -28,13 +31,13 @@ data class EventEntity(
     val day: Int,
     @ColumnInfo(name = "year")
     val year: Int,
-    @ColumnInfo(name = "notes")
+    @ColumnInfo(name = "notes", defaultValue = "")
     val notes: String,
     @ColumnInfo(name = "event_type_id")
     val eventTypeId: String,
     @ColumnInfo(name = "image")
     val image: ByteArray?,
-    @ColumnInfo(name = "notification_date")
+    @ColumnInfo(name = "notification_date", defaultValue = "0")
     val notificationDate: Int
     // If you're adding a new field then add to the methods equals and hashCode
 ) {

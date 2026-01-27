@@ -30,6 +30,7 @@ import com.kuzepa.mydates.common.util.labelcolor.getContrastedColor
 import com.kuzepa.mydates.domain.model.label.LabelIcon
 import com.kuzepa.mydates.ui.components.chip.IconChip
 import com.kuzepa.mydates.ui.components.container.BaseContainer
+import com.kuzepa.mydates.ui.components.dialog.EmojiDialog
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 import com.kuzepa.mydates.ui.theme.Shapes
 
@@ -37,6 +38,7 @@ import com.kuzepa.mydates.ui.theme.Shapes
 fun IconSelectionContainer(
     containerTitle: String,
     selectedIcon: LabelIcon,
+    emoji: String,
     firstLetter: String,
     color: Color,
     iconColor: Color,
@@ -44,6 +46,8 @@ fun IconSelectionContainer(
     moreIconsTitle: String,
     isExpanded: Boolean,
     onExpandedChanged: (Boolean) -> Unit,
+    showEmojiPicker: Boolean,
+    onEmojiPicked: (String?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val allIcons = remember { LabelIcon.getAllIcons() }
@@ -62,6 +66,7 @@ fun IconSelectionContainer(
             color = color,
             iconType = selectedIcon.iconType,
             iconDrawableResId = selectedIcon.drawableRes,
+            emoji = emoji,
             iconColor = iconColor,
             firstLetter = firstLetter,
             selectable = false
@@ -93,6 +98,13 @@ fun IconSelectionContainer(
             }
         }
         if (isExpanded) {
+            if (showEmojiPicker) {
+                EmojiDialog(
+                    onCloseDialog = {
+                        onEmojiPicked(it)
+                    }
+                )
+            }
             val chipSize = dimensionResource(R.dimen.color_chip_size)
             FlowRow(
                 modifier = Modifier
@@ -111,6 +123,7 @@ fun IconSelectionContainer(
                             color = color,
                             iconType = labelIcon.iconType,
                             iconDrawableResId = labelIcon.drawableRes,
+                            emoji = emoji,
                             iconColor = iconColor,
                             firstLetter = firstLetter,
                             selectable = true,
@@ -132,13 +145,16 @@ fun LabelIconSelectionContainerPreview() {
         IconSelectionContainer(
             containerTitle = "Icon",
             selectedIcon = LabelIcon.FAVORITE,
+            emoji = "\uD83D\uDE42",
             firstLetter = "f",
             color = LabelColor.GREEN.color,
             iconColor = LabelColor.GREEN.color.getContrastedColor(),
             onSelected = {},
             moreIconsTitle = "Other icons",
             isExpanded = isExpanded,
-            onExpandedChanged = { isExpanded = it }
+            onExpandedChanged = { isExpanded = it },
+            showEmojiPicker = false,
+            onEmojiPicked = {}
         )
     }
 }
@@ -151,13 +167,16 @@ fun LabelIconSelectionContainerPreviewExpanded() {
         IconSelectionContainer(
             containerTitle = "Icon",
             selectedIcon = LabelIcon.CONSTRUCTION,
+            emoji = "\uD83D\uDE42",
             firstLetter = "f",
             color = LabelColor.RED.color,
             iconColor = LabelColor.RED.color.getContrastedColor(),
             onSelected = {},
             moreIconsTitle = "Other icons",
             isExpanded = isExpanded,
-            onExpandedChanged = { isExpanded = it }
+            onExpandedChanged = { isExpanded = it },
+            showEmojiPicker = false,
+            onEmojiPicked = {}
         )
     }
 }
