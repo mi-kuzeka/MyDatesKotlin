@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.home.event.components
+package com.kuzepa.mydates.feature.eventlist.event.components
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -37,7 +37,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.model.AlertDialogContent
-import com.kuzepa.mydates.feature.home.components.EmptyEventImage
+import com.kuzepa.mydates.feature.eventlist.components.EmptyEventImage
 import com.kuzepa.mydates.ui.components.baseeditor.DeleteConfirmationDialog
 import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
@@ -81,7 +81,6 @@ internal fun EventImageChooser(
                         text = stringResource(R.string.choose_image),
                         color = MyDatesColors.accentTextColor,
                         modifier = Modifier
-                            .clickable(onClick = chooseImage)
                             .align(Alignment.CenterHorizontally)
                     )
                 }

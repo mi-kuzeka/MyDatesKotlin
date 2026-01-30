@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.home.event
+package com.kuzepa.mydates.feature.eventlist.event
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -21,7 +21,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -35,9 +34,9 @@ import com.kuzepa.mydates.domain.model.TextFieldMaxLength
 import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import com.kuzepa.mydates.domain.usecase.label.LabelsFetching
-import com.kuzepa.mydates.feature.home.event.components.EventDateField
-import com.kuzepa.mydates.feature.home.event.components.EventImageChooser
-import com.kuzepa.mydates.feature.home.event.components.EventLabelContainer
+import com.kuzepa.mydates.feature.eventlist.event.components.EventDateField
+import com.kuzepa.mydates.feature.eventlist.event.components.EventImageChooser
+import com.kuzepa.mydates.feature.eventlist.event.components.EventLabelContainer
 import com.kuzepa.mydates.ui.components.MyDatesCheckbox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorScreen
@@ -60,6 +59,7 @@ internal fun EventScreen(
     onNavigateToLabelChooser: (eventLabelIdsJson: String) -> Unit,
     onNavigateToLabelEditor: (id: String?) -> Unit,
     onNavigateToImageCropper: (imageUriString: String) -> Unit,
+    onNavigateToLog: (String) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -69,7 +69,6 @@ internal fun EventScreen(
     var showDeleteDialog by remember { mutableStateOf(false) }
 
     val focusRequester = remember { FocusRequester() }
-    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         if (state.isNewEvent) {

@@ -1,6 +1,7 @@
 package com.kuzepa.mydates.domain.formatter
 
 import android.icu.util.Calendar
+import com.kuzepa.mydates.common.dateformat.DateFormatterResult
 import com.kuzepa.mydates.domain.formatter.dateformat.DateField
 import com.kuzepa.mydates.domain.model.EventDate
 import com.kuzepa.mydates.domain.model.hasYear
@@ -63,11 +64,10 @@ fun getEventDateFromFormattedDateWithoutDelimiter(
     dateFieldOrder: Array<DateField>,
     hideYear: Boolean,
     formattedDate: String
-): EventDate? {
-    if (hideYear) {
-        if (formattedDate.length < 4) return null
-    } else {
-        if (formattedDate.length < 8) return null
+): DateFormatterResult {
+    val dateLengthExpected = if (hideYear) 4 else 8
+    if (formattedDate.length < dateLengthExpected) {
+        return DateFormatterResult.ShortLength(limit = dateLengthExpected)
     }
 
     var month = ""
@@ -101,14 +101,15 @@ fun getEventDateFromFormattedDateWithoutDelimiter(
     }
 
     return try {
-        EventDate(
-            month = month.toInt(),
-            day = day.toInt(),
-            year = if (hideYear) -1 else year.toInt()
+        DateFormatterResult.OK(
+            EventDate(
+                month = month.toInt(),
+                day = day.toInt(),
+                year = if (hideYear) -1 else year.toInt()
+            )
         )
     } catch (e: NumberFormatException) {
-        // TODO handle exception
-        null
+        DateFormatterResult.Error(e)
     }
 }
 

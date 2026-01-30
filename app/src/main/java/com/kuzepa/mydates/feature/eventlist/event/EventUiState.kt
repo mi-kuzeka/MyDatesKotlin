@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.home.event
+package com.kuzepa.mydates.feature.eventlist.event
 
 import android.graphics.Bitmap
 import androidx.compose.runtime.Immutable

@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.home.event.components
+package com.kuzepa.mydates.feature.eventlist.event.components
 
 import android.content.res.Configuration
 import androidx.compose.runtime.Composable

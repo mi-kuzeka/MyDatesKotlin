@@ -1,14 +1,18 @@
-package com.kuzepa.mydates.feature.home.event
+package com.kuzepa.mydates.feature.eventlist.event
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.kuzepa.mydates.common.dateformat.DateFormatterResult
 import com.kuzepa.mydates.common.util.image.getRotatedImage
+import com.kuzepa.mydates.common.util.log.getLogMessage
 import com.kuzepa.mydates.domain.formatter.dateformat.DateFormatProvider
 import com.kuzepa.mydates.domain.model.Event
+import com.kuzepa.mydates.domain.model.EventDate
 import com.kuzepa.mydates.domain.model.EventType
 import com.kuzepa.mydates.domain.model.hasYear
 import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
+import com.kuzepa.mydates.domain.repository.ErrorLoggerRepository
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import com.kuzepa.mydates.domain.repository.LabelRepository
@@ -18,12 +22,14 @@ import com.kuzepa.mydates.domain.usecase.image.GetImageFromCacheUseCase
 import com.kuzepa.mydates.domain.usecase.label.LabelsFetching
 import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
 import com.kuzepa.mydates.domain.usecase.validation.getErrorMessage
+import com.kuzepa.mydates.domain.usecase.validation.getLogMessage
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateDateUseCase
 import com.kuzepa.mydates.domain.usecase.validation.rules.ValidateTextNotEmptyUseCase
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorViewModel
 import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
 import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -32,6 +38,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import java.util.UUID
 import javax.inject.Inject
@@ -47,6 +54,7 @@ class EventViewModel @Inject constructor(
     private val getImageFromCache: GetImageFromCacheUseCase,
     private val deleteCachedImage: DeleteCachedImageUseCase,
     private val navigationDialogResult: NavigationDialogResult,
+    private val errorLoggerRepository: ErrorLoggerRepository,
     savedStateHandle: SavedStateHandle
 ) : BaseEditorViewModel<EventUiState, EventScreenEvent>() {
 
@@ -62,6 +70,8 @@ class EventViewModel @Inject constructor(
     private val fetchingLabelsSharedFlow = MutableSharedFlow<LabelsFetching>()
     val fetchingLabelsFlow = fetchingLabelsSharedFlow.asSharedFlow()
     var eventMonth: Int? = null
+
+    private val logTag = "EventViewModel"
 
     init {
         loadEventTypes()
@@ -117,8 +127,11 @@ class EventViewModel @Inject constructor(
 
                 fetchingLabelsSharedFlow.emit(LabelsFetching.Success)
             } catch (e: Exception) {
-                // TODO handle error
-                fetchingLabelsSharedFlow.emit(LabelsFetching.Error(e.message.toString()))
+                val errorMessage = getLogMessage(logTag, "Error with getting labels", e)
+                withContext(Dispatchers.IO) {
+                    errorLoggerRepository.logError(errorMessage)
+                }
+                fetchingLabelsSharedFlow.emit(LabelsFetching.Error(errorMessage))
             }
         }
     }
@@ -132,7 +145,13 @@ class EventViewModel @Inject constructor(
                         addEventTypeToListAndSelect(newEventType)
                     }
                 } catch (e: Exception) {
-                    // TODO handle error
+                    val errorMessage = getLogMessage(
+                        logTag,
+                        "Error with getting new event type", e
+                    )
+                    withContext(Dispatchers.IO) {
+                        errorLoggerRepository.logError(errorMessage)
+                    }
                 }
             }
         }
@@ -155,7 +174,11 @@ class EventViewModel @Inject constructor(
                         }
                     }
                 } catch (e: Exception) {
-                    // TODO handle error
+                    val errorMessage =
+                        getLogMessage(logTag, "Error with getting new or updated label", e)
+                    withContext(Dispatchers.IO) {
+                        errorLoggerRepository.logError(errorMessage)
+                    }
                 }
             }
         }
@@ -288,7 +311,12 @@ class EventViewModel @Inject constructor(
                                 hasChanges = true
                             )
                         }
-                    } catch (_: Exception) {
+                    } catch (e: Exception) {
+                        val errorMessage =
+                            getLogMessage(logTag, "Error with rotating image left", e)
+                        viewModelScope.launch(Dispatchers.IO) {
+                            errorLoggerRepository.logError(errorMessage)
+                        }
                     }
                 }
             }
@@ -303,7 +331,12 @@ class EventViewModel @Inject constructor(
                                 hasChanges = true
                             )
                         }
-                    } catch (_: Exception) {
+                    } catch (e: Exception) {
+                        val errorMessage =
+                            getLogMessage(logTag, "Error with rotating image right", e)
+                        viewModelScope.launch(Dispatchers.IO) {
+                            errorLoggerRepository.logError(errorMessage)
+                        }
                     }
                 }
             }
@@ -366,6 +399,11 @@ class EventViewModel @Inject constructor(
         val validationResult: ValidationResult = validateDate(
             input = _uiState.value.date, hideYear = _uiState.value.hideYear
         )
+        validationResult.getLogMessage()?.let { logMessage ->
+            viewModelScope.launch(Dispatchers.IO) {
+                errorLoggerRepository.logError(logMessage)
+            }
+        }
         _uiState.update {
             it.copy(
                 dateValidationError = validationResult.getErrorMessage()
@@ -391,7 +429,11 @@ class EventViewModel @Inject constructor(
                     _uiState.update { it.copy(eventTypeName = defaultEventType.name) }
                 }
             } catch (e: Exception) {
-                // TODO handle error (just do not fill default event type value)
+                val errorMessage =
+                    getLogMessage(logTag, "Error with setting default event type", e)
+                withContext(Dispatchers.IO) {
+                    errorLoggerRepository.logError(errorMessage)
+                }
             }
         }
     }
@@ -404,7 +446,12 @@ class EventViewModel @Inject constructor(
                     event.populateScreenFields()
                 }
             } catch (e: Exception) {
-                // TODO handle error
+                val errorMessage =
+                    getLogMessage(logTag, "Error with populating event", e)
+                withContext(Dispatchers.IO) {
+                    errorLoggerRepository.logError(errorMessage)
+                }
+                // TODO show error message
             }
         }
     }
@@ -445,12 +492,43 @@ class EventViewModel @Inject constructor(
     }
 
     override fun save() {
-        val eventDate = dateFormatProvider.getEditedEventDate(
+        val eventDateResult = dateFormatProvider.getEditedEventDate(
             formattedDate = _uiState.value.date,
             hideYear = _uiState.value.hideYear
-        ) ?: run {
-            // TODO handle error
-            return
+        )
+        var eventDate: EventDate
+        when (eventDateResult) {
+            is DateFormatterResult.ShortLength -> {
+                val errorMessage =
+                    getLogMessage(
+                        logTag,
+                        "Error with getting EventDate from string",
+                        "String length is less than ${eventDateResult.limit}"
+                    )
+                viewModelScope.launch(Dispatchers.IO) {
+                    errorLoggerRepository.logError(errorMessage)
+                }
+                // TODO show error message
+                return
+            }
+
+            is DateFormatterResult.Error -> {
+                val errorMessage =
+                    getLogMessage(
+                        logTag,
+                        "Error with getting EventDate from string",
+                        eventDateResult.e
+                    )
+                viewModelScope.launch(Dispatchers.IO) {
+                    errorLoggerRepository.logError(errorMessage)
+                }
+                // TODO show error message
+                return
+            }
+
+            is DateFormatterResult.OK -> {
+                eventDate = eventDateResult.eventDate
+            }
         }
 
         viewModelScope.launch {
@@ -475,8 +553,11 @@ class EventViewModel @Inject constructor(
                 eventMonth = eventDate.month
                 _editorResultEventFlow.emit(EditorResultEvent.SaveSuccess())
             } catch (e: Exception) {
-                // TODO handle error
-                _editorResultEventFlow.emit(EditorResultEvent.OperationError(e.message.toString()))
+                val errorMessage = getLogMessage(logTag, "Error with saving event", e)
+                withContext(Dispatchers.IO) {
+                    errorLoggerRepository.logError(errorMessage)
+                }
+                _editorResultEventFlow.emit(EditorResultEvent.OperationError(errorMessage))
             }
         }
     }
@@ -487,8 +568,11 @@ class EventViewModel @Inject constructor(
                 eventRepository.deleteEventById(_uiState.value.event?.id ?: 0)
                 _editorResultEventFlow.emit(EditorResultEvent.DeleteSuccess)
             } catch (e: Exception) {
-                // TODO handle error
-                _editorResultEventFlow.emit(EditorResultEvent.OperationError(e.message.toString()))
+                val errorMessage = getLogMessage(logTag, "Error with deleting event", e)
+                withContext(Dispatchers.IO) {
+                    errorLoggerRepository.logError(errorMessage)
+                }
+                _editorResultEventFlow.emit(EditorResultEvent.OperationError(errorMessage))
             }
         }
     }

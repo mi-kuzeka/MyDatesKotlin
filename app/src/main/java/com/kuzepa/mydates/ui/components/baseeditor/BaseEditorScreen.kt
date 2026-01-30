@@ -40,9 +40,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.model.AlertDialogContent
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
-import com.kuzepa.mydates.feature.home.event.components.EventDateField
-import com.kuzepa.mydates.feature.home.event.components.EventImageChooser
-import com.kuzepa.mydates.feature.home.event.components.EventLabelContainer
+import com.kuzepa.mydates.feature.eventlist.event.components.EventDateField
+import com.kuzepa.mydates.feature.eventlist.event.components.EventImageChooser
+import com.kuzepa.mydates.feature.eventlist.event.components.EventLabelContainer
 import com.kuzepa.mydates.ui.components.MyDatesCheckbox
 import com.kuzepa.mydates.ui.components.TopAppBar
 import com.kuzepa.mydates.ui.components.dialog.MyDatesAlertDialog

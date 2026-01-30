@@ -9,6 +9,8 @@
     <string name="button_save">Save</string>
     <string name="button_delete">Delete</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_retry">Retry</string>
+    <string name="button_send_report">Send report</string>
     <!-- Confirmation dialog title when go back button pressed -->
     <string name="go_back_confirmation">Go back without saving?</string>
     <string name="go_back_confirmation_description">All changes will be cancelled.</string>
@@ -241,7 +243,9 @@
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Please select color</string>
     <!-- Error message for date: incorrect format -->
-    <string name="error_date_incorrect_format_pattern">Invalid date. Required format: %1$s</string>
+    <string name="error_incorrect_date_format_pattern">Invalid date. Required format: %1$s</string>
+    <!-- Error message for date: short length -->
+    <string name="error_short_date_pattern">Date is too short. Enter %1$s digits</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Delete this image?</string>
@@ -666,4 +670,11 @@
     <string name="widget_feature_title">Widget</string>
     <string name="quick_entry_feature_title">Quick entry of events</string>
     <string name="color_themes_feature_title">Color themes</string>
+
+    <string name="error_message">An error occurred</string>
+    <string name="message_failed_to_load_error_log">Failed to load error log</string>
+    <string name="error_log_file_not_found">Error log file not found</string>
+    <string name="error_log_file_empty">Error log file is empty</string>
+    <string name="error_report_mail_subject">My Dates Error Report</string>
+    <string name="error_report_mail_body_logs">Logs attached.</string>
 </resources>

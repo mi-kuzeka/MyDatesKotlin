@@ -60,7 +60,7 @@ class DataStoreDateFormatProvider(
     override fun getEditedEventDate(
         formattedDate: String,
         hideYear: Boolean
-    ): EventDate? {
+    ): DateFormatterResult {
         //TODO get from datastore
         val dateFieldOrder: Array<DateField> =
             arrayOf(DateField.MONTH, DateField.DAY, DateField.YEAR)

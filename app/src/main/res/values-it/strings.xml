@@ -11,6 +11,8 @@
     <string name="button_save">Salva</string>
     <string name="button_delete">Eliminare</string>
     <string name="button_cancel">Annulla</string>
+    <string name="button_retry">Riprova</string>
+    <string name="button_send_report">Invia rapporto</string>
     <!-- Confirmation dialog title when go back button pressed -->
     <string name="go_back_confirmation">Tornare indietro senza salvare?</string>
     <string name="go_back_confirmation_description">Tutte le modifiche verranno annullate.</string>
@@ -200,7 +202,9 @@
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Seleziona il colore</string>
     <!-- Error message for date: incorrect format -->
-    <string name="error_date_incorrect_format_pattern">Data non valida. Formato richiesto: %1$s</string>
+    <string name="error_incorrect_date_format_pattern">Data non valida. Formato richiesto: %1$s</string>
+    <!-- Error message for date: short length -->
+    <string name="error_short_date_pattern">La data è troppo corta. Inserisci %1$s cifre</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Eliminare questa immagine?</string>
@@ -590,4 +594,11 @@
     <string name="widget_feature_title">Widget</string>
     <string name="quick_entry_feature_title">Inserimento rapido di eventi</string>
     <string name="color_themes_feature_title">Temi colore</string>
+
+    <string name="error_message">Si è verificato un errore</string>
+    <string name="message_failed_to_load_error_log">Impossibile caricare il registro degli errori</string>
+    <string name="error_log_file_not_found">File di registro errori non trovato</string>
+    <string name="error_log_file_empty">Il file di registro errori è vuoto</string>
+    <string name="error_report_mail_subject">Rapporto sugli errori di My Dates</string>
+    <string name="error_report_mail_body_logs">Log allegati.</string>
 </resources>

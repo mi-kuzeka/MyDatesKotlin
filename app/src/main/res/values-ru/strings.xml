@@ -11,6 +11,8 @@
     <string name="button_save">Сохранить</string>
     <string name="button_delete">Удалить</string>
     <string name="button_cancel">Отмена</string>
+    <string name="button_retry">Повторить</string>
+    <string name="button_send_report">Отправить отчёт</string>
     <!-- Confirmation dialog title when go back button pressed -->
     <string name="go_back_confirmation">Вернуться без сохранения?</string>
     <string name="go_back_confirmation_description">Все изменения будут отменены.</string>
@@ -199,7 +201,9 @@
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Выберите цвет</string>
     <!-- Error message for date: incorrect format -->
-    <string name="error_date_incorrect_format_pattern">Неверная дата. Требуемый формат: %1$s</string>
+    <string name="error_incorrect_date_format_pattern">Неверная дата. Требуемый формат: %1$s</string>
+    <!-- Error message for date: short length -->
+    <string name="error_short_date_pattern">Дата слишком короткая. Требуется цифр: %1$s</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Удалить это изображение?</string>
@@ -594,4 +598,11 @@
     <string name="widget_feature_title">Виджет</string>
     <string name="quick_entry_feature_title">Быстрый ввод событий</string>
     <string name="color_themes_feature_title">Цветовые темы</string>
+
+    <string name="error_message">Произошла ошибка</string>
+    <string name="message_failed_to_load_error_log">Не удалось загрузить журнал ошибок</string>
+    <string name="error_log_file_not_found">Файл журнала ошибок не найден</string>
+    <string name="error_log_file_empty">Файл журнала ошибок пуст</string>
+    <string name="error_report_mail_subject">Отчёт об ошибках My Dates</string>
+    <string name="error_report_mail_body_logs">Журналы прикреплены.</string>
 </resources>

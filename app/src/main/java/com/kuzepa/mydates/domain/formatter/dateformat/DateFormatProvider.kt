@@ -1,5 +1,6 @@
 package com.kuzepa.mydates.domain.formatter.dateformat
 
+import com.kuzepa.mydates.common.dateformat.DateFormatterResult
 import com.kuzepa.mydates.domain.model.EventDate
 
 interface DateFormatProvider {
@@ -16,7 +17,7 @@ interface DateFormatProvider {
     fun getFullFormattingPattern(): String
     fun getShortFormattingPattern(): String
     fun getFormattedDate(eventDate: EventDate, showingMode: DateShowingMode): String
-    fun getEditedEventDate(formattedDate: String, hideYear: Boolean): EventDate?
+    fun getEditedEventDate(formattedDate: String, hideYear: Boolean): DateFormatterResult
     fun getEditedDateString(eventDate: EventDate): String
     fun dateIsFilled(inputDate: String, hideYear: Boolean): Boolean
     fun getDateWithoutYear(inputDate: String): String

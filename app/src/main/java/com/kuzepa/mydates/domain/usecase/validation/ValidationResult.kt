@@ -4,12 +4,18 @@ import com.kuzepa.mydates.domain.usecase.validation.ValidationResult.Invalid
 import com.kuzepa.mydates.domain.usecase.validation.ValidationResult.Valid
 
 sealed interface ValidationResult {
-    object Valid : ValidationResult
-    data class Invalid(val errorMessage: String) : ValidationResult
+    data object Valid : ValidationResult
+    data class Invalid(val errorMessage: String, val logMessage: String? = null) : ValidationResult
 }
 
 fun ValidationResult.getErrorMessage(): String? =
     when (this) {
         is Valid -> null
         is Invalid -> errorMessage
+    }
+
+fun ValidationResult.getLogMessage(): String? =
+    when (this) {
+        is Valid -> null
+        is Invalid -> logMessage
     }

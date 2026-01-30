@@ -5,7 +5,7 @@ import com.kuzepa.mydates.feature.eventlist.EventListGrouping
 
 @Stable
 sealed interface EventPageState {
-    object Loading : EventPageState
+    data object Loading : EventPageState
     data class Success(val eventListGrouping: EventListGrouping) : EventPageState
     data class Error(val message: String) : EventPageState
 }

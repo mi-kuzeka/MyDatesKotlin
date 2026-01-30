@@ -11,6 +11,8 @@
     <string name="button_save">Ahorrar</string>
     <string name="button_delete">Borrar</string>
     <string name="button_cancel">Cancelar</string>
+    <string name="button_retry">Reintentar</string>
+    <string name="button_send_report">Enviar informe</string>
     <!-- Confirmation dialog title when go back button pressed -->
     <string name="go_back_confirmation">¿Volver sin guardar?</string>
     <string name="go_back_confirmation_description">Todos los cambios serán cancelados.</string>
@@ -198,7 +200,9 @@
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Por favor seleccione color</string>
     <!-- Error message for date: incorrect format -->
-    <string name="error_date_incorrect_format_pattern">Fecha inválida. Formato requerido: %1$s</string>
+    <string name="error_incorrect_date_format_pattern">Fecha inválida. Formato requerido: %1$s</string>
+    <!-- Error message for date: short length -->
+    <string name="error_short_date_pattern">La fecha es demasiado corta. Ingrese %1$s dígitos</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">¿Debo eliminar esta imagen?</string>
@@ -587,4 +591,11 @@
     <string name="widget_feature_title">Widget</string>
     <string name="quick_entry_feature_title">Entrada rápida de eventos</string>
     <string name="color_themes_feature_title">Temas de color</string>
+
+    <string name="error_message">Se produjo un error</string>
+    <string name="message_failed_to_load_error_log">Error al cargar el registro de errores</string>
+    <string name="error_log_file_not_found">Archivo de registro de errores no encontrado</string>
+    <string name="error_log_file_empty">El archivo de registro de errores está vacío</string>
+    <string name="error_report_mail_subject">Informe de error de My Dates</string>
+    <string name="error_report_mail_body_logs">Registros adjuntos.</string>
 </resources>

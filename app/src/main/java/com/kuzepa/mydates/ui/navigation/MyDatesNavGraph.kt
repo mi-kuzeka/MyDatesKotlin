@@ -25,14 +25,16 @@ fun MyDatesNavHost(
     ) {
         eventsDestination(
             navController = navController,
-            onNavigateToEventEditor = navigationActions::navigateToEventEditor
+            onNavigateToEventEditor = navigationActions::navigateToEventEditor,
+            onNavigateToLogs = navigationActions::navigateToLogs
         )
         eventEditorDestination(
             onNavigateBack = navigationActions::onNavigateBackFromEventEditor,
             onNavigateToEventTypeCreator = navigationActions::navigateToEventTypeCreator,
             onNavigateToLabelChooser = navigationActions::navigateToLabelChooser,
             onNavigateToLabelEditor = navigationActions::navigateToLabelEditor,
-            onNavigateToImageCropper = navigationActions::navigateToImageCropper
+            onNavigateToImageCropper = navigationActions::navigateToImageCropper,
+            onNavigateToLog = navigationActions::navigateToLogs
         )
         imageCropperDestination(onNavigateBack = navigationActions::onNavigateBack)
 
@@ -109,6 +111,10 @@ fun MyDatesNavHost(
             onNavigateToThirdPartyLibraries = { navController.navigateToThirdPartyLibraries() },
             onNavigateBack = navigationActions::onNavigateBack
         )
+
+        logsDestination(
+            onNavigateBack = navigationActions::onNavigateBack
+        )
     }
 }
 
@@ -153,6 +159,10 @@ class NavigationActions(private val navController: NavHostController) {
 
     fun navigateToColorPicker(color: Int?) {
         navController.navigateToColorPicker(color)
+    }
+
+    fun navigateToLogs(errorMessage: String) {
+        navController.navigateToLogs(errorMessage)
     }
 
     fun onNavigateBack() = navController.popBackStack()

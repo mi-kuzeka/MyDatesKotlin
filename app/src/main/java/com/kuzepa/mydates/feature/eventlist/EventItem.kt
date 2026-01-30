@@ -42,7 +42,7 @@ import com.kuzepa.mydates.domain.model.EventDate
 import com.kuzepa.mydates.domain.model.EventType
 import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
-import com.kuzepa.mydates.feature.home.components.EmptyEventImage
+import com.kuzepa.mydates.feature.eventlist.components.EmptyEventImage
 import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 import com.kuzepa.mydates.ui.theme.Shapes

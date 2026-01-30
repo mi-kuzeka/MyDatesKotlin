@@ -6,11 +6,13 @@ import android.icu.util.Calendar
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.lifecycle.viewModelScope
+import com.kuzepa.mydates.common.util.log.getLogMessage
 import com.kuzepa.mydates.common.util.month.getCurrentMonth
 import com.kuzepa.mydates.common.util.month.getMonthNameList
 import com.kuzepa.mydates.domain.formatter.toDateCode
 import com.kuzepa.mydates.domain.model.MonthPager
 import com.kuzepa.mydates.domain.model.SortOption
+import com.kuzepa.mydates.domain.repository.ErrorLoggerRepository
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import com.kuzepa.mydates.feature.eventlist.EventItemData
@@ -35,6 +37,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val eventRepository: EventRepository,
     private val eventTypeRepository: EventTypeRepository,
+    private val errorLoggerRepository: ErrorLoggerRepository,
     @param:ApplicationContext private val context: Context
 ) : BaseViewModel<HomeScreenEvent>() {
     val uiState: StateFlow<HomeUiState>
@@ -95,7 +98,13 @@ class HomeViewModel @Inject constructor(
                 .distinctUntilChanged()
                 .catch { e ->
                     if (isActive) {
-                        _eventPageStates[page] = EventPageState.Error(e.message ?: "Unknown error")
+                        val errorMessage = getLogMessage(
+                            tag = "EventPage",
+                            title = "Error with getting events by month ${page + 1}",
+                            throwable = e
+                        )
+                        errorLoggerRepository.logError(errorMessage)
+                        _eventPageStates[page] = EventPageState.Error(errorMessage)
                     }
                 }
                 .collectLatest { events ->

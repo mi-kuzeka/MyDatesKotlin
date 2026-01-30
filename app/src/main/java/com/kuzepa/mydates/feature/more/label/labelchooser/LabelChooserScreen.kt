@@ -3,9 +3,6 @@ package com.kuzepa.mydates.feature.more.label.labelchooser
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
@@ -18,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -113,7 +111,7 @@ fun LabelChooserScreenContent(
                         .weight(1f)
                 )
                 MyDatesButton(
-                    icon = Icons.Outlined.Edit,
+                    iconPainter = painterResource(R.drawable.ic_edit),
                     onClick = {
                         selectedLabel?.let {
                             onNavigateToLabelEditor(state.selectedLabel?.id)
@@ -122,7 +120,7 @@ fun LabelChooserScreenContent(
                 )
             }
             MyDatesButton(
-                icon = Icons.Outlined.Add,
+                iconPainter = painterResource(R.drawable.ic_add),
                 text = stringResource(R.string.label_creator_title),
                 onClick = {
                     onNavigateToLabelEditor(null)

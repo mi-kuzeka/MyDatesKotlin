@@ -10,8 +10,8 @@ sealed class LabelScreenEvent {
     data class EmojiPicked(val emoji: String?) : LabelScreenEvent()
     data class NotificationStateChanged(val notificationState: NotificationFilterState) :
         LabelScreenEvent()
-    object ShowEmojiPicker : LabelScreenEvent()
-    object HideEmojiPicker : LabelScreenEvent()
-    object Delete : LabelScreenEvent()
-    object Save : LabelScreenEvent()
+    data object ShowEmojiPicker : LabelScreenEvent()
+    data object HideEmojiPicker : LabelScreenEvent()
+    data object Delete : LabelScreenEvent()
+    data object Save : LabelScreenEvent()
 }

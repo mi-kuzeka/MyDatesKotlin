@@ -5,8 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.kuzepa.mydates.feature.eventlist.event.EventScreen
 import com.kuzepa.mydates.feature.home.HomeScreen
-import com.kuzepa.mydates.feature.home.event.EventScreen
 import com.kuzepa.mydates.feature.imagecropper.ImageCropperScreen
 import com.kuzepa.mydates.ui.components.ScreenWithBottomBar
 import kotlinx.serialization.Serializable
@@ -16,7 +16,8 @@ internal object Home : TopLevelRoute()
 
 fun NavGraphBuilder.eventsDestination(
     navController: NavHostController,
-    onNavigateToEventEditor: (id: Long?) -> Unit
+    onNavigateToEventEditor: (id: Long?) -> Unit,
+    onNavigateToLogs: (errorMessage: String) -> Unit
 ) {
     composable<Home> { backStackEntry ->
         val savedStateHandle = backStackEntry.savedStateHandle
@@ -32,6 +33,7 @@ fun NavGraphBuilder.eventsDestination(
                         savedStateHandle.remove<String?>(NavigationResult.EVENT_MONTH_KEY)
                     }
                 },
+                onNavigateToLogsScreen = onNavigateToLogs,
                 modifier = modifier
             )
         }
@@ -51,6 +53,7 @@ fun NavGraphBuilder.eventEditorDestination(
     onNavigateToLabelChooser: (eventLabelIdsJson: String) -> Unit,
     onNavigateToLabelEditor: (id: String?, fromEvent: Boolean, showDeleteButton: Boolean) -> Unit,
     onNavigateToImageCropper: (imageUriString: String) -> Unit,
+    onNavigateToLog: (errorMessage: String) -> Unit,
 ) {
     composable<EventEditor> { backStackEntry ->
         val eventEditor: EventEditor = backStackEntry.toRoute()
@@ -60,7 +63,8 @@ fun NavGraphBuilder.eventEditorDestination(
             onNavigateToEventTypeCreator = onNavigateToEventTypeCreator,
             onNavigateToLabelChooser = onNavigateToLabelChooser,
             onNavigateToLabelEditor = { onNavigateToLabelEditor(it, true, false) },
-            onNavigateToImageCropper = onNavigateToImageCropper
+            onNavigateToImageCropper = onNavigateToImageCropper,
+            onNavigateToLog = onNavigateToLog
         )
     }
 }

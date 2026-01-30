@@ -11,6 +11,8 @@
     <string name="button_save">Speichern</string>
     <string name="button_delete">Löschen</string>
     <string name="button_cancel">Abbrechen</string>
+    <string name="button_retry">Wiederholen</string>
+    <string name="button_send_report">Bericht senden</string>
     <!-- Confirmation dialog title when go back button pressed -->
     <string name="go_back_confirmation">Ohne Speichern zurückgehen?</string>
     <string name="go_back_confirmation_description">Alle Änderungen werden verworfen.</string>
@@ -199,7 +201,9 @@
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Bitte Farbe auswählen</string>
     <!-- Error message for date: incorrect format -->
-    <string name="error_date_incorrect_format_pattern">Ungültiges Datum. Erforderliches Format: %1$s</string>
+    <string name="error_incorrect_date_format_pattern">Ungültiges Datum. Erforderliches Format: %1$s</string>
+    <!-- Error message for date: short length -->
+    <string name="error_short_date_pattern">Das Datum ist zu kurz. Geben Sie %1$s Ziffern ein</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Dieses Bild löschen?</string>
@@ -583,4 +587,11 @@
     <string name="widget_feature_title">Widget</string>
     <string name="quick_entry_feature_title">Schnelle Eingabe von Ereignissen</string>
     <string name="color_themes_feature_title">Farbthemen</string>
+
+    <string name="error_message">Es ist ein Fehler aufgetreten</string>
+    <string name="message_failed_to_load_error_log">Fehlerprotokoll konnte nicht geladen werden</string>
+    <string name="error_log_file_not_found">Fehlerprotokolldatei nicht gefunden</string>
+    <string name="error_log_file_empty">Fehlerprotokolldatei ist leer</string>
+    <string name="error_report_mail_subject">Fehlerbericht für My Dates</string>
+    <string name="error_report_mail_body_logs">Protokolle sind angehängt.</string>
 </resources>

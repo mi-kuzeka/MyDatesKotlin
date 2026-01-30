@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Update
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,8 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
@@ -29,9 +28,15 @@ import com.kuzepa.mydates.ui.theme.Shapes
 fun MyDatesButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    icon: ImageVector? = null,
+    iconPainter: Painter? = null,
     text: String? = null,
+    isPrimary: Boolean = false
 ) {
+    val textColor = if (isPrimary) {
+        MaterialTheme.colorScheme.onPrimary
+    } else {
+        MaterialTheme.colorScheme.primary
+    }
     Box(
         contentAlignment = Alignment.CenterStart,
         modifier = modifier
@@ -40,7 +45,13 @@ fun MyDatesButton(
                 minHeight = dimensionResource(R.dimen.min_clickable_size)
             )
             .clip(Shapes.buttonShape)
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .background(
+                if (isPrimary) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.secondaryContainer
+                }
+            )
             .clickable(
                 onClick = onClick
             )
@@ -52,18 +63,18 @@ fun MyDatesButton(
             ),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            icon?.let {
+            iconPainter?.let {
                 Icon(
-                    imageVector = icon,
+                    painter = iconPainter,
                     contentDescription = "",
-                    tint = MaterialTheme.colorScheme.primary,
+                    tint = textColor,
                     modifier = Modifier.size(dimensionResource(R.dimen.icon_help_size))
                 )
             }
             text?.let {
                 Text(
                     text = text,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = textColor,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -76,7 +87,7 @@ fun MyDatesButton(
 fun MyDatesButtonIconPreview() {
     MyDatesTheme {
         MyDatesButton(
-            icon = Icons.Default.Update,
+            iconPainter = painterResource(R.drawable.ic_refresh),
             onClick = {}
         )
     }
@@ -87,7 +98,7 @@ fun MyDatesButtonIconPreview() {
 fun MyDatesButtonIconNightPreview() {
     MyDatesTheme {
         MyDatesButton(
-            icon = Icons.Default.Update,
+            iconPainter = painterResource(R.drawable.ic_refresh),
             onClick = {}
         )
     }
@@ -98,7 +109,7 @@ fun MyDatesButtonIconNightPreview() {
 fun MyDatesButtonIconTextPreview() {
     MyDatesTheme {
         MyDatesButton(
-            icon = Icons.Default.Update,
+            iconPainter = painterResource(R.drawable.ic_refresh),
             text = "Some text",
             onClick = {}
         )
@@ -110,9 +121,35 @@ fun MyDatesButtonIconTextPreview() {
 fun MyDatesButtonIconTextNightPreview() {
     MyDatesTheme {
         MyDatesButton(
-            icon = Icons.Default.Update,
+            iconPainter = painterResource(R.drawable.ic_refresh),
             text = "Some text",
             onClick = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+fun MyDatesButtonIconPrimaryTextPreview() {
+    MyDatesTheme {
+        MyDatesButton(
+            iconPainter = painterResource(R.drawable.ic_refresh),
+            text = "Some text",
+            onClick = {},
+            isPrimary = true
+        )
+    }
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun MyDatesButtonIconTextPrimaryNightPreview() {
+    MyDatesTheme {
+        MyDatesButton(
+            iconPainter = painterResource(R.drawable.ic_refresh),
+            text = "Some text",
+            onClick = {},
+            isPrimary = true
         )
     }
 }

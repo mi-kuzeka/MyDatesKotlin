@@ -5,29 +5,51 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.kuzepa.mydates.R
+import com.kuzepa.mydates.ui.components.button.MyDatesButton
 
 @Composable
 fun ErrorView(
-    message: String,
-    onRetry: () -> Unit
+    onRetry: () -> Unit,
+    onContactSupport: () -> Unit,
+    errorMessage: String
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(all = dimensionResource(R.dimen.padding_default)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // TODO add button "Send report" with error message instead of showing this text for the user
-        Text("Error: $message", color = MaterialTheme.colorScheme.error)
+        Text(
+            text = errorMessage,
+            color = MaterialTheme.colorScheme.error
+        )
         Spacer(Modifier.height(16.dp))
-        Button(onClick = onRetry) {
-            Text("Retry") // TODO replace with string resource
-        }
+        MyDatesButton(
+            iconPainter = painterResource(R.drawable.ic_refresh),
+            text = stringResource(R.string.button_retry),
+            onClick = onRetry,
+            isPrimary = true,
+        )
+        Spacer(Modifier.height(16.dp))
+        MyDatesButton(
+            iconPainter = painterResource(R.drawable.ic_contact_support),
+            text = stringResource(R.string.contact_support),
+            onClick = { onContactSupport() },
+        )
     }
 }

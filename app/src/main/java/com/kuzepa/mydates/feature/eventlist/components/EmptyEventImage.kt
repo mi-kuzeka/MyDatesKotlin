@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.home.components
+package com.kuzepa.mydates.feature.eventlist.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.material3.MaterialTheme

@@ -11,6 +11,8 @@
     <string name="button_save">Sauvegarder</string>
     <string name="button_delete">Supprimer</string>
     <string name="button_cancel">Annuler</string>
+    <string name="button_retry">Réessayer</string>
+    <string name="button_send_report">Envoyer le rapport</string>
     <!-- Confirmation dialog title when go back button pressed -->
     <string name="go_back_confirmation">Revenir en arrière sans sauvegarder ?</string>
     <string name="go_back_confirmation_description">Toutes les modifications seront annulées.</string>
@@ -200,7 +202,9 @@
     <!-- Error message for color: selection is required -->
     <string name="error_color_selection_is_required">Veuillez sélectionner la couleur</string>
     <!-- Error message for date: incorrect format -->
-    <string name="error_date_incorrect_format_pattern">Date invalide. Format requis: %1$s</string>
+    <string name="error_incorrect_date_format_pattern">Date invalide. Format requis: %1$s</string>
+    <!-- Error message for date: short length -->
+    <string name="error_short_date_pattern">La date est trop courte. Saisissez %1$s chiffres</string>
 
     <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
     <string name="delete_image_dialog_msg">Supprimer cette image?</string>
@@ -590,4 +594,11 @@
     <string name="widget_feature_title">Widget</string>
     <string name="quick_entry_feature_title">Saisie rapide des événements</string>
     <string name="color_themes_feature_title">Thèmes de couleurs</string>
+
+    <string name="error_message">Une erreur s\'est produite</string>
+    <string name="message_failed_to_load_error_log">Échec du chargement du journal d\'erreurs</string>
+    <string name="error_log_file_not_found">Fichier journal d\'erreurs introuvable</string>
+    <string name="error_log_file_empty">Le fichier journal d\'erreurs est vide</string>
+    <string name="error_report_mail_subject">Rapport d\'erreur de My Dates</string>
+    <string name="error_report_mail_body_logs">Journaux joints.</string>
 </resources>

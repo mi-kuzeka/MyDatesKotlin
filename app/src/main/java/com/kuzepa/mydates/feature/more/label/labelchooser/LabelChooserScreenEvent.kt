@@ -5,5 +5,5 @@ import com.kuzepa.mydates.domain.model.label.Label
 sealed class LabelChooserScreenEvent {
     data class LabelSelected(val label: Label) : LabelChooserScreenEvent()
 
-    object Save : LabelChooserScreenEvent()
+    data object Save : LabelChooserScreenEvent()
 }
