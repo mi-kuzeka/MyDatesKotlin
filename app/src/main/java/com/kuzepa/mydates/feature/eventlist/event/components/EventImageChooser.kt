@@ -30,7 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -52,7 +52,6 @@ internal fun EventImageChooser(
     removeImage: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
     var showDeleteDialog by remember { mutableStateOf(false) }
     Crossfade(
         targetState = image,
@@ -68,8 +67,10 @@ internal fun EventImageChooser(
         ) {
             if (image == null || animatedImage == null) {
                 Column(
+                    verticalArrangement = Arrangement.Center,
                     modifier = Modifier
-                        .align(Alignment.Center)
+                        .fillMaxSize()
+                        .clickable(onClick = chooseImage)
                         .padding(all = dimensionResource(R.dimen.padding_small))
                 ) {
                     EmptyEventImage(
@@ -85,7 +86,10 @@ internal fun EventImageChooser(
                     )
                 }
             } else {
-                EventImage(image = animatedImage)
+                EventImage(
+                    image = animatedImage,
+                    onClick = chooseImage
+                )
                 ImageActionButtonsPanel(
                     replaceImage = chooseImage,
                     rotateLeft = rotateLeft,
@@ -108,7 +112,7 @@ internal fun EventImageChooser(
                 showDeleteDialog = false
             },
             deleteDialogContent = AlertDialogContent(
-                title = context.getString(
+                title = stringResource(
                     R.string.delete_dialog_title_pattern,
                     stringResource(R.string.this_image)
                 ),
@@ -121,11 +125,17 @@ internal fun EventImageChooser(
 }
 
 @Composable
-internal fun EventImage(image: Bitmap, modifier: Modifier = Modifier) {
+internal fun EventImage(
+    image: Bitmap,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Image(
         bitmap = image.asImageBitmap(),
         contentDescription = stringResource(R.string.event_image_description),
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
+            .clickable(onClick = onClick)
     )
 }
 
@@ -199,7 +209,7 @@ fun ImageChooserPreview() {
     MyDatesTheme {
         EventImageChooser(
             image = BitmapFactory.decodeResource(
-                LocalContext.current.resources,
+                LocalResources.current,
                 R.drawable.empty_list_white
             ),
             chooseImage = {},
