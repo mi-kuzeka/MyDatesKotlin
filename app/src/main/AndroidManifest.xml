@@ -16,6 +16,7 @@
         <activity
             android:name=".feature.main.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/Theme.MyDates">

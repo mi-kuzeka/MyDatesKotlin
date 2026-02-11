@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -108,11 +109,6 @@ fun BaseEditorScreen(
                 onClick = onSave,
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                modifier = Modifier
-                    .windowInsetsPadding(
-                        WindowInsets.safeDrawing.exclude(WindowInsets.ime)
-                            .only(WindowInsetsSides.Bottom + WindowInsetsSides.End)
-                    )
             ) {
                 Icon(
                     imageVector = Icons.Default.Done,
@@ -121,14 +117,16 @@ fun BaseEditorScreen(
             }
         },
         // Connects the Scaffold's scroll to the TopAppBar's collapse/expand behavior
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .imePadding(),
     ) { innerPadding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MyDatesColors.screenBackground)
-                .padding(innerPadding)
                 .consumeWindowInsets(innerPadding)
+                .padding(innerPadding)
                 .windowInsetsPadding(
                     WindowInsets.safeDrawing.exclude(WindowInsets.ime)
                         .only(WindowInsetsSides.Horizontal)

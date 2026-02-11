@@ -1,13 +1,9 @@
 package com.kuzepa.mydates.ui.components
 
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
@@ -121,13 +117,7 @@ internal fun ScreenWithBottomBar(
                 FloatingActionButton(
                     onClick = { navController.navigateToEventEditor(id = null) },
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    modifier = Modifier
-                        .windowInsetsPadding(
-                            WindowInsets.safeDrawing.only(
-                                WindowInsetsSides.Bottom + WindowInsetsSides.End
-                            )
-                        )
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ) {
                     Icon(
                         Icons.Default.Add,
@@ -140,8 +130,8 @@ internal fun ScreenWithBottomBar(
         val stableModifier = remember(innerPadding) {
             Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
                 .consumeWindowInsets(innerPadding)
+                .padding(innerPadding)
         }
         content(stableModifier)
     }
