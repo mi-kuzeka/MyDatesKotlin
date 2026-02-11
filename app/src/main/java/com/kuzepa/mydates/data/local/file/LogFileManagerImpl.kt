@@ -31,6 +31,7 @@ class LogFileManagerImpl @Inject constructor(
                 null
             }
         } catch (e: Exception) {
+            // TODO handle error (show message)
             null
         }
     }

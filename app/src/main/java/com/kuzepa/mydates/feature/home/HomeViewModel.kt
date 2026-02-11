@@ -25,6 +25,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -40,8 +41,9 @@ class HomeViewModel @Inject constructor(
     private val errorLoggerRepository: ErrorLoggerRepository,
     @param:ApplicationContext private val context: Context
 ) : BaseViewModel<HomeScreenEvent>() {
-    val uiState: StateFlow<HomeUiState>
-        field = MutableStateFlow(HomeUiState())
+
+    private val _uiState = MutableStateFlow(HomeUiState())
+    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
     // Cache UI states per page
     private val _eventPageStates = mutableStateMapOf<Int, EventPageState>()
@@ -80,8 +82,8 @@ class HomeViewModel @Inject constructor(
             page > MonthPager.LAST_PAGE -> MonthPager.LAST_PAGE
             else -> page
         }
-        if (uiState.value.currentPage != newPage)
-            uiState.update { it.copy(currentPage = newPage) }
+        if (_uiState.value.currentPage != newPage)
+            _uiState.update { it.copy(currentPage = newPage) }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

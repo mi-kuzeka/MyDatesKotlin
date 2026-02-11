@@ -1,8 +1,5 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.dagger.hilt.android)
@@ -36,12 +33,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
-    }
-    kotlin {
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_21
-            freeCompilerArgs.add("-XXLanguage:+ExplicitBackingFields")
-        }
     }
     buildFeatures {
         compose = true

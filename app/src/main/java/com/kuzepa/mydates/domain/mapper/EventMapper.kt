@@ -23,7 +23,7 @@ fun EventWithTypeAndLabels.toEvent(): Event {
 
 fun Event.toEventEntity(): EventEntity {
     return EventEntity(
-        id = id,
+        id = id ?: 0,
         name = name,
         month = date.month,
         day = date.day,
