@@ -110,8 +110,7 @@
     <!-- Hint of the button for changing tag icon -->
     <string name="button_change_label_icon_hint">Tag-Symbol ändern</string>
     <string name="label_icon">Symbol</string>
-    <!-- Title of the button to show more icons to choose -->
-    <string name="more_icons_button">Andere Symbole</string>
+    <string name="label_icon_emoji_title">Wählen Sie ein Emoji als Symbol aus</string>
     <string name="label_preview_title">Tag-Vorschau</string>
     <string name="remove_label_hint">Entfernen Sie das Tag</string>
     <!-- Notification statuses hints -->

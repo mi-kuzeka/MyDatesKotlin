@@ -110,8 +110,7 @@
     <!-- Hint of the button for changing tag icon -->
     <string name="button_change_label_icon_hint">Изменить иконку тега</string>
     <string name="label_icon">Иконка</string>
-    <!-- Title of the button to show more icons to choose -->
-    <string name="more_icons_button">Другие иконки</string>
+    <string name="label_icon_emoji_title">Выберите эмодзи в качестве иконки</string>
     <string name="label_preview_title">Предварительный просмотр тега</string>
     <string name="remove_label_hint">Удалить тег</string>
     <!-- Notification statuses hints -->

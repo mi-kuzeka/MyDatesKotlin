@@ -28,7 +28,7 @@ fun EmojiDialog(
     AlertDialog(
         title = {
             Text(
-                text = "Select emoji to use as icon" // TODO replace with string resource
+                text = stringResource(R.string.label_icon_emoji_title)
             )
         },
         text = {

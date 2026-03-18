@@ -110,8 +110,7 @@
     <!-- Hint of the button for changing tag icon -->
     <string name="button_change_label_icon_hint">Modifica l\'icona dell\'etichetta</string>
     <string name="label_icon">Icona</string>
-    <!-- Title of the button to show more icons to choose -->
-    <string name="more_icons_button">Altre icone</string>
+    <string name="label_icon_emoji_title">Seleziona un\'emoji come icona</string>
     <string name="label_preview_title">Anteprima dell\'etichetta</string>
     <string name="remove_label_hint">Rimuovi l\'etichetta</string>
     <!-- Notification statuses hints -->
