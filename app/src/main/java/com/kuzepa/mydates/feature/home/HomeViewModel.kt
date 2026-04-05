@@ -120,8 +120,7 @@ class HomeViewModel @Inject constructor(
                             context,
                             // TODO get from preferences
                             isCompactAgeMode = true,
-                            // TODO get from preferences
-                            showZodiacSign = true
+                            showZodiacSign = event.type.showZodiac
                         )
                         val eventDateCode =
                             event.notificationDateCode ?: event.date.toDateCode()
