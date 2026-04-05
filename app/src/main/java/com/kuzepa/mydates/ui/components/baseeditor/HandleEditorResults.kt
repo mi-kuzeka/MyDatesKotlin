@@ -11,8 +11,7 @@ import kotlinx.coroutines.flow.SharedFlow
 @Composable
 fun HandleEditorResults(
     editorResultEventFlow: SharedFlow<EditorResultEvent>,
-    onSuccess: (String?) -> Unit,
-    onError: () -> Unit
+    onSuccess: (String?) -> Unit
 ) {
     val lifecycle = LocalLifecycleOwner.current.lifecycle
 
@@ -22,7 +21,7 @@ fun HandleEditorResults(
                 when (event) {
                     is EditorResultEvent.SaveSuccess -> onSuccess(event.id)
                     is EditorResultEvent.DeleteSuccess -> onSuccess(null)
-                    is EditorResultEvent.OperationError -> onError()
+                    is EditorResultEvent.OperationError -> {}
                 }
             }
         }

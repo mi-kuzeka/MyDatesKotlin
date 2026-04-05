@@ -63,7 +63,7 @@ class FakeEventRepository @Inject constructor() : EventRepository {
         delay(50)
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with upserting event")
+            throw errorToThrow ?: RuntimeException("Error upserting event")
         }
         val currentList = _events.value.toMutableList()
         val existingIndex = currentList.indexOfFirst { it.id == event.id }
@@ -84,7 +84,7 @@ class FakeEventRepository @Inject constructor() : EventRepository {
         delay(50)
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with deleting event")
+            throw errorToThrow ?: RuntimeException("Error deleting event")
         }
         val currentList = _events.value.toMutableList()
         val wasRemoved = currentList.removeIf { it.id == id }
@@ -98,7 +98,7 @@ class FakeEventRepository @Inject constructor() : EventRepository {
         operations.add("getAllEvents:sortOption=${sortOption.name}")
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with getting all events")
+            throw errorToThrow ?: RuntimeException("Error getting all events")
         }
         return _events.map { events ->
             when (sortOption) {
@@ -118,7 +118,7 @@ class FakeEventRepository @Inject constructor() : EventRepository {
         operations.add("getEventsByMonth:month=$month,sortOption=${sortOption.name}")
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with getting events by month")
+            throw errorToThrow ?: RuntimeException("Error getting events by month")
         }
         return _events.map { events ->
             val filteredEvents = events.filter { it.date.month == month }
@@ -137,7 +137,7 @@ class FakeEventRepository @Inject constructor() : EventRepository {
         delay(50)
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with getting event by id")
+            throw errorToThrow ?: RuntimeException("Error getting event by id")
         }
         return _events.value.find { it.id == id }
     }
@@ -163,7 +163,7 @@ class FakeEventTypeRepository @Inject constructor() : EventTypeRepository {
         delay(50)
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with upserting event type")
+            throw errorToThrow ?: RuntimeException("Error upserting event type")
         }
         val currentList = _eventTypes.value.toMutableList()
         val existingIndex = currentList.indexOfFirst { it.id == eventType.id }
@@ -184,7 +184,7 @@ class FakeEventTypeRepository @Inject constructor() : EventTypeRepository {
         delay(50)
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with clearing default event type")
+            throw errorToThrow ?: RuntimeException("Error clearing default event type")
         }
         val updatedList = _eventTypes.value.map { type ->
             type.copy(isDefault = false)
@@ -198,7 +198,7 @@ class FakeEventTypeRepository @Inject constructor() : EventTypeRepository {
         delay(50)
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with deleting event type")
+            throw errorToThrow ?: RuntimeException("Error deleting event type")
         }
         val currentList = _eventTypes.value.toMutableList()
         val wasRemoved = currentList.removeIf { it.id == id }
@@ -213,7 +213,7 @@ class FakeEventTypeRepository @Inject constructor() : EventTypeRepository {
         delay(50)
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with getting event type by id")
+            throw errorToThrow ?: RuntimeException("Error getting event type by id")
         }
         return _eventTypes.value.find { it.id == id }
     }
@@ -223,7 +223,7 @@ class FakeEventTypeRepository @Inject constructor() : EventTypeRepository {
         delay(50)
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with getting default event type")
+            throw errorToThrow ?: RuntimeException("Error getting default event type")
         }
         return _eventTypes.value.find { it.isDefault }
     }
@@ -232,7 +232,7 @@ class FakeEventTypeRepository @Inject constructor() : EventTypeRepository {
         operations.add("getAllEventTypes")
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with getting all event types")
+            throw errorToThrow ?: RuntimeException("Error getting all event types")
         }
         return _eventTypes.map { it.sortedBy { eventType -> eventType.name.lowercase() } }
     }
@@ -258,7 +258,7 @@ class FakeLabelRepository @Inject constructor() : LabelRepository {
         delay(50)
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with upserting label")
+            throw errorToThrow ?: RuntimeException("Error upserting label")
         }
         val currentList = _labels.value.toMutableList()
         val existingIndex = currentList.indexOfFirst { it.id == label.id }
@@ -279,7 +279,7 @@ class FakeLabelRepository @Inject constructor() : LabelRepository {
         delay(50)
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with getting label by id")
+            throw errorToThrow ?: RuntimeException("Error getting label by id")
         }
         return _labels.value.find { it.id == id }
     }
@@ -289,7 +289,7 @@ class FakeLabelRepository @Inject constructor() : LabelRepository {
         delay(50)
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with deleting label")
+            throw errorToThrow ?: RuntimeException("Error deleting label")
         }
         val currentList = _labels.value.toMutableList()
         val wasRemoved = currentList.removeIf { it.id == id }
@@ -303,7 +303,7 @@ class FakeLabelRepository @Inject constructor() : LabelRepository {
         operations.add("getAllLabels")
 
         if (shouldThrowError) {
-            throw errorToThrow ?: RuntimeException("Error with getting all labels")
+            throw errorToThrow ?: RuntimeException("Error getting all labels")
         }
         return _labels.map { it.sortedBy { label -> label.name.lowercase() } }
     }

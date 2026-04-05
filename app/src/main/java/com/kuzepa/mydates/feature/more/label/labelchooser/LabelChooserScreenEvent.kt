@@ -6,4 +6,5 @@ sealed class LabelChooserScreenEvent {
     data class LabelSelected(val label: Label) : LabelChooserScreenEvent()
 
     data object Save : LabelChooserScreenEvent()
+    data object ClearError : LabelChooserScreenEvent()
 }

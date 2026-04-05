@@ -41,7 +41,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     onNavigateToEventEditor: (Long?) -> Unit,
     onMonthChanged: ((Int) -> Unit) -> Unit,
-    onNavigateToLogsScreen: (String) -> Unit,
+    onNavigateToLogScreen: (String) -> Unit,
     modifier: Modifier
 ) {
     val configuration = LocalConfiguration.current
@@ -139,7 +139,7 @@ fun HomeScreen(
 
                 is EventPageState.Error -> ErrorView(
                     onRetry = { onEvent(HomeScreenEvent.ObservePage(pageIndex)) },
-                    onContactSupport = { onNavigateToLogsScreen(pageState.message) },
+                    onContactSupport = { onNavigateToLogScreen(pageState.message) },
                     errorMessage = pageState.message
                 )
 

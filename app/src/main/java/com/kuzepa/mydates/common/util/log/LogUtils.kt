@@ -15,5 +15,10 @@ fun getLogMessage(tag: String, title: String, message: String): String {
     } | $tag\n$title\n$message\n"
 }
 
-fun getLogMessage(tag: String, title: String, throwable: Throwable): String =
-    getLogMessage(tag, title, "${throwable.cause}\n${throwable.message}")
+fun getLogMessage(tag: String, title: String, throwable: Throwable): String {
+    val message = buildString {
+        throwable.cause?.let { append("$it\n") }
+        throwable.message?.let { append(it) }
+    }
+    return getLogMessage(tag, title, message)
+}

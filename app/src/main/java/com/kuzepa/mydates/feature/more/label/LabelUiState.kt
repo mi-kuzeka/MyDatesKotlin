@@ -18,5 +18,6 @@ data class LabelUiState(
     val icon: LabelIcon = LabelIcon.FIRST_LETTER,
     val emoji: String = "\uD83D\uDE42", // TODO move to constants
     val notificationState: NotificationFilterState = NotificationFilterState.FILTER_STATE_ON,
-    val emojiPickerIsShowing: Boolean = false
+    val emojiPickerIsShowing: Boolean = false,
+    val errorMessage: String? = null
 )

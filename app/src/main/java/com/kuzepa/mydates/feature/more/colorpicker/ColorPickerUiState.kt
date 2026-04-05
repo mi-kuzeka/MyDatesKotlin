@@ -5,5 +5,5 @@ import androidx.compose.ui.graphics.Color
 
 @Immutable
 data class ColorPickerUiState(
-    val color: Color = Color.White
+    val color: Color = Color.White,
 )

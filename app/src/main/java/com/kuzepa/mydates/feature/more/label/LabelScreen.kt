@@ -46,6 +46,7 @@ fun LabelScreen(
     showDeleteButton: Boolean,
     onNavigateBack: () -> Unit,
     onNavigateToColorPicker: (color: Int?) -> Unit,
+    onNavigateToLog: (String) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -68,8 +69,7 @@ fun LabelScreen(
         onSuccess = { id ->
             viewModel.setNavigationResult(id, isOpenedFromEvent)
             onNavigateBack()
-        },
-        onError = { /* TODO show error */ }
+        }
     )
 
     BaseEditorDialog(
@@ -99,7 +99,10 @@ fun LabelScreen(
             negativeButtonText = stringResource(R.string.button_cancel),
             icon = Icons.Default.Delete
         ),
-        showDeleteButton = showDeleteButton
+        showDeleteButton = showDeleteButton,
+        errorMessage = state.errorMessage,
+        onNavigateToLog = onNavigateToLog,
+        onClearError = { onEvent(LabelScreenEvent.ClearError) },
     ) {
         LabelScreenContent(
             onEvent = onEvent,

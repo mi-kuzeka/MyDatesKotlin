@@ -259,7 +259,9 @@
     <!-- Hint in the event type list for default event type -->
     <string name="event_type_default_hint">défaut</string>
     <!-- Title for checkbox of showing zodiac sign for the event type -->
-    <string name="show_zodiac_sign_switch">Afficher les signes du zodiaque pour ce type d\'événement</string>
+    <string name="show_zodiac_sign_switch">Signes du zodiaque</string>
+    <!-- Title for checkbox of showing notifications for the event type -->
+    <string name="show_notifications_switch">Notifications</string>
     <!-- Alert message about duplicate event type name -->
     <string name="event_type_already_exists">Un type d\'événement portant le même nom existe déjà. Veuillez spécifier un nom différent.</string>
     <!-- Name of event type - Birthday, creates in empty data base by default -->
@@ -396,7 +398,7 @@
     <string name="import_completed">Importation terminée!</string>
     <!-- Message showing when import failed because wrong csv format -->
     <string name="cant_parse_csv">Impossible d\'analyser le fichier d\'importation. Choisissez le bon.</string>
-    <!-- Message showing when getting error with saving events from import -->
+    <!-- Message showing when getting error saving events from import -->
     <string name="error_saving_import_events">Erreur lors de l\'enregistrement des événements. Essayer à nouveau.</string>
     <!-- Title of choosing import file window -->
     <string name="import_select_file">Sélectionner un fichier</string>
@@ -599,5 +601,23 @@
     <string name="error_log_file_not_found">Fichier journal d\'erreurs introuvable</string>
     <string name="error_log_file_empty">Le fichier journal d\'erreurs est vide</string>
     <string name="error_report_mail_subject">Rapport d\'erreur de My Dates</string>
-    <string name="error_report_mail_body_logs">Journaux joints.</string>
+    <string name="error_report_mail_body_log">Journal joint</string>
+
+    <!-- Error messages -->
+    <string name="error_getting_labels">Erreur lors de l\'obtention des étiquettes</string>
+    <string name="error_getting_new_label">Erreur lors de l\'obtention de l\'étiquette nouvelle ou mise à jour</string>
+    <string name="error_saving_label">Erreur lors de l\'enregistrement de l\'étiquette</string>
+    <string name="error_deleting_label">Erreur lors de la suppression de l\'étiquette</string>
+    <string name="error_getting_new_event_type">Erreur lors de l\'obtention du nouveau type d\'événement</string>
+    <string name="error_setting_default_event_type">Erreur lors de la définition du type d\'événement par défaut</string>
+    <string name="error_filling_event_fields">Erreur lors du remplissage des champs d\'événement</string>
+    <string name="error_saving_event">Erreur lors de l\'enregistrement de l\'événement</string>
+    <string name="error_deleting_event">Erreur lors de la suppression de l\'événement</string>
+    <string name="error_getting_event_date_from_string">Erreur lors de l\'obtention de la date de l\'événement à partir de la chaîne</string>
+    <string name="error_rotating_image">Erreur de rotation de l\'image</string>
+    <string name="error_cropping_image">Erreur de recadrage de l\'image</string>
+    <string name="error_getting_image">Erreur d\'obtention de l\'image</string>
+    <string name="error_getting_event_types">Erreur lors de l\'obtention des types d\'événement</string>
+    <string name="error_saving_event_type">Erreur lors de l\'enregistrement du type d\'événement</string>
+    <string name="error_deleting_event_type">Erreur lors de la suppression du type d\'événement</string>
 </resources>

@@ -140,7 +140,7 @@ internal object Migrations {
                 } catch (e: Exception) {
                     Log.e(
                         "MyDatesDatabase",
-                        "Error with updating database 13 to 36 (Release 2026.1.0): ${e.message}"
+                        "Error updating database 13 to 36 (Release 2026.1.0): ${e.message}"
                     )
                     throw e
                 } finally {
@@ -223,7 +223,7 @@ internal object Migrations {
                 )
                 db.setTransactionSuccessful()
             } catch (e: Exception) {
-                Log.e("MyDatesDatabase", "Error with updating database 4 to 13 (Release 2024.2.0")
+                Log.e("MyDatesDatabase", "Error updating database 4 to 13 (Release 2024.2.0")
                 e.printStackTrace()
             } finally {
                 db.endTransaction()
@@ -262,7 +262,7 @@ internal object Migrations {
 
                 db.setTransactionSuccessful()
             } catch (e: Exception) {
-                Log.e("MyDatesDatabase", "Error with updating database 3 to 4")
+                Log.e("MyDatesDatabase", "Error updating database 3 to 4")
                 e.printStackTrace()
             } finally {
                 db.endTransaction()
@@ -339,7 +339,7 @@ internal object Migrations {
 
                 db.setTransactionSuccessful()
             } catch (e: Exception) {
-                Log.e("MyDatesDatabase", "Error with updating database 2 to 3")
+                Log.e("MyDatesDatabase", "Error updating database 2 to 3")
                 e.printStackTrace()
             } finally {
                 db.endTransaction()
@@ -371,7 +371,7 @@ internal object Migrations {
                 db.execSQL("DROP TABLE categories;")
                 db.setTransactionSuccessful()
             } catch (e: Exception) {
-                Log.e("MyDatesDatabase", "Error with updating database 1 to 2")
+                Log.e("MyDatesDatabase", "Error updating database 1 to 2")
                 e.printStackTrace()
             } finally {
                 db.endTransaction()

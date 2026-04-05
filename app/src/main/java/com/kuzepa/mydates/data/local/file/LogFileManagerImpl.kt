@@ -36,7 +36,7 @@ class LogFileManagerImpl @Inject constructor(
         }
     }
 
-    private fun getLogsDirectory(): File {
+    private fun getLogDirectory(): File {
         return File(context.filesDir, LOG_DIRECTORY_NAME).apply {
             if (!exists()) {
                 mkdirs()
@@ -45,7 +45,7 @@ class LogFileManagerImpl @Inject constructor(
     }
 
     override fun getLogFile(): File {
-        return File(getLogsDirectory(), LOG_FILE_NAME)
+        return File(getLogDirectory(), LOG_FILE_NAME)
     }
 
     override fun ensureLogFileExists(): File {

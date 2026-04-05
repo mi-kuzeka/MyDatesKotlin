@@ -22,7 +22,7 @@ import com.kuzepa.mydates.ui.components.button.MyDatesButton
 
 @Composable
 fun ErrorView(
-    onRetry: () -> Unit,
+    onRetry: (() -> Unit)? = null,
     onContactSupport: () -> Unit,
     errorMessage: String
 ) {
@@ -39,13 +39,15 @@ fun ErrorView(
             color = MaterialTheme.colorScheme.error
         )
         Spacer(Modifier.height(16.dp))
-        MyDatesButton(
-            iconPainter = painterResource(R.drawable.ic_refresh),
-            text = stringResource(R.string.button_retry),
-            onClick = onRetry,
-            isPrimary = true,
-        )
-        Spacer(Modifier.height(16.dp))
+        onRetry?.let {
+            MyDatesButton(
+                iconPainter = painterResource(R.drawable.ic_refresh),
+                text = stringResource(R.string.button_retry),
+                onClick = onRetry,
+                isPrimary = true,
+            )
+            Spacer(Modifier.height(16.dp))
+        }
         MyDatesButton(
             iconPainter = painterResource(R.drawable.ic_contact_support),
             text = stringResource(R.string.contact_support),

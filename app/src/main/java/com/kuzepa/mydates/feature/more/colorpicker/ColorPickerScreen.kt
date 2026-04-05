@@ -44,7 +44,7 @@ import com.kuzepa.mydates.ui.theme.Shapes
 internal fun ColorPickerScreen(
     viewModel: ColorPickerViewModel = hiltViewModel(),
     color: Int?,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())

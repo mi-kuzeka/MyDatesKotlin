@@ -40,6 +40,7 @@ fun LabelChooserScreen(
     eventLabelIdsJson: String,
     onNavigateToLabelEditor: (id: String?) -> Unit,
     onNavigateBack: () -> Unit,
+    onNavigateToLog: (String) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -72,7 +73,10 @@ fun LabelChooserScreen(
         scrollBehavior = scrollBehavior,
         deleteDialogContent = null,
         showDeleteButton = false,
-        confirmationButtonText = stringResource(R.string.button_ok)
+        confirmationButtonText = stringResource(R.string.button_ok),
+        onNavigateToLog = onNavigateToLog,
+        errorMessage = state.errorMessage,
+        onClearError = { onEvent(LabelChooserScreenEvent.ClearError) }
     ) {
         LabelChooserScreenContent(
             onEvent = { onEvent(it) },

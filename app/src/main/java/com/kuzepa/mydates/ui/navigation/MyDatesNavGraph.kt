@@ -20,13 +20,13 @@ fun MyDatesNavHost(
     NavHost(
         navController = navController,
         startDestination = Home,
-        enterTransition = { fadeIn(animationSpec = tween(700)) },
-        exitTransition = { fadeOut(animationSpec = tween(400)) }
+        enterTransition = { fadeIn(animationSpec = tween(500)) },
+        exitTransition = { fadeOut(animationSpec = tween(200)) }
     ) {
         eventsDestination(
             navController = navController,
             onNavigateToEventEditor = navigationActions::navigateToEventEditor,
-            onNavigateToLogs = navigationActions::navigateToLogs
+            onNavigateToLog = navigationActions::navigateToLog
         )
         eventEditorDestination(
             onNavigateBack = navigationActions::onNavigateBackFromEventEditor,
@@ -34,9 +34,12 @@ fun MyDatesNavHost(
             onNavigateToLabelChooser = navigationActions::navigateToLabelChooser,
             onNavigateToLabelEditor = navigationActions::navigateToLabelEditor,
             onNavigateToImageCropper = navigationActions::navigateToImageCropper,
-            onNavigateToLog = navigationActions::navigateToLogs
+            onNavigateToLog = navigationActions::navigateToLog
         )
-        imageCropperDestination(onNavigateBack = navigationActions::onNavigateBack)
+        imageCropperDestination(
+            onNavigateBack = navigationActions::onNavigateBack,
+            onNavigateToLog = navigationActions::navigateToLog
+        )
 
         appearanceDestination(navController = navController)
 
@@ -57,7 +60,8 @@ fun MyDatesNavHost(
             onNavigateBack = navigationActions::onNavigateBack
         )
         eventTypeEditorDestination(
-            onNavigateBack = navigationActions::onNavigateBack
+            onNavigateBack = navigationActions::onNavigateBack,
+            onNavigateToLog = navigationActions::navigateToLog
         )
 
         labelsDestination(
@@ -69,14 +73,16 @@ fun MyDatesNavHost(
         )
         labelEditorDestination(
             onNavigateBack = navigationActions::onNavigateBack,
-            onNavigateToColorPicker = navigationActions::navigateToColorPicker
+            onNavigateToColorPicker = navigationActions::navigateToColorPicker,
+            onNavigateToLog = navigationActions::navigateToLog
         )
         colorPickerDestination(
             onNavigateBack = navigationActions::onNavigateBack
         )
         labelChooserDestination(
             onNavigateBack = navigationActions::onNavigateBack,
-            onNavigateToLabelEditor = navigationActions::navigateToLabelEditor
+            onNavigateToLabelEditor = navigationActions::navigateToLabelEditor,
+            onNavigateToLog = navigationActions::navigateToLog
         )
         bulkLabelAssignmentDestination(onNavigateBack = navigationActions::onNavigateBack)
 
@@ -112,7 +118,7 @@ fun MyDatesNavHost(
             onNavigateBack = navigationActions::onNavigateBack
         )
 
-        logsDestination(
+        logDestination(
             onNavigateBack = navigationActions::onNavigateBack
         )
     }
@@ -161,8 +167,8 @@ class NavigationActions(private val navController: NavHostController) {
         navController.navigateToColorPicker(color)
     }
 
-    fun navigateToLogs(errorMessage: String) {
-        navController.navigateToLogs(errorMessage)
+    fun navigateToLog(errorMessage: String) {
+        navController.navigateToLog(errorMessage)
     }
 
     fun onNavigateBack() = navController.popBackStack()

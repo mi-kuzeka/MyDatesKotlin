@@ -80,23 +80,16 @@ internal fun EventScreen(
 
     HandleEditorResults(
         editorResultEventFlow = viewModel.editorResultEventFlow,
-        onSuccess = { onNavigateBack(NavigationResult.OK, viewModel.eventMonth) },
-        onError = { /* TODO show error */ }
+        onSuccess = { onNavigateBack(NavigationResult.OK, viewModel.eventMonth) }
     )
 
     LaunchedEffect(Unit) {
         viewModel.fetchingLabelsFlow.collect { event ->
-            when (event) {
-                is LabelsFetching.Success -> {
-                    if (state.dropdownLabels.isEmpty()) {
-                        onNavigateToLabelEditor(null)
-                    } else {
-                        onNavigateToLabelChooser(viewModel.getLabelIdListAsJson())
-                    }
-                }
-
-                is LabelsFetching.Error -> {
-                    /* TODO show error */
+            if (event is LabelsFetching.Success) {
+                if (state.dropdownLabels.isEmpty()) {
+                    onNavigateToLabelEditor(null)
+                } else {
+                    onNavigateToLabelChooser(viewModel.getLabelIdListAsJson())
                 }
             }
         }
@@ -134,6 +127,9 @@ internal fun EventScreen(
             negativeButtonText = stringResource(R.string.button_cancel),
             icon = Icons.Default.Delete
         ),
+        errorMessage = state.errorMessage,
+        onNavigateToLog = onNavigateToLog,
+        onClearError = { onEvent(EventScreenEvent.ClearError) },
         scrollBehavior = scrollBehavior
     ) {
         EventScreenContent(

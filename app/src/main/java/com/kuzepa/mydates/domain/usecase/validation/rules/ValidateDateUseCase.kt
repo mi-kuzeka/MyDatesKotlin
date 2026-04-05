@@ -28,13 +28,14 @@ class ValidateDateUseCase @Inject constructor(
             }
 
             is DateFormatterResult.Error -> {
+                val requiredFormat = dateFormatProvider.getShowingMask(hideYear)
                 ValidationResult.Invalid(
                     errorMessage = validationMessageProvider.getWrongDateFormatError(
-                        requiredFormat = dateFormatProvider.getShowingMask(hideYear)
+                        requiredFormat = requiredFormat
                     ),
                     logMessage = getLogMessage(
                         tag = "ValidateDate",
-                        title = "Error with getting event date from string: $input",
+                        title = "Error getting event date from string: '$input', required format: '$requiredFormat'",
                         throwable = result.e
                     )
                 )
@@ -44,13 +45,14 @@ class ValidateDateUseCase @Inject constructor(
                 if (result.eventDate.isDateValid()) {
                     ValidationResult.Valid
                 } else {
+                    val requiredFormat = dateFormatProvider.getShowingMask(hideYear)
                     ValidationResult.Invalid(
                         errorMessage = validationMessageProvider.getWrongDateFormatError(
                             requiredFormat = dateFormatProvider.getShowingMask(hideYear)
                         ),
                         logMessage = getLogMessage(
                             tag = "ValidateDate",
-                            title = "Error with getting event date from string: $input",
+                            title = "Error getting event date from string: '$input', required format: '$requiredFormat'",
                             message = "Wrong date format"
                         )
                     )

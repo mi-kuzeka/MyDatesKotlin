@@ -13,5 +13,6 @@ data class EventTypeUiState(
     val nameValidationError: String? = null,
     val isDefault: Boolean = false,
     val showZodiac: Boolean = false,
-    val notificationState: NotificationFilterState = NotificationFilterState.FILTER_STATE_ON
+    val notificationState: NotificationFilterState = NotificationFilterState.FILTER_STATE_ON,
+    val errorMessage: String? = null
 )

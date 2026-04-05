@@ -37,7 +37,8 @@ import kotlinx.coroutines.android.awaitFrame
 fun EventTypeScreen(
     viewModel: EventTypeViewModel = hiltViewModel(),
     id: String?,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onNavigateToLog: (String) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -57,8 +58,7 @@ fun EventTypeScreen(
 
     HandleEditorResults(
         editorResultEventFlow = viewModel.editorResultEventFlow,
-        onSuccess = { id -> onNavigateBack() },
-        onError = { /* TODO show error */ }
+        onSuccess = { id -> onNavigateBack() }
     )
 
     BaseEditorDialog(
@@ -87,7 +87,10 @@ fun EventTypeScreen(
             positiveButtonText = stringResource(R.string.button_delete),
             negativeButtonText = stringResource(R.string.button_cancel),
             icon = Icons.Default.Delete
-        )
+        ),
+        errorMessage = state.errorMessage,
+        onNavigateToLog = onNavigateToLog,
+        onClearError = { onEvent(EventTypeScreenEvent.ClearError) },
     ) {
         EventTypeScreenContent(
             onEvent = onEvent,
@@ -134,7 +137,7 @@ fun EventTypeScreenContent(
                 modifier = Modifier.fillMaxWidth()
             )
             MyDatesSwitch(
-                text = "Show notifications", //TODO replace with string resources
+                text = stringResource(R.string.show_notifications_switch),
                 checked = notificationState == NotificationFilterState.FILTER_STATE_ON,
                 onCheckedChange = { onEvent(EventTypeScreenEvent.ShowNotificationsChanged(it)) },
                 modifier = Modifier.fillMaxWidth()

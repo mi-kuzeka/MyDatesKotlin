@@ -305,7 +305,9 @@
     <!-- Hint in the event type list for default event type -->
     <string name="event_type_default_hint">default</string>
     <!-- Title for checkbox of showing zodiac sign for the event type -->
-    <string name="show_zodiac_sign_switch">Show zodiac sign for this event type</string>
+    <string name="show_zodiac_sign_switch">Zodiac signs</string>
+    <!-- Title for checkbox of showing notifications for the event type -->
+    <string name="show_notifications_switch">Notifications</string>
     <!-- Alert message about duplicate event type name -->
     <string name="event_type_already_exists">Event type with the same name already exists. Please specify a different name.</string>
     <!-- Name of event type - Birthday, creates in empty data base by default -->
@@ -457,8 +459,8 @@
     <string name="import_completed">Import completed!</string>
     <!-- Message showing when import failed because wrong csv format -->
     <string name="cant_parse_csv">Can\'t parse import file. Choose the correct one.</string>
-    <!-- Message showing when getting error with saving events from import -->
-    <string name="error_saving_import_events">Error with saving events. Try again.</string>
+    <!-- Message showing when getting error saving events from import -->
+    <string name="error_saving_import_events">Error saving events. Try again.</string>
     <!-- Title of choosing import file window -->
     <string name="import_select_file">Select a file</string>
     <!-- Message about no file manager -->
@@ -675,5 +677,23 @@
     <string name="error_log_file_not_found">Error log file not found</string>
     <string name="error_log_file_empty">Error log file is empty</string>
     <string name="error_report_mail_subject">My Dates Error Report</string>
-    <string name="error_report_mail_body_logs">Logs attached.</string>
+    <string name="error_report_mail_body_log">Log attached</string>
+
+    <!-- Error messages -->
+    <string name="error_getting_labels">Error getting tags</string>
+    <string name="error_getting_new_label">Error getting new or updated tag</string>
+    <string name="error_saving_label">Error saving tag</string>
+    <string name="error_deleting_label">Error deleting tag</string>
+    <string name="error_getting_new_event_type">Error getting new event type</string>
+    <string name="error_setting_default_event_type">Error setting default event type</string>
+    <string name="error_filling_event_fields">Error filling event fields</string>
+    <string name="error_saving_event">Error saving event</string>
+    <string name="error_deleting_event">Error deleting event</string>
+    <string name="error_getting_event_date_from_string">Error getting event date from string</string>
+    <string name="error_rotating_image">Rotating image error</string>
+    <string name="error_cropping_image">Image cropping error</string>
+    <string name="error_getting_image">Image getting error</string>
+    <string name="error_getting_event_types">Error getting event types</string>
+    <string name="error_saving_event_type">Error saving event type</string>
+    <string name="error_deleting_event_type">Error deleting event type</string>
 </resources>

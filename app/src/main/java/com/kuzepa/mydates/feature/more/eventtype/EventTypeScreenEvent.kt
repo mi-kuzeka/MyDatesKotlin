@@ -7,4 +7,5 @@ sealed class EventTypeScreenEvent {
     data class ShowNotificationsChanged(val showNotifications: Boolean) : EventTypeScreenEvent()
     data object Delete : EventTypeScreenEvent()
     data object Save : EventTypeScreenEvent()
+    data object ClearError : EventTypeScreenEvent()
 }

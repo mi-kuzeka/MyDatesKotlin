@@ -1,9 +1,14 @@
 package com.kuzepa.mydates.feature.more.eventtype
 
+import android.content.Context
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.kuzepa.mydates.R
+import com.kuzepa.mydates.common.util.log.getLogMessage
+import com.kuzepa.mydates.common.util.onFailureIfNotCancelled
 import com.kuzepa.mydates.domain.model.EventType
 import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
+import com.kuzepa.mydates.domain.repository.ErrorLoggerRepository
 import com.kuzepa.mydates.domain.repository.EventRepository
 import com.kuzepa.mydates.domain.repository.EventTypeRepository
 import com.kuzepa.mydates.domain.usecase.baseeditor.EditorResultEvent
@@ -14,6 +19,8 @@ import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorViewModel
 import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
 import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,15 +29,18 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class EventTypeViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val eventRepository: EventRepository,
     private val eventTypeRepository: EventTypeRepository,
     private val validateNameNotEmptyAndDistinct: ValidateNameNotEmptyAndDistinctUseCase,
     private val navigationDialogResult: NavigationDialogResult,
+    private val errorLoggerRepository: ErrorLoggerRepository,
     savedStateHandle: SavedStateHandle
 ) : BaseEditorViewModel<EventTypeUiState, EventTypeScreenEvent>() {
     private val eventTypeId: String? = savedStateHandle.get<String>("id")
@@ -45,6 +55,7 @@ class EventTypeViewModel @Inject constructor(
 
     private val _editorResultEventFlow = MutableSharedFlow<EditorResultEvent>(replay = 0)
     override val editorResultEventFlow = _editorResultEventFlow.asSharedFlow()
+    private val logTag = "EventTypeViewModel"
 
 
     init {
@@ -54,13 +65,19 @@ class EventTypeViewModel @Inject constructor(
 
     private fun loadEventTypes() {
         viewModelScope.launch {
-            try {
-                allEventTypes = eventTypeRepository.getAllEventTypes().firstOrNull() ?: emptyList()
+            runCatching {
+                eventTypeRepository.getAllEventTypes().firstOrNull() ?: emptyList()
+            }.onSuccess { eventTypes ->
+                allEventTypes = eventTypes
                 if (!_uiState.value.isNewEventType && allEventTypes.isNotEmpty()) {
                     allEventTypes.firstOrNull { it.id == eventTypeId }?.populateScreenFields()
                 }
-            } catch (e: Exception) {
-                // TODO handle error
+            }.onFailureIfNotCancelled { e ->
+                val errorMessage = getLogMessage(logTag, "Error getting event types", e)
+                onError(
+                    logMessage = errorMessage,
+                    showingMessage = context.resources.getString(R.string.error_getting_event_types)
+                )
             }
         }
     }
@@ -121,12 +138,16 @@ class EventTypeViewModel @Inject constructor(
                 }
             }
 
-            EventTypeScreenEvent.Save -> {
+            is EventTypeScreenEvent.Save -> {
                 if (isValid()) save()
             }
 
-            EventTypeScreenEvent.Delete -> {
+            is EventTypeScreenEvent.Delete -> {
                 delete()
+            }
+
+            is EventTypeScreenEvent.ClearError -> {
+                clearError()
             }
         }
     }
@@ -151,8 +172,8 @@ class EventTypeViewModel @Inject constructor(
 
     override fun save() {
         viewModelScope.launch {
-            try {
-                val id = _uiState.value.eventType?.id ?: UUID.randomUUID().toString()
+            val id = _uiState.value.eventType?.id ?: UUID.randomUUID().toString()
+            runCatching {
                 with(_uiState.value) {
                     val eventType = EventType(
                         id = id,
@@ -167,24 +188,51 @@ class EventTypeViewModel @Inject constructor(
                         eventTypeRepository.upsertEventType(eventType)
                     }
                 }
+            }.onSuccess {
                 navigationDialogResult.setDialogResultData(DialogResultData.EventTypeResult(id))
                 _editorResultEventFlow.emit(EditorResultEvent.SaveSuccess(id = id))
-            } catch (e: Exception) {
-                // TODO handle error
-                _editorResultEventFlow.emit(EditorResultEvent.OperationError(e.message.toString()))
+            }.onFailureIfNotCancelled { e ->
+                val errorMessage = getLogMessage(logTag, "Error saving event type", e)
+                onError(
+                    logMessage = errorMessage,
+                    showingMessage = context.resources.getString(R.string.error_saving_event_type)
+                )
+                _editorResultEventFlow.emit(EditorResultEvent.OperationError(errorMessage))
             }
         }
     }
 
     override fun delete() {
-        viewModelScope.launch() {
-            try {
+        viewModelScope.launch {
+            runCatching {
                 eventTypeRepository.deleteEventTypeById(_uiState.value.eventType?.id ?: "")
+            }.onSuccess {
                 _editorResultEventFlow.emit(EditorResultEvent.DeleteSuccess)
-            } catch (e: Exception) {
-                // TODO handle error
-                _editorResultEventFlow.emit(EditorResultEvent.OperationError(e.message.toString()))
+            }.onFailureIfNotCancelled { e ->
+                val errorMessage = getLogMessage(logTag, "Error deleting event type", e)
+                onError(
+                    logMessage = errorMessage,
+                    showingMessage = context.resources.getString(R.string.error_deleting_event_type)
+                )
+                _editorResultEventFlow.emit(EditorResultEvent.OperationError(errorMessage))
             }
         }
+    }
+
+    override suspend fun onError(logMessage: String, showingMessage: String) {
+        withContext((Dispatchers.IO)) {
+            errorLoggerRepository.logError(logMessage)
+        }
+        withContext(Dispatchers.Main) {
+            setError(showingMessage)
+        }
+    }
+
+    private fun setError(message: String) {
+        _uiState.update { it.copy(errorMessage = message) }
+    }
+
+    private fun clearError() {
+        _uiState.update { it.copy(errorMessage = null) }
     }
 }

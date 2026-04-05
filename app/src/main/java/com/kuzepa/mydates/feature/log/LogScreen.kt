@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.logs
+package com.kuzepa.mydates.feature.log
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
@@ -23,8 +23,8 @@ import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.Shapes
 
 @Composable
-fun LogsScreen(
-    viewModel: LogsViewModel = hiltViewModel(),
+fun LogScreen(
+    viewModel: LogViewModel = hiltViewModel(),
     onDismiss: () -> Unit,
     errorMessage: String
 ) {
@@ -32,16 +32,16 @@ fun LogsScreen(
     val context = LocalContext.current
     LaunchedEffect(key1 = uiState.value.sharingEmailIntentState) {
         when (val currentState = uiState.value.sharingEmailIntentState) {
-            is LogsSharingEmailIntentState.Loading -> {
+            is LogSharingEmailIntentState.Loading -> {
 
             }
 
-            is LogsSharingEmailIntentState.Success -> {
+            is LogSharingEmailIntentState.Success -> {
                 context.startActivity(currentState.emailClientIntent)
                 viewModel.resetSharingState()
             }
 
-            is LogsSharingEmailIntentState.Error -> {
+            is LogSharingEmailIntentState.Error -> {
                 Toast.makeText(
                     context,
                     currentState.message,
@@ -55,16 +55,17 @@ fun LogsScreen(
     AlertDialog(
         title = {
             Text(
-                text = stringResource(R.string.error_message),
+                text = errorMessage,
+                color = MyDatesColors.errorTextColor
             )
         },
         text = {
             when (val loadingState = uiState.value.loadingState) {
-                is LogsLoadingState.Loading -> {
+                is LogLoadingState.Loading -> {
                     FullScreenLoading()
                 }
 
-                is LogsLoadingState.Error -> {
+                is LogLoadingState.Error -> {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.fillMaxWidth()
@@ -80,7 +81,7 @@ fun LogsScreen(
                             iconPainter = painterResource(R.drawable.ic_refresh),
                             text = stringResource(R.string.button_retry),
                             onClick = {
-                                viewModel.loadLogs()
+                                viewModel.loadLog()
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -88,24 +89,24 @@ fun LogsScreen(
                     }
                 }
 
-                is LogsLoadingState.NoLogs -> {
+                is LogLoadingState.NoLog -> {
                     MyDatesButton(
                         iconPainter = painterResource(R.drawable.ic_report),
                         text = stringResource(R.string.button_send_report),
                         onClick = {
-                            viewModel.sendReportWithNoLogs(loadingState.message, errorMessage)
+                            viewModel.sendReportWithNoLog(loadingState.message, errorMessage)
                         },
                         modifier = Modifier
                             .fillMaxWidth()
                     )
                 }
 
-                is LogsLoadingState.Success -> {
+                is LogLoadingState.Success -> {
                     MyDatesButton(
                         iconPainter = painterResource(R.drawable.ic_report),
                         text = stringResource(R.string.button_send_report),
                         onClick = {
-                            viewModel.shareLogs()
+                            viewModel.shareLog()
                         },
                         modifier = Modifier
                             .fillMaxWidth()

@@ -17,7 +17,7 @@ internal object Home : TopLevelRoute()
 fun NavGraphBuilder.eventsDestination(
     navController: NavHostController,
     onNavigateToEventEditor: (id: Long?) -> Unit,
-    onNavigateToLogs: (errorMessage: String) -> Unit
+    onNavigateToLog: (errorMessage: String) -> Unit
 ) {
     composable<Home> { backStackEntry ->
         val savedStateHandle = backStackEntry.savedStateHandle
@@ -33,7 +33,7 @@ fun NavGraphBuilder.eventsDestination(
                         savedStateHandle.remove<String?>(NavigationResult.EVENT_MONTH_KEY)
                     }
                 },
-                onNavigateToLogsScreen = onNavigateToLogs,
+                onNavigateToLogScreen = onNavigateToLog,
                 modifier = modifier
             )
         }
@@ -78,14 +78,15 @@ internal data class ImageCropper(val imageUriString: String) : NavRoute()
 
 fun NavGraphBuilder.imageCropperDestination(
     onNavigateBack: () -> Unit,
-
-    ) {
+    onNavigateToLog: (errorMessage: String) -> Unit
+) {
     composable<ImageCropper> { backStackEntry ->
         val imageCropper: ImageCropper = backStackEntry.toRoute()
 
         ImageCropperScreen(
             imageUriString = imageCropper.imageUriString,
-            onNavigateBack = onNavigateBack
+            onNavigateBack = onNavigateBack,
+            onNavigateToLog = onNavigateToLog
         )
     }
 }

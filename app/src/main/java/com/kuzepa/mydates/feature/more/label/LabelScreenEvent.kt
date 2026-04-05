@@ -14,4 +14,5 @@ sealed class LabelScreenEvent {
     data object HideEmojiPicker : LabelScreenEvent()
     data object Delete : LabelScreenEvent()
     data object Save : LabelScreenEvent()
+    data object ClearError : LabelScreenEvent()
 }

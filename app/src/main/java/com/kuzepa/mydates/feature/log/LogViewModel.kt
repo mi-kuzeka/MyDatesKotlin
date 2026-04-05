@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.logs
+package com.kuzepa.mydates.feature.log
 
 import android.content.Context
 import android.content.Intent
@@ -19,32 +19,32 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class LogsViewModel @Inject constructor(
+class LogViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val logFileManager: LogFileManager
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(LogsUiState())
-    val uiState: StateFlow<LogsUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(LogUiState())
+    val uiState: StateFlow<LogUiState> = _uiState.asStateFlow()
 
     init {
-        loadLogs()
+        loadLog()
     }
 
-    fun loadLogs() {
+    fun loadLog() {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.update {
-                it.copy(loadingState = LogsLoadingState.Loading)
+                it.copy(loadingState = LogLoadingState.Loading)
             }
 
             val result = runCatching {
                 val file = logFileManager.getLogFile()
 
                 when {
-                    !file.exists() -> ReadingLogsResult.NoFile
-                    file.length() == 0L -> ReadingLogsResult.EmptyFile
+                    !file.exists() -> ReadingLogResult.NoFile
+                    file.length() == 0L -> ReadingLogResult.EmptyFile
                     else -> {
                         file.readText()
-                        ReadingLogsResult.Success
+                        ReadingLogResult.Success
                     }
                 }
             }
@@ -52,36 +52,36 @@ class LogsViewModel @Inject constructor(
             _uiState.update {
                 when {
                     result.isFailure -> it.copy(
-                        loadingState = LogsLoadingState.Error(
+                        loadingState = LogLoadingState.Error(
                             message = context.resources.getString(R.string.message_failed_to_load_error_log)
                                     + result.exceptionOrNull()?.message
                         )
                     )
 
-                    result.getOrNull() is ReadingLogsResult.NoFile -> it.copy(
-                        loadingState = LogsLoadingState.NoLogs(
+                    result.getOrNull() is ReadingLogResult.NoFile -> it.copy(
+                        loadingState = LogLoadingState.NoLog(
                             message = context.resources.getString(R.string.error_log_file_not_found)
                         )
                     )
 
-                    result.getOrNull() is ReadingLogsResult.EmptyFile -> it.copy(
-                        loadingState = LogsLoadingState.NoLogs(
+                    result.getOrNull() is ReadingLogResult.EmptyFile -> it.copy(
+                        loadingState = LogLoadingState.NoLog(
                             message = context.resources.getString(R.string.error_log_file_empty)
                         )
                     )
 
-                    else -> it.copy(loadingState = LogsLoadingState.Success)
+                    else -> it.copy(loadingState = LogLoadingState.Success)
                 }
             }
         }
     }
 
-    fun clearLogs() {
+    fun clearLog() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val file = logFileManager.ensureLogFileExists()
                 file.writeText("")
-                loadLogs()
+                loadLog()
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(
@@ -94,16 +94,16 @@ class LogsViewModel @Inject constructor(
 
     fun resetSharingState() {
         _uiState.update {
-            it.copy(sharingEmailIntentState = LogsSharingEmailIntentState.Loading)
+            it.copy(sharingEmailIntentState = LogSharingEmailIntentState.Loading)
         }
     }
 
-    fun sendReportWithNoLogs(cause: String, errorMessage: String) {
+    fun sendReportWithNoLog(cause: String, errorMessage: String) {
         val emailIntent = getEmailIntent(message = "$cause\nError message: $errorMessage\n")
         createEmailClientChooser(emailIntent)
     }
 
-    fun shareLogs() {
+    fun shareLog() {
         resetSharingState()
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -133,7 +133,7 @@ class LogsViewModel @Inject constructor(
         if (intent == null) {
             _uiState.update { state ->
                 state.copy(
-                    sharingEmailIntentState = LogsSharingEmailIntentState.Error(
+                    sharingEmailIntentState = LogSharingEmailIntentState.Error(
                         context.resources.getString(R.string.email_client_not_found)
                     )
                 )
@@ -141,7 +141,7 @@ class LogsViewModel @Inject constructor(
         } else {
             _uiState.update { state ->
                 state.copy(
-                    sharingEmailIntentState = LogsSharingEmailIntentState.Success(intent)
+                    sharingEmailIntentState = LogSharingEmailIntentState.Success(intent)
                 )
             }
         }
@@ -162,7 +162,7 @@ class LogsViewModel @Inject constructor(
             putExtra(
                 Intent.EXTRA_TEXT,
                 message.ifBlank {
-                    context.resources.getString(R.string.error_report_mail_body_logs)
+                    context.resources.getString(R.string.error_report_mail_body_log)
                 }
             )
             uri?.let {

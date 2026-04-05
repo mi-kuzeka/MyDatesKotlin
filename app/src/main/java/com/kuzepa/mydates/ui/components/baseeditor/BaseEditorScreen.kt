@@ -61,12 +61,15 @@ fun BaseEditorScreen(
     hasChanges: Boolean,
     onNavigateBack: () -> Unit,
     onSave: () -> Unit,
-    onDelete: () -> Unit,
     showGoBackDialog: Boolean,
-    showDeleteDialog: Boolean,
     onShowGoBackDialogChange: (Boolean) -> Unit,
+    onDelete: () -> Unit,
+    showDeleteDialog: Boolean,
     onShowDeleteDialogChange: (Boolean) -> Unit,
     deleteDialogContent: AlertDialogContent,
+    onNavigateToLog: (errorMessage: String) -> Unit,
+    errorMessage: String? = null,
+    onClearError: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
     content: @Composable () -> Unit
 ) {
@@ -153,6 +156,10 @@ fun BaseEditorScreen(
                     deleteDialogContent = deleteDialogContent
                 )
             }
+            errorMessage?.let {
+                onNavigateToLog(it)
+                onClearError()
+            }
         }
     }
 }
@@ -211,6 +218,8 @@ fun BaseEditorScreenPreview() {
                 negativeButtonText = "Cancel",
                 icon = Icons.Default.Delete
             ),
+            onClearError = {},
+            onNavigateToLog = {},
             scrollBehavior = scrollBehavior
         ) {
             BaseEditorContentBox(

@@ -31,5 +31,6 @@ data class EventUiState(
     /**
      * All available event types
      */
-    val availableEventTypes: List<EventType> = emptyList()
+    val availableEventTypes: List<EventType> = emptyList(),
+    val errorMessage: String? = null
 )

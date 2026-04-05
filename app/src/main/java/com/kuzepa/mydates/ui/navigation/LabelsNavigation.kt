@@ -52,6 +52,7 @@ internal data class LabelChooser(val eventLabelIdsJson: String) : NavRoute()
 fun NavGraphBuilder.labelChooserDestination(
     onNavigateBack: () -> Unit,
     onNavigateToLabelEditor: (id: String?, fromEvent: Boolean, showDeleteButton: Boolean) -> Unit,
+    onNavigateToLog: (String) -> Unit,
 ) {
     dialog<LabelChooser> { backStackEntry ->
         val labelChooser: LabelChooser = backStackEntry.toRoute()
@@ -59,6 +60,7 @@ fun NavGraphBuilder.labelChooserDestination(
             eventLabelIdsJson = labelChooser.eventLabelIdsJson,
             onNavigateBack = onNavigateBack,
             onNavigateToLabelEditor = { onNavigateToLabelEditor(it, false, false) },
+            onNavigateToLog = onNavigateToLog
         )
     }
 }
@@ -73,6 +75,7 @@ internal data class LabelEditor(
 fun NavGraphBuilder.labelEditorDestination(
     onNavigateBack: () -> Unit,
     onNavigateToColorPicker: (color: Int?) -> Unit,
+    onNavigateToLog: (errorMessage: String) -> Unit,
 ) {
     dialog<LabelEditor> { backStackEntry ->
         val labelEditor: LabelEditor = backStackEntry.toRoute()
@@ -82,6 +85,7 @@ fun NavGraphBuilder.labelEditorDestination(
             showDeleteButton = labelEditor.showDeleteButton,
             onNavigateBack = onNavigateBack,
             onNavigateToColorPicker = onNavigateToColorPicker,
+            onNavigateToLog = onNavigateToLog
         )
     }
 }

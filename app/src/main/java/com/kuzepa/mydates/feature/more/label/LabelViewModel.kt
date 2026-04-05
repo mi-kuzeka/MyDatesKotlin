@@ -1,9 +1,14 @@
 package com.kuzepa.mydates.feature.more.label
 
+import android.content.Context
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.kuzepa.mydates.R
+import com.kuzepa.mydates.common.util.log.getLogMessage
+import com.kuzepa.mydates.common.util.onFailureIfNotCancelled
 import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.domain.model.label.LabelIcon
+import com.kuzepa.mydates.domain.repository.ErrorLoggerRepository
 import com.kuzepa.mydates.domain.repository.LabelRepository
 import com.kuzepa.mydates.domain.usecase.baseeditor.EditorResultEvent
 import com.kuzepa.mydates.domain.usecase.validation.ValidationResult
@@ -13,6 +18,8 @@ import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorViewModel
 import com.kuzepa.mydates.ui.navigation.dialogresult.DialogResultData
 import com.kuzepa.mydates.ui.navigation.dialogresult.NavigationDialogResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,14 +28,17 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class LabelViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val labelRepository: LabelRepository,
     private val validateNameNotEmptyAndDistinct: ValidateNameNotEmptyAndDistinctUseCase,
     private val navigationDialogResult: NavigationDialogResult,
+    private val errorLoggerRepository: ErrorLoggerRepository,
     savedStateHandle: SavedStateHandle
 ) : BaseEditorViewModel<LabelUiState, LabelScreenEvent>() {
 
@@ -44,6 +54,7 @@ class LabelViewModel @Inject constructor(
 
     private val _editorResultEventFlow = MutableSharedFlow<EditorResultEvent>(replay = 0)
     override val editorResultEventFlow = _editorResultEventFlow.asSharedFlow()
+    val logTag = "LabelViewModel"
 
     init {
         _uiState.update { it.copy(isNewLabel = labelId == null) }
@@ -53,13 +64,18 @@ class LabelViewModel @Inject constructor(
 
     private fun loadLabels() {
         viewModelScope.launch {
-            try {
-                allLabels = labelRepository.getAllLabels().firstOrNull() ?: emptyList()
+            runCatching {
+                labelRepository.getAllLabels().firstOrNull() ?: emptyList()
+            }.onSuccess { labels ->
+                allLabels = labels
                 if (!_uiState.value.isNewLabel && allLabels.isNotEmpty()) {
                     allLabels.firstOrNull { it.id == labelId }?.populateScreenFields()
                 }
-            } catch (e: Exception) {
-                // TODO handle error
+            }.onFailureIfNotCancelled { e ->
+                onError(
+                    logMessage = getLogMessage(logTag, "Error getting tags", e),
+                    showingMessage = context.resources.getString(R.string.error_getting_labels)
+                )
             }
         }
     }
@@ -169,6 +185,10 @@ class LabelViewModel @Inject constructor(
             is LabelScreenEvent.Delete -> {
                 delete()
             }
+
+            is LabelScreenEvent.ClearError -> {
+                clearError()
+            }
         }
     }
 
@@ -179,9 +199,7 @@ class LabelViewModel @Inject constructor(
                 nameList = allLabels.filter { it.id != labelId }.map { it.name }
             )
         _uiState.update {
-            it.copy(
-                nameValidationError = validationResult.getErrorMessage()
-            )
+            it.copy(nameValidationError = validationResult.getErrorMessage())
         }
     }
 
@@ -192,25 +210,32 @@ class LabelViewModel @Inject constructor(
 
     override fun save() {
         viewModelScope.launch {
-            try {
-                val id = _uiState.value.label?.id ?: UUID.randomUUID().toString()
-                with(_uiState.value) {
-                    labelRepository.upsertLabel(
-                        Label(
-                            id = id,
-                            name = name.trim(),
-                            color = colorId,
-                            iconId = icon.id,
-                            notificationState = notificationState,
-                            emoji = emoji
-                        )
-                    )
-                }
+            val id = _uiState.value.label?.id ?: UUID.randomUUID().toString()
+            runCatching {
+                labelRepository.upsertLabel(label = createLabelFromUiState(id = id))
+            }.onSuccess {
                 _editorResultEventFlow.emit(EditorResultEvent.SaveSuccess(id = id))
-            } catch (e: Exception) {
-                // TODO handle error
-                _editorResultEventFlow.emit(EditorResultEvent.OperationError(e.message.toString()))
+            }.onFailureIfNotCancelled { e ->
+                val errorMessage = getLogMessage(logTag, "Error saving tag", e)
+                onError(
+                    logMessage = errorMessage,
+                    showingMessage = context.resources.getString(R.string.error_saving_label)
+                )
+                _editorResultEventFlow.emit(EditorResultEvent.OperationError(errorMessage))
             }
+        }
+    }
+
+    private fun createLabelFromUiState(id: String): Label {
+        return with(_uiState.value) {
+            Label(
+                id = id,
+                name = name.trim(),
+                color = colorId,
+                iconId = icon.id,
+                notificationState = notificationState,
+                emoji = emoji
+            )
         }
     }
 
@@ -225,13 +250,35 @@ class LabelViewModel @Inject constructor(
 
     override fun delete() {
         viewModelScope.launch {
-            try {
+            runCatching {
                 labelRepository.deleteLabelById(_uiState.value.label?.id ?: "")
+            }.onSuccess {
                 _editorResultEventFlow.emit(EditorResultEvent.DeleteSuccess)
-            } catch (e: Exception) {
-                // TODO handle error
-                _editorResultEventFlow.emit(EditorResultEvent.OperationError(e.message.toString()))
+            }.onFailureIfNotCancelled { e ->
+                val errorMessage = getLogMessage(logTag, "Error deleting tag", e)
+                onError(
+                    logMessage = errorMessage,
+                    showingMessage = context.resources.getString(R.string.error_deleting_label)
+                )
+                _editorResultEventFlow.emit(EditorResultEvent.OperationError(errorMessage))
             }
         }
+    }
+
+    override suspend fun onError(logMessage: String, showingMessage: String) {
+        withContext((Dispatchers.IO)) {
+            errorLoggerRepository.logError(logMessage)
+        }
+        withContext(Dispatchers.Main) {
+            setError(showingMessage)
+        }
+    }
+
+    private fun setError(message: String) {
+        _uiState.update { it.copy(errorMessage = message) }
+    }
+
+    private fun clearError() {
+        _uiState.update { it.copy(errorMessage = null) }
     }
 }

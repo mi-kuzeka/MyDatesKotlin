@@ -40,14 +40,14 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.ui.components.FullScreenLoading
-import com.kuzepa.mydates.ui.components.dialog.ErrorDialog
 import kotlinx.coroutines.launch
 
 @Composable
 fun ImageCropperScreen(
     viewModel: ImageCropperViewModel = hiltViewModel(),
     imageUriString: String,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onNavigateToLog: (errorMessage: String) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val coroutineScope = rememberCoroutineScope()
@@ -96,10 +96,8 @@ fun ImageCropperScreen(
     }
 
     state.error?.let { error ->
-        ErrorDialog(
-            errorMessage = error,
-            onDismissRequest = { viewModel.clearError() },
-        )
+        onNavigateToLog(error)
+        viewModel.clearError()
     }
 }
 

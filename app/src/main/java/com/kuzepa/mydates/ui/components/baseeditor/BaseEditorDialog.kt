@@ -44,6 +44,9 @@ fun BaseEditorDialog(
     deleteDialogContent: AlertDialogContent? = null,
     showDeleteButton: Boolean = true,
     confirmationButtonText: String? = null,
+    onNavigateToLog: (errorMessage: String) -> Unit = {},
+    errorMessage: String? = null,
+    onClearError: () -> Unit = {},
     content: @Composable () -> Unit
 ) {
     val onDismissRequest = {
@@ -125,6 +128,11 @@ fun BaseEditorDialog(
                         onDismissDialog = { onShowGoBackDialogChange(false) },
                         onNavigateBack = onNavigateBack
                     )
+                }
+
+                errorMessage?.let {
+                    onNavigateToLog(it)
+                    onClearError()
                 }
             }
         }

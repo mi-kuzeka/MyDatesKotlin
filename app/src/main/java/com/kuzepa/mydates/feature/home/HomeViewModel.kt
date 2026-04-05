@@ -102,7 +102,7 @@ class HomeViewModel @Inject constructor(
                     if (isActive) {
                         val errorMessage = getLogMessage(
                             tag = "EventPage",
-                            title = "Error with getting events by month ${page + 1}",
+                            title = "Error getting events by month ${page + 1}",
                             throwable = e
                         )
                         errorLoggerRepository.logError(errorMessage)
