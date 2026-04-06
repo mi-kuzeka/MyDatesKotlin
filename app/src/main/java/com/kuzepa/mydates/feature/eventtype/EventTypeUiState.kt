@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.more.eventtype
+package com.kuzepa.mydates.feature.eventtype
 
 import androidx.compose.runtime.Immutable
 import com.kuzepa.mydates.domain.model.EventType

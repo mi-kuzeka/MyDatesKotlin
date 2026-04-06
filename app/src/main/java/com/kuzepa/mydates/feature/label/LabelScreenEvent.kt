@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.more.label
+package com.kuzepa.mydates.feature.label
 
 import com.kuzepa.mydates.domain.model.label.LabelIcon
 import com.kuzepa.mydates.domain.model.notification.NotificationFilterState

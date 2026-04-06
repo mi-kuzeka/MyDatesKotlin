@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.more.label
+package com.kuzepa.mydates.feature.label
 
 import androidx.compose.runtime.Immutable
 import com.kuzepa.mydates.common.util.labelcolor.LabelColor

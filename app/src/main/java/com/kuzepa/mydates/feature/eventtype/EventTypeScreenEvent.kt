@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.more.eventtype
+package com.kuzepa.mydates.feature.eventtype
 
 sealed class EventTypeScreenEvent {
     data class NameChanged(val name: String) : EventTypeScreenEvent()

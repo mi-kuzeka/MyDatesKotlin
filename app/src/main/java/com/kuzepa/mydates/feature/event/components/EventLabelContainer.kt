@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.eventlist.event.components
+package com.kuzepa.mydates.feature.event.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

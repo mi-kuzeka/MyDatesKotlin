@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.kuzepa.mydates.feature.eventlist.event.EventScreen
+import com.kuzepa.mydates.feature.event.EventScreen
 import com.kuzepa.mydates.feature.home.HomeScreen
 import com.kuzepa.mydates.feature.imagecropper.ImageCropperScreen
 import com.kuzepa.mydates.ui.components.ScreenWithBottomBar

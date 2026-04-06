@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.eventlist.event.components
+package com.kuzepa.mydates.feature.event.components
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

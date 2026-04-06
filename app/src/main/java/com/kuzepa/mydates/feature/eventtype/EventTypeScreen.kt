@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.more.label
+package com.kuzepa.mydates.feature.eventtype
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,31 +21,23 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kuzepa.mydates.R
-import com.kuzepa.mydates.common.util.labelcolor.LabelColor
-import com.kuzepa.mydates.common.util.labelcolor.getContrastedColor
 import com.kuzepa.mydates.domain.model.AlertDialogContent
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
-import com.kuzepa.mydates.domain.model.label.IconType
+import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
+import com.kuzepa.mydates.ui.common.composable.MyDatesSwitch
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorDialog
 import com.kuzepa.mydates.ui.components.baseeditor.HandleEditorResults
-import com.kuzepa.mydates.ui.components.container.chipcontainer.NotificationFilterSingleChipContainer
-import com.kuzepa.mydates.ui.components.container.selectioncontainer.ColorSelectionContainer
-import com.kuzepa.mydates.ui.components.container.selectioncontainer.IconSelectionContainer
 import com.kuzepa.mydates.ui.components.rememberOnEvent
 import com.kuzepa.mydates.ui.components.textfield.MyDatesTextField
 import kotlinx.coroutines.android.awaitFrame
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LabelScreen(
-    viewModel: LabelViewModel = hiltViewModel(),
-    // this parameter is used in viewModel
+fun EventTypeScreen(
+    viewModel: EventTypeViewModel = hiltViewModel(),
     id: String?,
-    isOpenedFromEvent: Boolean,
-    showDeleteButton: Boolean,
     onNavigateBack: () -> Unit,
-    onNavigateToColorPicker: (color: Int?) -> Unit,
     onNavigateToLog: (String) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -57,7 +49,7 @@ fun LabelScreen(
     val focusRequester = remember { FocusRequester() }
 
     LaunchedEffect(Unit) {
-        if (state.isNewLabel) {
+        if (state.isNewEventType) {
             // Request focus when the dialog appears
             awaitFrame()
             focusRequester.requestFocus()
@@ -66,21 +58,18 @@ fun LabelScreen(
 
     HandleEditorResults(
         editorResultEventFlow = viewModel.editorResultEventFlow,
-        onSuccess = { id ->
-            viewModel.setNavigationResult(id, isOpenedFromEvent)
-            onNavigateBack()
-        }
+        onSuccess = { id -> onNavigateBack() }
     )
 
     BaseEditorDialog(
         title = stringResource(
-            if (state.isNewLabel) R.string.label_creator_title else R.string.label_editor_title
+            if (state.isNewEventType) R.string.event_type_creator_title else R.string.event_type_editor_title
         ),
-        isNewItem = state.isNewLabel,
+        isNewItem = state.isNewEventType,
         hasChanges = state.hasChanges,
         onNavigateBack = { onNavigateBack() },
-        onSave = { onEvent(LabelScreenEvent.Save) },
-        onDelete = { onEvent(LabelScreenEvent.Delete) },
+        onSave = { onEvent(EventTypeScreenEvent.Save) },
+        onDelete = { onEvent(EventTypeScreenEvent.Delete) },
         showDeleteDialog = showDeleteDialog,
         showGoBackConfirmationDialog = showGoBackConfirmationDialog,
         onShowDeleteDialogChange = { showDeleteDialog = it },
@@ -89,47 +78,43 @@ fun LabelScreen(
         deleteDialogContent = AlertDialogContent(
             title = stringResource(
                 R.string.delete_dialog_title_pattern,
-                stringResource(R.string.this_label)
+                stringResource(R.string.this_event_type)
             ),
             message = stringResource(
                 R.string.delete_dialog_msg_pattern,
-                stringResource(R.string.this_label)
+                stringResource(R.string.this_event_type)
             ),
             positiveButtonText = stringResource(R.string.button_delete),
             negativeButtonText = stringResource(R.string.button_cancel),
             icon = Icons.Default.Delete
         ),
-        showDeleteButton = showDeleteButton,
         errorMessage = state.errorMessage,
         onNavigateToLog = onNavigateToLog,
-        onClearError = { onEvent(LabelScreenEvent.ClearError) },
+        onClearError = { onEvent(EventTypeScreenEvent.ClearError) },
     ) {
-        LabelScreenContent(
+        EventTypeScreenContent(
             onEvent = onEvent,
             state = state,
             focusRequester = focusRequester,
-            onNavigateToColorPicker = onNavigateToColorPicker
         )
     }
 }
 
 @Composable
-fun LabelScreenContent(
-    onEvent: (LabelScreenEvent) -> Unit,
-    state: LabelUiState,
+fun EventTypeScreenContent(
+    onEvent: (EventTypeScreenEvent) -> Unit,
+    state: EventTypeUiState,
     focusRequester: FocusRequester,
-    onNavigateToColorPicker: (Int?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     BaseEditorContentBox(
         modifier = modifier
     ) {
         with(state) {
-            // TODO Preview
             MyDatesTextField(
                 label = stringResource(R.string.name_label),
                 value = name,
-                onValueChange = { onEvent(LabelScreenEvent.NameChanged(it)) },
+                onValueChange = { onEvent(EventTypeScreenEvent.NameChanged(it)) },
                 errorMessage = nameValidationError,
                 maxLength = TextFieldMaxLength.NAME.length,
                 keyboardOptions = KeyboardOptions(
@@ -139,48 +124,23 @@ fun LabelScreenContent(
                 focusRequester = focusRequester,
                 modifier = Modifier.fillMaxWidth()
             )
-            ColorSelectionContainer(
-                containerTitle = stringResource(R.string.label_color),
-                selectedColorId = colorId,
-                onSelected = { newColor -> onEvent(LabelScreenEvent.ColorChanged(newColor)) },
-                onSelectCustomColor = { customColor ->
-                    onNavigateToColorPicker(customColor)
-                },
+            MyDatesSwitch(
+                text = stringResource(R.string.default_event_type_switch),
+                checked = isDefault,
+                onCheckedChange = { onEvent(EventTypeScreenEvent.IsDefaultChanged(it)) },
                 modifier = Modifier.fillMaxWidth()
             )
-            val color = remember(colorId) { LabelColor.getColorFromId(colorId) }
-            val iconColor = remember(color) { color.getContrastedColor() }
-            IconSelectionContainer(
-                containerTitle = stringResource(R.string.label_icon),
-                selectedIcon = icon,
-                emoji = emoji,
-                firstLetter = nameFirstLetter,
-                color = color,
-                iconColor = iconColor,
-                onSelected = { labelIcon ->
-                    if (labelIcon.iconType == IconType.EMOJI) {
-                        if (emojiPickerIsShowing) {
-                            onEvent(LabelScreenEvent.HideEmojiPicker)
-                        } else {
-                            onEvent(LabelScreenEvent.IconChanged(labelIcon))
-                            onEvent(LabelScreenEvent.ShowEmojiPicker)
-                        }
-                    } else {
-                        onEvent(LabelScreenEvent.IconChanged(labelIcon))
-                    }
-                },
-                showEmojiPicker = emojiPickerIsShowing,
-                onEmojiPicked = { emoji ->
-                    onEvent(LabelScreenEvent.HideEmojiPicker)
-                    onEvent(LabelScreenEvent.EmojiPicked(emoji))
-                }
+            MyDatesSwitch(
+                text = stringResource(R.string.show_zodiac_sign_switch),
+                checked = showZodiac,
+                onCheckedChange = { onEvent(EventTypeScreenEvent.ShowZodiacChanged(it)) },
+                modifier = Modifier.fillMaxWidth()
             )
-            NotificationFilterSingleChipContainer(
-                containerTitle = stringResource(R.string.notifications_title),
-                canBeForbidden = true,
-                currentState = notificationState,
-                onUpdateState = { onEvent(LabelScreenEvent.NotificationStateChanged(it)) },
-                showHintIcon = true
+            MyDatesSwitch(
+                text = stringResource(R.string.show_notifications_switch),
+                checked = notificationState == NotificationFilterState.FILTER_STATE_ON,
+                onCheckedChange = { onEvent(EventTypeScreenEvent.ShowNotificationsChanged(it)) },
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }

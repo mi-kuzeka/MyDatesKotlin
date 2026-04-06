@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.more.label.labelchooser
+package com.kuzepa.mydates.feature.label.labelchooser
 
 import android.content.Context
 import androidx.lifecycle.SavedStateHandle

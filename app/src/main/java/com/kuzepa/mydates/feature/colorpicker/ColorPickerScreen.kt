@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.more.colorpicker
+package com.kuzepa.mydates.feature.colorpicker
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

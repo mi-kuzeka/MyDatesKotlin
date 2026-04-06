@@ -5,9 +5,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
-import com.kuzepa.mydates.feature.more.colorpicker.ColorPickerScreen
-import com.kuzepa.mydates.feature.more.label.LabelScreen
-import com.kuzepa.mydates.feature.more.label.labelchooser.LabelChooserScreen
+import com.kuzepa.mydates.feature.colorpicker.ColorPickerScreen
+import com.kuzepa.mydates.feature.label.LabelScreen
+import com.kuzepa.mydates.feature.label.labelchooser.LabelChooserScreen
 import kotlinx.serialization.Serializable
 
 @Serializable

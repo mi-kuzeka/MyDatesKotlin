@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.eventlist.event
+package com.kuzepa.mydates.feature.event
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -34,9 +34,9 @@ import com.kuzepa.mydates.domain.model.TextFieldMaxLength
 import com.kuzepa.mydates.domain.model.label.Label
 import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
 import com.kuzepa.mydates.domain.usecase.label.LabelsFetching
-import com.kuzepa.mydates.feature.eventlist.event.components.EventDateField
-import com.kuzepa.mydates.feature.eventlist.event.components.EventImageChooser
-import com.kuzepa.mydates.feature.eventlist.event.components.EventLabelContainer
+import com.kuzepa.mydates.feature.event.components.EventDateField
+import com.kuzepa.mydates.feature.event.components.EventImageChooser
+import com.kuzepa.mydates.feature.event.components.EventLabelContainer
 import com.kuzepa.mydates.ui.components.MyDatesCheckbox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorScreen

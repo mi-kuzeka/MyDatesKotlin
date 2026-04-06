@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.more.label.labelchooser
+package com.kuzepa.mydates.feature.label.labelchooser
 
 import com.kuzepa.mydates.domain.model.label.Label
 

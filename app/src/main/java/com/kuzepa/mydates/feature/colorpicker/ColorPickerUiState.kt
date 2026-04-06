@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.more.colorpicker
+package com.kuzepa.mydates.feature.colorpicker
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color

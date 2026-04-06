@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.eventlist.event
+package com.kuzepa.mydates.feature.event
 
 import android.graphics.Bitmap
 import com.kuzepa.mydates.domain.model.label.Label

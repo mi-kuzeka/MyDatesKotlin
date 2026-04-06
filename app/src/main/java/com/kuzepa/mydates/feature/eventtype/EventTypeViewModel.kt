@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.more.eventtype
+package com.kuzepa.mydates.feature.eventtype
 
 import android.content.Context
 import androidx.lifecycle.SavedStateHandle

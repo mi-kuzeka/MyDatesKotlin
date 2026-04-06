@@ -24,7 +24,7 @@ fun NavGraphBuilder.moreDestination(
     onNavigateToAbout: () -> Unit,
 ) {
     composable<More> {
-        ScreenWithBottomBar(navController) { modifier ->
+        ScreenWithBottomBar(navController) {
             MoreScreen(
                 onNavigateToEventTypes = onNavigateToEventTypes,
                 onNavigateToLabels = onNavigateToLabels,
@@ -33,7 +33,6 @@ fun NavGraphBuilder.moreDestination(
                 onNavigateToDonation = onNavigateToDonation,
                 onNavigateToHelp = onNavigateToHelp,
                 onNavigateToAbout = onNavigateToAbout,
-                modifier = modifier
             )
         }
     }

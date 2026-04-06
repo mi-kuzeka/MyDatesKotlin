@@ -8,7 +8,7 @@ import kotlinx.coroutines.CancellationException
  *
  * Useful in coroutines to preserve structured concurrency while handling business errors.
  */
-public inline fun <T> Result<T>.onFailureIfNotCancelled(action: (exception: Throwable) -> Unit): Result<T> {
+inline fun <T> Result<T>.onFailureIfNotCancelled(action: (exception: Throwable) -> Unit): Result<T> {
     this.onFailure { e ->
         if (e is CancellationException) throw e
 

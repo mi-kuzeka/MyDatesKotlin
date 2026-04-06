@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.feature.more.label
+package com.kuzepa.mydates.feature.label
 
 import android.content.Context
 import androidx.lifecycle.SavedStateHandle
