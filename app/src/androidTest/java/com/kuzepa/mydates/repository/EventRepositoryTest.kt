@@ -48,7 +48,8 @@ class EventRepositoryTest {
                 name = "Friends",
                 color = LabelColor.LIGHT_BLUE.id,
                 notificationState = NotificationFilterState.FILTER_STATE_ON,
-                iconId = LabelIcon.SATISFIED.id
+                iconId = LabelIcon.SATISFIED.id,
+                emoji = ""
             )
         )
     ): Event {

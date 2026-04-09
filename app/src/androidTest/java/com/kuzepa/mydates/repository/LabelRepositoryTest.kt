@@ -31,7 +31,8 @@ class LabelRepositoryTest {
             name = name,
             color = color,
             notificationState = notificationState,
-            iconId = iconId
+            iconId = iconId,
+            emoji = ""
         )
     }
 
