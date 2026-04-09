@@ -33,7 +33,7 @@ fun EventTypeList(
     onNavigateToLog: (String) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    val onEvent = viewModel.rememberOnEvent()
+    //val onEvent = viewModel.rememberOnEvent()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     ListScreenWithTopBar(
