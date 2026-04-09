@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EventTypeListViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     eventTypeRepository: EventTypeRepository,
     private val errorLoggerRepository: ErrorLoggerRepository,
 ) : BaseViewModel<EventTypeListEvent>() {

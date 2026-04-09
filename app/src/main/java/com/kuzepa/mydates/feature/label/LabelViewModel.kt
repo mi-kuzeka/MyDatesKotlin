@@ -34,7 +34,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LabelViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val labelRepository: LabelRepository,
     private val validateNameNotEmptyAndDistinct: ValidateNameNotEmptyAndDistinctUseCase,
     private val navigationDialogResult: NavigationDialogResult,

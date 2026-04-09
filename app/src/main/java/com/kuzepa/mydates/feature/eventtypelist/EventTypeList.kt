@@ -19,7 +19,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.ui.components.ListScreenWithTopBar
-import com.kuzepa.mydates.ui.components.rememberOnEvent
 import com.kuzepa.mydates.ui.components.stateview.EmptyView
 import com.kuzepa.mydates.ui.components.stateview.ErrorView
 import com.kuzepa.mydates.ui.components.stateview.LoadingView

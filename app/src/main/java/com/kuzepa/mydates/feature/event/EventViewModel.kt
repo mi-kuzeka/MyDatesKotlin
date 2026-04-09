@@ -49,7 +49,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EventViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val eventRepository: EventRepository,
     private val eventTypeRepository: EventTypeRepository,
     private val labelRepository: LabelRepository,

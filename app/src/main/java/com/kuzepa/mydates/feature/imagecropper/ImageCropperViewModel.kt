@@ -28,7 +28,7 @@ import kotlin.coroutines.cancellation.CancellationException
 
 @HiltViewModel
 class ImageCropperViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val saveImageToCacheUseCase: SaveImageToCacheUseCase,
     private val navigationDialogResult: NavigationDialogResult,
     private val errorLoggerRepository: ErrorLoggerRepository,

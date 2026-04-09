@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LogViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val logFileManager: LogFileManager
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(LogUiState())
