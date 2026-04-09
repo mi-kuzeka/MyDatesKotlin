@@ -162,7 +162,7 @@
     <string name="select_button_hint">Sélectionner</string>
     <!-- Confirmation dialog title when save changes button pressed -->
     <string name="adding_label_to_events_confirmation_pattern">L\'étiquette \"%1$s\" sera ajouté aux événements sélectionnés. Enregistrer les modifications?</string>
-    <!-- Message for user about saving data into data base -->
+    <!-- Message for user about saving data into database -->
     <string name="saving_to_db_message">L\'enregistrement dans la base de données est en cours. Veuillez ne pas fermer l\'application.</string>
 
     <!-- FILTER -->
@@ -264,7 +264,7 @@
     <string name="show_notifications_switch">Notifications</string>
     <!-- Alert message about duplicate event type name -->
     <string name="event_type_already_exists">Un type d\'événement portant le même nom existe déjà. Veuillez spécifier un nom différent.</string>
-    <!-- Name of event type - Birthday, creates in empty data base by default -->
+    <!-- Name of event type - Birthday, creates in empty database by default -->
     <string name="event_type_birthday_name">Anniversaire</string>
     <!-- Name of event type - Anniversary -->
     <string name="event_type_anniversary_name">Occasion</string>

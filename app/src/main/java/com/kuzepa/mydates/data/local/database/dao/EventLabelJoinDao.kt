@@ -10,10 +10,10 @@ import com.kuzepa.mydates.domain.mapper.toEventLabelJoin
 
 @Dao
 interface EventLabelJoinDao {
-    @Upsert()
+    @Upsert
     suspend fun upsert(link: EventLabelJoin)
 
-    @Upsert()
+    @Upsert
     suspend fun upsertLinks(links: List<EventLabelJoin>)
 
     @Transaction
@@ -25,10 +25,10 @@ interface EventLabelJoinDao {
     @Query("DELETE FROM event_label_join WHERE event_id = :eventId AND label_id NOT IN (:newLabelIds)")
     suspend fun deleteOrphanedLinks(eventId: Long, newLabelIds: List<String>)
 
-    @Delete()
+    @Delete
     suspend fun deleteLink(link: EventLabelJoin)
 
-    @Delete()
+    @Delete
     suspend fun deleteLinks(links: List<EventLabelJoin>)
 
     @Query("DELETE FROM event_label_join WHERE event_id = :eventId")

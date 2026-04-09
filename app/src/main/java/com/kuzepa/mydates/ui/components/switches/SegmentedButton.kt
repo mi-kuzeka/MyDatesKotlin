@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.ui.common.composable
+package com.kuzepa.mydates.ui.components.switches
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -59,7 +59,7 @@ fun SingleChoiceSegmentedButtonPreview() {
         SingleChoiceSegmentedButton(
             selectedIndex = selectedIndex,
             options = options,
-            onSelectedIndexChange = { selectedIndex == it }
+            onSelectedIndexChange = { selectedIndex = it }
         )
     }
 }

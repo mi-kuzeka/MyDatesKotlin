@@ -162,7 +162,7 @@
     <string name="select_button_hint">Выделить</string>
     <!-- Confirmation dialog title when save changes button pressed -->
     <string name="adding_label_to_events_confirmation_pattern">Тег \"%1$s\" будет добавлен к выделенным событиям. Сохранить изменения?</string>
-    <!-- Message for user about saving data into data base -->
+    <!-- Message for user about saving data into database -->
     <string name="saving_to_db_message">Идёт сохранение в базу данных. Пожалуйста, не закрывайте приложение.</string>
 
     <!-- FILTER -->
@@ -263,7 +263,7 @@
     <string name="show_notifications_switch">Уведомления</string>
     <!-- Alert message about duplicate event type name -->
     <string name="event_type_already_exists">Тип события с таким названием уже существует. Введите другое название.</string>
-    <!-- Name of event type - Birthday, creates in empty data base by default -->
+    <!-- Name of event type - Birthday, creates in empty database by default -->
     <string name="event_type_birthday_name">День рождения</string>
     <!-- Name of event type - Anniversary -->
     <string name="event_type_anniversary_name">Годовщина</string>

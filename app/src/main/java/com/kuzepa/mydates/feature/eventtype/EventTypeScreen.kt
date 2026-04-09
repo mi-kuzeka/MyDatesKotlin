@@ -24,7 +24,7 @@ import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.model.AlertDialogContent
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
 import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
-import com.kuzepa.mydates.ui.common.composable.MyDatesSwitch
+import com.kuzepa.mydates.ui.components.switches.MyDatesSwitch
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorDialog
 import com.kuzepa.mydates.ui.components.baseeditor.HandleEditorResults

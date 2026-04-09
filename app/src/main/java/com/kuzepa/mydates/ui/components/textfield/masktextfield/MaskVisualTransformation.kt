@@ -1,3 +1,5 @@
+package com.kuzepa.mydates.ui.components.textfield.masktextfield
+
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -31,7 +33,7 @@ internal class MaskVisualTransformation(
             applyStyles(text.text)
         }
         // Offset the cursor position from the original position of the user input
-        // to the correct position in the mask ans vice versa
+        // to the correct position in the mask and vice versa
         val offsetMapping = MaskOffsetMapping(
             mask,
             maskGroups,

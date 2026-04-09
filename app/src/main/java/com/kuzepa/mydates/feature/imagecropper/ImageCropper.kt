@@ -22,7 +22,7 @@ import com.kuzepa.mydates.common.util.labelcolor.toInt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ImageCropperState() {
+class ImageCropperState {
     internal var cropImageView by mutableStateOf<CropImageView?>(null)
         private set
 

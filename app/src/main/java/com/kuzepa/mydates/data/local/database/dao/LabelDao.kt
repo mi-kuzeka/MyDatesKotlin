@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LabelDao {
-    @Upsert()
+    @Upsert
     suspend fun upsertLabel(labelEntity: LabelEntity)
 
     @Query("SELECT * FROM labels WHERE id = :id;")

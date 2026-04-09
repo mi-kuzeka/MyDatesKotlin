@@ -89,7 +89,7 @@ fun HomeScreen(
     }
 
     LaunchedEffect(onMonthChanged) {
-        onMonthChanged({ onEvent(HomeScreenEvent.OnEventNavigationResult(it)) })
+        onMonthChanged { onEvent(HomeScreenEvent.OnEventNavigationResult(it)) }
     }
 
     Column(

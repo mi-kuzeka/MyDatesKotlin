@@ -13,7 +13,7 @@
     <string name="button_send_report">Send report</string>
     <!-- Confirmation dialog title when go back button pressed -->
     <string name="go_back_confirmation">Go back without saving?</string>
-    <string name="go_back_confirmation_description">All changes will be cancelled.</string>
+    <string name="go_back_confirmation_description">All changes will be canceled.</string>
     <!--- Confirmation go back button hint -->
     <string name="button_confirm_go_back">Yes, go back</string>
     <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
@@ -200,7 +200,7 @@
     <string name="select_button_hint">Select</string>
     <!-- Confirmation dialog title when save changes button pressed -->
     <string name="adding_label_to_events_confirmation_pattern">The tag \"%1$s\" will be added to the selected events. Save changes?</string>
-    <!-- Message for user about saving data into data base -->
+    <!-- Message for user about saving data into database -->
     <string name="saving_to_db_message">Saving to database in progress. Please do not close the application.</string>
 
     <!-- FILTER -->
@@ -310,7 +310,7 @@
     <string name="show_notifications_switch">Notifications</string>
     <!-- Alert message about duplicate event type name -->
     <string name="event_type_already_exists">Event type with the same name already exists. Please specify a different name.</string>
-    <!-- Name of event type - Birthday, creates in empty data base by default -->
+    <!-- Name of event type - Birthday, creates in empty database by default -->
     <string name="event_type_birthday_name">Birthday</string>
     <!-- Name of event type - Anniversary -->
     <string name="event_type_anniversary_name">Anniversary</string>

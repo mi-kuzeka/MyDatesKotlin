@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.ui.common.composable
+package com.kuzepa.mydates.ui.components.switches
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

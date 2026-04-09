@@ -1,4 +1,4 @@
-package com.kuzepa.mydates.ui.common.composable
+package com.kuzepa.mydates.ui.components.switches
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable

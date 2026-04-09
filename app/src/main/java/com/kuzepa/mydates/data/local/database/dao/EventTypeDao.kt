@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EventTypeDao {
-    @Upsert()
+    @Upsert
     suspend fun upsertEventType(eventTypeEntity: EventTypeEntity)
 
     @Transaction
