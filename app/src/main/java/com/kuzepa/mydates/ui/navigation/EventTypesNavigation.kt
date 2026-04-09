@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
 import com.kuzepa.mydates.feature.eventtype.EventTypeScreen
+import com.kuzepa.mydates.feature.eventtypelist.EventTypeList
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -13,10 +14,15 @@ internal object EventTypes : NavRoute()
 
 fun NavGraphBuilder.eventTypesDestination(
     onNavigateToEventTypeEditor: (id: String?) -> Unit,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onNavigateToLog: (String) -> Unit,
 ) {
     composable<EventTypes> {
-//        EventTypesScreen(onNavigateToEventTypeEditor = onNavigateToEventTypeEditor)
+        EventTypeList(
+            onNavigateToEventTypeEditor = onNavigateToEventTypeEditor,
+            onNavigateBack = onNavigateBack,
+            onNavigateToLog = onNavigateToLog,
+        )
     }
 }
 

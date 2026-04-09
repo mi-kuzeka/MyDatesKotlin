@@ -215,13 +215,13 @@ class EventViewModel @Inject constructor(
 
                         deleteCachedImage(imagePath)
                             .onFailureIfNotCancelled { e ->
-                                withContext((Dispatchers.IO)) {
-                                    errorLoggerRepository.logError(
-                                        getLogMessage(
-                                            logTag, "Error getting new or updated tag", e
-                                        )
+                                onError(
+                                    logMessage = getLogMessage(
+                                        tag = logTag,
+                                        title = "Error getting new or updated tag",
+                                        throwable = e
                                     )
-                                }
+                                )
                             }
                     }.onFailureIfNotCancelled { e ->
                         onError(
@@ -413,8 +413,8 @@ class EventViewModel @Inject constructor(
             input = _uiState.value.date, hideYear = _uiState.value.hideYear
         )
         validationResult.getLogMessage()?.let { logMessage ->
-            viewModelScope.launch(Dispatchers.IO) {
-                errorLoggerRepository.logError(logMessage)
+            viewModelScope.launch {
+                onError(logMessage = logMessage)
             }
         }
         _uiState.update {
@@ -597,12 +597,14 @@ class EventViewModel @Inject constructor(
         }
     }
 
-    override suspend fun onError(logMessage: String, showingMessage: String) {
+    override suspend fun onError(logMessage: String, showingMessage: String?) {
         withContext((Dispatchers.IO)) {
             errorLoggerRepository.logError(logMessage)
         }
-        withContext(Dispatchers.Main) {
-            setError(showingMessage)
+        showingMessage?.let { message ->
+            withContext(Dispatchers.Main) {
+                setError(message)
+            }
         }
     }
 

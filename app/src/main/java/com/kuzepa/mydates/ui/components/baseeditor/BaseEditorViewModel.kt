@@ -12,5 +12,4 @@ abstract class BaseEditorViewModel<UI_STATE, SCREEN_EVENT> : BaseViewModel<SCREE
     protected abstract fun isValid(): Boolean
     protected abstract fun save()
     protected abstract fun delete()
-    protected abstract suspend fun onError(logMessage: String, showingMessage: String)
 }

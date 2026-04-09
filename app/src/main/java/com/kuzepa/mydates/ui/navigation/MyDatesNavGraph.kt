@@ -29,7 +29,7 @@ fun MyDatesNavHost(
             onNavigateToLog = navigationActions::navigateToLog
         )
         eventEditorDestination(
-            onNavigateBack = navigationActions::onNavigateBackFromEventEditor,
+            onNavigateBack = navigationActions::navigateBackFromEventEditor,
             onNavigateToEventTypeCreator = navigationActions::navigateToEventTypeCreator,
             onNavigateToLabelChooser = navigationActions::navigateToLabelChooser,
             onNavigateToLabelEditor = navigationActions::navigateToLabelEditor,
@@ -37,7 +37,7 @@ fun MyDatesNavHost(
             onNavigateToLog = navigationActions::navigateToLog
         )
         imageCropperDestination(
-            onNavigateBack = navigationActions::onNavigateBack,
+            onNavigateBack = navigationActions::navigateBack,
             onNavigateToLog = navigationActions::navigateToLog
         )
 
@@ -57,10 +57,11 @@ fun MyDatesNavHost(
         )
         eventTypesDestination(
             onNavigateToEventTypeEditor = navigationActions::navigateToEventTypeEditor,
-            onNavigateBack = navigationActions::onNavigateBack
+            onNavigateBack = navigationActions::navigateBack,
+            onNavigateToLog = navigationActions::navigateToLog
         )
         eventTypeEditorDestination(
-            onNavigateBack = navigationActions::onNavigateBack,
+            onNavigateBack = navigationActions::navigateBack,
             onNavigateToLog = navigationActions::navigateToLog
         )
 
@@ -69,57 +70,57 @@ fun MyDatesNavHost(
             onNavigateToBulkLabelAssignment = { labelId ->
                 navController.navigateToBulkLabelAssignment(labelId)
             },
-            onNavigateBack = navigationActions::onNavigateBack
+            onNavigateBack = navigationActions::navigateBack
         )
         labelEditorDestination(
-            onNavigateBack = navigationActions::onNavigateBack,
+            onNavigateBack = navigationActions::navigateBack,
             onNavigateToColorPicker = navigationActions::navigateToColorPicker,
             onNavigateToLog = navigationActions::navigateToLog
         )
         colorPickerDestination(
-            onNavigateBack = navigationActions::onNavigateBack
+            onNavigateBack = navigationActions::navigateBack
         )
         labelChooserDestination(
-            onNavigateBack = navigationActions::onNavigateBack,
+            onNavigateBack = navigationActions::navigateBack,
             onNavigateToLabelEditor = navigationActions::navigateToLabelEditor,
             onNavigateToLog = navigationActions::navigateToLog
         )
-        bulkLabelAssignmentDestination(onNavigateBack = navigationActions::onNavigateBack)
+        bulkLabelAssignmentDestination(onNavigateBack = navigationActions::navigateBack)
 
         dataTransferDestination(
             onNavigateToContactsImport = { navController.navigateToContactsImport() },
             onNavigateToCsvImport = { navController.navigateToCsvImport() },
             onNavigateToCsvExport = { navController.navigateToCsvExport() },
-            onNavigateBack = navigationActions::onNavigateBack
+            onNavigateBack = navigationActions::navigateBack
         )
-        contactsImportDestination(onNavigateBack = navigationActions::onNavigateBack)
-        csvImportDestination(onNavigateBack = navigationActions::onNavigateBack)
-        csvExportDestination(onNavigateBack = navigationActions::onNavigateBack)
+        contactsImportDestination(onNavigateBack = navigationActions::navigateBack)
+        csvImportDestination(onNavigateBack = navigationActions::navigateBack)
+        csvExportDestination(onNavigateBack = navigationActions::navigateBack)
 
         settingsDestination(
             onNavigateToNotificationSettings = { navController.navigateToNotificationSettings() },
             onNavigateToNotificationFilter = { navController.navigateToNotificationFilter() },
-            onNavigateBack = navigationActions::onNavigateBack
+            onNavigateBack = navigationActions::navigateBack
         )
-        notificationSettingsDestination(onNavigateBack = navigationActions::onNavigateBack)
-        notificationFilterDestination(onNavigateBack = navigationActions::onNavigateBack)
+        notificationSettingsDestination(onNavigateBack = navigationActions::navigateBack)
+        notificationFilterDestination(onNavigateBack = navigationActions::navigateBack)
 
-        donationDestination(onNavigateBack = navigationActions::onNavigateBack)
+        donationDestination(onNavigateBack = navigationActions::navigateBack)
 
         helpDestination(
             onNavigateToNotificationTroubleshoot =
                 { navController.navigateToNotificationTroubleshoot() },
-            onNavigateBack = navigationActions::onNavigateBack
+            onNavigateBack = navigationActions::navigateBack
         )
-        notificationTroubleshootDestination(onNavigateBack = navigationActions::onNavigateBack)
+        notificationTroubleshootDestination(onNavigateBack = navigationActions::navigateBack)
 
         aboutDestination(
             onNavigateToThirdPartyLibraries = { navController.navigateToThirdPartyLibraries() },
-            onNavigateBack = navigationActions::onNavigateBack
+            onNavigateBack = navigationActions::navigateBack
         )
 
         logDestination(
-            onNavigateBack = navigationActions::onNavigateBack
+            onNavigateBack = navigationActions::navigateBack
         )
     }
 }
@@ -130,8 +131,8 @@ class NavigationActions(private val navController: NavHostController) {
         navController.navigateToEventEditor(id = eventId)
     }
 
-    fun onNavigateBackFromEventEditor(result: Int, eventMonth: Int?) {
-        onNavigateBackWithResult(
+    fun navigateBackFromEventEditor(result: Int, eventMonth: Int?) {
+        navigateBackWithResult(
             resultKey = NavigationResult.EVENT_KEY,
             result = result,
             dataKey = NavigationResult.EVENT_MONTH_KEY,
@@ -171,15 +172,15 @@ class NavigationActions(private val navController: NavHostController) {
         navController.navigateToLog(errorMessage)
     }
 
-    fun onNavigateBack() = navController.popBackStack()
+    fun navigateBack() = navController.popBackStack()
 
-    private fun <T> onNavigateBackWithResult(
+    private fun <T> navigateBackWithResult(
         resultKey: String,
         result: Int,
         dataKey: String,
         data: T
     ) {
-        onNavigateBack()
+        navigateBack()
         if (result == NavigationResult.OK) {
             navController.currentBackStackEntry
                 ?.savedStateHandle

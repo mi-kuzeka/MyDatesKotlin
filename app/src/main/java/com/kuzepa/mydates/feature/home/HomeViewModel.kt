@@ -20,6 +20,7 @@ import com.kuzepa.mydates.feature.eventlist.EventListGrouping
 import com.kuzepa.mydates.ui.components.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -32,6 +33,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -105,7 +107,7 @@ class HomeViewModel @Inject constructor(
                             title = "Error getting events by month ${page + 1}",
                             throwable = e
                         )
-                        errorLoggerRepository.logError(errorMessage)
+                        onError(errorMessage)
                         _eventPageStates[page] = EventPageState.Error(errorMessage)
                     }
                 }
@@ -198,6 +200,12 @@ class HomeViewModel @Inject constructor(
             is HomeScreenEvent.OnEventNavigationResult -> {
                 setCurrentPage(event.resultMonth - 1)
             }
+        }
+    }
+
+    override suspend fun onError(logMessage: String, showingMessage: String?) {
+        withContext((Dispatchers.IO)) {
+            errorLoggerRepository.logError(logMessage)
         }
     }
 }

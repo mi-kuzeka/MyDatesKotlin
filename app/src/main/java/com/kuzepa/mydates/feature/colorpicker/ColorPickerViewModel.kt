@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -46,10 +47,8 @@ class ColorPickerViewModel @Inject constructor(
                 }.onSuccess { randomColor ->
                     _uiState.update { it.copy(color = randomColor) }
                 }.onFailure { e ->
-                    viewModelScope.launch((Dispatchers.IO)) {
-                        errorLoggerRepository.logError(
-                            getLogMessage(logTag, "Error setting random color", e)
-                        )
+                    viewModelScope.launch {
+                        onError(getLogMessage(logTag, "Error setting random color", e))
                     }
                 }
             }
@@ -71,6 +70,12 @@ class ColorPickerViewModel @Inject constructor(
                     DialogResultData.ColorPickerResult(_uiState.value.color.toInt())
                 )
             }
+        }
+    }
+
+    override suspend fun onError(logMessage: String, showingMessage: String?) {
+        withContext((Dispatchers.IO)) {
+            errorLoggerRepository.logError(logMessage)
         }
     }
 }

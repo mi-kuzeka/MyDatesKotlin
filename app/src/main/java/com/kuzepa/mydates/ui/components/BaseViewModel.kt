@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 
 abstract class BaseViewModel<SCREEN_EVENT> : ViewModel() {
     abstract fun onEvent(event: SCREEN_EVENT)
+    protected abstract suspend fun onError(logMessage: String, showingMessage: String? = null)
 }
 
 @Composable

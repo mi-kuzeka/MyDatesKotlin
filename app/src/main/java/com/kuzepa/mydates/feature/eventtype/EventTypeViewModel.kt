@@ -219,12 +219,14 @@ class EventTypeViewModel @Inject constructor(
         }
     }
 
-    override suspend fun onError(logMessage: String, showingMessage: String) {
+    override suspend fun onError(logMessage: String, showingMessage: String?) {
         withContext((Dispatchers.IO)) {
             errorLoggerRepository.logError(logMessage)
         }
-        withContext(Dispatchers.Main) {
-            setError(showingMessage)
+        showingMessage?.let { message ->
+            withContext(Dispatchers.Main) {
+                setError(message)
+            }
         }
     }
 

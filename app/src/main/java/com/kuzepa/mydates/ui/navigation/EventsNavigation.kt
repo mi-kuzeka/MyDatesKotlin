@@ -33,7 +33,7 @@ fun NavGraphBuilder.eventsDestination(
                         savedStateHandle.remove<String?>(NavigationResult.EVENT_MONTH_KEY)
                     }
                 },
-                onNavigateToLogScreen = onNavigateToLog,
+                onNavigateToLog = onNavigateToLog,
                 modifier = modifier
             )
         }

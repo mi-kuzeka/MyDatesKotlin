@@ -37,7 +37,7 @@ fun EventList(
                 items(
                     items = eventListGrouping.today,
                     key = { eventListItem -> eventListItem.id }
-                ) {eventListItem ->
+                ) { eventListItem ->
                     EventItem(
                         eventItemData = eventListItem,
                         onNavigateToEventEditor = onNavigateToEventEditor
