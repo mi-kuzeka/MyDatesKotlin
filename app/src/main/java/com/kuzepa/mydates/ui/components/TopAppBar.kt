@@ -8,10 +8,8 @@ import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -23,6 +21,8 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.R
@@ -49,9 +49,10 @@ fun TopAppBar(
                     onClick = { onGoBack() }
                 ) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        painter = painterResource(R.drawable.ic_arrow_back),
                         contentDescription = stringResource(R.string.button_back),
-                        tint = MaterialTheme.colorScheme.primary
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(dimensionResource(R.dimen.default_icon_size))
                     )
                 }
             }
@@ -84,9 +85,10 @@ fun PreviewTopBar() {
             endIcon = {
                 IconButton(onClick = { /* do something */ }) {
                     Icon(
-                        imageVector = Icons.Outlined.Delete,
+                        painter = painterResource(R.drawable.ic_delete),
                         contentDescription = "Delete the item",
-                        tint = MaterialTheme.colorScheme.error
+                        tint = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.size(dimensionResource(R.dimen.default_icon_size))
                     )
                 }
             }
@@ -108,9 +110,10 @@ fun PreviewTopBarDark() {
             endIcon = {
                 IconButton(onClick = { /* do something */ }) {
                     Icon(
-                        imageVector = Icons.Outlined.Delete,
+                        painter = painterResource(R.drawable.ic_delete),
                         contentDescription = "Delete the item",
-                        tint = MaterialTheme.colorScheme.error
+                        tint = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.size(dimensionResource(R.dimen.default_icon_size))
                     )
                 }
             }

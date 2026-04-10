@@ -5,8 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.runtime.Composable
@@ -15,10 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.kuzepa.mydates.R
 import com.kuzepa.mydates.common.util.labelcolor.LabelColor
 import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
@@ -30,7 +31,7 @@ fun CustomColorChip(
     customColor: Color?,
     selected: Boolean,
     modifier: Modifier = Modifier,
-    imageVector: ImageVector? = null,
+    painter: Painter? = null,
     iconColor: Color = Color.White,
     onClick: () -> Unit = {},
     gradientColors: List<Color> = emptyList(),
@@ -55,12 +56,14 @@ fun CustomColorChip(
             )
             .clickable { onClick() }
     ) {
-        imageVector?.let {
+        painter?.let {
             Icon(
-                imageVector = it,
+                painter = it,
                 tint = iconColor,
                 contentDescription = "",
-                modifier = Modifier.padding(4.dp)
+                modifier = Modifier
+                    .size(dimensionResource(R.dimen.default_icon_size))
+                    .padding(4.dp)
             )
         }
     }
@@ -88,7 +91,7 @@ fun GradientChipPreview() {
             chipSize = InputChipDefaults.AvatarSize,
             customColor = null,
             selected = false,
-            imageVector = Icons.Outlined.Palette,
+            painter = painterResource(R.drawable.ic_palette),
             gradientColors = colors
         )
     }
@@ -103,7 +106,7 @@ fun GradientChipPreviewCustomColor() {
             chipSize = InputChipDefaults.AvatarSize,
             customColor = Color.Blue,
             selected = true,
-            imageVector = Icons.Outlined.Palette,
+            painter = painterResource(R.drawable.ic_palette),
             gradientColors = colors
         )
     }

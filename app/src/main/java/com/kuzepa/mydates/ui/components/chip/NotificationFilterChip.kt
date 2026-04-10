@@ -2,9 +2,6 @@ package com.kuzepa.mydates.ui.components.chip
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.NotificationsActive
-import androidx.compose.material.icons.outlined.NotificationsOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
@@ -13,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,8 +35,8 @@ fun NotificationFilterChip(
     startIcon: @Composable () -> Unit = {},
 ) {
     val chipIcon = when (currentState) {
-        NotificationFilterState.FILTER_STATE_ON -> Icons.Outlined.NotificationsActive
-        else -> Icons.Outlined.NotificationsOff
+        NotificationFilterState.FILTER_STATE_ON -> painterResource(R.drawable.ic_notifications_active)
+        else -> painterResource(R.drawable.ic_notifications_off)
     }
     val chipColors = when (currentState) {
         NotificationFilterState.FILTER_STATE_ON -> MyDatesColors.notificationOnChipColors
@@ -75,10 +73,10 @@ fun NotificationFilterChip(
         },
         trailingIcon = {
             Icon(
-                imageVector = chipIcon,
+                painter = chipIcon,
                 contentDescription = "",
                 modifier = Modifier.size(
-                    dimensionResource(R.dimen.icon_size)
+                    dimensionResource(R.dimen.small_icon_size)
                 )
             )
         },

@@ -2,8 +2,6 @@ package com.kuzepa.mydates.feature.eventtype
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
@@ -15,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -24,11 +23,11 @@ import com.kuzepa.mydates.R
 import com.kuzepa.mydates.domain.model.AlertDialogContent
 import com.kuzepa.mydates.domain.model.TextFieldMaxLength
 import com.kuzepa.mydates.domain.model.notification.NotificationFilterState
-import com.kuzepa.mydates.ui.components.switches.MyDatesSwitch
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorContentBox
 import com.kuzepa.mydates.ui.components.baseeditor.BaseEditorDialog
 import com.kuzepa.mydates.ui.components.baseeditor.HandleEditorResults
 import com.kuzepa.mydates.ui.components.rememberOnEvent
+import com.kuzepa.mydates.ui.components.switches.MyDatesSwitch
 import com.kuzepa.mydates.ui.components.textfield.MyDatesTextField
 import kotlinx.coroutines.android.awaitFrame
 
@@ -86,7 +85,7 @@ fun EventTypeScreen(
             ),
             positiveButtonText = stringResource(R.string.button_delete),
             negativeButtonText = stringResource(R.string.button_cancel),
-            icon = Icons.Default.Delete
+            icon = painterResource(R.drawable.ic_delete)
         ),
         errorMessage = state.errorMessage,
         onNavigateToLog = onNavigateToLog,

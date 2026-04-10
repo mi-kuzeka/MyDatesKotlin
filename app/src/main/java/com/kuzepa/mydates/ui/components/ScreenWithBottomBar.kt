@@ -1,19 +1,11 @@
 package com.kuzepa.mydates.ui.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Palette
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Menu
-import androidx.compose.material.icons.outlined.Palette
-import androidx.compose.material.icons.outlined.Search
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -24,7 +16,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -48,26 +41,26 @@ internal fun ScreenWithBottomBar(
             BottomNavItem(
                 label = "Home",
                 route = Home,
-                iconUnselected = Icons.Outlined.Home,
-                iconSelected = Icons.Filled.Home
+                iconUnselectedResId = R.drawable.ic_home,
+                iconSelectedResId = R.drawable.ic_home_filled
             ),
             BottomNavItem(
                 label = "Search",
                 route = Search,
-                iconUnselected = Icons.Outlined.Search,
-                iconSelected = Icons.Filled.Search
+                iconUnselectedResId = R.drawable.ic_search,
+                iconSelectedResId = R.drawable.ic_search_filled
             ),
             BottomNavItem(
                 label = "Appearance",
                 route = Appearance,
-                iconUnselected = Icons.Outlined.Palette,
-                iconSelected = Icons.Filled.Palette
+                iconUnselectedResId = R.drawable.ic_palette,
+                iconSelectedResId = R.drawable.ic_palette_filled
             ),
             BottomNavItem(
                 label = "More",
                 route = More,
-                iconUnselected = Icons.Outlined.Menu,
-                iconSelected = Icons.Filled.Menu
+                iconUnselectedResId = R.drawable.ic_menu,
+                iconSelectedResId = R.drawable.ic_menu_filled
             )
         )
     }
@@ -87,8 +80,11 @@ internal fun ScreenWithBottomBar(
                     NavigationBarItem(
                         icon = {
                             Icon(
-                                if (selected) bottomNavItem.iconSelected else bottomNavItem.iconUnselected,
-                                contentDescription = bottomNavItem.label
+                                painterResource(
+                                    if (selected) bottomNavItem.iconSelectedResId else bottomNavItem.iconUnselectedResId
+                                ),
+                                contentDescription = bottomNavItem.label,
+                                modifier = Modifier.size(dimensionResource(R.dimen.default_icon_size))
                             )
                         },
                         label = { Text(bottomNavItem.label) },
@@ -120,8 +116,9 @@ internal fun ScreenWithBottomBar(
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ) {
                     Icon(
-                        Icons.Default.Add,
-                        contentDescription = stringResource(R.string.event_creator_title)
+                        painter = painterResource(R.drawable.ic_add),
+                        contentDescription = stringResource(R.string.event_creator_title),
+                        modifier = Modifier.size(dimensionResource(R.dimen.default_icon_size))
                     )
                 }
             }
@@ -140,6 +137,6 @@ internal fun ScreenWithBottomBar(
 internal data class BottomNavItem<T : TopLevelRoute>(
     val label: String,
     val route: T,
-    val iconUnselected: ImageVector,
-    val iconSelected: ImageVector
+    @param:DrawableRes val iconUnselectedResId: Int,
+    @param:DrawableRes val iconSelectedResId: Int
 )

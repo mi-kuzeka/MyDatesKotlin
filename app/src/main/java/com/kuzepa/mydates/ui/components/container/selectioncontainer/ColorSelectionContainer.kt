@@ -3,14 +3,13 @@ package com.kuzepa.mydates.ui.components.container.selectioncontainer
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.kuzepa.mydates.R
 import com.kuzepa.mydates.common.util.labelcolor.LabelColor
@@ -65,7 +64,7 @@ fun ColorSelectionContainer(
                 chipSize = dimensionResource(R.dimen.color_chip_size),
                 customColor = if (isCustomColor) selectedColorId.toColor() else null,
                 selected = isCustomColor,
-                imageVector = Icons.Outlined.Palette,
+                painter = painterResource(R.drawable.ic_palette),
                 iconColor = if (isCustomColor) {
                     selectedColorId.toColor().getContrastedColor()
                 } else {

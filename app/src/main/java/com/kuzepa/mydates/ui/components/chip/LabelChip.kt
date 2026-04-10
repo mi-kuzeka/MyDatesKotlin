@@ -84,7 +84,7 @@ fun LabelChip(
                     contentDescription = "",
                     tint = notificationStateColor,
                     modifier = Modifier.size(
-                        dimensionResource(R.dimen.icon_size)
+                        dimensionResource(R.dimen.small_icon_size)
                     )
                 )
             }

@@ -11,7 +11,7 @@
     <dimen name="event_item_image_box_size">80dp</dimen>
 
     <dimen name="fab_size">56dp</dimen>
-    <dimen name="icon_size">20dp</dimen>
+    <dimen name="small_icon_size">20dp</dimen>
     <dimen name="icon_help_size">22dp</dimen>
     <dimen name="default_icon_size">24dp</dimen>
     <dimen name="color_chip_size">36dp</dimen>

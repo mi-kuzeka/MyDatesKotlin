@@ -16,11 +16,9 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -34,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -114,8 +113,9 @@ fun BaseEditorScreen(
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
             ) {
                 Icon(
-                    imageVector = Icons.Default.Done,
-                    contentDescription = stringResource(R.string.button_save)
+                    painter = painterResource(R.drawable.ic_done),
+                    contentDescription = stringResource(R.string.button_save),
+                    modifier = Modifier.size(dimensionResource(R.dimen.default_icon_size))
                 )
             }
         },
@@ -216,7 +216,7 @@ fun BaseEditorScreenPreview() {
                 message = "This action can't be undone",
                 positiveButtonText = "Delete",
                 negativeButtonText = "Cancel",
-                icon = Icons.Default.Delete
+                icon = painterResource(R.drawable.ic_delete)
             ),
             onClearError = {},
             onNavigateToLog = {},

@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -118,7 +116,7 @@ internal fun EventImageChooser(
                 ),
                 positiveButtonText = stringResource(R.string.button_delete),
                 negativeButtonText = stringResource(R.string.button_cancel),
-                icon = Icons.Default.Delete
+                icon = painterResource(R.drawable.ic_delete),
             )
         )
     }

@@ -18,11 +18,6 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.RotateLeft
-import androidx.compose.material.icons.automirrored.outlined.RotateRight
-import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -32,8 +27,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -123,7 +119,7 @@ fun CropControlsPanel(
         // Close button
         CropPanelButton(
             onClick = onClose,
-            imageVector = Icons.Outlined.Close,
+            painter = painterResource(R.drawable.ic_close),
             contentDescription = stringResource(R.string.close_button_hint)
         )
 
@@ -135,7 +131,7 @@ fun CropControlsPanel(
             // Rotate left
             CropPanelButton(
                 onClick = onRotateLeft,
-                imageVector = Icons.AutoMirrored.Outlined.RotateLeft,
+                painter = painterResource(R.drawable.ic_rotate_left),
                 contentDescription = stringResource(R.string.rotate_left_hint)
             )
 
@@ -144,7 +140,7 @@ fun CropControlsPanel(
             // Rotate right
             CropPanelButton(
                 onClick = onRotateRight,
-                imageVector = Icons.AutoMirrored.Outlined.RotateRight,
+                painter = painterResource(R.drawable.ic_rotate_right),
                 contentDescription = stringResource(R.string.rotate_right_hint)
             )
         }
@@ -152,7 +148,7 @@ fun CropControlsPanel(
         // Crop button
         CropPanelButton(
             onClick = onCrop,
-            imageVector = Icons.Outlined.Check,
+            painter = painterResource(R.drawable.ic_done),
             contentDescription = stringResource(R.string.button_save)
         )
     }
@@ -161,7 +157,7 @@ fun CropControlsPanel(
 @Composable
 fun CropPanelButton(
     onClick: () -> Unit,
-    imageVector: ImageVector,
+    painter: Painter,
     contentDescription: String
 ) {
     IconButton(
@@ -170,9 +166,10 @@ fun CropPanelButton(
             .size(dimensionResource(R.dimen.min_clickable_size))
     ) {
         Icon(
-            imageVector = imageVector,
+            painter = painter,
             tint = MaterialTheme.colorScheme.onPrimary,
-            contentDescription = contentDescription
+            contentDescription = contentDescription,
+            modifier = Modifier.size(dimensionResource(R.dimen.default_icon_size))
         )
     }
 }

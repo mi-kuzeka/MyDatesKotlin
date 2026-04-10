@@ -14,9 +14,8 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -27,6 +26,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
+import com.kuzepa.mydates.R
 import com.kuzepa.mydates.ui.components.baseeditor.GoBackConfirmationDialog
 import com.kuzepa.mydates.ui.theme.MyDatesColors
 
@@ -68,16 +70,17 @@ fun ListScreenWithTopBar(
             )
         },
         floatingActionButton = {
-                FloatingActionButton(
-                    onClick = onNewItemFabClick,
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = newItemFabDescription
-                    )
-                }
+            FloatingActionButton(
+                onClick = onNewItemFabClick,
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_add),
+                    contentDescription = newItemFabDescription,
+                    modifier = Modifier.size(dimensionResource(R.dimen.default_icon_size))
+                )
+            }
         },
         // Connects the Scaffold's scroll to the TopAppBar's collapse/expand behavior
         modifier = Modifier

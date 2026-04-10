@@ -1,13 +1,13 @@
 package com.kuzepa.mydates.ui.components.icon
 
 import android.content.res.Configuration
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.kuzepa.mydates.R
 import com.kuzepa.mydates.ui.theme.MyDatesColors
 import com.kuzepa.mydates.ui.theme.MyDatesTheme
 
@@ -22,7 +22,7 @@ fun IconRemove(
         modifier = modifier
     ) {
         Icon(
-            imageVector = Icons.Default.Close,
+            painter = painterResource(R.drawable.ic_close),
             contentDescription = contentDescription,
             tint = MyDatesColors.placeholderColor
         )
